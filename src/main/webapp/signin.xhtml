@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/WEB-INF/template/base.xhtml" >
+		<ui:define name="content">
+			<h:form id="main">
+				<div class="container">
+					<div class="row" style="padding-bottom: 12px;">
+						<div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on"><i class="icon-user" ></i></span>
+                                <p:inputText id="username" value="#{authenManaged.username}" maxlength="64" />
+								<p:watermark for="username" value="Email or Username" />
+                            </div>
+                        </div>
+					</div>
+					<div class="row" style="padding-bottom: 12px;">
+						<div class="controls">
+                            <div class="input-prepend" >
+                                <span class="add-on"><i class="icon-stop"></i></span>
+                                <p:password id="password" value="#{authenManaged.password}" maxlength="64" />
+								<p:watermark for="password" value="Password" />
+                            </div>
+                        </div>
+					</div>
+					<div class="row">
+						<div class="controls">
+                            <p:commandButton id="signin" value="SIGNIN"
+									 styleClass="btn btn-mini btn-success"
+									 action="#{authenManaged.authen}" />
+                        </div>
+					</div>
+				</div>
+			</h:form>
+		</ui:define>
+    </ui:composition>
+</html>

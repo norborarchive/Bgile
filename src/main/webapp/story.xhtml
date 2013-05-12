@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/template/app.xhtml" >
+		<ui:define name="menubar">
+			<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="BOARD"
+								 styleClass="btn btn-mini btn-info"
+								 action="#{dashboardManaged.linkToBoard}"/>
+			</div>
+		</ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+				<div class="container">
+					<div style="width: 511px;">
+						<div class="row">
+							<h4>ครีเอทสตอรี่</h4>
+						</div>
+						<div class="row">
+							<div class="controls">
+								<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+									<span class="add-on"><i class="icon-tasks" ></i></span>
+									<p:inputText id="story" style="width: 480px;"
+												 value="#{storyManaged.userstory.story}"/>
+									<p:watermark for="story" value="STORY" ></p:watermark>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="controls">
+								<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+									<span class="add-on"><i class="icon-time" ></i></span>
+									<p:inputText id="estimate" style="width: 480px;"
+												 value="#{storyManaged.userstory.estimate}"/>
+									<p:watermark for="estimate" value="ESTIMATE TIME" ></p:watermark>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="controls">
+								<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
+									<p:inputTextarea id="description" style="width: 510px;"
+													 value="#{storyManaged.userstory.description}"/>
+								</div>
+							</div>
+						</div>
+
+						<ui:remove>
+							<div class="row">
+								<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
+									<p:selectOneMenu  id="selectedOwner"
+													  value="" >
+										<f:converter converterId="DefaultConverter" />
+										<f:attribute name="listArrtibute" value="" />
+										<f:selectItems value="" var="account"
+													   itemValue="#{account}"
+													   itemLabel="#{account.firstname}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+						</ui:remove>
+
+						<div class="row">
+							<div class="controls">
+								<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
+									<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="REMOVE"
+													 styleClass="btn btn-mini btn-danger"
+													 action="#{storyManaged.removeStory}"/>
+								</div>
+							</div>
+							<div class="controls">
+								<div style="float:right;">
+									<p:commandButton id="save" icon="ui-icon ui-icon-check" value="SAVE"
+													 styleClass="btn btn-mini btn-success"
+													 action="#{storyManaged.saveStory}"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:form>
+        </ui:define>
+    </ui:composition>
+</html>

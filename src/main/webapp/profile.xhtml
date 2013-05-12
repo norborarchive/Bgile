@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/template/app.xhtml" >
+		<ui:define name="menubar">
+			<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="BACK"
+								 styleClass="btn btn-mini btn-info"
+								 action="#{dashboardManaged.linkToBoard}"/>
+			</div>
+		</ui:define>
+        <ui:define name="content">
+            <h:form id="form">
+				<div class="container">
+					<div style="width: 511px;">
+						<div class="row">
+							<h4>ข้อมูลส่วนตัว</h4>
+						</div>
+					</div>
+				</div>
+			</h:form>
+        </ui:define>
+    </ui:composition>
+</html>

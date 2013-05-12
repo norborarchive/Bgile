@@ -1,0 +1,10 @@
+.DS_Store
+target/
+nb-configuration.xml
+.classpath
+.project
+.settings/
+.metadata
+/.externalToolBuilders
+nbactions.xml
+faces-config.NavData
