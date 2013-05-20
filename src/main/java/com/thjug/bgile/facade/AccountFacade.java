@@ -23,7 +23,7 @@ import com.thjug.bgile.facade.impl.AccountFacadeImpl;
  * @author @nuboat
  */
 @ImplementedBy(AccountFacadeImpl.class)
-public interface AccountFacade {
+public interface AccountFacade extends AbstractFacade {
 
 	public Account createAccount(final Account account) throws Exception;
 

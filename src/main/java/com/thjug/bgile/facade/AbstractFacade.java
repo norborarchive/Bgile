@@ -10,14 +10,16 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.facade.impl;
-
-import java.io.Serializable;
+package com.thjug.bgile.facade;
 
 /**
  *
  * @author @nuboat
  */
-public abstract class AbstractFacadeImpl implements Serializable {
+public interface AbstractFacade {
 
+	public static final char TRUE = 'T';
+	public static final char FALSE = 'F';
+	public static final char LIVE = 'L';
+	public static final char DEAD = 'D';
 }

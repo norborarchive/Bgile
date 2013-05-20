@@ -13,6 +13,7 @@
 package com.thjug.bgile.managed;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.slf4j.Logger;
@@ -23,21 +24,20 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@ViewScoped
-public class AuthenManaged extends AbstractManaged {
+@RequestScoped
+public class SigninManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(AuthenManaged.class);
 
 	private String username;
 	private String password;
 
 	public String authen() {
-		return "board?faces-redirect=true";
+		return redirect("dashboard");
 	}
 
 	public String logout() {
-		return "home?faces-redirect=true";
+		return redirect("home");
 	}
 
 	public String getUsername() {

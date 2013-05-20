@@ -6,35 +6,34 @@
 	  xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/WEB-INF/template/base.xhtml" >
 		<ui:define name="content">
-			<h:form id="main">
-				<div class="container">
-					<div class="row" style="padding-bottom: 12px;">
-						<div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on"><i class="icon-user" ></i></span>
-                                <p:inputText id="username" value="#{authenManaged.username}" maxlength="64" />
-								<p:watermark for="username" value="Email or Username" />
-                            </div>
-                        </div>
-					</div>
-					<div class="row" style="padding-bottom: 12px;">
-						<div class="controls">
-                            <div class="input-prepend" >
-                                <span class="add-on"><i class="icon-stop"></i></span>
-                                <p:password id="password" value="#{authenManaged.password}" maxlength="64" />
-								<p:watermark for="password" value="Password" />
-                            </div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="controls">
-                            <p:commandButton id="signin" value="SIGNIN"
-									 styleClass="btn btn-mini btn-success"
-									 action="#{authenManaged.authen}" />
-                        </div>
+			<p:messages id="msg" />
+			<div class="container" style="padding-top: 48px; padding-bottom: 48px; height: 240px;">
+				<div class="row" style="padding-bottom: 16px;">
+					<div class="controls">
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-user" ></i></span>
+							<p:inputText id="username" value="#{signinManaged.username}" maxlength="64" />
+							<p:watermark for="username" value="Email or Username" />
+						</div>
 					</div>
 				</div>
-			</h:form>
+				<div class="row" style="padding-bottom: 16px;">
+					<div class="controls">
+						<div class="input-prepend" >
+							<span class="add-on"><i class="icon-stop"></i></span>
+							<p:password id="password" value="#{signinManaged.password}" maxlength="64" />
+							<p:watermark for="password" value="Password" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="controls">
+						<p:commandButton id="signin" value="SIGNIN"
+										 styleClass="btn btn-mini btn-success"
+										 action="#{signinManaged.authen}" update="msg" />
+					</div>
+				</div>
+			</div>
 		</ui:define>
     </ui:composition>
 </html>

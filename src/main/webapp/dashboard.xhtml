@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/WEB-INF/template/app.xhtml" >
+		<ui:define name="menubar">
+			<div class="control" >
+				<div style="float:left;">
+					<p:commandButton id="back" icon="ui-icon ui-icon-plus" value="Board"
+									 styleClass="btn btn-mini btn-info"
+									 action="#{fboardManaged.linkToForm}"/>
+				</div>
+			</div>
+		</ui:define>
+        <ui:define name="content">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width: 24px;"></th>
+						<th>NO</th>
+						<th>NAME</th>
+						<th>Description</th>
+						<th>Created</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat var="b" value="#{dashboardManaged.boards}">
+						<tr>
+							<td></td>
+							<td>#{b.id}</td>
+							<td>#{b.boardname}</td>
+							<td>#{b.description}</td>
+							<td>#{b.created}</td>
+							<td>
+								<p:commandButton id="grantAccount" style="margin-right: 12px;"
+												 icon="ui-icon ui-icon-person"
+												 styleClass="btn btn-mini btn-info"
+												 action="#{fboardManaged.linkToGrant(b.id)}" />
+								<p:commandButton id="editProjet" style="margin-right: 12px;"
+												 icon="ui-icon ui-icon-disk"
+												 styleClass="btn btn-mini btn-info"
+												 action="#{fboardManaged.linkToForm(b.id)}" />
+								<p:commandButton id="linkToBoard"
+												 icon="ui-icon ui-icon-arrowthick-1-e"
+												 styleClass="btn btn-mini btn-info"
+												 action="#{boardManaged.linkToBoard(b.id)}" />
+							</td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+        </ui:define>
+    </ui:composition>
+</html>

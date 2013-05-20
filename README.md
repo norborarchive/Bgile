@@ -1,7 +1,7 @@
 Bgile
 ===================
 Bgile does not Agile.
-It's created from what I want to help me manage Signature team @ SIGNATURE APP HOUSE.
+It's created from what I want to help me manage team @ SIGNATURE APP HOUSE.
 
 
 Software Library
@@ -26,5 +26,3 @@ Software Infrastructure
  -  Apache HTTPD
  -  Apache Tomcat 7
  -  PostgreSQL 9.2
-
- Continue -->

@@ -46,6 +46,7 @@ import javax.validation.constraints.Size;
 public class Account implements Serializable, Converterable, Timeable {
 
 	private static final long serialVersionUID = 1L;
+
 	public static final String findAll = "Account.findAll";
 	public static final String findByTypeid = "Account.findByTypeid";
 	public static final String findByUsername = "Account.findByUsername";
@@ -64,8 +65,8 @@ public class Account implements Serializable, Converterable, Timeable {
 	private char typeid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "isenable")
-	private char isenable;
+	@Column(name = "enable")
+	private char enable;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
@@ -106,7 +107,9 @@ public class Account implements Serializable, Converterable, Timeable {
 	@Column(name = "updateby")
 	private Integer updateby;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-	private List<Projectaccount> projectaccountList;
+	private List<Boardaccount> boardaccountList;
+	@OneToMany(mappedBy = "ownerid")
+	private List<Userstory> userstoryList;
 
 	public Account() {
 	}
@@ -115,11 +118,11 @@ public class Account implements Serializable, Converterable, Timeable {
 		this.id = id;
 	}
 
-	public Account(final Integer id, final char typeid, final char isenable, final String username,
-			final String passwd, final String email) {
+	public Account(final Integer id, final char typeid, final char enable, final String username, final String passwd,
+			final String email) {
 		this.id = id;
 		this.typeid = typeid;
-		this.isenable = isenable;
+		this.enable = enable;
 		this.username = username;
 		this.passwd = passwd;
 		this.email = email;
@@ -139,14 +142,6 @@ public class Account implements Serializable, Converterable, Timeable {
 
 	public void setTypeid(final char typeid) {
 		this.typeid = typeid;
-	}
-
-	public char getIsenable() {
-		return isenable;
-	}
-
-	public void setIsenable(final char isenable) {
-		this.isenable = isenable;
 	}
 
 	public String getUsername() {
@@ -241,12 +236,28 @@ public class Account implements Serializable, Converterable, Timeable {
 		this.updateby = updateby;
 	}
 
-	public List<Projectaccount> getProjectaccountList() {
-		return projectaccountList;
+	public char getEnable() {
+		return enable;
 	}
 
-	public void setProjectaccountList(final List<Projectaccount> projectaccountList) {
-		this.projectaccountList = projectaccountList;
+	public void setEnable(char enable) {
+		this.enable = enable;
+	}
+
+	public List<Boardaccount> getBoardaccountList() {
+		return boardaccountList;
+	}
+
+	public void setBoardaccountList(final List<Boardaccount> boardaccountList) {
+		this.boardaccountList = boardaccountList;
+	}
+
+	public List<Userstory> getUserstoryList() {
+		return userstoryList;
+	}
+
+	public void setUserstoryList(final List<Userstory> userstoryList) {
+		this.userstoryList = userstoryList;
 	}
 
 	@Override

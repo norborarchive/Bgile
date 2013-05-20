@@ -6,9 +6,11 @@ package com.thjug.bgile.facade.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.UserstoryFacade;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.service.BoardService;
 import com.thjug.bgile.service.UserstoryService;
 import java.util.List;
 
@@ -19,29 +21,40 @@ import java.util.List;
 public class UserstoryFacadeImpl implements UserstoryFacade {
 
 	@Inject
-	private UserstoryService userstoryService;
+	private UserstoryService service;
+	@Inject
+	private BoardService boardService;
 
 	@Logging
 	@Transactional
 	@Override
 	public Userstory create(final Userstory story) throws Exception {
-		story.setStateid('0');
-		story.setSortorder('0'); // FIXME
-		return userstoryService.create(story);
+		story.setBoardid(boardService.find(story.getUpdateby())); // FIXME
+		story.setStateid(STATE0);
+		story.setSortorder(0);
+		return service.create(story);
 	}
 
+	@Logging
+	@Transactional
 	@Override
 	public Userstory edit(final Userstory story) throws Exception {
-		return userstoryService.edit(story);
+		return service.edit(story);
 	}
 
+	@Logging
+	@Transactional
 	@Override
 	public void remove(final Userstory story) throws Exception {
-		userstoryService.remove(story);
+		service.remove(story);
 	}
 
+	@Logging
+	@Transactional
 	@Override
-	public List<Userstory> findAllByProjectid(final Integer projectid) throws Exception {
-		return null;
+	public List<Userstory> findAllByProjectid(final Integer boardid) throws Exception {
+		final Board board = boardService.find(boardid);
+		return service.findAll(Userstory.findByBoardId, board);
 	}
+
 }

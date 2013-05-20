@@ -52,12 +52,12 @@ public class SessionListenerImpl implements HttpSessionListener {
 	}
 
 	@Override
-	public void sessionCreated(HttpSessionEvent se) {
+	public void sessionCreated(final HttpSessionEvent se) {
 
 	}
 
 	@Override
-	public void sessionDestroyed(HttpSessionEvent se) {
+	public void sessionDestroyed(final HttpSessionEvent se) {
 		//		HttpSession httpSession = se.getSession();
 		//		SimplePrincipalCollection principalCollection = (SimplePrincipalCollection) httpSession.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
 		//		if(principalCollection != null) {

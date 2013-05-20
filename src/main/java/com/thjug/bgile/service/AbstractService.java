@@ -95,6 +95,18 @@ public abstract class AbstractService<T> {
 		return q.getResultList();
 	}
 
+	public void clearCache() {
+		getEntityManager().getEntityManagerFactory().getCache().evict(entityClass);
+	}
+
+	public void clearCache(final Object id) {
+		getEntityManager().getEntityManagerFactory().getCache().evict(entityClass, id);
+	}
+
+	public void clearAllCache() {
+		getEntityManager().getEntityManagerFactory().getCache().evictAll();
+	}
+
 	private static final Calendar calendar = Calendar.getInstance();
 
 	private Date getNow() {

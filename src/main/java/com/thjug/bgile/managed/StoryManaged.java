@@ -15,9 +15,10 @@ package com.thjug.bgile.managed;
 import com.google.inject.Inject;
 import javax.faces.bean.ManagedBean;
 import com.thjug.bgile.entity.Userstory;
-import com.thjug.bgile.facade.ProjectFacade;
+import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.UserstoryFacade;
 import com.thjug.bgile.util.Constants;
+import com.thjug.bgile.util.StringUtility;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class StoryManaged extends AbstractManaged {
 	private transient UserstoryFacade userstoryFacade;
 
 	@Inject
-	private transient ProjectFacade projectFacade;
+	private transient BoardFacade boardFacade;
 
 	@PostConstruct
 	public void initial() {
@@ -49,10 +50,9 @@ public class StoryManaged extends AbstractManaged {
 
 	public String saveStory() {
 		try {
-			userstory.setUpdateby(2); // FIXME
+			userstory.setUpdateby(getAccountId()); // FIXME
 
 			if (userstory.getId() == null) {
-				userstory.setProjectid(projectFacade.findById(1)); // FIXME
 				userstory = userstoryFacade.create(userstory);
 			} else {
 				userstory = userstoryFacade.edit(userstory);
@@ -70,10 +70,10 @@ public class StoryManaged extends AbstractManaged {
 
 	public String removeStory() {
 		try {
-			userstory.setUpdateby(1); // FIXME
+			userstory.setUpdateby(getAccountId());
 			userstoryFacade.remove(userstory);
 
-			return "board?faces-redirect=true";
+			return redirect("board");
 		} catch (final Exception e) {
 			addErrorMessage(e.getMessage(), Constants.EMPTY);
 
@@ -89,6 +89,10 @@ public class StoryManaged extends AbstractManaged {
 
 	public void setUserstory(final Userstory userstory) {
 		this.userstory = userstory;
+	}
+
+	public boolean isNewUserstory() {
+		return userstory.getId() == null;
 	}
 
 }

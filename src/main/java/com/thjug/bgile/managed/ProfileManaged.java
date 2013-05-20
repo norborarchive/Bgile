@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 public final class ProfileManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);
 
 	public final String linkToProfile() {
 		return "profile?faces-redirect=true";

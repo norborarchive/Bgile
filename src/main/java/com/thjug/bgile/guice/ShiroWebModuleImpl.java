@@ -65,11 +65,11 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 	}
 
 	@Override
-	protected void bindWebSecurityManager(AnnotatedBindingBuilder<? super WebSecurityManager> bind) {
+	protected void bindWebSecurityManager(final AnnotatedBindingBuilder<? super WebSecurityManager> bind) {
 		try {
 			bind.toConstructor(ShiroWebSecurityManager.class.getConstructor(Collection.class, Collection.class))
 					.asEagerSingleton();
-		} catch (NoSuchMethodException e) {
+		} catch (final NoSuchMethodException e) {
 			throw new ConfigurationException(
 					"This really shouldn't happen.  Either something has changed in Shiro, or there's a bug in ShiroModule.",
 					e);
@@ -77,7 +77,7 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 	}
 
 	protected final LinkedBindingBuilder<AuthenticationListener> bindAuthenticationListener() {
-		Multibinder<AuthenticationListener> multibinder = Multibinder.newSetBinder(binder(),
+		final Multibinder<AuthenticationListener> multibinder = Multibinder.newSetBinder(binder(),
 				AuthenticationListener.class);
 		return multibinder.addBinding();
 	}
@@ -96,7 +96,6 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 	@Provides
 	@Exposed
 	public Account provideAccount() {
-		final Account account = (Account) SecurityUtils.getSubject().getPrincipal();
-		return account;
+		return (Account) SecurityUtils.getSubject().getPrincipal();
 	}
 }

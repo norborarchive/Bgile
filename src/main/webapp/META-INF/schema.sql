@@ -1,22 +1,22 @@
 DROP SEQUENCE IF EXISTS account_id_seq;
-DROP SEQUENCE IF EXISTS project_id_seq;
-DROP SEQUENCE IF EXISTS projectaccount_id_seq;
+DROP SEQUENCE IF EXISTS board_id_seq;
+DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS userstory_id_seq;
-DROP SEQUENCE IF EXISTS iteration_id_seq;
 DROP SEQUENCE IF EXISTS todo_id_seq;
+DROP SEQUENCE IF EXISTS history_id_seq;
 
 DROP TABLE IF EXISTS TODO;
 DROP TABLE IF EXISTS USERSTORY;
-DROP TABLE IF EXISTS ITERATION;
-DROP TABLE IF EXISTS PROJECTACCOUNT;
-DROP TABLE IF EXISTS PROJECT;
+DROP TABLE IF EXISTS BOARDACCOUNT;
+DROP TABLE IF EXISTS BOARD;
 DROP TABLE IF EXISTS ACCOUNT;
+DROP TABLE IF EXISTS HISTORY;
 
 CREATE TABLE ACCOUNT
 (
   ID            integer,
   TYPEID        character(1) NOT NULL,
-  ISENABLE      character(1) NOT NULL,
+  ENABLE        character(1) NOT NULL,
   USERNAME      character varying(64) NOT NULL,
   PASSWD        character varying(64) NOT NULL,
   EMAIL	        character varying(128) NOT NULL,
@@ -47,12 +47,12 @@ ALTER TABLE account_id_seq
   OWNER TO bgile;
 
 
-CREATE TABLE PROJECT
+CREATE TABLE BOARD
 (
   ID            integer,
   STATUSID      character(1) NOT NULL,
-  ISENABLE      character(1) NOT NULL,
-  PGNAME	    character varying(128) NOT NULL,
+  ENABLE        character(1) NOT NULL,
+  BOARDNAME	    character varying(128) NOT NULL,
   DESCRIPTION	character varying(512),
   LOGOPATH      character varying(256),
 
@@ -60,93 +60,67 @@ CREATE TABLE PROJECT
   UPDATED       timestamp with time zone,
   UPDATEBY      integer,
 
-  CONSTRAINT PROJECT_PK PRIMARY KEY (ID)
+  CONSTRAINT BOARD_PK PRIMARY KEY (ID)
 )
 WITH (
   OIDS = FALSE
 ) TABLESPACE pg_default;
-ALTER TABLE PROJECT     OWNER TO bgile;
+ALTER TABLE BOARD     OWNER TO bgile;
 
-CREATE SEQUENCE project_id_seq
+CREATE SEQUENCE board_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1000
   CACHE 1;
-ALTER TABLE project_id_seq
+ALTER TABLE board_id_seq
   OWNER TO bgile;
 
-CREATE TABLE PROJECTACCOUNT
+CREATE TABLE BOARDACCOUNT
 (
   ID            integer,
   ACCOUNTID     integer NOT NULL,
-  PROJECTID     integer NOT NULL,
+  BOARDID		integer NOT NULL,
   PERMISSIONID  character(1) NOT NULL,
 
   CREATED       timestamp with time zone,
   UPDATED       timestamp with time zone,
   UPDATEBY      integer,
 
-  CONSTRAINT PROJECTACCOUNT_PK PRIMARY KEY (ID),
-  CONSTRAINT PROJECT_ACCOUNT_FK1 FOREIGN KEY (PROJECTID)
-      REFERENCES PROJECT (ID) MATCH SIMPLE
+  CONSTRAINT BOARD_ACCOUNT_PK PRIMARY KEY (ID),
+  CONSTRAINT BOARD_ACCOUNT_FK1 FOREIGN KEY (BOARDID)
+      REFERENCES BOARD (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT PROJECT_ACCOUNT_FK2 FOREIGN KEY (ACCOUNTID)
+  CONSTRAINT BOARD_ACCOUNT_FK2 FOREIGN KEY (ACCOUNTID)
       REFERENCES ACCOUNT (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT PROJECTACCOUNT_IND0 UNIQUE (accountid, projectid)
+  CONSTRAINT BOARDACCOUNT_IND0 UNIQUE (accountid, boardid)
 )
 WITH (
   OIDS = FALSE
 ) TABLESPACE pg_default;
-ALTER TABLE PROJECTACCOUNT     OWNER TO bgile;
+ALTER TABLE BOARDACCOUNT     OWNER TO bgile;
 
 
-CREATE SEQUENCE projectaccount_id_seq
+CREATE SEQUENCE boardaccount_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1000
   CACHE 1;
-ALTER TABLE projectaccount_id_seq
+ALTER TABLE boardaccount_id_seq
   OWNER TO bgile;
 
-
-CREATE TABLE ITERATION
-(
-  ID            integer,
-  TOPIC         character varying(64) NOT NULL,
-
-  CREATED       timestamp with time zone,
-  UPDATED       timestamp with time zone,
-  UPDATEBY      integer,
-
-  CONSTRAINT ITERATION_PK PRIMARY KEY (ID)
-)
-WITH (
-  OIDS = FALSE
-) TABLESPACE pg_default;
-ALTER TABLE ITERATION     OWNER TO bgile;
-
-
-CREATE SEQUENCE iteration_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1000
-  CACHE 1;
-ALTER TABLE iteration_id_seq
-  OWNER TO bgile;
 
 CREATE TABLE USERSTORY
 (
   ID            integer,
-  PROJECTID     integer NOT NULL,
-  ITERATIONID   integer,
+  BOARDID       integer NOT NULL,
   STORY         character varying(512) NOT NULL,
   OWNERID       integer,
   SORTORDER		integer,
-  ESTIMATE      integer NOT NULL,
+  UNDERID		integer,
+  ESTIMATE      integer,
   STATEID       character(1) NOT NULL,
   STATUSID      character(1) NOT NULL,
   DESCRIPTION	text,
@@ -156,13 +130,10 @@ CREATE TABLE USERSTORY
   UPDATEBY      integer,
 
   CONSTRAINT USERSTORY_PK PRIMARY KEY (ID),
-  CONSTRAINT USERSTORY_FK1 FOREIGN KEY (PROJECTID)
-      REFERENCES PROJECT (ID) MATCH SIMPLE
+  CONSTRAINT USERSTORY_FK1 FOREIGN KEY (BOARDID)
+      REFERENCES BOARD (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT USERSTORY_FK2 FOREIGN KEY (ITERATIONID)
-      REFERENCES ITERATION (ID) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT USERSTORY_FK3 FOREIGN KEY (OWNERID)
+  CONSTRAINT USERSTORY_FK2 FOREIGN KEY (OWNERID)
       REFERENCES ACCOUNT (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
@@ -212,18 +183,52 @@ ALTER TABLE todo_id_seq
   OWNER TO bgile;
 
 
+CREATE TABLE HISTORY
+(
+  ID            integer,
+  ACCOUNTID		integer,
+  REFID			integer,
+  ACTIONID		integer,
+  REASON		text,
+
+  CREATED       timestamp with time zone,
+  UPDATED       timestamp with time zone,
+  UPDATEBY      integer,
+
+  CONSTRAINT HISTORY_PK PRIMARY KEY (ID)
+)
+WITH (
+  OIDS = FALSE
+) TABLESPACE pg_default;
+ALTER TABLE history     OWNER TO bgile;
+
+
+CREATE SEQUENCE history_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE history_id_seq
+  OWNER TO bgile;
+
+
 INSERT INTO account(
-            id, typeid, isenable, username, passwd, email, firstname, lastname, bio, avatarpath)
+            id, typeid, enable, username, passwd, email, firstname, lastname, bio, avatarpath)
     VALUES (1, 'A', 'Y', 'admin', 'password', 'nuboat@gmail.com', 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
 
 INSERT INTO account(
-            id, typeid, isenable, username, passwd, email, firstname, lastname, bio, avatarpath)
-    VALUES (2, 'S', 'Y', 'nuboat', 'password', 'Admin', 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
+            id, typeid, enable, username, passwd, email, firstname, lastname, bio, avatarpath)
+    VALUES (2, 'S', 'T', 'nuboat', 'password', 'Admin', 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
 
-INSERT INTO project(
-            id, statusid, isenable, pgname, description, logopath)
-    VALUES (1, '0', 'Y', 'Bgile', 'Bgile not Agile', 'pg/000000000.jpg');
+INSERT INTO board(
+            id, statusid, enable, boardname, description, logopath)
+    VALUES (1, 'L', 'T', 'Bgile', 'Bgile not Agile', 'board/000000000.jpg');
 
-INSERT INTO projectaccount(
-            id, projectid, accountid, permissionid)
-    VALUES (1, 1, 2, '0');
+INSERT INTO boardaccount(
+            id, boardid, accountid, permissionid)
+    VALUES (1, 1, 2, 'O');
+
+INSERT INTO userstory(
+            id, boardid, stateid, statusid, ownerid, story)
+    VALUES (1, 1, '0', 'L', 2, 'Test Story');

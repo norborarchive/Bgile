@@ -12,26 +12,26 @@
  */
 package com.thjug.bgile.facade;
 
-import com.thjug.bgile.facade.impl.ProjectFacadeImpl;
+import com.thjug.bgile.facade.impl.BoardFacadeImpl;
 import com.google.inject.ImplementedBy;
-import com.thjug.bgile.entity.Project;
+import com.thjug.bgile.entity.Board;
 import java.util.List;
 
 /**
  *
  * @author @nuboat
  */
-@ImplementedBy(ProjectFacadeImpl.class)
-public interface ProjectFacade {
+@ImplementedBy(BoardFacadeImpl.class)
+public interface BoardFacade extends AbstractFacade {
 
-	public Project findById(final Integer id) throws Exception;
+	public Board findById(final Integer id) throws Exception;
 
-	public Project create(final Project project) throws Exception;
+	public Board create(final Board board) throws Exception;
 
-	public Project edit(final Project project) throws Exception;
+	public Board edit(final Board board) throws Exception;
 
-	public void remove(final Project project) throws Exception;
+	public void remove(final Board board) throws Exception;
 
-	public List<Project> findAllByAccount(final Integer accountid) throws Exception;
+	public List<Board> findAllByAccount(final Integer accountid) throws Exception;
 
 }

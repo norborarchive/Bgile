@@ -13,6 +13,7 @@
 package com.thjug.bgile.service;
 
 import com.thjug.bgile.entity.Userstory;
+import java.util.List;
 
 /**
  *
@@ -23,5 +24,4 @@ public final class UserstoryService extends AbstractService<Userstory> {
 	public UserstoryService() {
 		super(Userstory.class);
 	}
-
 }

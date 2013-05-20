@@ -19,10 +19,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,10 +37,10 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "project")
-@NamedQueries( { @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
-		@NamedQuery(name = "Project.findById", query = "SELECT p FROM Project p WHERE p.id = :id"), })
-public class Project implements Serializable, Timeable {
+@Table(name = "board")
+@NamedQueries( { @NamedQuery(name = "Board.findAll", query = "SELECT b FROM Board b"),
+		@NamedQuery(name = "Board.findById", query = "SELECT b FROM Board b WHERE b.id = :id"), })
+public class Board implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,6 +48,8 @@ public class Project implements Serializable, Timeable {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "id")
+	@SequenceGenerator(name = "board_seq_gen", sequenceName = "board_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq_gen")
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
@@ -52,13 +57,13 @@ public class Project implements Serializable, Timeable {
 	private char statusid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "isenable")
-	private char isenable;
+	@Column(name = "enable")
+	private char enable;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 128)
-	@Column(name = "pgname")
-	private String pgname;
+	@Column(name = "boardname")
+	private String boardname;
 	@Size(max = 512)
 	@Column(name = "description")
 	private String description;
@@ -73,23 +78,23 @@ public class Project implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "projectid")
-	private List<Projectaccount> projectaccountList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "projectid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "boardid")
+	private List<Boardaccount> boardaccountList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "boardid")
 	private List<Userstory> userstoryList;
 
-	public Project() {
+	public Board() {
 	}
 
-	public Project(final Integer id) {
+	public Board(final Integer id) {
 		this.id = id;
 	}
 
-	public Project(final Integer id, final char statusid, final char isenable, final String pgname) {
+	public Board(final Integer id, final char statusid, final char enable, final String boardname) {
 		this.id = id;
 		this.statusid = statusid;
-		this.isenable = isenable;
-		this.pgname = pgname;
+		this.enable = enable;
+		this.boardname = boardname;
 	}
 
 	public Integer getId() {
@@ -108,20 +113,20 @@ public class Project implements Serializable, Timeable {
 		this.statusid = statusid;
 	}
 
-	public char getIsenable() {
-		return isenable;
+	public char getEnable() {
+		return enable;
 	}
 
-	public void setIsenable(final char isenable) {
-		this.isenable = isenable;
+	public void setEnable(char enable) {
+		this.enable = enable;
 	}
 
-	public String getPgname() {
-		return pgname;
+	public String getBoardname() {
+		return boardname;
 	}
 
-	public void setPgname(final String pgname) {
-		this.pgname = pgname;
+	public void setBoardname(final String boardname) {
+		this.boardname = boardname;
 	}
 
 	public String getDescription() {
@@ -168,12 +173,12 @@ public class Project implements Serializable, Timeable {
 		this.updateby = updateby;
 	}
 
-	public List<Projectaccount> getProjectaccountList() {
-		return projectaccountList;
+	public List<Boardaccount> getBoardaccountList() {
+		return boardaccountList;
 	}
 
-	public void setProjectaccountList(final List<Projectaccount> projectaccountList) {
-		this.projectaccountList = projectaccountList;
+	public void setBoardaccountList(List<Boardaccount> boardaccountList) {
+		this.boardaccountList = boardaccountList;
 	}
 
 	public List<Userstory> getUserstoryList() {
@@ -192,10 +197,10 @@ public class Project implements Serializable, Timeable {
 	@Override
 	public boolean equals(final Object object) {
 		// Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Project)) {
+		if (!(object instanceof Board)) {
 			return false;
 		}
-		final Project other = (Project) object;
+		final Board other = (Board) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}

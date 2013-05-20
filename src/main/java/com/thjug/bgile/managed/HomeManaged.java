@@ -13,6 +13,7 @@
 package com.thjug.bgile.managed;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.slf4j.Logger;
@@ -23,14 +24,29 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@ViewScoped
-public final class ProfileManaged extends AbstractManaged {
+@RequestScoped
+public final class HomeManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);
 
-	public final String linkToProfile() {
-		return "profile?faces-redirect=true";
+	public boolean isHasSession() {
+		return (getAccountId() != null) ? true : false;
+	}
+
+	public String getCurrentHome() {
+		return (getRequestURL().contains("home")) ? "current-page" : "";
+	}
+
+	public String getCurrentProjects() {
+		return (getRequestURL().contains("projects")) ? "current-page" : "";
+	}
+
+	public String getCurrentSignin() {
+		return (getRequestURL().contains("signin")) ? "current-page" : "";
+	}
+
+	public String getCurrentContact() {
+		return (getRequestURL().contains("contact")) ? "current-page" : "";
 	}
 
 }

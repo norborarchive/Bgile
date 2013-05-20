@@ -12,8 +12,8 @@
  */
 package com.thjug.bgile.facade.impl;
 
-import com.thjug.bgile.entity.Project;
-import com.thjug.bgile.facade.ProjectFacade;
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.facade.BoardFacade;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -25,54 +25,54 @@ import org.testng.annotations.Test;
  *
  * @author nuboat
  */
-public class ProjectFacadeImplNGTest extends AbstractFacadeNGTest {
+public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ProjectFacadeImplNGTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BoardFacadeImplNGTest.class);
 
 	@Test
 	public void testFindById() throws Exception {
 		LOG.info("findById");
-		final ProjectFacade instance = injector.getInstance(ProjectFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
 		final Integer expResult = 1;
-		final Project result = instance.findById(1);
+		final Board result = instance.findById(1);
 
 		assertEquals(result.getId(), expResult);
 	}
 
-	Project newProject;
+	Board newProject;
 
 	@Test
 	public void testCreate() throws Exception {
 		LOG.info("findById");
-		final ProjectFacade instance = injector.getInstance(ProjectFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
-		final Project project = new Project();
-		project.setIsenable('T'); // T = true, F = False
-		project.setStatusid('L'); // L = live, D = Delete
-		project.setPgname("Test Project");
-		project.setDescription("Training");
-		project.setUpdateby(2);
+		final Board board = new Board();
+		board.setEnable('T'); // T = true, F = False
+		board.setStatusid('L'); // L = live, D = Delete
+		board.setBoardname("Test Project");
+		board.setDescription("Training");
+		board.setUpdateby(2);
 
-		newProject = instance.create(project);
+		newProject = instance.create(board);
 		assertNotNull(newProject);
 	}
 
 	@Test
 	public void testEdit() throws Exception {
 		LOG.info("edit");
-		final ProjectFacade instance = injector.getInstance(ProjectFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
-		newProject.setPgname("Edit Project");
+		newProject.setBoardname("Edit Project");
 
-		final Project result = instance.edit(newProject);
-		assertEquals(result.getPgname(), "Edit Project");
+		final Board result = instance.edit(newProject);
+		assertEquals(result.getBoardname(), "Edit Project");
 	}
 
 	@Test(expectedExceptions = EntityNotFoundException.class)
 	public void testRemove() throws Exception {
 		LOG.info("remove");
-		final ProjectFacade instance = injector.getInstance(ProjectFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
 		final Integer id = newProject.getId();
 
@@ -84,7 +84,7 @@ public class ProjectFacadeImplNGTest extends AbstractFacadeNGTest {
 	@Test
 	public void testFindAllByAccount() throws Exception {
 		LOG.info("remove");
-		final ProjectFacade instance = injector.getInstance(ProjectFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
 		final Integer accountId = 2;
 

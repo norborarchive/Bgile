@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.facade.impl;
 
+import com.thjug.bgile.facade.AbstractFacade;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -26,7 +27,7 @@ import com.thjug.bgile.interceptor.Logging;
  *
  * @author @nuboat
  */
-public class AccountFacadeImpl extends AbstractFacadeImpl implements AccountFacade {
+public class AccountFacadeImpl implements AccountFacade {
 
 	private static final long serialVersionUID = 1L;
 
@@ -88,5 +89,4 @@ public class AccountFacadeImpl extends AbstractFacadeImpl implements AccountFaca
 	public int getAccountsCount() throws Exception {
 		return accountService.<Long> findOne(Account.findAllCount).intValue();
 	}
-
 }

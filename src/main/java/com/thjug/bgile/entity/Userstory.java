@@ -41,13 +41,13 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "userstory")
 @NamedQueries( { @NamedQuery(name = Userstory.findAll, query = "SELECT u FROM Userstory u"),
-		@NamedQuery(name = Userstory.findByProjectId, query = "SELECT u FROM Userstory u WHERE u.projectid = ?1"), })
+		@NamedQuery(name = Userstory.findByBoardId, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1"), })
 public class Userstory implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String findAll = "Userstory.findAll";
-	public static final String findByProjectId = "Userstory.findByProjectId";
+	public static final String findByBoardId = "Userstory.findByBoardId";
 
 	@Id
 	@Basic(optional = false)
@@ -66,23 +66,21 @@ public class Userstory implements Serializable, Timeable {
 	private Account ownerid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "estimate")
-	private int estimate;
-	@Basic(optional = false)
-	@NotNull
 	@Column(name = "stateid")
 	private char stateid;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "statusid")
 	private char statusid;
+	@Column(name = "sortorder")
+	private Integer sortorder;
+	@Column(name = "underid")
+	private Integer underid;
+	@Column(name = "estimate")
+	private Integer estimate;
 	@Size(max = 2147483647)
 	@Column(name = "description")
 	private String description;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "sortorder")
-	private int sortorder;
 	@Column(name = "created")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
@@ -93,12 +91,9 @@ public class Userstory implements Serializable, Timeable {
 	private Integer updateby;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userstoryid")
 	private List<Todo> todoList;
-	@JoinColumn(name = "projectid", referencedColumnName = "id")
+	@JoinColumn(name = "boardid", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Project projectid;
-	@JoinColumn(name = "iterationid", referencedColumnName = "id")
-	@ManyToOne
-	private Iteration iterationid;
+	private Board boardid;
 
 	public Userstory() {
 	}
@@ -134,16 +129,8 @@ public class Userstory implements Serializable, Timeable {
 		return ownerid;
 	}
 
-	public void setOwnerid(final Account ownerid) {
-		this.ownerid = ownerid;
-	}
-
-	public int getEstimate() {
-		return estimate;
-	}
-
-	public void setEstimate(final int estimate) {
-		this.estimate = estimate;
+	public void setOwnerid(final Account owner) {
+		this.ownerid = owner;
 	}
 
 	public char getStateid() {
@@ -170,12 +157,44 @@ public class Userstory implements Serializable, Timeable {
 		this.description = description;
 	}
 
-	public int getSortorder() {
+	public List<Todo> getTodoList() {
+		return todoList;
+	}
+
+	public void setTodoList(final List<Todo> todoList) {
+		this.todoList = todoList;
+	}
+
+	public Integer getSortorder() {
 		return sortorder;
 	}
 
-	public void setSortorder(final int sortorder) {
+	public void setSortorder(Integer sortorder) {
 		this.sortorder = sortorder;
+	}
+
+	public Integer getUnderid() {
+		return underid;
+	}
+
+	public void setUnderid(Integer underid) {
+		this.underid = underid;
+	}
+
+	public Integer getEstimate() {
+		return estimate;
+	}
+
+	public void setEstimate(Integer estimate) {
+		this.estimate = estimate;
+	}
+
+	public Board getBoardid() {
+		return boardid;
+	}
+
+	public void setBoardid(Board board) {
+		this.boardid = board;
 	}
 
 	@Override
@@ -204,30 +223,6 @@ public class Userstory implements Serializable, Timeable {
 
 	public void setUpdateby(final Integer updateby) {
 		this.updateby = updateby;
-	}
-
-	public List<Todo> getTodoList() {
-		return todoList;
-	}
-
-	public void setTodoList(final List<Todo> todoList) {
-		this.todoList = todoList;
-	}
-
-	public Project getProjectid() {
-		return projectid;
-	}
-
-	public void setProjectid(final Project projectid) {
-		this.projectid = projectid;
-	}
-
-	public Iteration getIterationid() {
-		return iterationid;
-	}
-
-	public void setIterationid(final Iteration iterationid) {
-		this.iterationid = iterationid;
 	}
 
 	@Override

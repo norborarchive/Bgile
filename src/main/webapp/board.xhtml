@@ -2,21 +2,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="controls">
 				<div style="float:left;">
+					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="Dashboard"
+									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
+									 action="#{dashboardManaged.linkToList}"/>
+				</div>
+				<div style="float:left;">
 					<p:commandButton id="refresh" icon="ui-icon-refresh"
 									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 action="#{dashboardManaged.refresh}" />
+									 action="#{boardManaged.refresh}" />
 				</div>
 
 				<div style="float:left;">
-					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="story"
+					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="Story"
 									 styleClass="btn btn-mini btn-success"
-									 action="#{dashboardManaged.addStory}" />
+									 action="#{boardManaged.addStory}" />
 				</div>
 
 				<div class="input-prepend" style="padding-left: 24px; float:left;">
@@ -27,27 +31,20 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
-            <h:form id="form">
-				<p:growl id="growl" showDetail="true" />
-
-				<div class="container">
-					<div class="row" style="padding-top: 6px; padding-bottom: 6px">
-						<h4 style="width: 280px; text-align: left; float: left;">วางแผน</h4>
-						<h4 style="width: 280px; text-align: left; float: left;">กำลังทำ</h4>
-						<h4 style="width: 280px; text-align: left; float: left;">กำลังทดสอบ</h4>
-						<h4 style="width: 280px; text-align: left; float: left;">เสร็จ</h4>
-					</div>
-
-					<div class="row">
-						<p:dashboard id="dynamic_dashboard" binding="#{dashboardManaged.dashboard}" >
-							 <p:ajax event="reorder" listener="#{dashboardManaged.handleReorder}" />
-						</p:dashboard>
-					</div>
-
-					<div class="row" style="height: 240px;">
-					</div>
+			<div class="container">
+				<div class="row" style="padding-top: 6px; padding-bottom: 6px">
+					<h4 style="width: 280px; text-align: left; float: left;">วางแผน</h4>
+					<h4 style="width: 280px; text-align: left; float: left;">กำลังทำ</h4>
+					<h4 style="width: 280px; text-align: left; float: left;">กำลังทดสอบ</h4>
+					<h4 style="width: 280px; text-align: left; float: left;">เสร็จ</h4>
 				</div>
-			</h:form>
+
+				<div class="row" style="height: 320px;">
+					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
+						<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" />
+					</p:dashboard>
+				</div>
+			</div>
         </ui:define>
     </ui:composition>
 </html>

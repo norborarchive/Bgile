@@ -19,19 +19,20 @@ import com.thjug.bgile.servlet.EncodingFilter;
 import com.thjug.bgile.servlet.GuiceFileUploadFilter;
 
 import com.google.inject.servlet.ServletModule;
+import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 /**
-*
-* @author Wasan Anusornhirunkarn, @tone
-*/
+ *
+ * @author Wasan Anusornhirunkarn, nuboat
+ */
 public class GuiceServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
-		Map<String, String> encodingFilterInitParams = new HashMap<>();
+		final Map<String, String> encodingFilterInitParams = new HashMap<>();
 		encodingFilterInitParams.put("encoding", "UTF-8");
-		//filter("/*").through(EncodingFilter.class, encodingFilterInitParams);
+		filter("/*").through(EncodingFilter.class, encodingFilterInitParams);
+		filter("*.xhtml").through(GuiceFileUploadFilter.class);
 		//filter("/*").through(GuiceShiroFilter.class);
-		//filter("*.xhtml").through(GuiceFileUploadFilter.class);
 	}
 }

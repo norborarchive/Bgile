@@ -12,16 +12,16 @@
  */
 package com.thjug.bgile.service;
 
-import com.thjug.bgile.entity.Project;
+import com.thjug.bgile.entity.Board;
 
 /**
  *
  * @author @nuboat
  */
-public final class ProjectService extends AbstractService<Project> {
+public final class BoardService extends AbstractService<Board> {
 
-	public ProjectService() {
-		super(Project.class);
+	public BoardService() {
+		super(Board.class);
 	}
 
 }

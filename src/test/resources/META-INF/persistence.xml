@@ -3,8 +3,6 @@
   <persistence-unit name="bgileUnit" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.thjug.bgile.entity.Project</class>
-    <class>com.thjug.bgile.entity.Iteration</class>
-    <class>com.thjug.bgile.entity.Release</class>
     <class>com.thjug.bgile.entity.Account</class>
     <class>com.thjug.bgile.entity.Userstory</class>
     <class>com.thjug.bgile.entity.Todo</class>

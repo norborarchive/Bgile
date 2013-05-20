@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 @FacesConverter("DefaultConverter")
 public class DefaultConverter implements Converter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultConverter.class);
-
 	private static final String LIST_ATTRIBUTE = "listArrtibute";
 
 	@Override

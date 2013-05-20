@@ -4,16 +4,16 @@
  */
 package com.thjug.bgile.service;
 
-import com.thjug.bgile.entity.Projectaccount;
+import com.thjug.bgile.entity.Boardaccount;
 
 /**
  *
  * @author nuboat
  */
-public class ProjectAccountService extends AbstractService<Projectaccount> {
+public class BoardAccountService extends AbstractService<Boardaccount> {
 
-	public ProjectAccountService() {
-		super(Projectaccount.class);
+	public BoardAccountService() {
+		super(Boardaccount.class);
 	}
 
 }

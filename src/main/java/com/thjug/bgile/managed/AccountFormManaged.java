@@ -49,7 +49,7 @@ public class AccountFormManaged extends AbstractManaged {
 		return file;
 	}
 
-	public void setFile(UploadedFile file) {
+	public void setFile(final UploadedFile file) {
 		this.file = file;
 	}
 
@@ -79,20 +79,20 @@ public class AccountFormManaged extends AbstractManaged {
 		if (account.getId() == null) {
 			try {
 				accountFacade.createAccount(account);
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				LOG.warn(e.getMessage());
 			}
 		} else {
 			try {
 				accountFacade.editAccount(account);
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				LOG.warn(e.getMessage());
 			}
 		}
 		return null;
 	}
 
-	public void handleFileUpload(FileUploadEvent event) {
+	public void handleFileUpload(final FileUploadEvent event) {
 		//UploadedFile file = event.getFile();
 	}
 

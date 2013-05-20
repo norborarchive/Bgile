@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 */
 public class JpaRealm extends AuthorizingRealm {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JpaRealm.class);
 	@Inject
 	private AccountFacade accountFacade;
 
@@ -67,7 +66,7 @@ public class JpaRealm extends AuthorizingRealm {
 				final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 				account = accountFacade.findByUsername(usernamePasswordToken.getUsername());
 
-				if (account.getIsenable() != 'Y') {
+				if (account.getEnable() != 'Y') {
 					throw new LockedAccountException();
 				}
 

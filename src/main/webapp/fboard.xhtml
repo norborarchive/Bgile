@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/WEB-INF/template/app.xhtml" >
+		<ui:define name="menubar">
+			<div class="control" >
+				<div style="float:left;">
+					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="Back"
+									 styleClass="btn btn-mini btn-info"
+									 action="#{dashboardManaged.linkToList}"/>
+				</div>
+			</div>
+		</ui:define>
+        <ui:define name="content">
+			<p:messages id="msg" />
+			<div class="container">
+				<div style="width: 511px;">
+					<div class="row">
+						<h4>ครีเอทโปรเจค</h4>
+					</div>
+					<div class="row">
+						<div class="controls">
+							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+								<span class="add-on"><i class="icon-tasks" ></i></span>
+								<p:inputText id="boardid" style="width: 480px;" disabled="true"
+											 value="#{fboardManaged.board.id}"/>
+								<p:watermark for="boardid" value="AUTO" ></p:watermark>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="controls">
+							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+								<span class="add-on"><i class="icon-tasks" ></i></span>
+								<p:inputText id="boardname" style="width: 480px;"
+											 value="#{fboardManaged.board.boardname}">
+									<f:validateRequired />
+								</p:inputText>
+								<p:watermark for="boardname" value="Board Name" ></p:watermark>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="controls">
+							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
+								<p:inputTextarea id="description" style="width: 510px;"
+												 value="#{fboardManaged.board.description}"/>
+								<p:watermark for="description" value="Description" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="controls">
+							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
+								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="REMOVE"
+												 styleClass="btn btn-mini btn-danger" update="msg"
+												 rendered="#{!fboardManaged.newBoard}"
+												 action="#{fboardManaged.remove}"/>
+							</div>
+						</div>
+						<div class="controls">
+							<div style="float:right;">
+								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="SAVE"
+												 styleClass="btn btn-mini btn-success" update="msg"
+												 action="#{fboardManaged.save}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -49,39 +49,35 @@ public class StreamedContentManaged extends AbstractManaged {
 		contentDataMap = new HashMap<>();
 	}
 
-	public StreamedContent getContent(String streamedContentId) {
+	public StreamedContent getContent(final String streamedContentId) {
 		StreamedContent content = null;
-		byte[] contentData = contentDataMap.get(streamedContentId);
+		final byte[] contentData = contentDataMap.get(streamedContentId);
 		if (contentData != null) {
 			content = new DefaultStreamedContent(new ByteArrayInputStream(contentData));
 		}
 		return content;
 	}
 
-	public byte[] getContentData(String streamedContentId) {
-		byte[] contentData = contentDataMap.get(streamedContentId);
-		if (contentData == null) {
-
-		}
-		return contentData;
+	public byte[] getContentData(final String streamedContentId) {
+		return contentDataMap.get(streamedContentId);
 	}
 
-	public void putStreamedContent(UploadedFile uploadedFile, String streamedContentId) throws IOException {
-		byte[] contentData = IOUtils.toByteArray(uploadedFile.getInputstream());
+	public void putStreamedContent(final UploadedFile uploadedFile, final String streamedContentId) throws IOException {
+		final byte[] contentData = IOUtils.toByteArray(uploadedFile.getInputstream());
 		contentDataMap.put(streamedContentId, contentData);
 	}
 
 	public StreamedContent getStreamedContent() {
 		final Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
-		String streamedContentId = params.get("streamedContentId");
+		final String streamedContentId = params.get("streamedContentId");
 		StreamedContent content = getContent(streamedContentId);
 		if (content == null) {
-			ResourceHandler resourceHandler = new ResourceHandlerImpl();
-			Resource resource = resourceHandler.createResource(defaultResource, "default");
+			final ResourceHandler resourceHandler = new ResourceHandlerImpl();
+			final Resource resource = resourceHandler.createResource(defaultResource, "default");
 			try {
 				content = new DefaultStreamedContent(resource.getInputStream());
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				LOG.warn(e.getMessage());
 			}
 		}

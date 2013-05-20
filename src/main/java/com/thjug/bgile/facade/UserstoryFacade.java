@@ -23,7 +23,12 @@ import com.thjug.bgile.entity.Userstory;
  * @author @nuboat
  */
 @ImplementedBy(UserstoryFacadeImpl.class)
-public interface UserstoryFacade {
+public interface UserstoryFacade extends AbstractFacade {
+
+	public static final char STATE0 = '0';
+	public static final char STATE1 = '1';
+	public static final char STATE2 = '2';
+	public static final char STATE3 = '3';
 
 	public Userstory create(final Userstory story) throws Exception;
 
