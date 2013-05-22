@@ -48,26 +48,25 @@ public class FboardManaged extends AbstractManaged {
 		return redirect("fboard");
 	}
 
-	public String linkToForm(final String projectid) {
+	public String linkToForm(final String boardid) {
 		try {
-			board = facade.findById(Integer.valueOf(projectid));
+			board = facade.findById(getAccountId(), Integer.valueOf(boardid));
 		} catch (final Exception e) {
-			addErrorMessage(e.getMessage(), projectid);
+			addErrorMessage(e.getMessage(), boardid);
 		}
 		return redirect("fboard");
 	}
 
-	public String linkToGrant(final String projectid) {
+	public String linkToGrant(final String boardid) {
 		return redirect("grants");
 	}
 
 	public String save() {
 		try {
-			board.setUpdateby(getAccountId());
 			if (board.getId() == null) {
-				facade.create(board);
+				facade.create(getAccountId(), board);
 			} else {
-				facade.edit(board);
+				facade.edit(getAccountId(), board);
 			}
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -77,8 +76,7 @@ public class FboardManaged extends AbstractManaged {
 
 	public String remove() {
 		try {
-			board.setUpdateby(getAccountId());
-			facade.remove(board);
+			facade.remove(getAccountId(), board);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

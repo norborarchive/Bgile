@@ -28,31 +28,44 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory create(final Userstory story) throws Exception {
-		story.setBoardid(boardService.find(story.getUpdateby())); // FIXME
+	public Userstory create(final Integer accountid, final Userstory story) throws Exception {
+		story.setBoardid(null); // FIXME
 		story.setStateid(STATE0);
 		story.setSortorder(0);
+		story.setUpdateby(accountid);
 		return service.create(story);
 	}
 
 	@Logging
 	@Transactional
 	@Override
-	public Userstory edit(final Userstory story) throws Exception {
+	public Userstory edit(final Integer accountid, final Userstory story) throws Exception {
+		story.setUpdateby(accountid);
 		return service.edit(story);
 	}
 
 	@Logging
 	@Transactional
 	@Override
-	public void remove(final Userstory story) throws Exception {
-		service.remove(story);
+	public Userstory remove(final Integer accountid, final Userstory story) throws Exception {
+		story.setUpdateby(accountid);
+		story.setStatusid(DEAD);
+		return service.edit(story);
 	}
 
 	@Logging
 	@Transactional
 	@Override
-	public List<Userstory> findAllByProjectid(final Integer boardid) throws Exception {
+	public Userstory findById(final Integer accountid, final Integer storyid) throws Exception {
+		// FIXME: Shared sink
+		return service.find(storyid);
+	}
+
+	@Logging
+	@Transactional
+	@Override
+	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception {
+		// FIXME: Shared sink
 		final Board board = boardService.find(boardid);
 		return service.findAll(Userstory.findByBoardId, board);
 	}

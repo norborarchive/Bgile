@@ -28,6 +28,7 @@ import org.testng.annotations.Test;
 public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(BoardFacadeImplNGTest.class);
+	private static final Integer accountid = 2;
 
 	@Test
 	public void testFindById() throws Exception {
@@ -35,12 +36,10 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
 		final Integer expResult = 1;
-		final Board result = instance.findById(1);
+		final Board result = instance.findById(accountid, 1);
 
 		assertEquals(result.getId(), expResult);
 	}
-
-	Board newProject;
 
 	@Test
 	public void testCreate() throws Exception {
@@ -48,14 +47,9 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
 		final Board board = new Board();
-		board.setEnable('T'); // T = true, F = False
-		board.setStatusid('L'); // L = live, D = Delete
 		board.setBoardname("Test Project");
 		board.setDescription("Training");
-		board.setUpdateby(2);
-
-		newProject = instance.create(board);
-		assertNotNull(newProject);
+		assertNotNull(instance.create(accountid, board));
 	}
 
 	@Test
@@ -63,9 +57,14 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 		LOG.info("edit");
 		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
-		newProject.setBoardname("Edit Project");
+		final Board board = new Board();
+		board.setBoardname("Test Project");
+		board.setDescription("Training");
+		final Board newBoard = instance.create(accountid, board);
 
-		final Board result = instance.edit(newProject);
+		newBoard.setBoardname("Edit Project");
+
+		final Board result = instance.edit(accountid, newBoard);
 		assertEquals(result.getBoardname(), "Edit Project");
 	}
 
@@ -74,11 +73,14 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 		LOG.info("remove");
 		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
-		final Integer id = newProject.getId();
+		final Board board = new Board();
+		board.setBoardname("Test Project");
+		board.setDescription("Training");
+		final Board newBoard = instance.create(accountid, board);
+		final Integer boardid = newBoard.getId();
 
-		instance.remove(newProject);
-
-		instance.findById(id);
+		instance.remove(accountid, newBoard);
+		instance.findById(accountid, boardid);
 	}
 
 	@Test
@@ -86,9 +88,7 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 		LOG.info("remove");
 		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
 
-		final Integer accountId = 2;
-
-		final List result = instance.findAllByAccount(accountId);
+		final List result = instance.findAllByAccount(accountid);
 		assertNotEquals(result.size(), 0);
 	}
 

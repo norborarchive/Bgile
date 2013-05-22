@@ -13,6 +13,7 @@
 package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
+import com.thjug.bgile.entity.Board;
 import javax.faces.bean.ManagedBean;
 import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.BoardFacade;
@@ -20,6 +21,7 @@ import com.thjug.bgile.facade.UserstoryFacade;
 import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,34 +31,43 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@ViewScoped
-public class StoryManaged extends AbstractManaged {
+@SessionScoped
+public class FstoryManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(StoryManaged.class);
-
+	private static final Logger LOG = LoggerFactory.getLogger(FstoryManaged.class);
 	private Userstory userstory;
-
 	@Inject
-	private transient UserstoryFacade userstoryFacade;
-
-	@Inject
-	private transient BoardFacade boardFacade;
+	private transient UserstoryFacade facade;
 
 	@PostConstruct
 	public void initial() {
 		userstory = new Userstory();
 	}
 
+	public String linkToForm() {
+		userstory = new Userstory();
+		return redirect("fboard");
+	}
+
+	public String linkToForm(final String storyid) {
+		try {
+			userstory = facade.findById(getAccountId(), Integer.valueOf(storyid));
+		} catch (final Exception e) {
+			addErrorMessage(e.getMessage(), storyid);
+		}
+		return redirect("fboard");
+	}
+
 	public String saveStory() {
 		try {
 			if (userstory.getId() == null) {
-				userstory = userstoryFacade.create(getAccountId(), userstory);
+				userstory = facade.create(getAccountId(), userstory);
 			} else {
-				userstory = userstoryFacade.edit(getAccountId(), userstory);
+				userstory = facade.edit(getAccountId(), userstory);
 			}
 
-			return "board?faces-redirect=true";
+			return redirect("board");
 		} catch (final Exception e) {
 			addErrorMessage(e.getMessage(), Constants.EMPTY);
 
@@ -68,7 +79,7 @@ public class StoryManaged extends AbstractManaged {
 
 	public String removeStory() {
 		try {
-			userstoryFacade.remove(getAccountId(), userstory);
+			facade.remove(getAccountId(), userstory);
 
 			return redirect("board");
 		} catch (final Exception e) {
@@ -91,11 +102,8 @@ public class StoryManaged extends AbstractManaged {
 	public boolean isNewUserstory() {
 		return userstory.getId() == null;
 	}
-
 }
-
 //	private Account selectedOwner;
-
 //	private List<Account> ownerList;
 //
 //	@Inject

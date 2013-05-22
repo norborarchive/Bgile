@@ -7,7 +7,7 @@
 		<ui:define name="menubar">
 			<div class="controls">
 				<div style="float:left;">
-					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="Dashboard"
+					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="แผงควบคุม"
 									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
 									 action="#{dashboardManaged.linkToList}"/>
 				</div>
@@ -18,7 +18,7 @@
 				</div>
 
 				<div style="float:left;">
-					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="Story"
+					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="สตอรี่"
 									 styleClass="btn btn-mini btn-success"
 									 action="#{boardManaged.addStory}" />
 				</div>
@@ -26,7 +26,7 @@
 				<div class="input-prepend" style="padding-left: 24px; float:left;">
 					<span class="add-on"><i class="icon-search" ></i></span>
 					<p:inputText id="filter" style="width: 480px;" ></p:inputText>
-					<p:watermark for="filter" value="FILTER WORD" ></p:watermark>
+					<p:watermark for="filter" value="กรองคำ" ></p:watermark>
 				</div>
 			</div>
 		</ui:define>

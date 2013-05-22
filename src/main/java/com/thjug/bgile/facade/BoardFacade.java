@@ -24,13 +24,13 @@ import java.util.List;
 @ImplementedBy(BoardFacadeImpl.class)
 public interface BoardFacade extends AbstractFacade {
 
-	public Board findById(final Integer id) throws Exception;
+	public Board findById(final Integer accountid, final Integer id) throws Exception;
 
-	public Board create(final Board board) throws Exception;
+	public Board create(final Integer accountid, final Board board) throws Exception;
 
-	public Board edit(final Board board) throws Exception;
+	public Board edit(final Integer accountid, final Board board) throws Exception;
 
-	public void remove(final Board board) throws Exception;
+	public Board remove(final Integer accountid, final Board board) throws Exception;
 
 	public List<Board> findAllByAccount(final Integer accountid) throws Exception;
 

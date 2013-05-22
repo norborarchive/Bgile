@@ -30,12 +30,14 @@ public interface UserstoryFacade extends AbstractFacade {
 	public static final char STATE2 = '2';
 	public static final char STATE3 = '3';
 
-	public Userstory create(final Userstory story) throws Exception;
+	public Userstory create(final Integer accountid, final Userstory story) throws Exception;
 
-	public Userstory edit(final Userstory story) throws Exception;
+	public Userstory edit(final Integer accountid, final Userstory story) throws Exception;
 
-	public void remove(final Userstory story) throws Exception;
+	public Userstory remove(final Integer accountid, final Userstory story) throws Exception;
 
-	public List<Userstory> findAllByProjectid(final Integer projectid) throws Exception;
+	public Userstory findById(final Integer accountid, final Integer storyid) throws Exception;
+
+	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception;
 
 }

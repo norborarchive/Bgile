@@ -42,14 +42,8 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board findById(final Integer id) throws Exception {
-		return service.find(id);
-	}
-
-	@Logging
-	@Override
-	@Transactional
-	public Board create(final Board board) throws Exception {
+	public Board create(final Integer accountid, final Board board) throws Exception {
+		board.setUpdateby(accountid);
 		board.setEnable(TRUE);
 		board.setStatusid(LIVE);
 		service.create(board);
@@ -58,7 +52,7 @@ public class BoardFacadeImpl implements BoardFacade {
 		ba.setBoardid(board);
 		ba.setAccountid(accountService.find(board.getUpdateby()));
 		ba.setPermissionid('O');
-		ba.setUpdateby(board.getUpdateby());
+		ba.setUpdateby(accountid);
 		baService.create(ba);
 		accountService.clearCache();
 		return board;
@@ -67,7 +61,8 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board edit(final Board board) throws Exception {
+	public Board edit(final Integer accountid, final Board board) throws Exception {
+		board.setUpdateby(accountid);
 		final Board editedProject = service.edit(board);
 		accountService.clearCache();
 		return editedProject;
@@ -76,10 +71,22 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public void remove(final Board board) throws Exception {
-		board.setStatusid(BoardFacade.DEAD);
-		service.edit(board);
-		accountService.clearCache();
+	public Board remove(final Integer accountid, final Board board) throws Exception {
+		try {
+			board.setUpdateby(accountid);
+			board.setStatusid(DEAD);
+			return service.edit(board);
+		} finally {
+			accountService.clearCache();
+		}
+	}
+
+	@Logging
+	@Override
+	@Transactional
+	public Board findById(final Integer accountid, final Integer id) throws Exception {
+		// FIXME : Shared sink Issue
+		return service.find(id);
 	}
 
 	@Logging

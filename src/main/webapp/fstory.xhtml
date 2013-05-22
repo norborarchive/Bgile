@@ -7,7 +7,7 @@
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="BOARD"
+				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="กระดาน"
 								 styleClass="btn btn-mini btn-info"
 								 action="#{boardManaged.linkToBoard}"/>
 			</div>
@@ -16,7 +16,7 @@
 			<div class="container">
 				<div style="width: 511px;">
 					<div class="row">
-						<h4>ครีเอทสตอรี่</h4>
+						<h4>สร้างยูสเซอร์สตอรี่</h4>
 					</div>
 					<div class="row">
 						<div class="controls">
@@ -24,7 +24,7 @@
 								<span class="add-on"><i class="icon-tasks" ></i></span>
 								<p:inputText id="storyid" style="width: 480px;" disabled="true"
 											 value="#{storyManaged.userstory.id}"/>
-								<p:watermark for="storyid" value="US" ></p:watermark>
+								<p:watermark for="storyid" value="US: " ></p:watermark>
 							</div>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 								<span class="add-on"><i class="icon-tasks" ></i></span>
 								<p:inputText id="story" style="width: 480px;"
 											 value="#{storyManaged.userstory.story}"/>
-								<p:watermark for="story" value="Short Description" ></p:watermark>
+								<p:watermark for="story" value="รายละเอียดย่อ" ></p:watermark>
 							</div>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
 							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<p:inputTextarea id="description" style="width: 510px;"
 												 value="#{storyManaged.userstory.description}"/>
-								<p:watermark for="description" value="Description Detail" />
+								<p:watermark for="description" value="รายละเอียด" />
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 					<div class="row">
 						<div class="controls">
 							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
-								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="REMOVE"
+								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 												 styleClass="btn btn-mini btn-danger"
 												 rendered="#{!storyManaged.newUserstory}"
 												 action="#{storyManaged.removeStory}"/>
@@ -86,7 +86,7 @@
 						</div>
 						<div class="controls">
 							<div style="float:right;">
-								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="SAVE"
+								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
 												 styleClass="btn btn-mini btn-success"
 												 action="#{storyManaged.saveStory}"/>
 							</div>

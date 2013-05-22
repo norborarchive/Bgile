@@ -31,6 +31,7 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.UserstoryFacade;
 import org.slf4j.Logger;
@@ -55,18 +56,23 @@ public class BoardManaged extends AbstractManaged {
 
 	public static final int DEFAULT_COLUMN_COUNT = 4; // 0 = Plan, 1 = Process, 2 = Test, 3 = Done, 4 = Archive
 	private Integer projectid;
-	private transient List<Userstory> userstoryList;
+	public Userstory userstory;
+	private List<Userstory> userstoryList;
 	private transient Dashboard dashboard;
 
 	@Inject
 	private transient UserstoryFacade userstoryFacade;
 
 	public String linkToBoard(final String projectid) {
-		LOG.debug("Click projectid: {}", projectid);
 		this.projectid = Integer.valueOf(projectid);
 		loadUserstory(this.projectid);
 		renderDashboard();
 		return redirect("board");
+	}
+
+	public String linkToStory() {
+		userstory = new Userstory();
+		return redirect("fboard");
 	}
 
 	public String linkToBoard() {
@@ -74,7 +80,8 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 	public String addStory() {
-		return redirect("story");
+		userstory = new Userstory();
+		return redirect("fstory");
 	}
 
 	public String refresh() {
@@ -84,13 +91,6 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 	public void handleReorder(final DashboardReorderEvent event) {
-		//FacesMessage message = new FacesMessage();
-		//message.setSeverity(FacesMessage.SEVERITY_INFO);
-		//message.setSummary("Reordered: " + event.getWidgetId());
-		//message.setDetail("Item index: " + event.getItemIndex() + ", Column index: " + event.getColumnIndex()
-		//		+ ", Sender index: " + event.getSenderColumnIndex());
-
-		//addMessage(message);
 		LOG.info("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}", event.getWidgetId(), event
 				.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
 		addInfoMessage(event.getWidgetId(), event.getItemIndex().toString());
@@ -98,7 +98,7 @@ public class BoardManaged extends AbstractManaged {
 
 	private void loadUserstory(final Integer projectid) {
 		try {
-			userstoryList = userstoryFacade.findAllByProjectid(projectid);
+			userstoryList = userstoryFacade.findAllByBoardId(getAccountId(), projectid);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -126,7 +126,7 @@ public class BoardManaged extends AbstractManaged {
 		for (final Userstory us : userstoryList) {
 			panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
 			panel.setId("US" + us.getId().toString());
-			panel.setHeader("US" + us.getId().toString());
+			panel.setHeader("US:" + us.getId().toString());
 			panel.setClosable(false);
 			panel.setToggleable(false);
 
@@ -160,6 +160,14 @@ public class BoardManaged extends AbstractManaged {
 
 	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
+	}
+
+	public Userstory getUserstory() {
+		return userstory;
+	}
+
+	public void setUserstory(Userstory userstory) {
+		this.userstory = userstory;
 	}
 
 }
