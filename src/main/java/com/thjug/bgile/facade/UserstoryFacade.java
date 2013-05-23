@@ -30,7 +30,7 @@ public interface UserstoryFacade extends AbstractFacade {
 	public static final char STATE2 = '2';
 	public static final char STATE3 = '3';
 
-	public Userstory create(final Integer accountid, final Userstory story) throws Exception;
+	public Userstory create(final Integer accountid, final Integer boardid, final Userstory story) throws Exception;
 
 	public Userstory edit(final Integer accountid, final Userstory story) throws Exception;
 

@@ -12,7 +12,11 @@
  */
 package com.thjug.bgile.service;
 
+import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
+import com.thjug.bgile.facade.AbstractFacade;
+import com.thjug.bgile.facade.UserstoryFacade;
+import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
 import java.util.List;
 
 /**
@@ -24,4 +28,9 @@ public final class UserstoryService extends AbstractService<Userstory> {
 	public UserstoryService() {
 		super(Userstory.class);
 	}
+
+	public List<Userstory> findLowerestinState0ByBoard(final Board board) {
+		return findAll(Userstory.findByLowerestBoardIdStateId, AbstractFacade.TRUE, board, UserstoryFacade.STATE0);
+	}
+
 }

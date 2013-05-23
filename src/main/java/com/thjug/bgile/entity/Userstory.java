@@ -40,14 +40,17 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "userstory")
-@NamedQueries( { @NamedQuery(name = Userstory.findAll, query = "SELECT u FROM Userstory u"),
-		@NamedQuery(name = Userstory.findByBoardId, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1"), })
+@NamedQueries( {
+		@NamedQuery(name = Userstory.findAll, query = "SELECT u FROM Userstory u"),
+		@NamedQuery(name = Userstory.findByBoardId, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1"),
+		@NamedQuery(name = Userstory.findByLowerestBoardIdStateId, query = "SELECT u FROM Userstory u WHERE u.lowerest = ?1 and u.boardid = ?2 and u.stateid = ?3"), })
 public class Userstory implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String findAll = "Userstory.findAll";
 	public static final String findByBoardId = "Userstory.findByBoardId";
+	public static final String findByLowerestBoardIdStateId = "Userstory.findByLowerestBoardIdStateId";
 
 	@Id
 	@Basic(optional = false)
@@ -74,6 +77,8 @@ public class Userstory implements Serializable, Timeable {
 	private char statusid;
 	@Column(name = "sortorder")
 	private Integer sortorder;
+	@Column(name = "lowerest")
+	private char lowerest;
 	@Column(name = "underid")
 	private Integer underid;
 	@Column(name = "estimate")
@@ -171,6 +176,14 @@ public class Userstory implements Serializable, Timeable {
 
 	public void setSortorder(Integer sortorder) {
 		this.sortorder = sortorder;
+	}
+
+	public char getLowerest() {
+		return lowerest;
+	}
+
+	public void setLowerest(char lowerest) {
+		this.lowerest = lowerest;
 	}
 
 	public Integer getUnderid() {

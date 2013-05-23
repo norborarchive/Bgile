@@ -8,7 +8,9 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
+import static com.thjug.bgile.facade.AbstractFacade.FALSE;
 import com.thjug.bgile.facade.UserstoryFacade;
+import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardService;
 import com.thjug.bgile.service.UserstoryService;
@@ -28,10 +30,21 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory create(final Integer accountid, final Userstory story) throws Exception {
-		story.setBoardid(null); // FIXME
+	public Userstory create(final Integer accountid, final Integer boardid, final Userstory story) throws Exception {
+		final Board board = boardService.find(boardid);
+		final List<Userstory> storys = service.findLowerestinState0ByBoard(board);
+		for (final Userstory us : storys) {
+			us.setLowerest(FALSE);
+			service.edit(us);
+		}
+
+		if (!storys.isEmpty()) {
+			story.setUnderid(storys.get(storys.size() - 1).getId());
+		}
+		story.setBoardid(board);
+		story.setLowerest(TRUE);
 		story.setStateid(STATE0);
-		story.setSortorder(0);
+		story.setStatusid(LIVE);
 		story.setUpdateby(accountid);
 		return service.create(story);
 	}

@@ -1,16 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
 <faces-config version="2.1"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
-    <application>
-        <locale-config>
-            <default-locale>th</default-locale>
-        </locale-config>
-        <resource-bundle>
-            <base-name>th.co.sah.bundle.Messages</base-name>
-            <var>msg</var>
-        </resource-bundle>
-    </application>
+			  xmlns="http://java.sun.com/xml/ns/javaee"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	<application>
+		<!--lifecycle>
+			<phase-listener>com.thjug.bgile.faces.AuthenticationListener</phase-listener>
+		</lifecycle-->
+		<locale-config>
+			<default-locale>th</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>com.thjug.bgile.Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application>
 </faces-config>

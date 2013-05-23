@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="control" >
@@ -15,6 +16,20 @@
 		</ui:define>
         <ui:define name="content">
 			<p:messages id="msg" />
+			<ui:remove>
+				<div class="row">
+					<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
+						<p:selectOneMenu  id="selectedOwner"
+										  value="" >
+							<f:converter converterId="DefaultConverter" />
+							<f:attribute name="listArrtibute" value="storyManaged" />
+							<f:selectItems value="" var="account"
+										   itemValue="#{account}"
+										   itemLabel="#{account.firstname}" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+			</ui:remove>
         </ui:define>
     </ui:composition>
 </html>

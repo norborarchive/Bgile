@@ -55,7 +55,7 @@ public class BoardManaged extends AbstractManaged {
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
 	public static final int DEFAULT_COLUMN_COUNT = 4; // 0 = Plan, 1 = Process, 2 = Test, 3 = Done, 4 = Archive
-	private Integer projectid;
+	private Integer boardid;
 	public Userstory userstory;
 	private List<Userstory> userstoryList;
 	private transient Dashboard dashboard;
@@ -63,10 +63,11 @@ public class BoardManaged extends AbstractManaged {
 	@Inject
 	private transient UserstoryFacade userstoryFacade;
 
-	public String linkToBoard(final String projectid) {
-		this.projectid = Integer.valueOf(projectid);
-		loadUserstory(this.projectid);
+	public String linkToBoard(final String boardid) {
+		this.boardid = Integer.valueOf(boardid);
+		loadUserstory(this.boardid);
 		renderDashboard();
+		getSession().setAttribute("boardid", boardid);
 		return redirect("board");
 	}
 
@@ -85,7 +86,7 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 	public String refresh() {
-		loadUserstory(this.projectid);
+		loadUserstory(this.boardid);
 		renderDashboard();
 		return null;
 	}

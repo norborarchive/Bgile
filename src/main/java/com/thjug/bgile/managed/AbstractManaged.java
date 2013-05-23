@@ -27,8 +27,6 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class AbstractManaged implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	protected final String getRequestServletPath() {
 		return FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath();
 	}
@@ -69,6 +67,10 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final Integer getAccountId() {
 		return 2;
+	}
+
+	protected final String getViewId() {
+		return getFacesInstance().getViewRoot().getViewId();
 	}
 
 	protected final void addWarnMessage(final String topic, final String message) {

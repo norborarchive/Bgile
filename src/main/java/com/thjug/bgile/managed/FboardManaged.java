@@ -15,6 +15,7 @@ package com.thjug.bgile.managed;
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.facade.BoardFacade;
+import com.thjug.bgile.util.Constants;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -52,6 +53,7 @@ public class FboardManaged extends AbstractManaged {
 		try {
 			board = facade.findById(getAccountId(), Integer.valueOf(boardid));
 		} catch (final Exception e) {
+			LOG.error(e.getMessage(), e);
 			addErrorMessage(e.getMessage(), boardid);
 		}
 		return redirect("fboard");
@@ -63,15 +65,13 @@ public class FboardManaged extends AbstractManaged {
 
 	public String save() {
 		try {
-			if (board.getId() == null) {
-				facade.create(getAccountId(), board);
-			} else {
-				facade.edit(getAccountId(), board);
-			}
+			board = (board.getId() == null) ? facade.create(getAccountId(), board) : facade.edit(getAccountId(), board);
+			return redirect("dashboard");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
+			addErrorMessage(e.getMessage(), Constants.EMPTY);
+			return null;
 		}
-		return redirect("dashboard");
 	}
 
 	public String remove() {

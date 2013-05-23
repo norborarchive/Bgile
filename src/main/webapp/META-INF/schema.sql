@@ -119,6 +119,7 @@ CREATE TABLE USERSTORY
   STORY         character varying(512) NOT NULL,
   OWNERID       integer,
   SORTORDER		integer,
+  LOWEREST      character(1),
   UNDERID		integer,
   ESTIMATE      integer,
   STATEID       character(1) NOT NULL,
@@ -230,5 +231,5 @@ INSERT INTO boardaccount(
     VALUES (1, 1, 2, 'O');
 
 INSERT INTO userstory(
-            id, boardid, stateid, statusid, ownerid, story)
-    VALUES (1, 1, '0', 'L', 2, 'Test Story');
+            id, boardid, stateid, statusid, ownerid, LOWEREST, story)
+    VALUES (1, 1, '0', 'L', 2, 'T','Test Story');
