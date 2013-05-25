@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FboardManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -41,32 +41,28 @@ public class FboardManaged extends AbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		board = new Board();
-	}
-
-	public String linkToForm() {
-		board = new Board();
-		return redirect("fboard");
-	}
-
-	public String linkToForm(final String boardid) {
-		try {
-			board = facade.findById(getAccountId(), Integer.valueOf(boardid));
-		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
-			addErrorMessage(e.getMessage(), boardid);
+		final String boardid = (String) getBoardIdfromAttribute();
+		if (boardid != null) {
+			try {
+				board = facade.findById(getAccountId(), Integer.valueOf(boardid));
+			} catch (final Exception e) {
+				LOG.error(e.getMessage(), e);
+				addErrorMessage("Board: {} not found.", boardid);
+			}
+		} else {
+			board = new Board();
 		}
-		return redirect("fboard");
 	}
 
-	public String linkToGrant(final String boardid) {
-		return redirect("grants");
+	private String getBoardIdfromAttribute() {
+		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+		return (attributes.size() > 0) ? attributes.get(0) : null;
 	}
 
 	public String save() {
 		try {
 			board = (board.getId() == null) ? facade.create(getAccountId(), board) : facade.edit(getAccountId(), board);
-			return redirect("dashboard");
+			return "dashboard";
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage(e.getMessage(), Constants.EMPTY);

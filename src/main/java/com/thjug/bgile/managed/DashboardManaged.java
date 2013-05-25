@@ -48,7 +48,7 @@ public class DashboardManaged extends AbstractManaged {
 	}
 
 	public String linkToList() {
-		return redirect("dashboard");
+		return "dashboard";
 	}
 
 	public List<Board> getBoards() {

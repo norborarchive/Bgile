@@ -31,10 +31,12 @@ public abstract class AbstractManaged implements Serializable {
 		return FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath();
 	}
 
+	protected final HttpServletRequest getRequest() {
+		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	}
+
 	protected final String getRequestURL() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-		return request.getRequestURL().toString();
+		return getRequest().getRequestURL().toString();
 	}
 
 	protected final HttpSession getSession() {
@@ -53,8 +55,16 @@ public abstract class AbstractManaged implements Serializable {
 		return FacesContext.getCurrentInstance().getExternalContext();
 	}
 
+	protected final Object getAttribute(final String key) {
+		return getRequest().getAttribute(key);
+	}
+
 	protected final Map<String, String> getParams() {
 		return getExternalContext().getRequestParameterMap();
+	}
+
+	protected final void setParam(final String key, final String value) {
+		getParams().put(key, value);
 	}
 
 	protected final String getParam(final String key) {

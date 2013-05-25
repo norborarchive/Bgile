@@ -33,7 +33,9 @@ import org.primefaces.model.DefaultDashboardModel;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
+import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.UserstoryFacade;
+import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class BoardManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -55,38 +57,47 @@ public class BoardManaged extends AbstractManaged {
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
 	public static final int DEFAULT_COLUMN_COUNT = 4; // 0 = Plan, 1 = Process, 2 = Test, 3 = Done, 4 = Archive
-	private Integer boardid;
-	public Userstory userstory;
+	private Board board;
+	private Userstory userstory;
 	private List<Userstory> userstoryList;
 	private transient Dashboard dashboard;
-
+	@Inject
+	private transient BoardFacade boardFacade;
 	@Inject
 	private transient UserstoryFacade userstoryFacade;
 
-	public String linkToBoard(final String boardid) {
-		this.boardid = Integer.valueOf(boardid);
-		loadUserstory(this.boardid);
-		renderDashboard();
-		getSession().setAttribute("boardid", boardid);
-		return redirect("board");
+	@PostConstruct
+	public void initial() {
+		final Integer boardid = getBoardIdfromAttribute();
+		if (boardid != null) {
+			board = getBoard(boardid);
+			loadUserstory(boardid);
+			renderDashboard();
+		} else {
+			addErrorMessage("Board ID " + boardid + " not found.", null);
+		}
 	}
 
-	public String linkToStory() {
-		userstory = new Userstory();
-		return redirect("fboard");
+	private Board getBoard(final Integer boardid) {
+		try {
+			return boardFacade.findById(getAccountId(), boardid);
+		} catch (final Exception e) {
+			addErrorMessage("Board {} not found.", null);
+			return null;
+		}
+	}
+
+	private Integer getBoardIdfromAttribute() {
+		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+		return (attributes.size() > 0) ? Integer.valueOf(attributes.get(0)) : null;
 	}
 
 	public String linkToBoard() {
 		return redirect("board");
 	}
 
-	public String addStory() {
-		userstory = new Userstory();
-		return redirect("fstory");
-	}
-
 	public String refresh() {
-		loadUserstory(this.boardid);
+		loadUserstory(board.getId());
 		renderDashboard();
 		return null;
 	}
@@ -172,43 +183,3 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 }
-
-/*
-		Account a = new Account();
-		a.setId(1);
-		a.setFirstname("Peerapat");
-		a.setLastname("A");
-		userstoryList = new LinkedList<>();
-
-		Userstory us;
-		us = new Userstory();
-		us.setId(0);
-		us.setStory("Test Story 0");
-		us.setDescription("Test Description 0");
-		us.setStateid('0');
-		userstoryList.add(us);
-
-		us = new Userstory();
-		us.setId(1);
-		us.setStory("Test Story 1");
-		us.setDescription("Test Description 1");
-		us.setOwnerid(a);
-		us.setStateid('1');
-		userstoryList.add(us);
-
-		us = new Userstory();
-		us.setId(2);
-		us.setStory("Test Story 2");
-		us.setDescription("Test Description 2");
-		us.setOwnerid(a);
-		us.setStateid('2');
-		userstoryList.add(us);
-
-		us = new Userstory();
-		us.setId(3);
-		us.setStory("Test Story 3");
-		us.setDescription("Test Description 3");
-		us.setOwnerid(a);
-		us.setStateid('3');
-		userstoryList.add(us);
- */

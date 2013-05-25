@@ -5,11 +5,11 @@
 	  xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
-			<div class="control" >
+			<div class="control">
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-plus" value="กระดาน"
 									 styleClass="btn btn-mini btn-info"
-									 action="#{fboardManaged.linkToForm}"/>
+									 onclick="window.location.href='/bgile/fboard';" />
 				</div>
 			</div>
 		</ui:define>
@@ -37,15 +37,15 @@
 								<p:commandButton id="grantAccount" style="margin-right: 12px;"
 												 icon="ui-icon ui-icon-person"
 												 styleClass="btn btn-mini btn-info"
-												 action="#{fboardManaged.linkToGrant(b.id)}" />
+												 onclick="window.location.href='/bgile/grants/#{b.id}';" />
 								<p:commandButton id="editProjet" style="margin-right: 12px;"
 												 icon="ui-icon ui-icon-disk"
 												 styleClass="btn btn-mini btn-info"
-												 action="#{fboardManaged.linkToForm(b.id)}" />
+												 onclick="window.location.href='/bgile/fboard/#{b.id}';" />
 								<p:commandButton id="linkToBoard"
 												 icon="ui-icon ui-icon-arrowthick-1-e"
 												 styleClass="btn btn-mini btn-info"
-												 action="#{boardManaged.linkToBoard(b.id)}" />
+												 onclick="window.location.href='/bgile/board/#{b.id}';" />
 							</td>
 						</tr>
 					</ui:repeat>

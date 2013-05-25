@@ -7,7 +7,20 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:view contentType="text/html">
         <h:head>
-            <ui:include src="/WEB-INF/include/header.xhtml" />
+			<meta charset="utf-8" />
+			<title>Bgile</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="description" content="" />
+			<meta name="author" content="" />
+
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/bootstrap/css/bootstrap.min.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/prettyPhoto/css/prettyPhoto.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/flexslider.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/font-awesome.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/style.css" />
+
+			<h:outputText value="&lt;!--[if lte IE 7]&gt;&lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot; /&gt;&lt;![endif]--&gt;"
+						  escape="false" />
 
 			<ui:remove>
 				<!-- Favicon and touch icons -->
@@ -35,20 +48,20 @@
 								<div class="nav-collapse collapse">
 									<ul class="nav pull-right">
 										<li class="#{homeManaged.currentHome}">
-											<h:link outcome="home.xhtml" >
-												<i class="icon-home"></i><br />Home</h:link>
+											<h:outputLink value="home" >
+												<i class="icon-home"></i><br />Home</h:outputLink>
 										</li>
 										<li class="#{homeManaged.currentProjects}">
-											<h:link outcome="dashboard.xhtml" rendered="#{homeManaged.hasSession}">
-												<i class="icon-user"></i><br />Board</h:link>
+											<h:outputLink value="dashboard" rendered="#{homeManaged.hasSession}">
+												<i class="icon-user"></i><br />Dashboard</h:outputLink>
 										</li>
 										<li class="#{homeManaged.currentSignin}">
-											<h:link outcome="signin.xhtml" >
-												<i class="icon-user"></i><br />Signin</h:link>
+											<h:outputLink value="signin" rendered="#{!homeManaged.hasSession}">
+												<i class="icon-user"></i><br />Signin</h:outputLink>
 										</li>
 										<li class="#{homeManaged.currentContact}">
-											<h:link outcome="contact.xhtml">
-												<i class="icon-envelope-alt"></i><br />Contact</h:link>
+											<h:outputLink value="contact">
+												<i class="icon-envelope-alt"></i><br />Contact</h:outputLink>
 										</li>
 									</ul>
 								</div>

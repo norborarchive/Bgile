@@ -7,7 +7,18 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:view contentType="text/html">
         <h:head>
-            <ui:include src="/WEB-INF/include/header.xhtml" />
+			<meta charset="utf-8" />
+			<title>Bgile</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="description" content="" />
+			<meta name="author" content="" />
+
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/bootstrap/css/bootstrap.min.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/font-awesome.css" />
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/style.css" />
+
+			<h:outputText value="&lt;!--[if lte IE 7]&gt;&lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot; /&gt;&lt;![endif]--&gt;"
+						  escape="false" />
 
 			<style type="text/css">
 				.ui-panel, div.ui-state-hover {
@@ -30,7 +41,7 @@
 					<div class="controls">
 						<ui:insert name="menubar" />
 						<div class="control" style="padding-bottom: 24px; padding-right: 24px; float: right;">
-							<p:commandButton id="profile" icon="ui-icon ui-icon-person" value="Peerapat A"
+							<p:commandButton id="profile" icon="ui-icon ui-icon-contact" value="Peerapat A"
 											 styleClass="btn btn-mini btn-info"
 											 style="margin-right: 12px;"
 											 action="#{profileManaged.linkToProfile}"/>
