@@ -12,7 +12,6 @@
  */
 package com.thjug.bgile.facade.impl;
 
-import com.thjug.bgile.facade.AbstractFacade;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -27,6 +26,7 @@ import com.thjug.bgile.interceptor.Logging;
  *
  * @author @nuboat
  */
+// FIXME
 public class AccountFacadeImpl implements AccountFacade {
 
 	private static final long serialVersionUID = 1L;
@@ -59,7 +59,7 @@ public class AccountFacadeImpl implements AccountFacade {
 	@Logging
 	@Transactional
 	public Account findByUsername(final String username) throws Exception {
-		return accountService.findOne(Account.findByUsername, username);
+		return null;// accountService.findOne(Account.findByUsername, username);
 	}
 
 	@Override
@@ -73,20 +73,20 @@ public class AccountFacadeImpl implements AccountFacade {
 	@Logging
 	@Transactional
 	public List<Account> findAllStaff() throws Exception {
-		return accountService.findAll(Account.findByTypeid, 'S');
+		return null;// accountService.findAll(Account.findByTypeid, 'S');
 	}
 
 	@Override
 	@Logging
 	@Transactional
 	public List<Account> findAccounts(final Integer offset, final Integer limit) throws Exception {
-		return accountService.findRange(Account.findAll, offset, limit);
+		return null;// accountService.findRange(Account.findAll, offset, limit);
 	}
 
 	@Override
 	@Logging
 	@Transactional
 	public int getAccountsCount() throws Exception {
-		return accountService.<Long> findOne(Account.findAllCount).intValue();
+		return 0;// accountService.<Long> findOne(Account.findAllCount).intValue();
 	}
 }

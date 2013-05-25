@@ -28,6 +28,10 @@ import com.thjug.bgile.entity.Timeable;
  */
 public abstract class AbstractService<T> {
 
+	protected static final char TRUE = 'T';
+	protected static final char FALSE = 'F';
+	protected static final char LIVE = 'L';
+	protected static final char DEAD = 'D';
 	private transient final Class<T> entityClass;
 
 	@Inject
@@ -63,7 +67,7 @@ public abstract class AbstractService<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <S> S findOne(final String namequery, final Object... param) {
+	protected <S> S findOne(final String namequery, final Object... param) {
 		final Query q = getEntityManager().createNamedQuery(namequery);
 		for (int i = 0; i < param.length; i++) {
 			q.setParameter(i + 1, param[i]);
@@ -72,7 +76,7 @@ public abstract class AbstractService<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(final String namequery, final Object... param) {
+	protected List<T> findAll(final String namequery, final Object... param) {
 		final Query q = getEntityManager().createNamedQuery(namequery);
 		for (int i = 0; i < param.length; i++) {
 			q.setParameter(i + 1, param[i]);
@@ -81,7 +85,7 @@ public abstract class AbstractService<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> findRange(final String namequery, final int offset, final int limit, final Object... param) {
+	protected List<T> findRange(final String namequery, final int offset, final int limit, final Object... param) {
 		final Query q = getEntityManager().createNamedQuery(namequery);
 		for (int i = 0; i < param.length; i++) {
 			q.setParameter(i + 1, param[i]);

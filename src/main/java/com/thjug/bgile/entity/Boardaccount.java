@@ -36,10 +36,11 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "boardaccount")
-@NamedQueries( { @NamedQuery(name = "Boardaccount.findAll", query = "SELECT b FROM Boardaccount b") })
+@NamedQueries( { @NamedQuery(name = Boardaccount.findByAccountAndBoard, query = "SELECT b FROM Boardaccount b WHERE b.accountid = ?1 and b.boardid = ?2") })
 public class Boardaccount implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String findByAccountAndBoard = "Boardaccount.findByAccount";
 	@Id
 	@Basic(optional = false)
 	@NotNull

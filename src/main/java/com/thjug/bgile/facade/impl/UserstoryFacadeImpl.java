@@ -8,10 +8,12 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
+import static com.thjug.bgile.facade.AbstractFacade.DEAD;
 import static com.thjug.bgile.facade.AbstractFacade.FALSE;
 import com.thjug.bgile.facade.UserstoryFacade;
 import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
 import com.thjug.bgile.service.UserstoryService;
 import java.util.List;
@@ -25,28 +27,19 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Inject
 	private UserstoryService service;
 	@Inject
-	private BoardService boardService;
+	private BoardAccountService boardService;
 
 	@Logging
 	@Transactional
 	@Override
 	public Userstory create(final Integer accountid, final Integer boardid, final Userstory story) throws Exception {
-		final Board board = boardService.find(boardid);
-		final List<Userstory> storys = service.findLowerestinState0ByBoard(board);
-		for (final Userstory us : storys) {
-			us.setLowerest(FALSE);
-			service.edit(us);
-		}
+		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoardid();
+		final Integer underid = service.clearLowerestOnStorys(board);
 
-		if (!storys.isEmpty()) {
-			story.setUnderid(storys.get(storys.size() - 1).getId());
-		}
 		story.setBoardid(board);
-		story.setLowerest(TRUE);
-		story.setStateid(STATE0);
-		story.setStatusid(LIVE);
+		story.setUnderid(underid);
 		story.setUpdateby(accountid);
-		return service.create(story);
+		return service.createNewStory(story);
 	}
 
 	@Logging
@@ -61,8 +54,8 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Transactional
 	@Override
 	public Userstory remove(final Integer accountid, final Userstory story) throws Exception {
-		story.setUpdateby(accountid);
 		story.setStatusid(DEAD);
+		story.setUpdateby(accountid);
 		return service.edit(story);
 	}
 
@@ -78,9 +71,8 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Transactional
 	@Override
 	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception {
-		// FIXME: Shared sink
-		final Board board = boardService.find(boardid);
-		return service.findAll(Userstory.findByBoardId, board);
+		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoardid();
+		return service.findByBoard(board);
 	}
 
 }

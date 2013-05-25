@@ -38,8 +38,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "board")
-@NamedQueries( { @NamedQuery(name = "Board.findAll", query = "SELECT b FROM Board b"),
-		@NamedQuery(name = "Board.findById", query = "SELECT b FROM Board b WHERE b.id = :id"), })
 public class Board implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;

@@ -41,16 +41,14 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "userstory")
 @NamedQueries( {
-		@NamedQuery(name = Userstory.findAll, query = "SELECT u FROM Userstory u"),
-		@NamedQuery(name = Userstory.findByBoardId, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1"),
-		@NamedQuery(name = Userstory.findByLowerestBoardIdStateId, query = "SELECT u FROM Userstory u WHERE u.lowerest = ?1 and u.boardid = ?2 and u.stateid = ?3"), })
+	@NamedQuery(name = Userstory.findByBoardAndStatus, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1 and u.statusid = ?2"),
+	@NamedQuery(name = Userstory.findByLowerestAndBoardAndStateAndStatus, query = "SELECT u FROM Userstory u WHERE u.lowerest = ?1 and u.boardid = ?2 and u.stateid = ?3 and u.statusid = ?4"),})
 public class Userstory implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String findAll = "Userstory.findAll";
-	public static final String findByBoardId = "Userstory.findByBoardId";
-	public static final String findByLowerestBoardIdStateId = "Userstory.findByLowerestBoardIdStateId";
+	public static final String findByBoardAndStatus = "Userstory.findByBoardAndStatus";
+	public static final String findByLowerestAndBoardAndStateAndStatus = "Userstory.findByLowerestAndBoardAndStateAndStatus";
 
 	@Id
 	@Basic(optional = false)
