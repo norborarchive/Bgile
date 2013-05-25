@@ -17,8 +17,10 @@ import javax.faces.bean.ManagedBean;
 import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.UserstoryFacade;
 import com.thjug.bgile.util.Constants;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FstoryManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -38,22 +40,22 @@ public class FstoryManaged extends AbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		userstory = new Userstory();
-	}
-
-	public String linkToForm() {
-		userstory = new Userstory();
-		return redirect("fstory");
-	}
-
-	public String linkToForm(final String storyid) {
-		try {
-			userstory = facade.findById(getAccountId(), Integer.valueOf(storyid));
-		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
-			addWarnMessage(e.getMessage(), storyid);
+		final String storyid = (String) getStoryfromAttribute();
+		if (storyid != null) {
+			try {
+				userstory = facade.findById(getAccountId(), Integer.valueOf(storyid));
+			} catch (final Exception e) {
+				LOG.error(e.getMessage(), e);
+				addErrorMessage("Story: {} not found.", storyid);
+			}
+		} else {
+			userstory = new Userstory();
 		}
-		return redirect("fstory");
+	}
+
+	private String getStoryfromAttribute() {
+		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+		return (attributes.size() > 0) ? attributes.get(0) : null;
 	}
 
 	public String saveStory() {
@@ -90,5 +92,9 @@ public class FstoryManaged extends AbstractManaged {
 
 	public boolean isNewUserstory() {
 		return userstory.getId() == null;
+	}
+
+	public Integer getBoardid() {
+		return (Integer) getSession().getAttribute("boardid");
 	}
 }

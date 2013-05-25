@@ -44,7 +44,7 @@
 							<p:commandButton id="profile" icon="ui-icon ui-icon-contact" value="Peerapat A"
 											 styleClass="btn btn-mini btn-info"
 											 style="margin-right: 12px;"
-											 action="#{profileManaged.linkToProfile}"/>
+											 action="#{profileManaged.linkToProfile(facesContext.viewRoot.viewId)}"/>
 
 							<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
 											 styleClass="btn btn-mini btn-danger"
@@ -53,16 +53,18 @@
 					</div>
 				</div>
 
-				<div style="padding-top: 12px; padding-bottom: 12px;">
-					<div style="padding-bottom: 12px; height: 320px;">
-						<ui:insert name="content" />
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div style="padding-top: 12px; padding-bottom: 12px;">
+							<div style="padding-bottom: 12px; height: 320px;">
+								<ui:insert name="content" />
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<p:poll interval="40" listener="#{retainSessionManaged.poll}" />
 			</h:form>
-
-			<ui:include src="/WEB-INF/include/footer.xhtml" />
         </h:body>
     </f:view>
 </html>

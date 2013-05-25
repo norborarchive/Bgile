@@ -70,6 +70,7 @@ public class BoardManaged extends AbstractManaged {
 	public void initial() {
 		final Integer boardid = getBoardIdfromAttribute();
 		if (boardid != null) {
+			getSession().setAttribute("boardid", boardid);
 			board = getBoard(boardid);
 			loadUserstory(boardid);
 			renderDashboard();
@@ -89,7 +90,11 @@ public class BoardManaged extends AbstractManaged {
 
 	private Integer getBoardIdfromAttribute() {
 		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
-		return (attributes.size() > 0) ? Integer.valueOf(attributes.get(0)) : null;
+		if (attributes != null) {
+			return (attributes.size() > 0) ? Integer.valueOf(attributes.get(0)) : null;
+		} else {
+			return (Integer) getSession().getAttribute("boardid");
+		}
 	}
 
 	public String linkToBoard() {
@@ -152,7 +157,7 @@ public class BoardManaged extends AbstractManaged {
 			panel.getChildren().add(text);
 
 			link = new HtmlOutputLink();
-			link.setValue("story.xhtml?id=" + us.getId());
+			link.setValue("/bgile/fstory/" + us.getId());
 
 			linkText = new HtmlOutputText();
 			linkText.setValue("Edit");

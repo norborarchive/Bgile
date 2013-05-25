@@ -6,10 +6,12 @@
 	  xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
-			<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="กระดาน"
+			<div class="control" >
+				<div style="float:left;">
+					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="กระดาน"
 								 styleClass="btn btn-mini btn-info"
-								 action="#{boardManaged.linkToBoard}"/>
+								 onclick="window.location.href='/bgile/board/#{fstoryManaged.boardid}';" />
+				</div>
 			</div>
 		</ui:define>
         <ui:define name="content">
@@ -21,9 +23,9 @@
 					<div class="row">
 						<div class="controls">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-tasks" ></i></span>
+								<span class="add-on"><i class="icon-pushpin" ></i></span>
 								<p:inputText id="storyid" style="width: 480px;" disabled="true"
-											 value="#{storyManaged.userstory.id}"/>
+											 value="#{fstoryManaged.userstory.id}"/>
 								<p:watermark for="storyid" value="US: " ></p:watermark>
 							</div>
 						</div>
@@ -32,10 +34,11 @@
 					<div class="row">
 						<div class="controls">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-tasks" ></i></span>
+								<span class="add-on"><i class="icon-pencil" ></i></span>
 								<p:inputText id="story" style="width: 480px;"
-											 value="#{storyManaged.userstory.story}"/>
-								<p:watermark for="story" value="รายละเอียดย่อ" ></p:watermark>
+											 value="#{fstoryManaged.userstory.story}" >
+								</p:inputText>
+								<p:watermark for="story" value="รายละเอียดย่อ" />
 							</div>
 						</div>
 					</div>
@@ -45,7 +48,9 @@
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-time" ></i></span>
 								<p:inputText id="estimate" style="width: 480px;"
-											 value="#{storyManaged.userstory.estimate}"/>
+											 value="#{fstoryManaged.userstory.estimate}" >
+								</p:inputText>
+								<p:watermark for="estimate" value="เวลาโดยประมาณ" />
 							</div>
 						</div>
 					</div>
@@ -54,7 +59,7 @@
 						<div class="controls">
 							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<p:inputTextarea id="description" style="width: 510px;"
-												 value="#{storyManaged.userstory.description}"/>
+												 value="#{fstoryManaged.userstory.description}"/>
 								<p:watermark for="description" value="รายละเอียด" />
 							</div>
 						</div>
@@ -65,15 +70,15 @@
 							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
 								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 												 styleClass="btn btn-mini btn-danger"
-												 rendered="#{!storyManaged.newUserstory}"
-												 action="#{storyManaged.removeStory}"/>
+												 rendered="#{!fstoryManaged.newUserstory}"
+												 action="#{fstoryManaged.removeStory}"/>
 							</div>
 						</div>
 						<div class="controls">
 							<div style="float:right;">
 								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
 												 styleClass="btn btn-mini btn-success"
-												 action="#{storyManaged.saveStory}"/>
+												 action="#{fstoryManaged.saveStory}"/>
 							</div>
 						</div>
 					</div>

@@ -27,9 +27,17 @@ import org.slf4j.LoggerFactory;
 public final class ProfileManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);
+	private String viewid;
 
-	public final String linkToProfile() {
-		return "profile?faces-redirect=true";
+	public final String linkToProfile(final String viewid) {
+		this.viewid = viewid;
+		LOG.info("Save viewid : {}", viewid);
+		return redirect("profile");
+	}
+
+	public final String back() {
+		return (viewid != null) ? redirect(viewid) : redirect("dashboard");
 	}
 
 }
