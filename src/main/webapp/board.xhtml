@@ -9,7 +9,7 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="แผงควบคุม"
 									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 onclick="window.location.href='/bgile/dashboard';" />
+									 onclick="window.location.href = '/bgile/dashboard';" />
 				</div>
 				<div style="float:left;">
 					<p:commandButton id="refresh" icon="ui-icon-refresh"
@@ -20,7 +20,7 @@
 				<div style="float:left;">
 					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="สตอรี่"
 									 styleClass="btn btn-mini btn-success"
-									 onclick="window.location.href='/bgile/fstory';" />
+									 onclick="window.location.href = '/bgile/fstory';" />
 				</div>
 
 				<div class="input-prepend" style="padding-left: 24px; float:left;">
@@ -40,6 +40,37 @@
 				<h4 style="width: 280px; text-align: left; float: left;">กำลังทดสอบ</h4>
 				<h4 style="width: 280px; text-align: left; float: left;">เสร็จ</h4>
 			</div>
+
+			<style type="text/css">
+				.ui-panel, div.ui-state-hover {
+					width :240px;
+					margin-bottom: 10px;
+				}
+
+				.ui-dashboard-column {
+					width:280px;
+				}
+
+				.ui-dashboard-header {
+					width:280px;
+				}
+
+				.ui-panel .ui-panel-titlebar {
+					padding: 0em 0em 0em;
+				}
+				.ui-corner-all {
+					-moz-border-radius: 0px;
+					-webkit-border-radius: 0px;
+					border-radius: 0px;
+				}
+				.ui-widget-header {
+					text-align: left;
+				}
+
+				.ui-panel-title {
+					padding-left: 4px;
+				}
+			</style>
 
 			<div class="row-fluid">
 				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
