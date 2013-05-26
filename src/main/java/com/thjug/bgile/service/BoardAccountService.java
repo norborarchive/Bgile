@@ -7,6 +7,7 @@ package com.thjug.bgile.service;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Boardaccount;
+import java.util.List;
 
 /**
  *

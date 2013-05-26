@@ -42,7 +42,6 @@ import javax.validation.constraints.Size;
 		@NamedQuery(name = "Todo.findByUpdated", query = "SELECT t FROM Todo t WHERE t.updated = :updated"),
 		@NamedQuery(name = "Todo.findByUpdateby", query = "SELECT t FROM Todo t WHERE t.updateby = :updateby") })
 public class Todo implements Serializable, Timeable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -63,9 +62,9 @@ public class Todo implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@JoinColumn(name = "userstoryid", referencedColumnName = "id")
+	@JoinColumn(name = "userstory", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Userstory userstoryid;
+	private Userstory userstory;
 
 	public Todo() {
 	}
@@ -123,12 +122,12 @@ public class Todo implements Serializable, Timeable {
 		this.updateby = updateby;
 	}
 
-	public Userstory getUserstoryid() {
-		return userstoryid;
+	public Userstory getUserstory() {
+		return userstory;
 	}
 
-	public void setUserstoryid(final Userstory userstoryid) {
-		this.userstoryid = userstoryid;
+	public void setUserstory(Userstory userstory) {
+		this.userstory = userstory;
 	}
 
 	@Override

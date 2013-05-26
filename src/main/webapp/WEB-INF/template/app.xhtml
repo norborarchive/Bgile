@@ -7,18 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:view contentType="text/html">
         <h:head>
-			<meta charset="utf-8" />
-			<title>Bgile</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			<meta name="description" content="" />
-			<meta name="author" content="" />
-
-			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/bootstrap/css/bootstrap.min.css" />
-			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/font-awesome.css" />
-			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/style.css" />
-
-			<h:outputText value="&lt;!--[if lte IE 7]&gt;&lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot; /&gt;&lt;![endif]--&gt;"
-						  escape="false" />
+			<ui:include src="/WEB-INF/include/header.xhtml" />
 
 			<style type="text/css">
 				.ui-panel, div.ui-state-hover {

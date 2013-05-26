@@ -106,9 +106,9 @@ public class Account implements Serializable, Converterable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Boardaccount> boardaccountList;
-	@OneToMany(mappedBy = "ownerid")
+	@OneToMany(mappedBy = "owner")
 	private List<Userstory> userstoryList;
 
 	public Account() {

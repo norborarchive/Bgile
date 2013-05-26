@@ -40,15 +40,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "userstory")
-@NamedQueries( {
-	@NamedQuery(name = Userstory.findByBoardAndStatus, query = "SELECT u FROM Userstory u WHERE u.boardid = ?1 and u.statusid = ?2"),
-	@NamedQuery(name = Userstory.findByLowerestAndBoardAndStateAndStatus, query = "SELECT u FROM Userstory u WHERE u.lowerest = ?1 and u.boardid = ?2 and u.stateid = ?3 and u.statusid = ?4"),})
+@NamedQueries( { @NamedQuery(name = Userstory.findByBoardAndStatus, query = "SELECT u FROM Userstory u WHERE u.board = ?1 and u.statusid = ?2"), })
 public class Userstory implements Serializable, Timeable {
-
 	private static final long serialVersionUID = 1L;
 
 	public static final String findByBoardAndStatus = "Userstory.findByBoardAndStatus";
-	public static final String findByLowerestAndBoardAndStateAndStatus = "Userstory.findByLowerestAndBoardAndStateAndStatus";
 
 	@Id
 	@Basic(optional = false)
@@ -62,9 +58,6 @@ public class Userstory implements Serializable, Timeable {
 	@Size(min = 1, max = 512)
 	@Column(name = "story")
 	private String story;
-	@JoinColumn(name = "ownerid", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Account ownerid;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "stateid")
@@ -73,12 +66,12 @@ public class Userstory implements Serializable, Timeable {
 	@NotNull
 	@Column(name = "statusid")
 	private char statusid;
-	@Column(name = "sortorder")
-	private Integer sortorder;
-	@Column(name = "lowerest")
-	private char lowerest;
-	@Column(name = "underid")
-	private Integer underid;
+	@JoinColumn(name = "board", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	private Board board;
+	@JoinColumn(name = "owner", referencedColumnName = "id")
+	@ManyToOne
+	private Account owner;
 	@Column(name = "estimate")
 	private Integer estimate;
 	@Size(max = 2147483647)
@@ -92,11 +85,8 @@ public class Userstory implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userstoryid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userstory")
 	private List<Todo> todoList;
-	@JoinColumn(name = "boardid", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	private Board boardid;
 
 	public Userstory() {
 	}
@@ -128,12 +118,12 @@ public class Userstory implements Serializable, Timeable {
 		this.story = story;
 	}
 
-	public Account getOwnerid() {
-		return ownerid;
+	public Account getOwner() {
+		return owner;
 	}
 
-	public void setOwnerid(final Account owner) {
-		this.ownerid = owner;
+	public void setOwner(final Account owner) {
+		this.owner = owner;
 	}
 
 	public char getStateid() {
@@ -168,30 +158,6 @@ public class Userstory implements Serializable, Timeable {
 		this.todoList = todoList;
 	}
 
-	public Integer getSortorder() {
-		return sortorder;
-	}
-
-	public void setSortorder(Integer sortorder) {
-		this.sortorder = sortorder;
-	}
-
-	public char getLowerest() {
-		return lowerest;
-	}
-
-	public void setLowerest(char lowerest) {
-		this.lowerest = lowerest;
-	}
-
-	public Integer getUnderid() {
-		return underid;
-	}
-
-	public void setUnderid(Integer underid) {
-		this.underid = underid;
-	}
-
 	public Integer getEstimate() {
 		return estimate;
 	}
@@ -200,12 +166,12 @@ public class Userstory implements Serializable, Timeable {
 		this.estimate = estimate;
 	}
 
-	public Board getBoardid() {
-		return boardid;
+	public Board getBoard() {
+		return board;
 	}
 
-	public void setBoardid(Board board) {
-		this.boardid = board;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	@Override
@@ -256,7 +222,7 @@ public class Userstory implements Serializable, Timeable {
 
 	@Override
 	public String toString() {
-		return "Userstory[ id=" + id + " ]";
+		return "UserStory[ id=" + id + " ]";
 	}
 
 }

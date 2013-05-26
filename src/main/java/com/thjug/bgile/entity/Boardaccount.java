@@ -36,9 +36,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "boardaccount")
-@NamedQueries( { @NamedQuery(name = Boardaccount.findByAccountAndBoard, query = "SELECT b FROM Boardaccount b WHERE b.accountid = ?1 and b.boardid = ?2") })
+@NamedQueries( { @NamedQuery(name = Boardaccount.findByAccountAndBoard, query = "SELECT b FROM Boardaccount b WHERE b.account = ?1 and b.board = ?2"), })
 public class Boardaccount implements Serializable, Timeable {
-
 	private static final long serialVersionUID = 1L;
 	public static final String findByAccountAndBoard = "Boardaccount.findByAccount";
 	@Id
@@ -60,12 +59,12 @@ public class Boardaccount implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@JoinColumn(name = "boardid", referencedColumnName = "id")
+	@JoinColumn(name = "board", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Board boardid;
-	@JoinColumn(name = "accountid", referencedColumnName = "id")
+	private Board board;
+	@JoinColumn(name = "account", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Account accountid;
+	private Account account;
 
 	public Boardaccount() {
 	}
@@ -95,20 +94,20 @@ public class Boardaccount implements Serializable, Timeable {
 		this.permissionid = permissionid;
 	}
 
-	public Board getBoardid() {
-		return boardid;
+	public Board getBoard() {
+		return board;
 	}
 
-	public void setBoardid(final Board board) {
-		this.boardid = board;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
-	public Account getAccountid() {
-		return accountid;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccountid(final Account account) {
-		this.accountid = account;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@Override
@@ -159,6 +158,7 @@ public class Boardaccount implements Serializable, Timeable {
 
 	@Override
 	public String toString() {
-		return "Boardaccount[ id=" + id + " ]";
+		return "BoardAccount[ id=" + id + " ]";
 	}
+
 }

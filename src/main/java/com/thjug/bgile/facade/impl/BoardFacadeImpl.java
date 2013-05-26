@@ -49,8 +49,8 @@ public class BoardFacadeImpl implements BoardFacade {
 		service.create(board);
 
 		final Boardaccount ba = new Boardaccount();
-		ba.setBoardid(board);
-		ba.setAccountid(accountService.find(board.getUpdateby()));
+		ba.setBoard(board);
+		ba.setAccount(accountService.find(accountid));
 		ba.setPermissionid('O');
 		ba.setUpdateby(accountid);
 		baService.create(ba);
@@ -97,8 +97,8 @@ public class BoardFacadeImpl implements BoardFacade {
 
 		final List<Board> boards = new LinkedList<>();
 		for (final Boardaccount b : account.getBoardaccountList()) {
-			if (b.getBoardid().getStatusid() == LIVE && b.getBoardid().getEnable() == 'T') {
-				boards.add(b.getBoardid());
+			if (b.getBoard().getStatusid() == LIVE && b.getBoard().getEnable() == 'T') {
+				boards.add(b.getBoard());
 			}
 		}
 

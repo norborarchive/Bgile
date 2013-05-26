@@ -6,6 +6,7 @@ package com.thjug.bgile.facade.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
 import static com.thjug.bgile.facade.AbstractFacade.DEAD;
@@ -33,11 +34,9 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Transactional
 	@Override
 	public Userstory create(final Integer accountid, final Integer boardid, final Userstory story) throws Exception {
-		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoardid();
-		final Integer underid = service.clearLowerestOnStorys(board);
+		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
 
-		story.setBoardid(board);
-		story.setUnderid(underid);
+		story.setBoard(board);
 		story.setUpdateby(accountid);
 		return service.createNewStory(story);
 	}
@@ -71,8 +70,22 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Transactional
 	@Override
 	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception {
-		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoardid();
+		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
 		return service.findByBoard(board);
 	}
 
+	@Logging
+	@Transactional
+	@Override
+	public Userstory move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate)
+			throws Exception {
+		final Userstory userstory = service.find(storyid);
+		userstory.setUpdateby(accountid);
+		userstory.setStateid(tostate);
+		userstory.setOwner((tostate == STATE0) ? null : new Account(accountid));
+
+		// FIXME: REORDER PROCESS
+
+		return service.edit(userstory);
+	}
 }

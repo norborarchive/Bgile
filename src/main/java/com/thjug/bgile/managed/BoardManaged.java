@@ -13,6 +13,7 @@
 package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,6 +36,7 @@ import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.UserstoryFacade;
+import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,15 +104,30 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 	public String refresh() {
+		LOG.info("Refresh Board: {}", board.getId());
 		loadUserstory(board.getId());
 		renderDashboard();
 		return null;
 	}
 
 	public void handleReorder(final DashboardReorderEvent event) {
-		LOG.info("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}", event.getWidgetId(), event
-				.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
-		addInfoMessage(event.getWidgetId(), event.getItemIndex().toString());
+		LOG.debug("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}",
+				event.getWidgetId(), event.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
+
+		final Integer storyid = Integer.valueOf(event.getWidgetId().replace("US", Constants.EMPTY));
+		final char fromsate = event.getSenderColumnIndex().toString().charAt(0);
+		final char tostate = event.getColumnIndex().toString().charAt(0);
+		LOG.info("Moved US: {} from state {} to state {}", storyid, fromsate, tostate);
+
+		try {
+			userstoryFacade.move(getAccountId(), storyid, fromsate, tostate);
+		} catch (final Exception e) {
+			LOG.error(e.getMessage(), e);
+			addErrorMessage("Cannot move US" + storyid, null);
+		}
+
+		loadUserstory(board.getId());
+		renderDashboard();
 	}
 
 	private void loadUserstory(final Integer projectid) {
@@ -147,8 +164,8 @@ public class BoardManaged extends AbstractManaged {
 			panel.setClosable(false);
 			panel.setToggleable(false);
 
-			if (us.getOwnerid() != null) {
-				panel.setFooter(us.getOwnerid().getFirstname() + " " + us.getOwnerid().getLastname());
+			if (us.getOwner() != null) {
+				panel.setFooter(us.getOwner().getFirstname() + " " + us.getOwner().getLastname());
 			}
 
 			text = new HtmlOutputText();

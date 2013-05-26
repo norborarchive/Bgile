@@ -31,6 +31,9 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
+			<p:growl id="growl" showDetail="true" />
+			<p:messages id="messages" />
+
 			<div class="row-fluid" style="padding-top: 6px; padding-bottom: 6px">
 				<h4 style="width: 280px; text-align: left; float: left;">วางแผน</h4>
 				<h4 style="width: 280px; text-align: left; float: left;">กำลังทำ</h4>
@@ -40,7 +43,7 @@
 
 			<div class="row-fluid">
 				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
-					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" />
+					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="dynamic_dashboard" />
 				</p:dashboard>
 			</div>
         </ui:define>

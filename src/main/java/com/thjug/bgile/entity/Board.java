@@ -39,6 +39,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "board")
 public class Board implements Serializable, Timeable {
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
+	private List<Storyorder> storyorderList;
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +78,9 @@ public class Board implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "boardid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
 	private List<Boardaccount> boardaccountList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "boardid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
 	private List<Userstory> userstoryList;
 
 	public Board() {
@@ -208,6 +210,14 @@ public class Board implements Serializable, Timeable {
 	@Override
 	public String toString() {
 		return "Project[ id=" + id + " ]";
+	}
+
+	public List<Storyorder> getStoryorderList() {
+		return storyorderList;
+	}
+
+	public void setStoryorderList(List<Storyorder> storyorderList) {
+		this.storyorderList = storyorderList;
 	}
 
 }

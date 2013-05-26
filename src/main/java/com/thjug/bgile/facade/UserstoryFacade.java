@@ -40,4 +40,7 @@ public interface UserstoryFacade extends AbstractFacade {
 
 	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception;
 
+	public Userstory move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate)
+			throws Exception;
+
 }

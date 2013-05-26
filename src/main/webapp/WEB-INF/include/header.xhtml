@@ -6,16 +6,24 @@
 	<meta charset="utf-8" />
 	<title>Bgile</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
+
+	<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/assets/favicon.ico" />
 
 	<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/prettyPhoto/css/prettyPhoto.css" />
-	<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/flexslider.css" />
 	<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/font-awesome.css" />
 	<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/style.css" />
 
 	<h:outputText value="&lt;!--[if lte IE 7]&gt;&lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot; /&gt;&lt;![endif]--&gt;"
 				  escape="false" />
 
+	<ui:remove>
+		<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/prettyPhoto/css/prettyPhoto.css" />
+		<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/assets/css/flexslider.css" />
+
+		<!-- Favicon and touch icons -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="#{facesContext.externalContext.requestContextPath}/assets/ico/apple-touch-icon-144-precomposed.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="#{facesContext.externalContext.requestContextPath}/assets/ico/apple-touch-icon-114-precomposed.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="#{facesContext.externalContext.requestContextPath}/assets/ico/apple-touch-icon-72-precomposed.png" />
+		<link rel="apple-touch-icon-precomposed" href="#{facesContext.externalContext.requestContextPath}/assets/ico/apple-touch-icon-57-precomposed.png" />
+	</ui:remove>
 </ui:composition>

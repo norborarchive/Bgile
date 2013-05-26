@@ -2,10 +2,12 @@ DROP SEQUENCE IF EXISTS account_id_seq;
 DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS userstory_id_seq;
+DROP SEQUENCE IF EXISTS storyorder_id_seq;
 DROP SEQUENCE IF EXISTS todo_id_seq;
 DROP SEQUENCE IF EXISTS history_id_seq;
 
 DROP TABLE IF EXISTS TODO;
+DROP TABLE IF EXISTS STORYORDER;
 DROP TABLE IF EXISTS USERSTORY;
 DROP TABLE IF EXISTS BOARDACCOUNT;
 DROP TABLE IF EXISTS BOARD;
@@ -79,8 +81,8 @@ ALTER TABLE board_id_seq
 CREATE TABLE BOARDACCOUNT
 (
   ID            integer,
-  ACCOUNTID     integer NOT NULL,
-  BOARDID		integer NOT NULL,
+  ACCOUNT       integer NOT NULL,
+  BOARD  		integer NOT NULL,
   PERMISSIONID  character(1) NOT NULL,
 
   CREATED       timestamp with time zone,
@@ -88,13 +90,13 @@ CREATE TABLE BOARDACCOUNT
   UPDATEBY      integer,
 
   CONSTRAINT BOARD_ACCOUNT_PK PRIMARY KEY (ID),
-  CONSTRAINT BOARD_ACCOUNT_FK1 FOREIGN KEY (BOARDID)
+  CONSTRAINT BOARD_ACCOUNT_FK1 FOREIGN KEY (BOARD)
       REFERENCES BOARD (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT BOARD_ACCOUNT_FK2 FOREIGN KEY (ACCOUNTID)
+  CONSTRAINT BOARD_ACCOUNT_FK2 FOREIGN KEY (ACCOUNT)
       REFERENCES ACCOUNT (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT BOARDACCOUNT_IND0 UNIQUE (accountid, boardid)
+  CONSTRAINT BOARDACCOUNT_IND0 UNIQUE (account, board)
 )
 WITH (
   OIDS = FALSE
@@ -115,12 +117,9 @@ ALTER TABLE boardaccount_id_seq
 CREATE TABLE USERSTORY
 (
   ID            integer,
-  BOARDID       integer NOT NULL,
+  BOARD         integer NOT NULL,
   STORY         character varying(512) NOT NULL,
-  OWNERID       integer,
-  SORTORDER		integer,
-  LOWEREST      character(1),
-  UNDERID		integer,
+  OWNER         integer,
   ESTIMATE      integer,
   STATEID       character(1) NOT NULL,
   STATUSID      character(1) NOT NULL,
@@ -131,10 +130,10 @@ CREATE TABLE USERSTORY
   UPDATEBY      integer,
 
   CONSTRAINT USERSTORY_PK PRIMARY KEY (ID),
-  CONSTRAINT USERSTORY_FK1 FOREIGN KEY (BOARDID)
+  CONSTRAINT USERSTORY_FK1 FOREIGN KEY (BOARD)
       REFERENCES BOARD (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT USERSTORY_FK2 FOREIGN KEY (OWNERID)
+  CONSTRAINT USERSTORY_FK2 FOREIGN KEY (OWNER)
       REFERENCES ACCOUNT (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
@@ -142,6 +141,7 @@ WITH (
   OIDS = FALSE
 ) TABLESPACE pg_default;
 ALTER TABLE USERSTORY     OWNER TO bgile;
+
 
 CREATE SEQUENCE userstory_id_seq
   INCREMENT 1
@@ -153,10 +153,42 @@ ALTER TABLE userstory_id_seq
   OWNER TO bgile;
 
 
+CREATE TABLE STORYORDER
+(
+  ID            integer,
+  BOARD         integer NOT NULL,
+  STATEID       character varying(1) NOT NULL,
+  ORDERBY		text,
+
+  CREATED       timestamp with time zone,
+  UPDATED       timestamp with time zone,
+  UPDATEBY      integer,
+
+  CONSTRAINT STORYORDER_PK PRIMARY KEY (ID),
+  CONSTRAINT STORYORDER_FK1 FOREIGN KEY (BOARD)
+      REFERENCES BOARD (ID) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS = FALSE
+) TABLESPACE pg_default;
+ALTER TABLE STORYORDER     OWNER TO bgile;
+
+
+CREATE SEQUENCE storyorder_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1000
+  CACHE 1;
+ALTER TABLE storyorder_id_seq
+  OWNER TO bgile;
+
+
 CREATE TABLE TODO
 (
   ID            integer,
-  USERSTORYID   integer NOT NULL,
+  USERSTORY     integer NOT NULL,
   DESCRIPTION   character varying(512) NOT NULL,
 
   CREATED       timestamp with time zone,
@@ -164,7 +196,7 @@ CREATE TABLE TODO
   UPDATEBY      integer,
 
   CONSTRAINT TODO_PK PRIMARY KEY (ID),
-  CONSTRAINT TODO_FK1 FOREIGN KEY (USERSTORYID)
+  CONSTRAINT TODO_FK1 FOREIGN KEY (USERSTORY)
       REFERENCES USERSTORY (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
@@ -227,9 +259,13 @@ INSERT INTO board(
     VALUES (1, 'L', 'T', 'Bgile', 'Bgile not Agile', 'board/000000000.jpg');
 
 INSERT INTO boardaccount(
-            id, boardid, accountid, permissionid)
+            id, board, account, permissionid)
     VALUES (1, 1, 2, 'O');
 
 INSERT INTO userstory(
-            id, boardid, stateid, statusid, ownerid, LOWEREST, story)
-    VALUES (1, 1, '0', 'L', 2, 'T','Test Story');
+            id, board, stateid, statusid, story)
+    VALUES (1, 1, '0', 'L', 'Test Story');
+
+INSERT INTO storyorder(
+            id, board, stateid, orderby)
+    VALUES (1, 1, '0', '1,');

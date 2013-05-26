@@ -17,6 +17,7 @@ import com.thjug.bgile.entity.Userstory;
 import com.thjug.bgile.facade.AbstractFacade;
 import com.thjug.bgile.facade.UserstoryFacade;
 import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,24 +31,12 @@ public final class UserstoryService extends AbstractService<Userstory> {
 	}
 
 	public List<Userstory> findByBoard(final Board board) {
-		return findAll(Userstory.findByBoardAndStatus, board, LIVE);
-	}
+		final List<Userstory> storys = findAll(Userstory.findByBoardAndStatus, board, LIVE);
 
-	public List<Userstory> findLowerestinState0ByBoard(final Board board) {
-		return findAll(Userstory.findByLowerestAndBoardAndStateAndStatus, AbstractFacade.TRUE, board, UserstoryFacade.STATE0, LIVE);
-	}
-
-	public Integer clearLowerestOnStorys(final Board board) {
-		List<Userstory> storys = findLowerestinState0ByBoard(board);
-		for (final Userstory us : storys) {
-			us.setLowerest(FALSE);
-			edit(us);
-		}
-		return (!storys.isEmpty()) ? storys.get(0).getId() : null;
+		return storys;
 	}
 
 	public Userstory createNewStory(final Userstory story) {
-		story.setLowerest(TRUE);
 		story.setStateid(STATE0);
 		story.setStatusid(LIVE);
 		return create(story);

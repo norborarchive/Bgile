@@ -31,8 +31,6 @@ public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
 		story.setStory("NG Test");
 		Userstory result = instance.create(accountid, boardid, story);
 		assertNotNull(result.getId());
-		assertNotNull(result.getUnderid());
-		assertEquals(result.getLowerest(), AbstractFacade.TRUE);
 	}
 
 	//@Test

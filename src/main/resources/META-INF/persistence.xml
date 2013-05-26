@@ -8,6 +8,7 @@
     <class>com.thjug.bgile.entity.Board</class>
     <class>com.thjug.bgile.entity.Boardaccount</class>
     <class>com.thjug.bgile.entity.History</class>
+    <class>com.thjug.bgile.entity.Storyorder</class>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
