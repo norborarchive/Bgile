@@ -33,11 +33,13 @@ public class SigninManaged extends AbstractManaged {
 	private String password;
 
 	public String authen() {
+		// FIXME: Implement real authentication
 		getSession().setAttribute("accountid", 2);
 		return redirect("dashboard");
 	}
 
 	public String logout() {
+		// FIXME: Clear Login Session.
 		return redirect("home");
 	}
 

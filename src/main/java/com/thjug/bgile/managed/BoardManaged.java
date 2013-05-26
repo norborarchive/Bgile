@@ -150,12 +150,10 @@ public class BoardManaged extends AbstractManaged {
 
 		Panel panel;
 		HtmlOutputText text;
-		HtmlOutputLink link;
-		HtmlOutputText linkText;
 		for (final Userstory us : userstoryList) {
 			panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
 			panel.setId("US" + us.getId().toString());
-			panel.setHeader("US:" + us.getId().toString());
+			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fstory/" + us.getId() + "'>" + "US" + us.getId() + "</a>");
 			panel.setClosable(false);
 			panel.setToggleable(false);
 
@@ -165,16 +163,8 @@ public class BoardManaged extends AbstractManaged {
 
 			text = new HtmlOutputText();
 			text.setEscape(false);
-			text.setValue(us.getStory() + "<br />");
+			text.setValue("<pre>" + us.getStory() + "</pre>");
 			panel.getChildren().add(text);
-
-			link = new HtmlOutputLink();
-			link.setValue("/bgile/fstory/" + us.getId());
-
-			linkText = new HtmlOutputText();
-			linkText.setValue("Edit");
-			link.getChildren().add(linkText);
-			panel.getChildren().add(link);
 
 			dashboard.getChildren().add(panel);
 

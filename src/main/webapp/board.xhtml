@@ -14,7 +14,7 @@
 				<div style="float:left;">
 					<p:commandButton id="refresh" icon="ui-icon-refresh"
 									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 action="#{boardManaged.refresh}" />
+									 action="#{boardManaged.refresh}" update="dynamic_dashboard" />
 				</div>
 
 				<div style="float:left;">
@@ -31,32 +31,28 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
-			<p:growl id="growl" showDetail="true" />
-			<p:messages id="messages" />
-
-			<div class="row-fluid" style="padding-top: 6px; padding-bottom: 6px">
-				<h4 style="width: 280px; text-align: left; float: left;">วางแผน</h4>
-				<h4 style="width: 280px; text-align: left; float: left;">กำลังทำ</h4>
-				<h4 style="width: 280px; text-align: left; float: left;">กำลังทดสอบ</h4>
-				<h4 style="width: 280px; text-align: left; float: left;">เสร็จ</h4>
-			</div>
-
 			<style type="text/css">
+				.ui-panel {
+					padding: 0.0em;
+				}
+				.ui-panel .ui-panel-content {
+					text-align: left;
+				}
+				.ui-panel .ui-panel-footer {
+					padding: 0.2em 0.4em;
+				}
 				.ui-panel, div.ui-state-hover {
 					width :240px;
 					margin-bottom: 10px;
 				}
-
 				.ui-dashboard-column {
 					width:280px;
 				}
-
 				.ui-dashboard-header {
 					width:280px;
 				}
-
 				.ui-panel .ui-panel-titlebar {
-					padding: 0em 0em 0em;
+					padding: 0.2em 0em 0.2em;
 				}
 				.ui-corner-all {
 					-moz-border-radius: 0px;
@@ -66,11 +62,37 @@
 				.ui-widget-header {
 					text-align: left;
 				}
-
 				.ui-panel-title {
 					padding-left: 4px;
 				}
+				pre {
+					display: block;
+					padding: 2px;
+					margin: 0 0 0px;
+					font-size: 13px;
+					line-height: 24px;
+					word-break: break-all;
+					word-wrap: break-word;
+					white-space: pre;
+					white-space: pre-wrap;
+					background-color: white;
+					border: 0px solid #ccc;
+					border: 0px solid rgba(0, 0, 0, 0.15);
+					-webkit-border-radius: 0px;
+					-moz-border-radius: 0px;
+					border-radius: 0px;
+				}
 			</style>
+
+			<p:growl id="growl" showDetail="true" />
+			<p:messages id="messages" />
+
+			<div class="row-fluid" style="padding-top: 6px; padding-bottom: 6px">
+				<h4 style="width: 280px; text-align: left; float: left;">วางแผน</h4>
+				<h4 style="width: 280px; text-align: left; float: left;">กำลังทำ</h4>
+				<h4 style="width: 280px; text-align: left; float: left;">กำลังทดสอบ</h4>
+				<h4 style="width: 280px; text-align: left; float: left;">เสร็จ</h4>
+			</div>
 
 			<div class="row-fluid">
 				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >

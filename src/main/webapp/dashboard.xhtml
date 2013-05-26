@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:h="http://java.sun.com/jsf/html">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="control">
@@ -34,18 +35,29 @@
 							<td>#{b.description}</td>
 							<td>#{b.created}</td>
 							<td>
-								<p:commandButton id="grantAccount" style="margin-right: 12px;"
+								<h:outputLink value="grant/#{b.id}"  style="padding-right: 16px;">
+									<i class="icon-group" style="font-size: 2em;"></i></h:outputLink>
+
+								<h:outputLink value="fboard/#{b.id}" style="padding-right: 16px;">
+									<i class="icon-edit" style="font-size: 2em;"></i></h:outputLink>
+
+								<h:outputLink value="board/#{b.id}"  >
+									<i class="icon-list-alt" style="font-size: 2em;"></i></h:outputLink>
+
+								<ui:remove>
+									<p:commandButton id="grantAccount" style="margin-right: 12px;"
 												 icon="ui-icon ui-icon-person"
 												 styleClass="btn btn-mini btn-info"
 												 onclick="window.location.href='/bgile/grant/#{b.id}';" />
-								<p:commandButton id="editProjet" style="margin-right: 12px;"
-												 icon="ui-icon ui-icon-disk"
-												 styleClass="btn btn-mini btn-info"
-												 onclick="window.location.href='/bgile/fboard/#{b.id}';" />
-								<p:commandButton id="linkToBoard"
-												 icon="ui-icon ui-icon-arrowthick-1-e"
-												 styleClass="btn btn-mini btn-info"
-												 onclick="window.location.href='/bgile/board/#{b.id}';" />
+									<p:commandButton id="editProjet" style="margin-right: 12px;"
+													 icon="ui-icon ui-icon-disk"
+													 styleClass="btn btn-mini btn-info"
+													 onclick="window.location.href='/bgile/fboard/#{b.id}';" />
+									<p:commandButton id="linkToBoard"
+													 icon="ui-icon ui-icon-arrowthick-1-e"
+													 styleClass="btn btn-mini btn-info"
+													 onclick="window.location.href='/bgile/board/#{b.id}';" />
+								</ui:remove>
 							</td>
 						</tr>
 					</ui:repeat>
