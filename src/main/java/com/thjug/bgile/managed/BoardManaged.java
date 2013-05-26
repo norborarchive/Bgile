@@ -72,7 +72,7 @@ public class BoardManaged extends AbstractManaged {
 			loadUserstory(boardid);
 			renderDashboard();
 		} else {
-			addErrorMessage("Board ID " + boardid + " not found.", null);
+			addInfoMessage("Board ID " + boardid + " not found.", null);
 		}
 	}
 
@@ -80,15 +80,15 @@ public class BoardManaged extends AbstractManaged {
 		try {
 			return boardFacade.findById(getAccountId(), boardid);
 		} catch (final Exception e) {
-			addErrorMessage("Board {} not found.", null);
+			addErrorMessage("Board " + boardid + " not found.", null);
 			return null;
 		}
 	}
 
 	private Integer getBoardIdfromAttribute() {
 		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
-		if (attributes != null) {
-			return (attributes.size() > 0) ? Integer.valueOf(attributes.get(0)) : null;
+		if (attributes != null && attributes.size() > 0) {
+			return Integer.valueOf(attributes.get(0));
 		} else {
 			return (Integer) getSession().getAttribute("boardid");
 		}
