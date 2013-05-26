@@ -43,7 +43,7 @@
 
 			<div class="row-fluid">
 				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
-					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="dynamic_dashboard" />
+					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="dynamic_dashboard growl" />
 				</p:dashboard>
 			</div>
         </ui:define>

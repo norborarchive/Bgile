@@ -34,19 +34,19 @@ public final class HomeManaged extends AbstractManaged {
 	}
 
 	public String getCurrentHome() {
-		return (getRequestURL().contains("home")) ? "current-page" : "";
+		return (getViewId().contains("home")) ? "current-page" : "";
 	}
 
 	public String getCurrentProjects() {
-		return (getRequestURL().contains("projects")) ? "current-page" : "";
+		return (getViewId().contains("dashboard")) ? "current-page" : "";
 	}
 
 	public String getCurrentSignin() {
-		return (getRequestURL().contains("signin")) ? "current-page" : "";
+		return (getViewId().contains("signin")) ? "current-page" : "";
 	}
 
 	public String getCurrentContact() {
-		return (getRequestURL().contains("contact")) ? "current-page" : "";
+		return (getViewId().contains("contact")) ? "current-page" : "";
 	}
 
 }
