@@ -57,7 +57,7 @@ public class BoardManaged extends AbstractManaged {
 	private Board board;
 	private Userstory userstory;
 	private List<Userstory> userstoryList;
-	private transient Dashboard dashboard;
+	private Dashboard dashboard;
 	@Inject
 	private transient BoardFacade boardFacade;
 	@Inject
