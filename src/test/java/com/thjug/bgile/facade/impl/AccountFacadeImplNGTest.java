@@ -29,17 +29,8 @@ public class AccountFacadeImplNGTest extends AbstractFacadeNGTest {
 		final Account account;
 		final AccountFacadeImpl accountFacadeImpl = injector.getInstance(AccountFacadeImpl.class);
 
-		account = accountFacadeImpl.findAccountById(1);
+		account = accountFacadeImpl.findById(1);
 		assertEquals(account.getId(), Integer.valueOf(1));
-	}
-
-	@Test
-	public void FindByTypeidAccountFound() throws Exception {
-		final List<Account> accountList;
-		final AccountFacadeImpl accountFacadeImpl = injector.getInstance(AccountFacadeImpl.class);
-
-		accountList = accountFacadeImpl.findAllStaff();
-		assertNotEquals(accountList.size(), 0);
 	}
 
 	@Test

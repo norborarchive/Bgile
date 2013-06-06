@@ -12,6 +12,10 @@
  */
 package com.thjug.bgile.managed;
 
+import com.google.inject.Inject;
+import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.facade.AccountFacade;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -28,16 +32,80 @@ public final class ProfileManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);
+	private Account account;
 	private String viewid;
+	private String password;
+	private String confirmpassword;
+	@Inject
+	private transient AccountFacade facade;
 
-	public final String linkToProfile(final String viewid) {
+	@PostConstruct
+	public void initial() {
+		try {
+			account = facade.findById(getAccountId());
+		} catch (final Exception e) {
+			LOG.error(e.getMessage(), e);
+		}
+	}
+
+	public String linkToProfile(final String viewid) {
 		this.viewid = viewid;
 		LOG.info("Save viewid : {}", viewid);
 		return redirect("profile");
 	}
 
-	public final String back() {
+	public String back() {
 		return (viewid != null) ? redirect(viewid) : redirect("dashboard");
+	}
+
+	public String save() {
+		try {
+			facade.editAccount(account);
+		} catch (final Exception e) {
+			addErrorMessage("Server Error", "Cannot changed account information.");
+			LOG.error(e.getMessage(), e);
+		}
+		return null;
+	}
+
+	public final String changepasswd() {
+		try {
+			if (password.equals(confirmpassword)) {
+				account = facade.findById(getAccountId());
+				account.setPasswd(password);
+				facade.editAccount(account);
+			} else {
+				addWarnMessage("Password Mismatch", "Verify password & confirm password not equal.");
+			}
+		} catch (final Exception e) {
+			addErrorMessage("Server Error", "Cannot changed account password.");
+			LOG.error(e.getMessage(), e);
+		}
+		return null;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmpassword() {
+		return confirmpassword;
+	}
+
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
 	}
 
 }

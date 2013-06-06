@@ -24,4 +24,8 @@ public final class AccountService extends AbstractService<Account> {
 		super(Account.class);
 	}
 
+	public Account findByUsername(final String username) throws Exception {
+		return findOne(Account.findByUsername, username);
+	}
+
 }

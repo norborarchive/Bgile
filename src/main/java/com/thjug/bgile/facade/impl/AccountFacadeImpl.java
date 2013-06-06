@@ -12,8 +12,6 @@
  */
 package com.thjug.bgile.facade.impl;
 
-import java.util.List;
-
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
@@ -26,7 +24,6 @@ import com.thjug.bgile.interceptor.Logging;
  *
  * @author @nuboat
  */
-// FIXME
 public class AccountFacadeImpl implements AccountFacade {
 
 	private static final long serialVersionUID = 1L;
@@ -41,52 +38,32 @@ public class AccountFacadeImpl implements AccountFacade {
 		return accountService.create(account);
 	}
 
-	@Override
 	@Logging
 	@Transactional
+	@Override
 	public Account editAccount(final Account account) {
 		return accountService.edit(account);
 	}
 
-	@Override
 	@Logging
 	@Transactional
+	@Override
 	public void removeAccount(final Account account) throws Exception {
 		accountService.remove(account);
 	}
 
-	@Override
 	@Logging
 	@Transactional
+	@Override
 	public Account findByUsername(final String username) throws Exception {
-		return null;// accountService.findOne(Account.findByUsername, username);
+		return accountService.findByUsername(username);
 	}
 
-	@Override
 	@Logging
 	@Transactional
-	public Account findAccountById(final Integer id) {
+	@Override
+	public Account findById(final Integer id) {
 		return accountService.find(id);
 	}
 
-	@Override
-	@Logging
-	@Transactional
-	public List<Account> findAllStaff() throws Exception {
-		return null;// accountService.findAll(Account.findByTypeid, 'S');
-	}
-
-	@Override
-	@Logging
-	@Transactional
-	public List<Account> findAccounts(final Integer offset, final Integer limit) throws Exception {
-		return null;// accountService.findRange(Account.findAll, offset, limit);
-	}
-
-	@Override
-	@Logging
-	@Transactional
-	public int getAccountsCount() throws Exception {
-		return 0;// accountService.<Long> findOne(Account.findAllCount).intValue();
-	}
 }

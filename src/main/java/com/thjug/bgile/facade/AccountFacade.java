@@ -33,12 +33,6 @@ public interface AccountFacade extends AbstractFacade {
 
 	public Account findByUsername(final String username) throws Exception;
 
-	public Account findAccountById(final Integer id) throws Exception;
-
-	public List<Account> findAllStaff() throws Exception;
-
-	public List<Account> findAccounts(final Integer offset, final Integer limit) throws Exception;
-
-	public int getAccountsCount() throws Exception;
+	public Account findById(final Integer id) throws Exception;
 
 }

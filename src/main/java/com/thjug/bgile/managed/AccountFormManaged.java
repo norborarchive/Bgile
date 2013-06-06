@@ -68,7 +68,7 @@ public class AccountFormManaged extends AbstractManaged {
 		if (accountIdParam != null) {
 			final Integer accountId = Integer.parseInt(accountIdParam);
 			try {
-				account = accountFacade.findAccountById(accountId);
+				account = accountFacade.findById(accountId);
 			} catch (Exception e) {
 				LOG.warn(e.getMessage());
 			}

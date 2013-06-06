@@ -264,8 +264,12 @@ INSERT INTO boardaccount(
 
 INSERT INTO userstory(
             id, board, stateid, statusid, story)
-    VALUES (1, 1, '0', 'L', 'Test Story');
+    VALUES (1, 1, '0', 'L', 'User Login Page');
+
+INSERT INTO userstory(
+            id, board, stateid, statusid, story)
+    VALUES (2, 1, '0', 'L', 'User Profile Page');
 
 INSERT INTO storyorder(
             id, board, stateid, orderby)
-    VALUES (1, 1, '0', '1,');
+    VALUES (1, 1, '0', '1, 2,');
