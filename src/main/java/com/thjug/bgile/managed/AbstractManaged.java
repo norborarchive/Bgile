@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
+import com.thjug.bgile.entity.Account;
 import java.io.Serializable;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -40,7 +41,7 @@ public abstract class AbstractManaged implements Serializable {
 	}
 
 	protected final HttpSession getSession() {
-		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	}
 
 	protected final ServletContext getApplication() {
@@ -76,7 +77,8 @@ public abstract class AbstractManaged implements Serializable {
 	}
 
 	protected final Integer getAccountId() {
-		return 2;
+		final Object id = getSession().getAttribute(Account.class.getSimpleName());
+		return (id != null) ? (Integer) getSession().getAttribute(Account.class.getSimpleName()) : null;
 	}
 
 	protected final String getViewId() {

@@ -22,8 +22,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -70,6 +68,9 @@ public class Board implements Serializable, Timeable {
 	@Size(max = 256)
 	@Column(name = "logopath")
 	private String logopath;
+	@Size(max = 256)
+	@Column(name = "maxcard")
+	private int maxcard;
 	@Column(name = "created")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
@@ -81,7 +82,7 @@ public class Board implements Serializable, Timeable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
 	private List<Boardaccount> boardaccountList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
-	private List<Userstory> userstoryList;
+	private List<Card> cardList;
 
 	public Board() {
 	}
@@ -145,6 +146,14 @@ public class Board implements Serializable, Timeable {
 		this.logopath = logopath;
 	}
 
+	public int getMaxcard() {
+		return maxcard;
+	}
+
+	public void setMaxcard(int maxcard) {
+		this.maxcard = maxcard;
+	}
+
 	@Override
 	public Date getCreated() {
 		return created;
@@ -181,12 +190,20 @@ public class Board implements Serializable, Timeable {
 		this.boardaccountList = boardaccountList;
 	}
 
-	public List<Userstory> getUserstoryList() {
-		return userstoryList;
+	public List<Card> getCardList() {
+		return cardList;
 	}
 
-	public void setUserstoryList(final List<Userstory> userstoryList) {
-		this.userstoryList = userstoryList;
+	public void setCardList(final List<Card> cardList) {
+		this.cardList = cardList;
+	}
+
+	public List<Storyorder> getStoryorderList() {
+		return storyorderList;
+	}
+
+	public void setStoryorderList(List<Storyorder> storyorderList) {
+		this.storyorderList = storyorderList;
 	}
 
 	@Override
@@ -210,14 +227,6 @@ public class Board implements Serializable, Timeable {
 	@Override
 	public String toString() {
 		return "Project[ id=" + id + " ]";
-	}
-
-	public List<Storyorder> getStoryorderList() {
-		return storyorderList;
-	}
-
-	public void setStoryorderList(List<Storyorder> storyorderList) {
-		this.storyorderList = storyorderList;
 	}
 
 }

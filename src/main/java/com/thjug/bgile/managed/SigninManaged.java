@@ -12,12 +12,16 @@
  */
 package com.thjug.bgile.managed;
 
+import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.security.Encrypter;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 
 /**
  *
@@ -33,13 +37,27 @@ public class SigninManaged extends AbstractManaged {
 	private String password;
 
 	public String authen() {
-		// FIXME: Implement real authentication
-		getSession().setAttribute("accountid", 2);
+		final UsernamePasswordToken token = new UsernamePasswordToken(username, Encrypter.cipher(password));
+		final Subject subject = SecurityUtils.getSubject();
+		try {
+			token.setRememberMe(true);
+			subject.login(token);
+
+			final Account account = (Account) subject.getPrincipal();
+			getSession().setAttribute(Account.class.getSimpleName(), account.getId());
+		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
+			addWarnMessage("Username Or Password not correct.", null);
+			return null;
+		} catch (final LockedAccountException e) {
+			addWarnMessage("Username wasn't activated", null);
+			return null;
+		}
 		return redirect("dashboard");
 	}
 
 	public String logout() {
-		// FIXME: Clear Login Session.
+		SecurityUtils.getSubject().logout();
+		getSession().invalidate();
 		return redirect("home");
 	}
 

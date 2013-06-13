@@ -8,32 +8,30 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Userstory;
+import com.thjug.bgile.entity.Card;
 import static com.thjug.bgile.facade.AbstractFacade.DEAD;
-import static com.thjug.bgile.facade.AbstractFacade.FALSE;
-import com.thjug.bgile.facade.UserstoryFacade;
-import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
+import com.thjug.bgile.facade.CardFacade;
+import static com.thjug.bgile.facade.CardFacade.STATE0;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
-import com.thjug.bgile.service.BoardService;
-import com.thjug.bgile.service.UserstoryService;
+import com.thjug.bgile.service.CardService;
 import java.util.List;
 
 /**
  *
  * @author @nuboat
  */
-public class UserstoryFacadeImpl implements UserstoryFacade {
+public class CardFacadeImpl implements CardFacade {
 
 	@Inject
-	private UserstoryService service;
+	private CardService service;
 	@Inject
 	private BoardAccountService boardService;
 
 	@Logging
 	@Transactional
 	@Override
-	public Userstory create(final Integer accountid, final Integer boardid, final Userstory story) throws Exception {
+	public Card create(final Integer accountid, final Integer boardid, final Card story) throws Exception {
 		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
 
 		story.setBoard(board);
@@ -44,7 +42,7 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory edit(final Integer accountid, final Userstory story) throws Exception {
+	public Card edit(final Integer accountid, final Card story) throws Exception {
 		story.setUpdateby(accountid);
 		return service.edit(story);
 	}
@@ -52,7 +50,7 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory remove(final Integer accountid, final Userstory story) throws Exception {
+	public Card remove(final Integer accountid, final Card story) throws Exception {
 		story.setStatusid(DEAD);
 		story.setUpdateby(accountid);
 		return service.edit(story);
@@ -61,7 +59,7 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory findById(final Integer accountid, final Integer storyid) throws Exception {
+	public Card findById(final Integer accountid, final Integer storyid) throws Exception {
 		// FIXME: Shared sink
 		return service.find(storyid);
 	}
@@ -69,7 +67,7 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public List<Userstory> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception {
+	public List<Card> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception {
 		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
 		return service.findByBoard(board);
 	}
@@ -77,15 +75,15 @@ public class UserstoryFacadeImpl implements UserstoryFacade {
 	@Logging
 	@Transactional
 	@Override
-	public Userstory move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate)
+	public Card move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate)
 			throws Exception {
-		final Userstory userstory = service.find(storyid);
-		userstory.setUpdateby(accountid);
-		userstory.setStateid(tostate);
-		userstory.setOwner((tostate == STATE0) ? null : new Account(accountid));
+		final Card card = service.find(storyid);
+		card.setUpdateby(accountid);
+		card.setStateid(tostate);
+		card.setOwner((tostate == STATE0) ? null : new Account(accountid));
 
 		// FIXME: REORDER PROCESS
 
-		return service.edit(userstory);
+		return service.edit(card);
 	}
 }

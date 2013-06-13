@@ -15,9 +15,11 @@ package com.thjug.bgile.managed;
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
+import com.thjug.bgile.security.Encrypter;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +74,7 @@ public final class ProfileManaged extends AbstractManaged {
 		try {
 			if (password.equals(confirmpassword)) {
 				account = facade.findById(getAccountId());
-				account.setPasswd(password);
+				account.setPasswd(Encrypter.cipher(password));
 				facade.editAccount(account);
 			} else {
 				addWarnMessage("Password Mismatch", "Verify password & confirm password not equal.");

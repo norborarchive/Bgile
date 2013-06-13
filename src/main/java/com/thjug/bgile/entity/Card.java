@@ -39,19 +39,20 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "userstory")
-@NamedQueries( { @NamedQuery(name = Userstory.findByBoardAndStatus, query = "SELECT u FROM Userstory u WHERE u.board = ?1 and u.statusid = ?2"), })
-public class Userstory implements Serializable, Timeable {
+@Table(name = "CARD")
+@NamedQueries({
+	@NamedQuery(name = Card.findByBoardAndStatus, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"),})
+public class Card implements Serializable, Timeable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String findByBoardAndStatus = "Userstory.findByBoardAndStatus";
+	public static final String findByBoardAndStatus = "Card.findByBoardAndStatus";
 
 	@Id
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "id")
-	@SequenceGenerator(name = "userstory_seq_gen", sequenceName = "userstory_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userstory_seq_gen")
+	@SequenceGenerator(name = "card_seq_gen", sequenceName = "card_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_seq_gen")
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
@@ -85,17 +86,17 @@ public class Userstory implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userstory")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
 	private List<Todo> todoList;
 
-	public Userstory() {
+	public Card() {
 	}
 
-	public Userstory(final Integer id) {
+	public Card(final Integer id) {
 		this.id = id;
 	}
 
-	public Userstory(final Integer id, final String story, final int estimate, final char stateid) {
+	public Card(final Integer id, final String story, final int estimate, final char stateid) {
 		this.id = id;
 		this.story = story;
 		this.estimate = estimate;
@@ -210,10 +211,10 @@ public class Userstory implements Serializable, Timeable {
 	@Override
 	public boolean equals(final Object object) {
 		// Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Userstory)) {
+		if (!(object instanceof Card)) {
 			return false;
 		}
-		final Userstory other = (Userstory) object;
+		final Card other = (Card) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
@@ -222,7 +223,7 @@ public class Userstory implements Serializable, Timeable {
 
 	@Override
 	public String toString() {
-		return "UserStory[ id=" + id + " ]";
+		return "Card[ id=" + id + " ]";
 	}
 
 }

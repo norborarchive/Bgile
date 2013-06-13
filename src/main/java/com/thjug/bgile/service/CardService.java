@@ -13,30 +13,27 @@
 package com.thjug.bgile.service;
 
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Userstory;
-import com.thjug.bgile.facade.AbstractFacade;
-import com.thjug.bgile.facade.UserstoryFacade;
-import static com.thjug.bgile.facade.UserstoryFacade.STATE0;
-import java.util.LinkedList;
+import com.thjug.bgile.entity.Card;
+import static com.thjug.bgile.facade.CardFacade.STATE0;
 import java.util.List;
 
 /**
  *
  * @author @nuboat
  */
-public final class UserstoryService extends AbstractService<Userstory> {
+public final class CardService extends AbstractService<Card> {
 
-	public UserstoryService() {
-		super(Userstory.class);
+	public CardService() {
+		super(Card.class);
 	}
 
-	public List<Userstory> findByBoard(final Board board) {
-		final List<Userstory> storys = findAll(Userstory.findByBoardAndStatus, board, LIVE);
+	public List<Card> findByBoard(final Board board) {
+		final List<Card> storys = findAll(Card.findByBoardAndStatus, board, LIVE);
 
 		return storys;
 	}
 
-	public Userstory createNewStory(final Userstory story) {
+	public Card createNewStory(final Card story) {
 		story.setStateid(STATE0);
 		story.setStatusid(LIVE);
 		return create(story);

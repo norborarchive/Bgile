@@ -16,20 +16,15 @@ import javax.faces.bean.ApplicationScoped;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.guice.GuiceInjectorFactory;
 
 /**

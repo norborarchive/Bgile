@@ -18,9 +18,9 @@
 				</div>
 
 				<div style="float:left;">
-					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="สตอรี่"
+					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="การ์ด"
 									 styleClass="btn btn-mini btn-success"
-									 onclick="window.location.href = '/bgile/fstory';" />
+									 onclick="window.location.href = '/bgile/fcard';" />
 				</div>
 
 				<div class="input-prepend" style="padding-left: 24px; float:left;">
@@ -87,17 +87,20 @@
 
 			<p:growl id="growl" showDetail="true" />
 			<p:messages id="messages" showDetail="true" />
+			<p:remoteCommand id="refreshcmd" action="#{boardManaged.refresh}" name="refresh"
+							 update="dynamic_dashboard" />
 
-			<div class="row-fluid" style="padding-top: 6px; padding-bottom: 6px">
-				<h4 style="width: 260px; text-align: left; float: left;">วางแผน</h4>
-				<h4 style="width: 260px; text-align: left; float: left;">กำลังทำ</h4>
-				<h4 style="width: 260px; text-align: left; float: left;">กำลังทดสอบ</h4>
-				<h4 style="width: 260px; text-align: left; float: left;">เสร็จ</h4>
+			<div class="row-fluid" style="padding-top: 6px; padding-bottom: 6px;">
+				<h4 style="width: 260px; text-align: left; float: left; color: black;">วางแผน</h4>
+				<h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทำ</h4>
+				<h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
+				<h4 style="width: 260px; text-align: left; float: left; color: black;">เสร็จ</h4>
 			</div>
 
 			<div class="row-fluid">
 				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
-					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="dynamic_dashboard growl" />
+					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
+							oncomplete="refresh();" />
 				</p:dashboard>
 			</div>
         </ui:define>

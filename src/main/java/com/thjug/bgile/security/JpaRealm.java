@@ -14,6 +14,7 @@ package com.thjug.bgile.security;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.facade.AbstractFacade;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.interceptor.Logging;
 import java.util.HashSet;
@@ -32,8 +33,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
 *
@@ -42,10 +41,10 @@ import org.slf4j.LoggerFactory;
 public class JpaRealm extends AuthorizingRealm {
 
 	@Inject
-	private AccountFacade accountFacade;
+	private AccountFacade facade;
 
+	@Logging
 	@Override
-    @Logging
     protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final Account account = principals.oneByType(Account.class);
         final Set<String> roleValues = new HashSet<>();
@@ -55,8 +54,8 @@ public class JpaRealm extends AuthorizingRealm {
         return authorizationInfo;
     }
 
-	@Override
 	@Logging
+	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token)
 			throws AuthenticationException {
 		final Account account;
@@ -64,9 +63,9 @@ public class JpaRealm extends AuthorizingRealm {
 		try {
 			if (token instanceof UsernamePasswordToken) {
 				final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-				account = accountFacade.findByUsername(usernamePasswordToken.getUsername());
+				account = facade.findByUsername(usernamePasswordToken.getUsername());
 
-				if (account.getEnable() != 'Y') {
+				if (account.getEnable() != AbstractFacade.TRUE) {
 					throw new LockedAccountException();
 				}
 

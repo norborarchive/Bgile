@@ -17,7 +17,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlOutputLink;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import org.primefaces.component.dashboard.Dashboard;
@@ -28,9 +27,9 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Userstory;
+import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.facade.BoardFacade;
-import com.thjug.bgile.facade.UserstoryFacade;
+import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
@@ -55,13 +54,13 @@ public class BoardManaged extends AbstractManaged {
 
 	public static final int DEFAULT_COLUMN_COUNT = 4; // 0 = Plan, 1 = Process, 2 = Test, 3 = Done, 4 = Archive
 	private Board board;
-	private Userstory userstory;
-	private List<Userstory> userstoryList;
-	private Dashboard dashboard;
+	private Card card;
+	private List<Card> cardList;
+	private transient Dashboard dashboard;
 	@Inject
 	private transient BoardFacade boardFacade;
 	@Inject
-	private transient UserstoryFacade userstoryFacade;
+	private transient CardFacade cardFacade;
 
 	@PostConstruct
 	public void initial() {
@@ -69,7 +68,7 @@ public class BoardManaged extends AbstractManaged {
 		if (boardid != null) {
 			getSession().setAttribute("boardid", boardid);
 			board = getBoard(boardid);
-			loadUserstory(boardid);
+			loadCards(boardid);
 			renderDashboard();
 		} else {
 			addInfoMessage("Board ID " + boardid + " not found.", null);
@@ -100,7 +99,7 @@ public class BoardManaged extends AbstractManaged {
 
 	public String refresh() {
 		LOG.info("Refresh Board: {}", board.getId());
-		loadUserstory(board.getId());
+		loadCards(board.getId());
 		renderDashboard();
 		return null;
 	}
@@ -115,19 +114,19 @@ public class BoardManaged extends AbstractManaged {
 		LOG.info("Moved US: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
-			userstoryFacade.move(getAccountId(), storyid, fromsate, tostate);
+			cardFacade.move(getAccountId(), storyid, fromsate, tostate);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage("Cannot move US" + storyid, null);
 		}
 
-		loadUserstory(board.getId());
+		loadCards(board.getId());
 		renderDashboard();
 	}
 
-	private void loadUserstory(final Integer projectid) {
+	private void loadCards(final Integer projectid) {
 		try {
-			userstoryList = userstoryFacade.findAllByBoardId(getAccountId(), projectid);
+			cardList = cardFacade.findAllByBoardId(getAccountId(), projectid);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -150,10 +149,10 @@ public class BoardManaged extends AbstractManaged {
 
 		Panel panel;
 		HtmlOutputText text;
-		for (final Userstory us : userstoryList) {
+		for (final Card us : cardList) {
 			panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
 			panel.setId("US" + us.getId().toString());
-			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fstory/" + us.getId() + "'>" + "US" + us.getId() + "</a>");
+			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/" + us.getId() + "'>" + "US" + us.getId() + "</a>");
 			panel.setClosable(false);
 			panel.setToggleable(false);
 
@@ -181,12 +180,12 @@ public class BoardManaged extends AbstractManaged {
 		this.dashboard = dashboard;
 	}
 
-	public Userstory getUserstory() {
-		return userstory;
+	public Card getCard() {
+		return card;
 	}
 
-	public void setUserstory(Userstory userstory) {
-		this.userstory = userstory;
+	public void setCard(final Card card) {
+		this.card = card;
 	}
 
 }

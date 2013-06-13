@@ -14,12 +14,11 @@ package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
 import javax.faces.bean.ManagedBean;
-import com.thjug.bgile.entity.Userstory;
-import com.thjug.bgile.facade.UserstoryFacade;
+import com.thjug.bgile.entity.Card;
+import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,30 +29,30 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class FstoryManaged extends AbstractManaged {
+public class FCardManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(FstoryManaged.class);
-	private Userstory userstory;
+	private static final Logger LOG = LoggerFactory.getLogger(FCardManaged.class);
+	private Card card;
 	@Inject
-	private transient UserstoryFacade facade;
+	private transient CardFacade facade;
 
 	@PostConstruct
 	public void initial() {
-		final String storyid = (String) getStoryfromAttribute();
-		if (storyid != null) {
+		final String cardid = (String) getCardfromAttribute();
+		if (cardid != null) {
 			try {
-				userstory = facade.findById(getAccountId(), Integer.valueOf(storyid));
+				card = facade.findById(getAccountId(), Integer.valueOf(cardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
-				addErrorMessage("Story: {} not found.", storyid);
+				addErrorMessage("Card: {} not found.", cardid);
 			}
 		} else {
-			userstory = new Userstory();
+			card = new Card();
 		}
 	}
 
-	private String getStoryfromAttribute() {
+	private String getCardfromAttribute() {
 		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
 		return (attributes.size() > 0) ? attributes.get(0) : null;
 	}
@@ -61,8 +60,8 @@ public class FstoryManaged extends AbstractManaged {
 	public String saveStory() {
 		try {
 			final Integer boardid = Integer.valueOf(getSession().getAttribute("boardid").toString());
-			userstory = (userstory.getId() == null) ? facade.create(getAccountId(), boardid, userstory) : facade.edit(
-					getAccountId(), userstory);
+			card = (card.getId() == null) ? facade.create(getAccountId(), boardid, card) : facade.edit(
+					getAccountId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -73,7 +72,7 @@ public class FstoryManaged extends AbstractManaged {
 
 	public String removeStory() {
 		try {
-			userstory = facade.remove(getAccountId(), userstory);
+			card = facade.remove(getAccountId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -82,16 +81,16 @@ public class FstoryManaged extends AbstractManaged {
 		return null;
 	}
 
-	public Userstory getUserstory() {
-		return userstory;
+	public Card getCard() {
+		return card;
 	}
 
-	public void setUserstory(final Userstory userstory) {
-		this.userstory = userstory;
+	public void setCard(final Card card) {
+		this.card = card;
 	}
 
-	public boolean isNewUserstory() {
-		return userstory.getId() == null;
+	public boolean isNewCard() {
+		return card.getId() == null;
 	}
 
 	public Integer getBoardid() {

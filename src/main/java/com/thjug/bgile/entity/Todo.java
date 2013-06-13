@@ -20,8 +20,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,13 +32,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "todo")
-@NamedQueries( {
-		@NamedQuery(name = "Todo.findAll", query = "SELECT t FROM Todo t"),
-		@NamedQuery(name = "Todo.findById", query = "SELECT t FROM Todo t WHERE t.id = :id"),
-		@NamedQuery(name = "Todo.findByDescription", query = "SELECT t FROM Todo t WHERE t.description = :description"),
-		@NamedQuery(name = "Todo.findByCreated", query = "SELECT t FROM Todo t WHERE t.created = :created"),
-		@NamedQuery(name = "Todo.findByUpdated", query = "SELECT t FROM Todo t WHERE t.updated = :updated"),
-		@NamedQuery(name = "Todo.findByUpdateby", query = "SELECT t FROM Todo t WHERE t.updateby = :updateby") })
 public class Todo implements Serializable, Timeable {
 	private static final long serialVersionUID = 1L;
 
@@ -62,9 +53,9 @@ public class Todo implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@JoinColumn(name = "userstory", referencedColumnName = "id")
+	@JoinColumn(name = "card", referencedColumnName = "id")
 	@ManyToOne(optional = false)
-	private Userstory userstory;
+	private Card card;
 
 	public Todo() {
 	}
@@ -122,12 +113,12 @@ public class Todo implements Serializable, Timeable {
 		this.updateby = updateby;
 	}
 
-	public Userstory getUserstory() {
-		return userstory;
+	public Card getCard() {
+		return card;
 	}
 
-	public void setUserstory(Userstory userstory) {
-		this.userstory = userstory;
+	public void setCard(Card card) {
+		this.card = card;
 	}
 
 	@Override

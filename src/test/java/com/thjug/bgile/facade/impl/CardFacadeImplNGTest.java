@@ -4,7 +4,7 @@
  */
 package com.thjug.bgile.facade.impl;
 
-import com.thjug.bgile.entity.Userstory;
+import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.facade.AbstractFacade;
 import java.util.List;
 import static org.testng.Assert.*;
@@ -18,18 +18,18 @@ import org.testng.annotations.Test;
  *
  * @author nuboat
  */
-public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
+public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
 
 	@Test
 	public void testCreate() throws Exception {
 		Integer accountid = 2;
 		Integer boardid = 1;
 
-		final UserstoryFacadeImpl instance = injector.getInstance(UserstoryFacadeImpl.class);
+		final CardFacadeImpl instance = injector.getInstance(CardFacadeImpl.class);
 
-		Userstory story = new Userstory();
+		Card story = new Card();
 		story.setStory("NG Test");
-		Userstory result = instance.create(accountid, boardid, story);
+		Card result = instance.create(accountid, boardid, story);
 		assertNotNull(result.getId());
 	}
 
@@ -37,10 +37,10 @@ public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
 	public void testEdit() throws Exception {
 		System.out.println("edit");
 		Integer accountid = null;
-		Userstory story = null;
-		UserstoryFacadeImpl instance = new UserstoryFacadeImpl();
-		Userstory expResult = null;
-		Userstory result = instance.edit(accountid, story);
+		Card story = null;
+		CardFacadeImpl instance = new CardFacadeImpl();
+		Card expResult = null;
+		Card result = instance.edit(accountid, story);
 		assertEquals(result, expResult);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
@@ -50,10 +50,10 @@ public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
 	public void testRemove() throws Exception {
 		System.out.println("remove");
 		Integer accountid = null;
-		Userstory story = null;
-		UserstoryFacadeImpl instance = new UserstoryFacadeImpl();
-		Userstory expResult = null;
-		Userstory result = instance.remove(accountid, story);
+		Card story = null;
+		CardFacadeImpl instance = new CardFacadeImpl();
+		Card expResult = null;
+		Card result = instance.remove(accountid, story);
 		assertEquals(result, expResult);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
@@ -64,9 +64,9 @@ public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("findById");
 		Integer accountid = null;
 		Integer storyid = null;
-		UserstoryFacadeImpl instance = new UserstoryFacadeImpl();
-		Userstory expResult = null;
-		Userstory result = instance.findById(accountid, storyid);
+		CardFacadeImpl instance = new CardFacadeImpl();
+		Card expResult = null;
+		Card result = instance.findById(accountid, storyid);
 		assertEquals(result, expResult);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
@@ -77,7 +77,7 @@ public class UserstoryFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("findAllByBoardId");
 		Integer accountid = null;
 		Integer boardid = null;
-		UserstoryFacadeImpl instance = new UserstoryFacadeImpl();
+		CardFacadeImpl instance = new CardFacadeImpl();
 		List expResult = null;
 		List result = instance.findAllByBoardId(accountid, boardid);
 		assertEquals(result, expResult);

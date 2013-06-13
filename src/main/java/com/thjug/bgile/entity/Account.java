@@ -39,18 +39,14 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account")
-@NamedQueries( { @NamedQuery(name = Account.findAll, query = "SELECT a FROM Account a"),
-		@NamedQuery(name = Account.findByTypeid, query = "SELECT a FROM Account a WHERE a.typeid = ?1"),
-		@NamedQuery(name = Account.findByUsername, query = "SELECT a FROM Account a WHERE a.username = ?1"),
-		@NamedQuery(name = Account.findAllCount, query = "SELECT COUNT(a) FROM Account a"), })
+@NamedQueries({
+	@NamedQuery(name = Account.countAll, query = "SELECT COUNT(a) FROM Account a"),
+	@NamedQuery(name = Account.findByUsername, query = "SELECT a FROM Account a WHERE a.username = ?1"),})
 public class Account implements Serializable, Converterable, Timeable {
 
 	private static final long serialVersionUID = 1L;
-
-	public static final String findAll = "Account.findAll";
-	public static final String findByTypeid = "Account.findByTypeid";
+	public static final String countAll = "Account.countAll";
 	public static final String findByUsername = "Account.findByUsername";
-	public static final String findAllCount = "Account.findAllCount";
 
 	@Id
 	@Basic(optional = false)
@@ -109,7 +105,7 @@ public class Account implements Serializable, Converterable, Timeable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Boardaccount> boardaccountList;
 	@OneToMany(mappedBy = "owner")
-	private List<Userstory> userstoryList;
+	private List<Card> cardList;
 
 	public Account() {
 	}
@@ -252,12 +248,12 @@ public class Account implements Serializable, Converterable, Timeable {
 		this.boardaccountList = boardaccountList;
 	}
 
-	public List<Userstory> getUserstoryList() {
-		return userstoryList;
+	public List<Card> getCardList() {
+		return cardList;
 	}
 
-	public void setUserstoryList(final List<Userstory> userstoryList) {
-		this.userstoryList = userstoryList;
+	public void setCardList(final List<Card> cardList) {
+		this.cardList = cardList;
 	}
 
 	@Override
@@ -287,5 +283,4 @@ public class Account implements Serializable, Converterable, Timeable {
 	public String getItemValue() {
 		return this.id.toString();
 	}
-
 }

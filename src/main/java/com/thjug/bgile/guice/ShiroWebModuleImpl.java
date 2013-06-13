@@ -21,7 +21,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationListener;
 import org.apache.shiro.config.ConfigurationException;
 import org.apache.shiro.guice.web.ShiroWebModule;
-import org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 
 import com.google.inject.Exposed;
@@ -57,8 +56,8 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 		bindAuthenticationListener().to(AuthenticationListenerImpl.class);
 		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/signin.xhtml");
 		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/unauthorized.xhtml");
-		addFilterChain("/signin.xhtml", Key.get(PassThruAuthenticationFilter.class));
-		addFilterChain("/home.xhtml", Key.get(PassThruAuthenticationFilter.class));
+		addFilterChain("/home.xhtml", ANON);
+		addFilterChain("/assets/**", ANON);
 		addFilterChain("/**", AUTHC);
 		addFilterChain("/admin/**", AUTHC, config(ROLES, "admin"));
 		bind(authenticationListenerCollectionKey()).to(authenticationListenerSetKey());
