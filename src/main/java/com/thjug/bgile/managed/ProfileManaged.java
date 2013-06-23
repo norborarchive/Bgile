@@ -19,7 +19,6 @@ import com.thjug.bgile.security.Encrypter;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +69,7 @@ public final class ProfileManaged extends AbstractManaged {
 		return null;
 	}
 
-	public final String changepasswd() {
+	public String changepasswd() {
 		try {
 			if (password.equals(confirmpassword)) {
 				account = facade.findById(getAccountId());
@@ -90,7 +89,7 @@ public final class ProfileManaged extends AbstractManaged {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	public void setAccount(final Account account) {
 		this.account = account;
 	}
 
@@ -98,7 +97,7 @@ public final class ProfileManaged extends AbstractManaged {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -106,7 +105,7 @@ public final class ProfileManaged extends AbstractManaged {
 		return confirmpassword;
 	}
 
-	public void setConfirmpassword(String confirmpassword) {
+	public void setConfirmpassword(final String confirmpassword) {
 		this.confirmpassword = confirmpassword;
 	}
 

@@ -57,11 +57,11 @@ public class Storyorder implements Serializable {
 	public Storyorder() {
 	}
 
-	public Storyorder(Integer id) {
+	public Storyorder(final Integer id) {
 		this.id = id;
 	}
 
-	public Storyorder(Integer id, String stateid) {
+	public Storyorder(final Integer id, final String stateid) {
 		this.id = id;
 		this.stateid = stateid;
 	}
@@ -70,7 +70,7 @@ public class Storyorder implements Serializable {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -78,7 +78,7 @@ public class Storyorder implements Serializable {
 		return stateid;
 	}
 
-	public void setStateid(String stateid) {
+	public void setStateid(final String stateid) {
 		this.stateid = stateid;
 	}
 
@@ -86,7 +86,7 @@ public class Storyorder implements Serializable {
 		return orderby;
 	}
 
-	public void setOrderby(String orderby) {
+	public void setOrderby(final String orderby) {
 		this.orderby = orderby;
 	}
 
@@ -94,7 +94,7 @@ public class Storyorder implements Serializable {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(final Date created) {
 		this.created = created;
 	}
 
@@ -102,7 +102,7 @@ public class Storyorder implements Serializable {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(final Date updated) {
 		this.updated = updated;
 	}
 
@@ -110,7 +110,7 @@ public class Storyorder implements Serializable {
 		return updateby;
 	}
 
-	public void setUpdateby(Integer updateby) {
+	public void setUpdateby(final Integer updateby) {
 		this.updateby = updateby;
 	}
 
@@ -118,24 +118,22 @@ public class Storyorder implements Serializable {
 		return board;
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(final Board board) {
 		this.board = board;
 	}
 
 	@Override
 	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
+		return (id != null ? id.hashCode() : 0);
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
+	public boolean equals(final Object object) {
+		// Warning - this method won't work in the case the id fields are not set
 		if (!(object instanceof Storyorder)) {
 			return false;
 		}
-		Storyorder other = (Storyorder) object;
+		final Storyorder other = (Storyorder) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
@@ -144,6 +142,6 @@ public class Storyorder implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.thjug.bgile.entity.Storyorder[ id=" + id + " ]";
+		return "Storyorder[ id=" + id + " ]";
 	}
 }

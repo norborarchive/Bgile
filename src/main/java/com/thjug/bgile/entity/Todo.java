@@ -117,7 +117,7 @@ public class Todo implements Serializable, Timeable {
 		return card;
 	}
 
-	public void setCard(Card card) {
+	public void setCard(final Card card) {
 		this.card = card;
 	}
 

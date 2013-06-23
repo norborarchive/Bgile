@@ -14,13 +14,11 @@ package com.thjug.bgile.security;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.facade.AbstractFacade;
+import com.thjug.bgile.entity.Enable;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.interceptor.Logging;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.NoResultException;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -50,37 +48,32 @@ public class JpaRealm extends AuthorizingRealm {
         final Set<String> roleValues = new HashSet<>();
         roleValues.add(String.valueOf(account.getTypeid()));
 
-        final AuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo(roleValues);
-        return authorizationInfo;
+		return new SimpleAuthorizationInfo(roleValues);
     }
 
 	@Logging
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token)
-			throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token) {
 		final Account account;
 		final String credential;
-		try {
-			if (token instanceof UsernamePasswordToken) {
-				final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-				account = facade.findByUsername(usernamePasswordToken.getUsername());
 
-				if (account.getEnable() != AbstractFacade.TRUE) {
-					throw new LockedAccountException();
-				}
+		if (token instanceof UsernamePasswordToken) {
+			final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+			account = facade.findByUsername(usernamePasswordToken.getUsername());
 
-				credential = account.getPasswd();
-			} else {
-				throw new Exception("Unknown Token");
+			if (account == null) {
+				throw new UnknownAccountException();
 			}
-		} catch (final LockedAccountException e) {
-			throw e;
-		} catch (final NoResultException e) {
-			throw new UnknownAccountException();
-		} catch (final Exception e) {
-			throw new AuthenticationException(e);
+			if (account.getEnableid() != Enable.T.getId()) {
+				throw new LockedAccountException();
+			}
+
+			credential = account.getPasswd();
+		} else {
+			throw new AuthenticationException("Unknown Token");
 		}
 
 		return new SimpleAuthenticationInfo(account, credential, JpaRealm.class.getSimpleName());
 	}
+
 }

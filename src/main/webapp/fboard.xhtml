@@ -10,7 +10,7 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="กลับ"
 									 styleClass="btn btn-mini btn-info"
-									 onclick="window.location.href='/bgile/dashboard';" />
+									 onclick="window.location.href = '/bgile/dashboard';" />
 				</div>
 			</div>
 		</ui:define>
@@ -58,7 +58,7 @@
 								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 												 styleClass="btn btn-mini btn-danger" update="msg"
 												 rendered="#{!fboardManaged.newBoard}"
-												 action="#{fboardManaged.remove}"/>
+												 onclick="confirmation.show();" />
 							</div>
 						</div>
 						<div class="controls">
@@ -71,6 +71,16 @@
 					</div>
 				</div>
 			</div>
+
+			<p:confirmDialog id="confirmDialog" message="Are you sure about destroying this board?"
+							 header="Confirm Dialog" severity="alert" widgetVar="confirmation">
+
+				<p:commandButton id="confirm" value="Yes Sure" oncomplete="confirmation.hide()"
+								 action="#{fboardManaged.remove}" />
+
+				<p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide();" type="button" />
+
+			</p:confirmDialog>
         </ui:define>
     </ui:composition>
 </html>

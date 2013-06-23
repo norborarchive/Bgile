@@ -34,7 +34,7 @@ public class AccountFacadeImpl implements AccountFacade {
 	@Override
 	@Logging
 	@Transactional
-	public Account createAccount(final Account account) throws Exception {
+	public Account createAccount(final Account account) {
 		return accountService.create(account);
 	}
 
@@ -48,14 +48,14 @@ public class AccountFacadeImpl implements AccountFacade {
 	@Logging
 	@Transactional
 	@Override
-	public void removeAccount(final Account account) throws Exception {
+	public void removeAccount(final Account account) {
 		accountService.remove(account);
 	}
 
 	@Logging
 	@Transactional
 	@Override
-	public Account findByUsername(final String username) throws Exception {
+	public Account findByUsername(final String username) {
 		return accountService.findByUsername(username);
 	}
 

@@ -41,7 +41,7 @@ import com.sun.faces.application.resource.ResourceHandlerImpl;
 public class StreamedContentManaged extends AbstractManaged {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(StreamedContentManaged.class);
-	private static final String defaultResource = "images/default.png";
+	private static final String DEFAULT_RESOURCE = "images/default.png";
 
 	private Map<String, byte[]> contentDataMap;
 
@@ -74,7 +74,7 @@ public class StreamedContentManaged extends AbstractManaged {
 		StreamedContent content = getContent(streamedContentId);
 		if (content == null) {
 			final ResourceHandler resourceHandler = new ResourceHandlerImpl();
-			final Resource resource = resourceHandler.createResource(defaultResource, "default");
+			final Resource resource = resourceHandler.createResource(DEFAULT_RESOURCE, "default");
 			try {
 				content = new DefaultStreamedContent(resource.getInputStream());
 			} catch (final IOException e) {

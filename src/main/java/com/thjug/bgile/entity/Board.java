@@ -14,15 +14,12 @@ package com.thjug.bgile.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,9 +34,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "board")
 public class Board implements Serializable, Timeable {
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
-	private List<Storyorder> storyorderList;
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -55,8 +49,12 @@ public class Board implements Serializable, Timeable {
 	private char statusid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "enable")
-	private char enable;
+	@Column(name = "enableid")
+	private char enableid;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "permissionid")
+	private char permissionid;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 128)
@@ -68,7 +66,6 @@ public class Board implements Serializable, Timeable {
 	@Size(max = 256)
 	@Column(name = "logopath")
 	private String logopath;
-	@Size(max = 256)
 	@Column(name = "maxcard")
 	private int maxcard;
 	@Column(name = "created")
@@ -79,23 +76,12 @@ public class Board implements Serializable, Timeable {
 	private Date updated;
 	@Column(name = "updateby")
 	private Integer updateby;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
-	private List<Boardaccount> boardaccountList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board")
-	private List<Card> cardList;
 
 	public Board() {
 	}
 
 	public Board(final Integer id) {
 		this.id = id;
-	}
-
-	public Board(final Integer id, final char statusid, final char enable, final String boardname) {
-		this.id = id;
-		this.statusid = statusid;
-		this.enable = enable;
-		this.boardname = boardname;
 	}
 
 	public Integer getId() {
@@ -114,12 +100,20 @@ public class Board implements Serializable, Timeable {
 		this.statusid = statusid;
 	}
 
-	public char getEnable() {
-		return enable;
+	public char getEnableid() {
+		return enableid;
 	}
 
-	public void setEnable(char enable) {
-		this.enable = enable;
+	public void setEnableid(final char enableid) {
+		this.enableid = enableid;
+	}
+
+	public char getPermissionid() {
+		return permissionid;
+	}
+
+	public void setPermissionid(final char permissionid) {
+		this.permissionid = permissionid;
 	}
 
 	public String getBoardname() {
@@ -180,30 +174,6 @@ public class Board implements Serializable, Timeable {
 
 	public void setUpdateby(final Integer updateby) {
 		this.updateby = updateby;
-	}
-
-	public List<Boardaccount> getBoardaccountList() {
-		return boardaccountList;
-	}
-
-	public void setBoardaccountList(List<Boardaccount> boardaccountList) {
-		this.boardaccountList = boardaccountList;
-	}
-
-	public List<Card> getCardList() {
-		return cardList;
-	}
-
-	public void setCardList(final List<Card> cardList) {
-		this.cardList = cardList;
-	}
-
-	public List<Storyorder> getStoryorderList() {
-		return storyorderList;
-	}
-
-	public void setStoryorderList(List<Storyorder> storyorderList) {
-		this.storyorderList = storyorderList;
 	}
 
 	@Override

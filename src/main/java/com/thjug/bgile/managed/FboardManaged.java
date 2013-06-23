@@ -14,13 +14,12 @@ package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.Permission;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.util.Constants;
-import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +60,7 @@ public class FboardManaged extends AbstractManaged {
 
 	public String save() {
 		try {
+			board.setPermissionid(Permission.R.getId());
 			board = (board.getId() == null) ? facade.create(getAccountId(), board) : facade.edit(getAccountId(), board);
 			return "dashboard";
 		} catch (final Exception e) {

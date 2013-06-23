@@ -18,6 +18,6 @@ package com.thjug.bgile.entity;
  */
 public interface Converterable {
 
-	public String getItemValue();
+	String getItemValue();
 
 }

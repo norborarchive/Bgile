@@ -26,7 +26,7 @@ public final class LoggingInterceptor implements MethodInterceptor {
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingInterceptor.class);
 
 	@Override
-	public final Object invoke(final MethodInvocation invocation) throws Throwable {
+	public Object invoke(final MethodInvocation invocation) throws Throwable {
 		final Long start = System.currentTimeMillis();
 		final String className = invocation.getMethod().getDeclaringClass().getSimpleName();
 		final String methodName = invocation.getMethod().getName();

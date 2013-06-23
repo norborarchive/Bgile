@@ -24,12 +24,14 @@ import javax.faces.model.DataModel;
 public abstract class PageDataModel<T> extends DataModel<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private static final int DEFAULT_PAGE_SIZE = 10;
+	private static final int MAX_PAGE_LIST = 10;
 
 	private Integer rowIndex = -1;
 	private Integer rowCount;
 	private Integer currentPage = 1;
-	private Integer pageSize = 10;
-	private Integer maxPageLink = 10;
+	private Integer pageSize = DEFAULT_PAGE_SIZE;
+	private Integer maxPageLink = MAX_PAGE_LIST;
 	private Integer beginPageLink;
 	private Integer endPageLink;
 	private String search;
@@ -73,10 +75,8 @@ public abstract class PageDataModel<T> extends DataModel<T> implements Serializa
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void setWrappedData(final Object data) {
 		this.data = (List<T>) data;
-
 	}
 
 	public Integer getCurrentPage() {
@@ -96,8 +96,7 @@ public abstract class PageDataModel<T> extends DataModel<T> implements Serializa
 	}
 
 	public Integer getPageTotal() {
-		final Integer pageCount = (int) Math.ceil(rowCount.doubleValue() / pageSize.doubleValue());
-		return pageCount;
+		return (int) Math.ceil(rowCount.doubleValue() / pageSize.doubleValue());
 	}
 
 	public Integer getMaxPageLink() {
@@ -109,7 +108,7 @@ public abstract class PageDataModel<T> extends DataModel<T> implements Serializa
 	}
 
 	public List<Integer> getPageLinks() {
-		final List<Integer> pageLinks = new LinkedList<Integer>();
+		final List<Integer> pageLinks = new LinkedList<>();
 		for (int i = beginPageLink; i <= endPageLink; i++) {
 			pageLinks.add(i);
 		}

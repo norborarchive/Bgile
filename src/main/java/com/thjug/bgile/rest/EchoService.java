@@ -29,15 +29,16 @@ import org.slf4j.LoggerFactory;
 public final class EchoService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EchoService.class);
+	private static final int MAX_MSG_LEN = 24;
 
 	@GET
 	@Path("/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public final Response getJson(@PathParam("param") final String msg) {
-		final String echomsg = msg.length() <= 24 ? msg : msg.substring(0, 24);
+	public Response getJson(@PathParam("param") final String msg) {
+		final String echomsg = msg.length() <= MAX_MSG_LEN ? msg : msg.substring(0, MAX_MSG_LEN);
 
 		LOG.info("Echo: {}", echomsg);
-		return Response.status(200).entity(echomsg).build();
+		return Response.status(Response.Status.OK).entity(echomsg).build();
 	}
 
 }

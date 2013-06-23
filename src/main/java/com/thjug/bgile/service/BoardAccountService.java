@@ -7,7 +7,6 @@ package com.thjug.bgile.service;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Boardaccount;
-import java.util.List;
 
 /**
  *
@@ -23,6 +22,6 @@ public class BoardAccountService extends AbstractService<Boardaccount> {
 		final Board board = new Board(boardId);
 		final Account account = new Account(accountId);
 
-		return findOne(Boardaccount.findByAccountAndBoard, account, board);
+		return findOne(Boardaccount.FIND_BY_ACCOUNT_AND_BOARD, account, board);
 	}
 }

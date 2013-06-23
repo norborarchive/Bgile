@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
+import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -24,25 +25,26 @@ import javax.faces.bean.RequestScoped;
 public final class HomeManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
+	private static final String CURRENT_PAGE = "current-page";
 
 	public boolean isHasSession() {
 		return (getAccountId() != null) ? true : false;
 	}
 
 	public String getCurrentHome() {
-		return (getViewId().contains("home")) ? "current-page" : "";
+		return (getViewId().contains("home")) ? CURRENT_PAGE : Constants.EMPTY;
 	}
 
 	public String getCurrentProjects() {
-		return (getViewId().contains("dashboard")) ? "current-page" : "";
+		return (getViewId().contains("dashboard")) ? CURRENT_PAGE : Constants.EMPTY;
 	}
 
 	public String getCurrentSignin() {
-		return (getViewId().contains("signin")) ? "current-page" : "";
+		return (getViewId().contains("signin")) ? CURRENT_PAGE : Constants.EMPTY;
 	}
 
 	public String getCurrentContact() {
-		return (getViewId().contains("contact")) ? "current-page" : "";
+		return (getViewId().contains("contact")) ? CURRENT_PAGE : Constants.EMPTY;
 	}
 
 }

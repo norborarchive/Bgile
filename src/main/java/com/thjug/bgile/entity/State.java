@@ -12,20 +12,26 @@
  */
 package com.thjug.bgile.entity;
 
-import java.util.Date;
-
 /**
  *
  * @author @nuboat
  */
-public interface Timeable {
+public enum State {
 
-	Date getCreated();
+	Plan('0'),
+	Process('1'),
+	Test('2'),
+	Done('3'),
+	Archive('4');
 
-	void setCreated(final Date created);
+	private char id;
 
-	Date getUpdated();
+	private State(final char id) {
+		this.id = id;
+	}
 
-	void setUpdated(final Date updated);
+	public char getId() {
+		return id;
+	}
 
 }

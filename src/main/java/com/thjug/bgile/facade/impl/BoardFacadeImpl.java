@@ -17,8 +17,9 @@ import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Boardaccount;
+import com.thjug.bgile.entity.Enable;
+import com.thjug.bgile.entity.Status;
 import com.thjug.bgile.facade.BoardFacade;
-import static com.thjug.bgile.facade.BoardFacade.LIVE;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
@@ -32,6 +33,8 @@ import java.util.List;
  */
 public class BoardFacadeImpl implements BoardFacade {
 
+	private static final int DEFAULT_MAXCARD = 64;
+
 	@Inject
 	private BoardService service;
 	@Inject
@@ -42,10 +45,11 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board create(final Integer accountid, final Board board) throws Exception {
+	public Board create(final Integer accountid, final Board board) {
 		board.setUpdateby(accountid);
-		board.setEnable(TRUE);
-		board.setStatusid(LIVE);
+		board.setMaxcard(DEFAULT_MAXCARD);
+		board.setEnableid(Enable.T.getId());
+		board.setStatusid(Status.L.getId());
 		service.create(board);
 
 		final Boardaccount ba = new Boardaccount();
@@ -61,7 +65,7 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board edit(final Integer accountid, final Board board) throws Exception {
+	public Board edit(final Integer accountid, final Board board) {
 		board.setUpdateby(accountid);
 		final Board editedProject = service.edit(board);
 		accountService.clearCache();
@@ -71,10 +75,10 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board remove(final Integer accountid, final Board board) throws Exception {
+	public Board remove(final Integer accountid, final Board board) {
 		try {
 			board.setUpdateby(accountid);
-			board.setStatusid(DEAD);
+			board.setStatusid(Status.D.getId());
 			return service.edit(board);
 		} finally {
 			accountService.clearCache();
@@ -84,7 +88,7 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public Board findById(final Integer accountid, final Integer id) throws Exception {
+	public Board findById(final Integer accountid, final Integer id) {
 		// FIXME : Shared sink Issue
 		return service.find(id);
 	}
@@ -92,12 +96,12 @@ public class BoardFacadeImpl implements BoardFacade {
 	@Logging
 	@Override
 	@Transactional
-	public List<Board> findAllByAccount(final Integer accountid) throws Exception {
+	public List<Board> findAllByAccount(final Integer accountid) {
 		final Account account = accountService.find(accountid);
 
 		final List<Board> boards = new LinkedList<>();
 		for (final Boardaccount b : account.getBoardaccountList()) {
-			if (b.getBoard().getStatusid() == LIVE && b.getBoard().getEnable() == 'T') {
+			if (b.getBoard().getStatusid() == Status.L.getId() && b.getBoard().getEnableid() == Enable.T.getId()) {
 				boards.add(b.getBoard());
 			}
 		}

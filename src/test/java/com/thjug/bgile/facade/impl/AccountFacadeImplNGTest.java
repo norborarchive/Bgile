@@ -16,7 +16,6 @@ import java.util.Date;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 import com.thjug.bgile.entity.Account;
-import java.util.List;
 
 /**
  *
@@ -50,7 +49,7 @@ public class AccountFacadeImplNGTest extends AbstractFacadeNGTest {
 		//final AccountAuth accountAuth = new AccountAuth();
 		//accountAuth.setUsername(username);
 		//accountAuth.setPassword("password");
-		//accountAuth.setEnable('N');
+		//accountAuth.setEnableid('N');
 
 		final Account account = new Account();
 		account.setTypeid('U');

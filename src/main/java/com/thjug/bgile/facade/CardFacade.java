@@ -23,24 +23,18 @@ import com.thjug.bgile.entity.Card;
  * @author @nuboat
  */
 @ImplementedBy(CardFacadeImpl.class)
-public interface CardFacade extends AbstractFacade {
+public interface CardFacade {
 
-	public static final char STATE0 = '0';
-	public static final char STATE1 = '1';
-	public static final char STATE2 = '2';
-	public static final char STATE3 = '3';
+	Card create(final Integer accountid, final Integer boardid, final Card story);
 
-	public Card create(final Integer accountid, final Integer boardid, final Card story) throws Exception;
+	Card edit(final Integer accountid, final Card story);
 
-	public Card edit(final Integer accountid, final Card story) throws Exception;
+	Card remove(final Integer accountid, final Card story);
 
-	public Card remove(final Integer accountid, final Card story) throws Exception;
+	Card findById(final Integer accountid, final Integer storyid);
 
-	public Card findById(final Integer accountid, final Integer storyid) throws Exception;
+	List<Card> findAllByBoardId(final Integer accountid, final Integer boardid);
 
-	public List<Card> findAllByBoardId(final Integer accountid, final Integer boardid) throws Exception;
-
-	public Card move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate)
-			throws Exception;
+	Card move(final Integer accountid, final Integer storyid, final char fromstate, final char tostate);
 
 }

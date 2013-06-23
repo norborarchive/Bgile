@@ -66,7 +66,7 @@
 								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 												 styleClass="btn btn-mini btn-danger"
 												 rendered="#{!fCardManaged.newCard}"
-												 action="#{fCardManaged.removeStory}"/>
+												 onclick="confirmation.show();" />
 							</div>
 						</div>
 						<div class="controls">
@@ -79,6 +79,17 @@
 					</div>
 				</div>
 			</div>
+
+			<p:confirmDialog id="confirmDialog" message="Are you sure about destroying this card?"
+							 header="Confirm Dialog" severity="alert" widgetVar="confirmation">
+
+				<p:commandButton id="confirm" value="Yes Sure" oncomplete="confirmation.hide()"
+								 action="#{fCardManaged.removeStory}" />
+
+				<p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide();" type="button" />
+
+			</p:confirmDialog>
+
 			<ui:remove>
 				<script src="#{facesContext.externalContext.requestContextPath}/assets/nicedit/nicEdit.js"></script>
 				<script type="text/javascript">

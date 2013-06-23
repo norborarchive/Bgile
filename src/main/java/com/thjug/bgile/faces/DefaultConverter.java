@@ -19,8 +19,6 @@ import javax.faces.convert.Converter;
 
 import java.util.List;
 import javax.faces.convert.FacesConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -34,9 +32,11 @@ public class DefaultConverter implements Converter {
 	@Override
 	public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String value) {
 		final List<Converterable> converters = (List<Converterable>) component.getAttributes().get(LIST_ATTRIBUTE);
-		for (final Converterable converter : converters)
-			if (converter.getItemValue().equals(value))
+		for (final Converterable converter : converters) {
+			if (converter.getItemValue().equals(value)) {
 				return converter;
+			}
+		}
 
 		return null;
 	}

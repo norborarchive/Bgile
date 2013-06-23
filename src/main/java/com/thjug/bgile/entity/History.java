@@ -62,7 +62,7 @@ public class History implements Serializable, Timeable {
 	public History() {
 	}
 
-	public History(Integer id) {
+	public History(final Integer id) {
 		this.id = id;
 	}
 
@@ -70,7 +70,7 @@ public class History implements Serializable, Timeable {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -78,7 +78,7 @@ public class History implements Serializable, Timeable {
 		return accountid;
 	}
 
-	public void setAccountid(Integer accountid) {
+	public void setAccountid(final Integer accountid) {
 		this.accountid = accountid;
 	}
 
@@ -86,7 +86,7 @@ public class History implements Serializable, Timeable {
 		return refid;
 	}
 
-	public void setRefid(Integer refid) {
+	public void setRefid(final Integer refid) {
 		this.refid = refid;
 	}
 
@@ -94,7 +94,7 @@ public class History implements Serializable, Timeable {
 		return actionid;
 	}
 
-	public void setActionid(Integer actionid) {
+	public void setActionid(final Integer actionid) {
 		this.actionid = actionid;
 	}
 
@@ -102,7 +102,7 @@ public class History implements Serializable, Timeable {
 		return reason;
 	}
 
-	public void setReason(String reason) {
+	public void setReason(final String reason) {
 		this.reason = reason;
 	}
 
@@ -112,7 +112,7 @@ public class History implements Serializable, Timeable {
 	}
 
 	@Override
-	public void setCreated(Date created) {
+	public void setCreated(final Date created) {
 		this.created = created;
 	}
 
@@ -122,7 +122,7 @@ public class History implements Serializable, Timeable {
 	}
 
 	@Override
-	public void setUpdated(Date updated) {
+	public void setUpdated(final Date updated) {
 		this.updated = updated;
 	}
 
@@ -130,7 +130,7 @@ public class History implements Serializable, Timeable {
 		return updateby;
 	}
 
-	public void setUpdateby(Integer updateby) {
+	public void setUpdateby(final Integer updateby) {
 		this.updateby = updateby;
 	}
 

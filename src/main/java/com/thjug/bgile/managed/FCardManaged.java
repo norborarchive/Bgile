@@ -60,8 +60,8 @@ public class FCardManaged extends AbstractManaged {
 	public String saveStory() {
 		try {
 			final Integer boardid = Integer.valueOf(getSession().getAttribute("boardid").toString());
-			card = (card.getId() == null) ? facade.create(getAccountId(), boardid, card) : facade.edit(
-					getAccountId(), card);
+			card = (card.getId() == null) ? facade.create(getAccountId(), boardid, card) : facade.edit(getAccountId(),
+					card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);

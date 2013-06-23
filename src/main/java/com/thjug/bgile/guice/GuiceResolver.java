@@ -18,7 +18,7 @@ public final class GuiceResolver extends ELResolver {
 	private final Injector injector = Guice.createInjector(new ServletModule());
 	//We only need to see the currently processed Objects in our Thread, that
 	//prevents multithread issues without synchronization
-	private static final ThreadLocal currentlyProcessedThreadLocal = new ThreadLocal() {
+	private static final ThreadLocal CURRENTLY_THREAD = new ThreadLocal() {
 		@Override
 		protected Object initialValue() {
 			return new LinkedList();
@@ -26,14 +26,14 @@ public final class GuiceResolver extends ELResolver {
 	};
 	//Im not sure if the synchronized lists seriously slow down the whole EL
 	//resolving process
-	private static final List<WeakReference> alreadyInjectedObjects = Collections.synchronizedList(new LinkedList());
+	private static final List<WeakReference> ALREADY_INJECTED_OBJECTS = Collections.synchronizedList(new LinkedList());
 
 	@Override
-	public final Object getValue(final ELContext context, final Object base, final Object property) {
+	public Object getValue(final ELContext context, final Object base, final Object property) {
 
 		//if the list of currently processed property objects doesnt exist for this
 		//thread, create it
-		final List<Object> currentlyProcessedPropertyObjects = (List<Object>) currentlyProcessedThreadLocal.get();
+		final List<Object> currentlyProcessedPropertyObjects = (List<Object>) CURRENTLY_THREAD.get();
 
 		//Handle only root inquiries, we wont handle property resolving
 		if (base != null) {
@@ -64,10 +64,10 @@ public final class GuiceResolver extends ELResolver {
 		context.setPropertyResolved(true);
 
 		//check if the object was already injected
-		if (!checkIfObjectIsContainedWeak(resolvedObj, alreadyInjectedObjects)) {
+		if (!checkIfObjectIsContainedWeak(resolvedObj, ALREADY_INJECTED_OBJECTS)) {
 			injector.injectMembers(resolvedObj);
 			//prevent a second injection by adding it as weakreference to our list
-			alreadyInjectedObjects.add(new WeakReference(resolvedObj));
+			ALREADY_INJECTED_OBJECTS.add(new WeakReference(resolvedObj));
 		}
 
 		return resolvedObj;
@@ -84,7 +84,7 @@ public final class GuiceResolver extends ELResolver {
 	private boolean checkIfObjectIsContainedWeak(final Object object, final List<WeakReference> list) {
 		for (int i = 0; i < list.size(); i++) {
 			final WeakReference curReference = list.get(i);
-			Object curObject = curReference.get();
+			final Object curObject = curReference.get();
 			if (curObject == null) {
 				//ok, there is are slight chance that could go wrong, if you
 				//have to prevent a double injection by all means, you might
@@ -108,7 +108,7 @@ public final class GuiceResolver extends ELResolver {
 	 * @return
 	 */
 	private boolean checkIfObjectIsContained(final Object object, final Collection collection) {
-		for (Object curObject : collection) {
+		for (final Object curObject : collection) {
 			if (object == curObject) {
 				return true;
 			}
@@ -131,26 +131,26 @@ public final class GuiceResolver extends ELResolver {
 	}
 
 	@Override
-	public final Class<?> getType(final ELContext context, final Object base, final Object property) {
+	public Class<?> getType(final ELContext context, final Object base, final Object property) {
 		return null;
 	}
 
 	@Override
-	public final void setValue(final ELContext context, final Object base, final Object property, Object value) {
+	public void setValue(final ELContext context, final Object base, final Object property, Object value) {
 	}
 
 	@Override
-	public final boolean isReadOnly(final ELContext context, final Object base, final Object property) {
+	public boolean isReadOnly(final ELContext context, final Object base, final Object property) {
 		return false;
 	}
 
 	@Override
-	public final Iterator<FeatureDescriptor> getFeatureDescriptors(final ELContext context, final Object base) {
+	public Iterator<FeatureDescriptor> getFeatureDescriptors(final ELContext context, final Object base) {
 		return null;
 	}
 
 	@Override
-	public final Class<?> getCommonPropertyType(final ELContext context, final Object base) {
+	public Class<?> getCommonPropertyType(final ELContext context, final Object base) {
 		return null;
 	}
 

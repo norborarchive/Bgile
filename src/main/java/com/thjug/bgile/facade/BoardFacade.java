@@ -22,16 +22,15 @@ import java.util.List;
  * @author @nuboat
  */
 @ImplementedBy(BoardFacadeImpl.class)
-public interface BoardFacade extends AbstractFacade {
+public interface BoardFacade {
 
-	public Board findById(final Integer accountid, final Integer id) throws Exception;
+	Board findById(final Integer accountid, final Integer id);
 
-	public Board create(final Integer accountid, final Board board) throws Exception;
+	Board create(final Integer accountid, final Board board);
 
-	public Board edit(final Integer accountid, final Board board) throws Exception;
+	Board edit(final Integer accountid, final Board board);
 
-	public Board remove(final Integer accountid, final Board board) throws Exception;
+	Board remove(final Integer accountid, final Board board);
 
-	public List<Board> findAllByAccount(final Integer accountid) throws Exception;
-
+	List<Board> findAllByAccount(final Integer accountid);
 }

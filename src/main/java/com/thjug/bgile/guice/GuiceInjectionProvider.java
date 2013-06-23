@@ -11,7 +11,7 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	/**
 	 * default injector provided by the web container.
 	 */
-	private static final WebContainerInjectionProvider con = new WebContainerInjectionProvider();
+	private static final WebContainerInjectionProvider CON = new WebContainerInjectionProvider();
 
 	/**
 	 * Custom guice injector that will load our modules.
@@ -23,21 +23,21 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	}
 
 	@Override
-	public final void inject(final Object managedBean) throws InjectionProviderException {
+	public void inject(final Object managedBean) throws InjectionProviderException {
 		// allow the default injector to inject the bean.
-		con.inject(managedBean);
+		CON.inject(managedBean);
 		// then inject with the google injector.
 		injector.injectMembers(managedBean);
 	}
 
 	@Override
-	public final void invokePostConstruct(final Object managedBean) throws InjectionProviderException {
+	public void invokePostConstruct(final Object managedBean) throws InjectionProviderException {
 		// don't do anything here for guice, just let the default do its thing
-		con.invokePostConstruct(managedBean);
+		CON.invokePostConstruct(managedBean);
 	}
 
 	@Override
-	public final void invokePreDestroy(final Object managedBean) throws InjectionProviderException {
-		con.invokePreDestroy(managedBean);
+	public void invokePreDestroy(final Object managedBean) throws InjectionProviderException {
+		CON.invokePreDestroy(managedBean);
 	}
 }

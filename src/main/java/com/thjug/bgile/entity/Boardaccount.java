@@ -36,10 +36,10 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "boardaccount")
-@NamedQueries( { @NamedQuery(name = Boardaccount.findByAccountAndBoard, query = "SELECT b FROM Boardaccount b WHERE b.account = ?1 and b.board = ?2"), })
+@NamedQueries( { @NamedQuery(name = Boardaccount.FIND_BY_ACCOUNT_AND_BOARD, query = "SELECT b FROM Boardaccount b WHERE b.account = ?1 and b.board = ?2"), })
 public class Boardaccount implements Serializable, Timeable {
 	private static final long serialVersionUID = 1L;
-	public static final String findByAccountAndBoard = "Boardaccount.findByAccount";
+	public static final String FIND_BY_ACCOUNT_AND_BOARD = "Boardaccount.findByAccountAndBoard";
 	@Id
 	@Basic(optional = false)
 	@NotNull
@@ -73,11 +73,6 @@ public class Boardaccount implements Serializable, Timeable {
 		this.id = id;
 	}
 
-	public Boardaccount(final Integer id, final char permissionid) {
-		this.id = id;
-		this.permissionid = permissionid;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -98,7 +93,7 @@ public class Boardaccount implements Serializable, Timeable {
 		return board;
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(final Board board) {
 		this.board = board;
 	}
 
@@ -106,7 +101,7 @@ public class Boardaccount implements Serializable, Timeable {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	public void setAccount(final Account account) {
 		this.account = account;
 	}
 

@@ -28,6 +28,7 @@ import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
+import com.thjug.bgile.entity.State;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
@@ -52,7 +53,6 @@ public class BoardManaged extends AbstractManaged {
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
-	public static final int DEFAULT_COLUMN_COUNT = 4; // 0 = Plan, 1 = Process, 2 = Test, 3 = Done, 4 = Archive
 	private Board board;
 	private Card card;
 	private List<Card> cardList;
@@ -105,19 +105,19 @@ public class BoardManaged extends AbstractManaged {
 	}
 
 	public void handleReorder(final DashboardReorderEvent event) {
-		LOG.debug("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}",
-				event.getWidgetId(), event.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
+		LOG.debug("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}", event.getWidgetId(), event
+				.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
 
-		final Integer storyid = Integer.valueOf(event.getWidgetId().replace("US", Constants.EMPTY));
+		final Integer storyid = Integer.valueOf(event.getWidgetId().replace("ID", Constants.EMPTY));
 		final char fromsate = event.getSenderColumnIndex().toString().charAt(0);
 		final char tostate = event.getColumnIndex().toString().charAt(0);
-		LOG.info("Moved US: {} from state {} to state {}", storyid, fromsate, tostate);
+		LOG.info("Moved ID: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
 			cardFacade.move(getAccountId(), storyid, fromsate, tostate);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
-			addErrorMessage("Cannot move US" + storyid, null);
+			addErrorMessage("Cannot move ID" + storyid, null);
 		}
 
 		loadCards(board.getId());
@@ -141,7 +141,7 @@ public class BoardManaged extends AbstractManaged {
 
 		DashboardColumn column;
 		final DashboardModel model = new DefaultDashboardModel();
-		for (int i = 0, n = DEFAULT_COLUMN_COUNT; i < n; i++) {
+		for (int i = 0, n = State.values().length; i < n; i++) {
 			column = new DefaultDashboardColumn();
 			model.addColumn(column);
 		}
@@ -151,8 +151,9 @@ public class BoardManaged extends AbstractManaged {
 		HtmlOutputText text;
 		for (final Card us : cardList) {
 			panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
-			panel.setId("US" + us.getId().toString());
-			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/" + us.getId() + "'>" + "US" + us.getId() + "</a>");
+			panel.setId("ID" + us.getId().toString());
+			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/"
+					+ us.getId() + "'>" + "ID" + us.getId() + "</a>");
 			panel.setClosable(false);
 			panel.setToggleable(false);
 

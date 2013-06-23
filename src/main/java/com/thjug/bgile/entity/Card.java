@@ -40,12 +40,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "CARD")
-@NamedQueries({
-	@NamedQuery(name = Card.findByBoardAndStatus, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"),})
+@NamedQueries( { @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
 public class Card implements Serializable, Timeable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String findByBoardAndStatus = "Card.findByBoardAndStatus";
+	public static final String FIND_BY_BOARD_AND_STATUS = "Card.findByBoardAndStatus";
 
 	@Id
 	@Basic(optional = false)
@@ -75,7 +74,6 @@ public class Card implements Serializable, Timeable {
 	private Account owner;
 	@Column(name = "estimate")
 	private Integer estimate;
-	@Size(max = 2147483647)
 	@Column(name = "description")
 	private String description;
 	@Column(name = "created")
@@ -94,13 +92,6 @@ public class Card implements Serializable, Timeable {
 
 	public Card(final Integer id) {
 		this.id = id;
-	}
-
-	public Card(final Integer id, final String story, final int estimate, final char stateid) {
-		this.id = id;
-		this.story = story;
-		this.estimate = estimate;
-		this.stateid = stateid;
 	}
 
 	public Integer getId() {

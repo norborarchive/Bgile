@@ -12,8 +12,6 @@
  */
 package com.thjug.bgile.facade;
 
-import java.util.List;
-
 import com.google.inject.ImplementedBy;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.impl.AccountFacadeImpl;
@@ -23,16 +21,16 @@ import com.thjug.bgile.facade.impl.AccountFacadeImpl;
  * @author @nuboat
  */
 @ImplementedBy(AccountFacadeImpl.class)
-public interface AccountFacade extends AbstractFacade {
+public interface AccountFacade {
 
-	public Account createAccount(final Account account) throws Exception;
+	Account createAccount(final Account account);
 
-	public Account editAccount(final Account account) throws Exception;
+	Account editAccount(final Account account);
 
-	public void removeAccount(final Account account) throws Exception;
+	void removeAccount(final Account account);
 
-	public Account findByUsername(final String username) throws Exception;
+	Account findByUsername(final String username);
 
-	public Account findById(final Integer id) throws Exception;
+	Account findById(final Integer id);
 
 }

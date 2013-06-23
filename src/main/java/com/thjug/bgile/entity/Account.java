@@ -39,14 +39,13 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account")
-@NamedQueries({
-	@NamedQuery(name = Account.countAll, query = "SELECT COUNT(a) FROM Account a"),
-	@NamedQuery(name = Account.findByUsername, query = "SELECT a FROM Account a WHERE a.username = ?1"),})
+@NamedQueries( { @NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
+		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"), })
 public class Account implements Serializable, Converterable, Timeable {
 
 	private static final long serialVersionUID = 1L;
-	public static final String countAll = "Account.countAll";
-	public static final String findByUsername = "Account.findByUsername";
+	public static final String COUNT_ALL = "Account.countAll";
+	public static final String FIND_BY_USERNAME = "Account.findByUsername";
 
 	@Id
 	@Basic(optional = false)
@@ -61,8 +60,8 @@ public class Account implements Serializable, Converterable, Timeable {
 	private char typeid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "enable")
-	private char enable;
+	@Column(name = "enableid")
+	private char enableid;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
@@ -112,16 +111,6 @@ public class Account implements Serializable, Converterable, Timeable {
 
 	public Account(final Integer id) {
 		this.id = id;
-	}
-
-	public Account(final Integer id, final char typeid, final char enable, final String username, final String passwd,
-			final String email) {
-		this.id = id;
-		this.typeid = typeid;
-		this.enable = enable;
-		this.username = username;
-		this.passwd = passwd;
-		this.email = email;
 	}
 
 	public Integer getId() {
@@ -232,12 +221,12 @@ public class Account implements Serializable, Converterable, Timeable {
 		this.updateby = updateby;
 	}
 
-	public char getEnable() {
-		return enable;
+	public char getEnableid() {
+		return enableid;
 	}
 
-	public void setEnable(char enable) {
-		this.enable = enable;
+	public void setEnableid(final char enableid) {
+		this.enableid = enableid;
 	}
 
 	public List<Boardaccount> getBoardaccountList() {

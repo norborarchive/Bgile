@@ -22,11 +22,10 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.inject.Inject;
 
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
-
-import com.google.inject.Inject;
 
 /**
  *
@@ -38,26 +37,14 @@ public class AccountFormManaged extends AbstractManaged {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(AccountFormManaged.class);
 
+	private Account account;
 	@Inject
 	private AccountFacade accountFacade;
 
-	private Account account;
-
-	private UploadedFile file;
-
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(final UploadedFile file) {
-		this.file = file;
-	}
-
 	public AccountFormManaged() {
 		account = new Account();
-		//account.setAccountAuth(new AccountAuth());
 		account.setTypeid('A');
-		//account.getAccountauth().setEnable('Y');
+		account.setEnableid('T');
 	}
 
 	@PostConstruct
@@ -92,12 +79,14 @@ public class AccountFormManaged extends AbstractManaged {
 		return null;
 	}
 
+	// FIXME
 	public void handleFileUpload(final FileUploadEvent event) {
-		//UploadedFile file = event.getFile();
+		final UploadedFile file = event.getFile();
+		LOG.info("File: ", file.getFileName());
 	}
 
 	public String accountList() {
-		return "/admin/account?faces-redirect=true";
+		return redirect("/admin/account");
 	}
 
 	public Account getAccount() {

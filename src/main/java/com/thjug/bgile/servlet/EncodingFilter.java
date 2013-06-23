@@ -29,14 +29,10 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class EncodingFilter implements Filter {
-	private static String ENCODING = "UTF-8";
+	private static final String ENCODING = "UTF-8";
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
-		final String encodingParam = filterConfig.getInitParameter("encoding");
-		if (encodingParam != null) {
-			ENCODING = encodingParam;
-		}
 	}
 
 	@Override

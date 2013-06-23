@@ -23,11 +23,14 @@ import com.google.inject.persist.jpa.JpaPersistModule;
  *
  * @author @nuboat
  */
-public class GuiceInjectorFactory {
+public final class GuiceInjectorFactory {
 	private static Injector injector;
 
+	private GuiceInjectorFactory() {
+	}
+
 	private static void initInjector() {
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+		final ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		injector = Guice.createInjector(new GuiceServletModule(), new JpaPersistModule("bgileUnit"),
 				new LoggingModule(), new ShiroAopModuleImpl(), new ShiroWebModuleImpl(servletContext));

@@ -12,10 +12,11 @@
  */
 package com.thjug.bgile.service;
 
+import java.util.List;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
-import static com.thjug.bgile.facade.CardFacade.STATE0;
-import java.util.List;
+import com.thjug.bgile.entity.State;
+import com.thjug.bgile.entity.Status;
 
 /**
  *
@@ -28,14 +29,12 @@ public final class CardService extends AbstractService<Card> {
 	}
 
 	public List<Card> findByBoard(final Board board) {
-		final List<Card> storys = findAll(Card.findByBoardAndStatus, board, LIVE);
-
-		return storys;
+		return findAll(Card.FIND_BY_BOARD_AND_STATUS, board, Status.L.getId());
 	}
 
 	public Card createNewStory(final Card story) {
-		story.setStateid(STATE0);
-		story.setStatusid(LIVE);
+		story.setStateid(State.Plan.getId());
+		story.setStatusid(Status.L.getId());
 		return create(story);
 	}
 
