@@ -12,28 +12,59 @@
  */
 package com.thjug.bgile.facade;
 
-import com.google.inject.ImplementedBy;
+import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
+
+import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.facade.impl.AccountFacadeImpl;
+import com.thjug.bgile.interceptor.Logging;
 import java.util.List;
 
 /**
  *
  * @author @nuboat
  */
-@ImplementedBy(AccountFacadeImpl.class)
-public interface AccountFacade {
+public class AccountFacade {
 
-	Account createAccount(final Account account);
+	private static final long serialVersionUID = 1L;
 
-	Account editAccount(final Account account);
+	@Inject
+	private transient AccountService accountService;
 
-	void removeAccount(final Account account);
+	@Logging
+	@Transactional
+	public Account createAccount(final Account account) {
+		return accountService.create(account);
+	}
 
-	Account findByUsername(final String username);
+	@Logging
+	@Transactional
+	public Account editAccount(final Account account) {
+		return accountService.edit(account);
+	}
 
-	Account findById(final Integer id);
+	@Logging
+	@Transactional
+	public void removeAccount(final Account account) {
+		accountService.remove(account);
+	}
 
-	List<Account> containsKeyword(final String keyword);
+	@Logging
+	@Transactional
+	public Account findByUsername(final String username) {
+		return accountService.findByUsername(username);
+	}
+
+	@Logging
+	@Transactional
+	public Account findById(final Integer id) {
+		return accountService.find(id);
+	}
+
+	@Logging
+	@Transactional
+	public List<Account> containsKeyword(final String keyword) {
+		return accountService.findByKeyword(keyword);
+	}
 
 }

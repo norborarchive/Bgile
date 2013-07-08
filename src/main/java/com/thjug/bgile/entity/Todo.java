@@ -13,7 +13,6 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,7 +29,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "todo")
-public class Todo implements Serializable, Timeable {
+public class Todo extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,14 +42,7 @@ public class Todo implements Serializable, Timeable {
 	@Size(min = 1, max = 512)
 	@Column(name = "description")
 	private String description;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
+
 	@JoinColumn(name = "card", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Card card;
@@ -83,34 +73,6 @@ public class Todo implements Serializable, Timeable {
 
 	public void setDescription(final String description) {
 		this.description = description;
-	}
-
-	@Override
-	public Date getCreated() {
-		return created;
-	}
-
-	@Override
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	@Override
-	public Date getUpdated() {
-		return updated;
-	}
-
-	@Override
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
 	}
 
 	public Card getCard() {

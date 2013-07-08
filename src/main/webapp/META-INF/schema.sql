@@ -3,8 +3,7 @@ DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS card_id_seq;
 DROP SEQUENCE IF EXISTS storyorder_id_seq;
-DROP SEQUENCE IF EXISTS todo_id_seq;
-DROP SEQUENCE IF EXISTS history_id_seq;
+
 
 DROP TABLE IF EXISTS TODO;
 DROP TABLE IF EXISTS STORYORDER;
@@ -52,13 +51,13 @@ ALTER TABLE account_id_seq
 CREATE TABLE BOARD
 (
   ID            integer,
-  STATUSID      character(1) NOT NULL,
+  STATUSID      character(1) NOT NULL, -- L / D
   ENABLEID      character(1) NOT NULL, -- T / F
-  PERMISSIONID  character(1) NOT NULL, -- P / S
+  PRIVATEID     character(1) NOT NULL, -- T / F
   BOARDNAME	    character varying(128) NOT NULL,
   DESCRIPTION	character varying(512),
   LOGOPATH      character varying(256),
-  MAXCARD		integer
+  MAXCARD		integer,
 
   CREATED       timestamp with time zone,
   UPDATED       timestamp with time zone,
@@ -85,7 +84,8 @@ CREATE TABLE BOARDACCOUNT
   ID            integer,
   ACCOUNT       integer NOT NULL,
   BOARD  		integer NOT NULL,
-  PERMISSIONID  character(1) NOT NULL,
+  PERMISSIONID  character(1) NOT NULL, -- A / W / R
+  STATUSID      character(1) NOT NULL,
 
   CREATED       timestamp with time zone,
   UPDATED       timestamp with time zone,
@@ -189,7 +189,7 @@ ALTER TABLE storyorder_id_seq
 
 CREATE TABLE TODO
 (
-  ID            integer,
+  ID            serial,
   CARD     integer NOT NULL,
   DESCRIPTION   character varying(512) NOT NULL,
 
@@ -208,19 +208,9 @@ WITH (
 ALTER TABLE TODO     OWNER TO bgile;
 
 
-CREATE SEQUENCE todo_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1000
-  CACHE 1;
-ALTER TABLE todo_id_seq
-  OWNER TO bgile;
-
-
 CREATE TABLE HISTORY
 (
-  ID            integer,
+  ID            serial,
   ACCOUNTID		integer,
   REFID			integer,
   ACTIONID		integer,
@@ -238,31 +228,24 @@ WITH (
 ALTER TABLE history     OWNER TO bgile;
 
 
-CREATE SEQUENCE history_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1;
-ALTER TABLE history_id_seq
-  OWNER TO bgile;
-
-
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
-    VALUES (1, 'A', 'Y', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com', 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
+    VALUES (1, 'A', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com', 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
 
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
     VALUES (2, 'S', 'T', 'nuboat', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com', 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
 
 INSERT INTO board(
-            id, statusid, enableid, permissionid, boardname, description, logopath)
-    VALUES (1, 'L', 'T', 'Bgile', 'P', 'Bgile not Agile', 'board/000000000.jpg');
+            id, statusid, enableid, privateid, boardname, description, logopath)
+    VALUES (1, 'L', 'T', 'T', 'Bgile', 'Bgile not Agile', 'board/000000000.jpg');
 
 INSERT INTO boardaccount(
-            id, board, account, permissionid)
-    VALUES (1, 1, 2, 'O');
+            id, board, account, permissionid, statusid)
+    VALUES (1, 1, 1, 'W', 'L');
+INSERT INTO boardaccount(
+            id, board, account, permissionid, statusid)
+    VALUES (2, 1, 2, 'A', 'L');
 
 INSERT INTO card(
             id, board, stateid, statusid, story)

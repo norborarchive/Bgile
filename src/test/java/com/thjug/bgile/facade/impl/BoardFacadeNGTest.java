@@ -12,8 +12,8 @@
  */
 package com.thjug.bgile.facade.impl;
 
-import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.facade.BoardFacade;
+import com.thjug.bgile.entity.Board;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -25,15 +25,15 @@ import org.testng.annotations.Test;
  *
  * @author nuboat
  */
-public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
+public class BoardFacadeNGTest extends AbstractFacadeNGTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BoardFacadeImplNGTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BoardFacadeNGTest.class);
 	private static final Integer accountid = 2;
 
 	@Test
 	public void testFindById() throws Exception {
 		LOG.info("findById");
-		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final Integer expResult = 1;
 		final Board result = instance.findById(accountid, 1);
@@ -44,7 +44,7 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 	@Test
 	public void testCreate() throws Exception {
 		LOG.info("findById");
-		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final Board board = new Board();
 		board.setBoardname("Test Project");
@@ -55,7 +55,7 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 	@Test
 	public void testEdit() throws Exception {
 		LOG.info("edit");
-		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final Board board = new Board();
 		board.setBoardname("Test Project");
@@ -71,7 +71,7 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 	@Test(expectedExceptions = EntityNotFoundException.class)
 	public void testRemove() throws Exception {
 		LOG.info("remove");
-		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final Board board = new Board();
 		board.setBoardname("Test Project");
@@ -86,7 +86,7 @@ public class BoardFacadeImplNGTest extends AbstractFacadeNGTest {
 	@Test
 	public void testFindAllByAccount() throws Exception {
 		LOG.info("remove");
-		final BoardFacade instance = injector.getInstance(BoardFacadeImpl.class);
+		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final List result = instance.findAllByAccount(accountid);
 		assertNotEquals(result.size(), 0);

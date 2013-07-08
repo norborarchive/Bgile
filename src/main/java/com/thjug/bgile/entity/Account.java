@@ -13,12 +13,13 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +28,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -39,14 +38,13 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account")
-@NamedQueries( { @NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
-	@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
-	@NamedQuery(name = Account.FIND_BY_KEYWORD, query =
-			" SELECT a FROM Account a "
-			+ " WHERE UPPER(a.username) LIKE ?1 "
-			+ "		OR UPPER(a.email) LIKE ?1"
-			+ "		OR CONCAT(UPPER(a.firstname), UPPER(a.lastname)) LIKE ?1"),})
-public class Account implements Serializable, Converterable, Timeable {
+@NamedQueries( {
+		@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
+		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
+		@NamedQuery(name = Account.FIND_BY_KEYWORD, query = " SELECT a FROM Account a "
+				+ " WHERE UPPER(a.username) LIKE ?1 " + "		OR UPPER(a.email) LIKE ?1"
+				+ "		OR CONCAT(UPPER(a.firstname), UPPER(a.lastname)) LIKE ?1"), })
+public class Account extends Time implements Serializable, Converterable {
 
 	private static final long serialVersionUID = 1L;
 	public static final String COUNT_ALL = "Account.countAll";
@@ -66,8 +64,9 @@ public class Account implements Serializable, Converterable, Timeable {
 	private char typeid;
 	@Basic(optional = false)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "enableid")
-	private char enableid;
+	private Enable enableid;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
@@ -99,14 +98,7 @@ public class Account implements Serializable, Converterable, Timeable {
 	@Size(max = 256)
 	@Column(name = "avatarpath")
 	private String avatarpath;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Boardaccount> boardaccountList;
 	@OneToMany(mappedBy = "owner")
@@ -199,39 +191,11 @@ public class Account implements Serializable, Converterable, Timeable {
 		this.avatarpath = avatarpath;
 	}
 
-	@Override
-	public Date getCreated() {
-		return created;
-	}
-
-	@Override
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	@Override
-	public Date getUpdated() {
-		return updated;
-	}
-
-	@Override
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
-	}
-
-	public char getEnableid() {
+	public Enable getEnableid() {
 		return enableid;
 	}
 
-	public void setEnableid(final char enableid) {
+	public void setEnableid(final Enable enableid) {
 		this.enableid = enableid;
 	}
 

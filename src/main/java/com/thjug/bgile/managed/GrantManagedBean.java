@@ -14,7 +14,7 @@ package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.facade.impl.AccountFacadeImpl;
+import com.thjug.bgile.facade.AccountFacade;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -31,7 +31,7 @@ public class GrantManagedBean extends AbstractManaged {
 	private List<Account> accounts;
 
 	@Inject
-	private transient AccountFacadeImpl facade;
+	private transient AccountFacade facade;
 
 	public List<Account> findAccounts() {
 		return facade.containsKeyword(accountname);

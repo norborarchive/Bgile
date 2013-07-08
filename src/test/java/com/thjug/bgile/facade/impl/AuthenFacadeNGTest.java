@@ -19,12 +19,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-public class AuthenFacadeImplNGTest extends AbstractFacadeNGTest {
-	private static final Logger LOG = LoggerFactory.getLogger(AuthenFacadeImplNGTest.class);
+public class AuthenFacadeNGTest extends AbstractFacadeNGTest {
+	private static final Logger LOG = LoggerFactory.getLogger(AuthenFacadeNGTest.class);
 
 	//private final AuthenFacade authenFacade;
 
-	public AuthenFacadeImplNGTest() {
+	public AuthenFacadeNGTest() {
 		//authenFacade = injector.getInstance(AuthenFacade.class);
 	}
 

@@ -13,17 +13,16 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,7 +32,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "board")
-public class Board implements Serializable, Timeable {
+public class Board extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,16 +44,19 @@ public class Board implements Serializable, Timeable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "statusid")
-	private char statusid;
+	private Status statusid;
 	@Basic(optional = false)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "enableid")
-	private char enableid;
+	private Enable enableid;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "permissionid")
-	private char permissionid;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "privateid")
+	private Private privateid;
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 128)
@@ -68,14 +70,6 @@ public class Board implements Serializable, Timeable {
 	private String logopath;
 	@Column(name = "maxcard")
 	private int maxcard;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
 
 	public Board() {
 	}
@@ -92,28 +86,28 @@ public class Board implements Serializable, Timeable {
 		this.id = id;
 	}
 
-	public char getStatusid() {
+	public Status getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(final char statusid) {
+	public void setStatusid(final Status statusid) {
 		this.statusid = statusid;
 	}
 
-	public char getEnableid() {
+	public Enable getEnableid() {
 		return enableid;
 	}
 
-	public void setEnableid(final char enableid) {
+	public void setEnableid(final Enable enableid) {
 		this.enableid = enableid;
 	}
 
-	public char getPermissionid() {
-		return permissionid;
+	public Private getPrivateid() {
+		return privateid;
 	}
 
-	public void setPermissionid(final char permissionid) {
-		this.permissionid = permissionid;
+	public void setPrivateid(final Private privateid) {
+		this.privateid = privateid;
 	}
 
 	public String getBoardname() {
@@ -146,34 +140,6 @@ public class Board implements Serializable, Timeable {
 
 	public void setMaxcard(int maxcard) {
 		this.maxcard = maxcard;
-	}
-
-	@Override
-	public Date getCreated() {
-		return created;
-	}
-
-	@Override
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	@Override
-	public Date getUpdated() {
-		return updated;
-	}
-
-	@Override
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
 	}
 
 	@Override

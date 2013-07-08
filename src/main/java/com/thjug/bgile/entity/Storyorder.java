@@ -5,18 +5,15 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +23,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "storyorder")
-@NamedQueries( { @NamedQuery(name = "Storyorder.findAll", query = "SELECT s FROM Storyorder s") })
-public class Storyorder implements Serializable {
+public class Storyorder extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Basic(optional = false)
@@ -36,20 +32,13 @@ public class Storyorder implements Serializable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 1)
+	@Enumerated(EnumType.STRING)
 	@Column(name = "stateid")
-	private String stateid;
+	private State stateid;
 	@Size(max = 2147483647)
 	@Column(name = "orderby")
 	private String orderby;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
+
 	@JoinColumn(name = "board", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Board board;
@@ -61,11 +50,6 @@ public class Storyorder implements Serializable {
 		this.id = id;
 	}
 
-	public Storyorder(final Integer id, final String stateid) {
-		this.id = id;
-		this.stateid = stateid;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -74,11 +58,11 @@ public class Storyorder implements Serializable {
 		this.id = id;
 	}
 
-	public String getStateid() {
+	public State getStateid() {
 		return stateid;
 	}
 
-	public void setStateid(final String stateid) {
+	public void setStateid(final State stateid) {
 		this.stateid = stateid;
 	}
 
@@ -88,30 +72,6 @@ public class Storyorder implements Serializable {
 
 	public void setOrderby(final String orderby) {
 		this.orderby = orderby;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
 	}
 
 	public Board getBoard() {

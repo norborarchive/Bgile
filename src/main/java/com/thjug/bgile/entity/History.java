@@ -13,16 +13,11 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,8 +27,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "history")
-@NamedQueries( { @NamedQuery(name = "History.findAll", query = "SELECT h FROM History h") })
-public class History implements Serializable, Timeable {
+public class History extends Time implements Serializable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -50,14 +44,6 @@ public class History implements Serializable, Timeable {
 	@Size(max = 2147483647)
 	@Column(name = "reason")
 	private String reason;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
 
 	public History() {
 	}
@@ -104,34 +90,6 @@ public class History implements Serializable, Timeable {
 
 	public void setReason(final String reason) {
 		this.reason = reason;
-	}
-
-	@Override
-	public Date getCreated() {
-		return created;
-	}
-
-	@Override
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	@Override
-	public Date getUpdated() {
-		return updated;
-	}
-
-	@Override
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
 	}
 
 	@Override

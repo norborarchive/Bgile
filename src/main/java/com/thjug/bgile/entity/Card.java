@@ -13,12 +13,13 @@
 package com.thjug.bgile.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,8 +30,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -41,7 +40,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "CARD")
 @NamedQueries( { @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
-public class Card implements Serializable, Timeable {
+public class Card extends Time implements Serializable, Timeable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_BOARD_AND_STATUS = "Card.findByBoardAndStatus";
@@ -64,8 +63,9 @@ public class Card implements Serializable, Timeable {
 	private char stateid;
 	@Basic(optional = false)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "statusid")
-	private char statusid;
+	private Status statusid;
 	@JoinColumn(name = "board", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Board board;
@@ -76,14 +76,7 @@ public class Card implements Serializable, Timeable {
 	private Integer estimate;
 	@Column(name = "description")
 	private String description;
-	@Column(name = "created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	@Column(name = "updated")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated;
-	@Column(name = "updateby")
-	private Integer updateby;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
 	private List<Todo> todoList;
 
@@ -126,11 +119,11 @@ public class Card implements Serializable, Timeable {
 		this.stateid = stateid;
 	}
 
-	public char getStatusid() {
+	public Status getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(final char statusid) {
+	public void setStatusid(final Status statusid) {
 		this.statusid = statusid;
 	}
 
@@ -164,34 +157,6 @@ public class Card implements Serializable, Timeable {
 
 	public void setBoard(Board board) {
 		this.board = board;
-	}
-
-	@Override
-	public Date getCreated() {
-		return created;
-	}
-
-	@Override
-	public void setCreated(final Date created) {
-		this.created = created;
-	}
-
-	@Override
-	public Date getUpdated() {
-		return updated;
-	}
-
-	@Override
-	public void setUpdated(final Date updated) {
-		this.updated = updated;
-	}
-
-	public Integer getUpdateby() {
-		return updateby;
-	}
-
-	public void setUpdateby(final Integer updateby) {
-		this.updateby = updateby;
 	}
 
 	@Override

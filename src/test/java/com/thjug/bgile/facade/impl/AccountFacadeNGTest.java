@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.facade.impl;
 
+import com.thjug.bgile.facade.AccountFacade;
 import java.util.Date;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
@@ -21,12 +22,12 @@ import com.thjug.bgile.entity.Account;
  *
  * @author @nuboat
  */
-public class AccountFacadeImplNGTest extends AbstractFacadeNGTest {
+public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 
 	@Test
 	public void FindByAccountid() throws Exception {
 		final Account account;
-		final AccountFacadeImpl accountFacadeImpl = injector.getInstance(AccountFacadeImpl.class);
+		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 
 		account = accountFacadeImpl.findById(1);
 		assertEquals(account.getId(), Integer.valueOf(1));
@@ -36,7 +37,7 @@ public class AccountFacadeImplNGTest extends AbstractFacadeNGTest {
 	public void FindByUserNameCaseAccountFound() throws Exception {
 		final Account account;
 		final String username = "admin";
-		final AccountFacadeImpl accountFacadeImpl = injector.getInstance(AccountFacadeImpl.class);
+		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 
 		account = accountFacadeImpl.findByUsername(username);
 		assertNotNull(account);
@@ -56,7 +57,7 @@ public class AccountFacadeImplNGTest extends AbstractFacadeNGTest {
 		//account.setAccountAuth(accountAuth);
 
 		try {
-			final AccountFacadeImpl accountFacadeImpl = injector.getInstance(AccountFacadeImpl.class);
+			final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 			accountFacadeImpl.createAccount(account);
 
 			final Account persistedAccount = accountFacadeImpl.findByUsername(username);

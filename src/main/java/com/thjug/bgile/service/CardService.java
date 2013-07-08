@@ -29,12 +29,12 @@ public final class CardService extends AbstractService<Card> {
 	}
 
 	public List<Card> findByBoard(final Board board) {
-		return findAll(Card.FIND_BY_BOARD_AND_STATUS, board, Status.L.getId());
+		return findAll(Card.FIND_BY_BOARD_AND_STATUS, board, Status.L);
 	}
 
 	public Card createNewStory(final Card story) {
 		story.setStateid(State.Plan.getId());
-		story.setStatusid(Status.L.getId());
+		story.setStatusid(Status.L);
 		return create(story);
 	}
 

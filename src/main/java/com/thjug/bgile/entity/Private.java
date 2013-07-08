@@ -10,16 +10,29 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.facade;
+package com.thjug.bgile.entity;
 
 /**
  *
  * @author @nuboat
  */
-public interface AbstractFacade {
+public enum Private {
 
-	public static final char TRUE = 'T';
-	public static final char FALSE = 'F';
-	public static final char LIVE = 'L';
-	public static final char DEAD = 'D';
+	T('T', "True"),
+	F('F', "False");
+	private char id;
+	private String text;
+
+	private Private(final char id, final String text) {
+		this.id = id;
+		this.text = text;
+	}
+
+	public char getId() {
+		return id;
+	}
+
+	public String getText() {
+		return text;
+	}
 }

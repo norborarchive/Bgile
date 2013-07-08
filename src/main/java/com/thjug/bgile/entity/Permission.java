@@ -18,8 +18,9 @@ package com.thjug.bgile.entity;
  */
 public enum Permission {
 
-	U('U', "Public"),
-	R('R', "Private");
+	A('A', "Admin"),
+	W('W', "Write"),
+	R('R', "Read");
 	private char id;
 	private String text;
 

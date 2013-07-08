@@ -64,7 +64,7 @@ public class JpaRealm extends AuthorizingRealm {
 			if (account == null) {
 				throw new UnknownAccountException();
 			}
-			if (account.getEnableid() != Enable.T.getId()) {
+			if (account.getEnableid() != Enable.T) {
 				throw new LockedAccountException();
 			}
 

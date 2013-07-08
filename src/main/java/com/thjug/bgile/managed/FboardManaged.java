@@ -15,6 +15,7 @@ package com.thjug.bgile.managed;
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Permission;
+import com.thjug.bgile.entity.Private;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.util.Constants;
 import java.util.List;
@@ -60,7 +61,7 @@ public class FboardManaged extends AbstractManaged {
 
 	public String save() {
 		try {
-			board.setPermissionid(Permission.R.getId());
+			board.setPrivateid(Private.T);
 			board = (board.getId() == null) ? facade.create(getAccountId(), board) : facade.edit(getAccountId(), board);
 			return "dashboard";
 		} catch (final Exception e) {

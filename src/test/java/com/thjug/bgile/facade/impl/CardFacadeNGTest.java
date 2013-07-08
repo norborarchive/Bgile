@@ -4,6 +4,7 @@
  */
 package com.thjug.bgile.facade.impl;
 
+import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.entity.Card;
 import java.util.List;
 import static org.testng.Assert.*;
@@ -13,14 +14,14 @@ import org.testng.annotations.Test;
  *
  * @author nuboat
  */
-public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
+public class CardFacadeNGTest extends AbstractFacadeNGTest {
 
 	@Test
 	public void testCreate() throws Exception {
 		Integer accountid = 2;
 		Integer boardid = 1;
 
-		final CardFacadeImpl instance = injector.getInstance(CardFacadeImpl.class);
+		final CardFacade instance = injector.getInstance(CardFacade.class);
 
 		Card story = new Card();
 		story.setStory("NG Test");
@@ -33,7 +34,7 @@ public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("edit");
 		Integer accountid = null;
 		Card story = null;
-		CardFacadeImpl instance = new CardFacadeImpl();
+		CardFacade instance = new CardFacade();
 		Card expResult = null;
 		Card result = instance.edit(accountid, story);
 		assertEquals(result, expResult);
@@ -46,7 +47,7 @@ public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("remove");
 		Integer accountid = null;
 		Card story = null;
-		CardFacadeImpl instance = new CardFacadeImpl();
+		CardFacade instance = new CardFacade();
 		Card expResult = null;
 		Card result = instance.remove(accountid, story);
 		assertEquals(result, expResult);
@@ -59,7 +60,7 @@ public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("findById");
 		Integer accountid = null;
 		Integer storyid = null;
-		CardFacadeImpl instance = new CardFacadeImpl();
+		CardFacade instance = new CardFacade();
 		Card expResult = null;
 		Card result = instance.findById(accountid, storyid);
 		assertEquals(result, expResult);
@@ -72,7 +73,7 @@ public class CardFacadeImplNGTest extends AbstractFacadeNGTest {
 		System.out.println("findAllByBoardId");
 		Integer accountid = null;
 		Integer boardid = null;
-		CardFacadeImpl instance = new CardFacadeImpl();
+		CardFacade instance = new CardFacade();
 		List expResult = null;
 		List result = instance.findAllByBoardId(accountid, boardid);
 		assertEquals(result, expResult);

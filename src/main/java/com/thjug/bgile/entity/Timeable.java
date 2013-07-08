@@ -28,4 +28,7 @@ public interface Timeable {
 
 	void setUpdated(final Date updated);
 
+	Integer getUpdateby();
+
+	void setUpdateby(final Integer updateby);
 }
