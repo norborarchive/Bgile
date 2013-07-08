@@ -16,6 +16,14 @@
 		</ui:define>
         <ui:define name="content">
 			<p:messages id="msg" />
+
+			<p:autoComplete id="acSimple" value="#{grantManagedBean.accountname}"
+							completeMethod="#{grantManagedBean.findAccounts}"/>
+
+
+
+
+
 			<ui:remove>
 				<div class="row">
 					<div style="padding-bottom: 24px; padding-left: 24px; float:left;">

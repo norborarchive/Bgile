@@ -40,12 +40,18 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "account")
 @NamedQueries( { @NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
-		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"), })
+	@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
+	@NamedQuery(name = Account.FIND_BY_KEYWORD, query =
+			" SELECT a FROM Account a "
+			+ " WHERE UPPER(a.username) LIKE ?1 "
+			+ "		OR UPPER(a.email) LIKE ?1"
+			+ "		OR CONCAT(UPPER(a.firstname), UPPER(a.lastname)) LIKE ?1"),})
 public class Account implements Serializable, Converterable, Timeable {
 
 	private static final long serialVersionUID = 1L;
 	public static final String COUNT_ALL = "Account.countAll";
 	public static final String FIND_BY_USERNAME = "Account.findByUsername";
+	public static final String FIND_BY_KEYWORD = "Account.findByKeyword";
 
 	@Id
 	@Basic(optional = false)

@@ -86,15 +86,28 @@ public abstract class AbstractManaged implements Serializable {
 	}
 
 	protected final void addWarnMessage(final String topic, final String message) {
-		getFacesInstance().addMessage("Test ", new FacesMessage(FacesMessage.SEVERITY_WARN, topic + message, ""));
+		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));
 	}
 
 	protected final void addInfoMessage(final String topic, final String message) {
-		getFacesInstance().addMessage("Test ", new FacesMessage(FacesMessage.SEVERITY_INFO, topic + message, ""));
+		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, topic, message));
 	}
 
 	protected final void addErrorMessage(final String topic, final String message) {
-		getFacesInstance().addMessage("Test ", new FacesMessage(FacesMessage.SEVERITY_ERROR, topic + message, ""));
+		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, topic, message));
+	}
+
+	// "formid:inputid"
+	protected final void addWarnMessage(final String formid, final String topic, final String message) {
+		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));
+	}
+
+	protected final void addInfoMessage(final String formid, final String topic, final String message) {
+		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_INFO, topic, message));
+	}
+
+	protected final void addErrorMessage(final String formid, final String topic, final String message) {
+		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_ERROR, topic, message));
 	}
 
 }

@@ -19,7 +19,9 @@ import javax.persistence.Query;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Timeable;
+import java.util.Collections;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
@@ -72,33 +74,45 @@ public abstract class AbstractService<T> {
 	}
 
 	protected <S> S findOne(final String namequery, final Object... param) {
-		final Query q = getEntityManager().createNamedQuery(namequery);
-		for (int i = 0; i < param.length; i++) {
-			q.setParameter(i + 1, param[i]);
+		try {
+			final Query q = getEntityManager().createNamedQuery(namequery);
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i + 1, param[i]);
+			}
+			return (S) q.getSingleResult();
+		} catch (final NoResultException e) {
+			return null;
 		}
-		return (S) q.getSingleResult();
 	}
 
 	protected List<T> findAll(final String namequery, final Object... param) {
-		final Query q = getEntityManager().createNamedQuery(namequery);
-		for (int i = 0; i < param.length; i++) {
-			q.setParameter(i + 1, param[i]);
+		try {
+			final Query q = getEntityManager().createNamedQuery(namequery);
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i + 1, param[i]);
+			}
+			return q.getResultList();
+		} catch (final NoResultException e) {
+			return null;
 		}
-		return q.getResultList();
 	}
 
 	protected List<T> findRange(final String namequery, final int offset, final int limit, final Object... param) {
-		final Query q = getEntityManager().createNamedQuery(namequery);
-		for (int i = 0; i < param.length; i++) {
-			q.setParameter(i + 1, param[i]);
+		try {
+			final Query q = getEntityManager().createNamedQuery(namequery);
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i + 1, param[i]);
+			}
+			if (limit != 0) {
+				q.setMaxResults(limit);
+			}
+			if (offset != 0) {
+				q.setFirstResult(offset);
+			}
+			return q.getResultList();
+		} catch (final NoResultException e) {
+			return null;
 		}
-		if (limit != 0) {
-			q.setMaxResults(limit);
-		}
-		if (offset != 0) {
-			q.setFirstResult(offset);
-		}
-		return q.getResultList();
 	}
 
 	public void clearCache() {

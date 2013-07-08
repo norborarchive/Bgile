@@ -13,7 +13,7 @@
 package com.thjug.bgile.service;
 
 import com.thjug.bgile.entity.Account;
-import javax.persistence.NoResultException;
+import java.util.List;
 
 /**
  *
@@ -26,11 +26,11 @@ public final class AccountService extends AbstractService<Account> {
 	}
 
 	public Account findByUsername(final String username) {
-		try {
-			return findOne(Account.FIND_BY_USERNAME, username.toUpperCase());
-		} catch (final NoResultException e) {
-			return null;
-		}
+		return findOne(Account.FIND_BY_USERNAME, username.toUpperCase());
+	}
+
+	public List<Account> findByKeyword(final String keyword) {
+		return findAll(Account.FIND_BY_KEYWORD, keyword.toUpperCase());
 	}
 
 }

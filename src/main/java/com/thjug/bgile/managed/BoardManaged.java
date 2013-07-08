@@ -139,18 +139,15 @@ public class BoardManaged extends AbstractManaged {
 		dashboard = (Dashboard) application.createComponent(fc, DASHBOARD, DASHBOARD_RENDERER);
 		dashboard.setId("dashboard");
 
-		DashboardColumn column;
 		final DashboardModel model = new DefaultDashboardModel();
 		for (int i = 0, n = State.values().length; i < n; i++) {
-			column = new DefaultDashboardColumn();
+			final DashboardColumn column = new DefaultDashboardColumn();
 			model.addColumn(column);
 		}
 		dashboard.setModel(model);
 
-		Panel panel;
-		HtmlOutputText text;
 		for (final Card us : cardList) {
-			panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
+			final Panel panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
 			panel.setId("ID" + us.getId().toString());
 			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/"
 					+ us.getId() + "'>" + "ID" + us.getId() + "</a>");
@@ -161,14 +158,14 @@ public class BoardManaged extends AbstractManaged {
 				panel.setFooter(us.getOwner().getFirstname() + " " + us.getOwner().getLastname());
 			}
 
-			text = new HtmlOutputText();
+			final HtmlOutputText text = new HtmlOutputText();
 			text.setEscape(false);
 			text.setValue("<pre>" + us.getStory() + "</pre>");
 			panel.getChildren().add(text);
 
 			dashboard.getChildren().add(panel);
 
-			column = model.getColumn(Integer.valueOf(Character.toString(us.getStateid())));
+			final DashboardColumn column = model.getColumn(Integer.valueOf(Character.toString(us.getStateid())));
 			column.addWidget(panel.getId());
 		}
 	}

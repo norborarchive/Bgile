@@ -19,6 +19,7 @@ import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.interceptor.Logging;
+import java.util.List;
 
 /**
  *
@@ -64,6 +65,13 @@ public class AccountFacadeImpl implements AccountFacade {
 	@Override
 	public Account findById(final Integer id) {
 		return accountService.find(id);
+	}
+
+	@Logging
+	@Transactional
+	@Override
+	public List<Account> containsKeyword(final String keyword) {
+		return accountService.findByKeyword(keyword);
 	}
 
 }

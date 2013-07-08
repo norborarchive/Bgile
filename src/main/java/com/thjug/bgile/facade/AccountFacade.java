@@ -15,6 +15,7 @@ package com.thjug.bgile.facade;
 import com.google.inject.ImplementedBy;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.impl.AccountFacadeImpl;
+import java.util.List;
 
 /**
  *
@@ -32,5 +33,7 @@ public interface AccountFacade {
 	Account findByUsername(final String username);
 
 	Account findById(final Integer id);
+
+	List<Account> containsKeyword(final String keyword);
 
 }
