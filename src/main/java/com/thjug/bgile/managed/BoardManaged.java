@@ -28,7 +28,7 @@ import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
-import com.thjug.bgile.entity.State;
+import com.thjug.bgile.define.State;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.util.Constants;

@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Todo extends Time implements Serializable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 512)
+	@Size(min = Columnsize.ZERO, max = Columnsize.TEN)
 	@Column(name = "description")
 	private String description;
 

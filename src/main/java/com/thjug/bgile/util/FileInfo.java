@@ -18,7 +18,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author @nuboat
  */
-public class FileInfo {
+public final class FileInfo {
 	private String name;
 	private String size;
 	private String contentType;

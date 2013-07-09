@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-public class AuthenticationListener implements PhaseListener {
+public final class AuthenticationListener implements PhaseListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationListener.class);
 

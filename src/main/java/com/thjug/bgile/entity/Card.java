@@ -12,6 +12,8 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
+import com.thjug.bgile.define.Status;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -54,7 +56,7 @@ public class Card extends Time implements Serializable, Timeable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 512)
+	@Size(min = Columnsize.ZERO, max = Columnsize.TEN)
 	@Column(name = "story")
 	private String story;
 	@Basic(optional = false)

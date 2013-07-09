@@ -10,20 +10,21 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.entity;
+package com.thjug.bgile.define;
 
 /**
  *
  * @author @nuboat
  */
-public enum Enable {
+public enum Permission {
 
-	T('T', "True"),
-	F('F', "False");
+	A('A', "Admin"),
+	W('W', "Write"),
+	R('R', "Read");
 	private char id;
 	private String text;
 
-	private Enable(final char id, final String text) {
+	private Permission(final char id, final String text) {
 		this.id = id;
 		this.text = text;
 	}

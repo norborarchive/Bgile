@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.entity.Enable;
+import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.facade.AccountFacade;
 
 /**

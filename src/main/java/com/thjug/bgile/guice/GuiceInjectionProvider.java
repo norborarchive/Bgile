@@ -1,6 +1,5 @@
 package com.thjug.bgile.guice;
 
-import javax.servlet.ServletContext;
 import com.google.inject.Injector;
 import com.sun.faces.spi.InjectionProvider;
 import com.sun.faces.spi.InjectionProviderException;
@@ -18,7 +17,8 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	 */
 	private static Injector injector;
 
-	public GuiceInjectionProvider(final ServletContext context) {
+	// Original: public GuiceInjectionProvider(final ServletContext context)
+	public GuiceInjectionProvider() {
 		injector = GuiceInjectorFactory.getInjector();
 	}
 

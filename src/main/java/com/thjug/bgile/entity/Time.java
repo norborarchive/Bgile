@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
  * @author @nuboat
  */
 @MappedSuperclass
-public class Time implements Timeable {
+public abstract class Time implements Timeable {
 
 	@Column(name = "created")
 	@Temporal(TemporalType.TIMESTAMP)

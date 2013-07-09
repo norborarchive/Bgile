@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class History extends Time implements Serializable, Timeable {
 	private Integer refid;
 	@Column(name = "actionid")
 	private Integer actionid;
-	@Size(max = 2147483647)
+	@Size(max = Columnsize.MAXTEXT)
 	@Column(name = "reason")
 	private String reason;
 

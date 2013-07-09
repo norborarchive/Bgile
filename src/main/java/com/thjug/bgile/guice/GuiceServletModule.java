@@ -25,7 +25,7 @@ import org.apache.shiro.guice.web.GuiceShiroFilter;
  *
  * @author Wasan Anusornhirunkarn, nuboat
  */
-public class GuiceServletModule extends ServletModule {
+public final class GuiceServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
 		final Map<String, String> encodingFilterInitParams = new HashMap<>();

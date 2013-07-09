@@ -4,6 +4,8 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
+import com.thjug.bgile.define.State;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ public class Storyorder extends Time implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "stateid")
 	private State stateid;
-	@Size(max = 2147483647)
+	@Size(max = Columnsize.MAXTEXT)
 	@Column(name = "orderby")
 	private String orderby;
 

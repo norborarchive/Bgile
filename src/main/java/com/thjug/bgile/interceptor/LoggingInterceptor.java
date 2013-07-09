@@ -18,9 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
-*
-* @author Wasan Anusornhirunkarn, @tone
-*/
+ *
+ * @author @nuboat
+ */
 public final class LoggingInterceptor implements MethodInterceptor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingInterceptor.class);

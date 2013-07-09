@@ -14,8 +14,7 @@ package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Permission;
-import com.thjug.bgile.entity.Private;
+import com.thjug.bgile.define.Private;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.util.Constants;
 import java.util.List;

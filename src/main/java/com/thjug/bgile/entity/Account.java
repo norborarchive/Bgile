@@ -12,6 +12,8 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
+import com.thjug.bgile.define.Enable;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -69,38 +71,38 @@ public class Account extends Time implements Serializable, Converterable {
 	private Enable enableid;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 64)
+	@Size(min = Columnsize.ZERO, max = Columnsize.SEVEN)
 	@Column(name = "username")
 	private String username;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 64)
+	@Size(min = Columnsize.ZERO, max = Columnsize.SEVEN)
 	@Column(name = "passwd")
 	private String passwd;
 	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 128)
+	@Size(min = Columnsize.ZERO, max = Columnsize.EIGHT)
 	@Column(name = "email")
 	private String email;
-	@Size(max = 64)
+	@Size(max = Columnsize.SEVEN)
 	@Column(name = "firstname")
 	private String firstname;
-	@Size(max = 64)
+	@Size(max = Columnsize.SEVEN)
 	@Column(name = "lastname")
 	private String lastname;
-	@Size(max = 32)
+	@Size(max = Columnsize.SIX)
 	@Column(name = "twitter")
 	private String twitter;
-	@Size(max = 128)
+	@Size(max = Columnsize.EIGHT)
 	@Column(name = "bio")
 	private String bio;
-	@Size(max = 256)
+	@Size(max = Columnsize.NINE)
 	@Column(name = "avatarpath")
 	private String avatarpath;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-	private List<Boardaccount> boardaccountList;
+	private List<BoardAccount> boardaccountList;
 	@OneToMany(mappedBy = "owner")
 	private List<Card> cardList;
 
@@ -199,11 +201,11 @@ public class Account extends Time implements Serializable, Converterable {
 		this.enableid = enableid;
 	}
 
-	public List<Boardaccount> getBoardaccountList() {
+	public List<BoardAccount> getBoardaccountList() {
 		return boardaccountList;
 	}
 
-	public void setBoardaccountList(final List<Boardaccount> boardaccountList) {
+	public void setBoardaccountList(final List<BoardAccount> boardaccountList) {
 		this.boardaccountList = boardaccountList;
 	}
 

@@ -6,14 +6,14 @@
 		<class>com.thjug.bgile.entity.Card</class>
 		<class>com.thjug.bgile.entity.Todo</class>
 		<class>com.thjug.bgile.entity.Board</class>
-		<class>com.thjug.bgile.entity.Boardaccount</class>
+		<class>com.thjug.bgile.entity.BoardAccount</class>
 		<class>com.thjug.bgile.entity.History</class>
 		<shared-cache-mode>ALL</shared-cache-mode>
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bgile"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://db.bgileboard.com/bgile"/>
 			<property name="javax.persistence.jdbc.user" value="bgile"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
 		</properties>

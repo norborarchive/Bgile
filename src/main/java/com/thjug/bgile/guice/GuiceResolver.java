@@ -92,7 +92,8 @@ public final class GuiceResolver extends ELResolver {
 				list.remove(i);
 				i--;
 			} else {
-				if (curObject == object) {
+				// Original: curObject == object
+				if (curObject.equals(object)) {
 					return true;
 				}
 			}

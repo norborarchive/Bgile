@@ -25,7 +25,7 @@ import javax.faces.convert.FacesConverter;
  * @author @nuboat
  */
 @FacesConverter("DefaultConverter")
-public class DefaultConverter implements Converter {
+public final class DefaultConverter implements Converter {
 
 	private static final String LIST_ATTRIBUTE = "listArrtibute";
 

@@ -10,20 +10,20 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.entity;
+package com.thjug.bgile.define;
 
 /**
  *
  * @author @nuboat
  */
-public enum Private {
+public enum Status {
 
-	T('T', "True"),
-	F('F', "False");
+	L('L', "Live"),
+	D('D', "Dead");
 	private char id;
 	private String text;
 
-	private Private(final char id, final String text) {
+	private Status(final char id, final String text) {
 		this.id = id;
 		this.text = text;
 	}

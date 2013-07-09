@@ -12,6 +12,10 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Columnsize;
+import com.thjug.bgile.define.Status;
+import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.define.Private;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -59,13 +63,13 @@ public class Board extends Time implements Serializable {
 	private Private privateid;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 128)
+	@Size(min = Columnsize.ZERO, max = Columnsize.EIGHT)
 	@Column(name = "boardname")
 	private String boardname;
-	@Size(max = 512)
+	@Size(max = Columnsize.TEN)
 	@Column(name = "description")
 	private String description;
-	@Size(max = 256)
+	@Size(max = Columnsize.NINE)
 	@Column(name = "logopath")
 	private String logopath;
 	@Column(name = "maxcard")

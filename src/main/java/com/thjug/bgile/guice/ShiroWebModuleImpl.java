@@ -43,7 +43,7 @@ import com.thjug.bgile.servlet.AuthenticationListenerImpl;
 *
 * @author Wasan Anusornhirunkarn, @tone
 */
-public class ShiroWebModuleImpl extends ShiroWebModule {
+public final class ShiroWebModuleImpl extends ShiroWebModule {
 
 	public ShiroWebModuleImpl(final ServletContext servletContext) {
 		super(servletContext);
@@ -75,7 +75,7 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 		}
 	}
 
-	protected final LinkedBindingBuilder<AuthenticationListener> bindAuthenticationListener() {
+	protected LinkedBindingBuilder<AuthenticationListener> bindAuthenticationListener() {
 		final Multibinder<AuthenticationListener> multibinder = Multibinder.newSetBinder(binder(),
 				AuthenticationListener.class);
 		return multibinder.addBinding();

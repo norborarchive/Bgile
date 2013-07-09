@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Permission;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -35,8 +36,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "boardaccount")
-@NamedQueries( { @NamedQuery(name = Boardaccount.FIND_BY_ACCOUNT_AND_BOARD, query = "SELECT b FROM Boardaccount b WHERE b.account = ?1 and b.board = ?2"), })
-public class Boardaccount extends Time implements Serializable {
+@NamedQueries( { @NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"), })
+public class BoardAccount extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String FIND_BY_ACCOUNT_AND_BOARD = "Boardaccount.findByAccountAndBoard";
 	@Id
@@ -59,10 +60,10 @@ public class Boardaccount extends Time implements Serializable {
 	@ManyToOne(optional = false)
 	private Account account;
 
-	public Boardaccount() {
+	public BoardAccount() {
 	}
 
-	public Boardaccount(final Integer id) {
+	public BoardAccount(final Integer id) {
 		this.id = id;
 	}
 
@@ -106,10 +107,10 @@ public class Boardaccount extends Time implements Serializable {
 	@Override
 	public boolean equals(final Object object) {
 		// Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Boardaccount)) {
+		if (!(object instanceof BoardAccount)) {
 			return false;
 		}
-		final Boardaccount other = (Boardaccount) object;
+		final BoardAccount other = (BoardAccount) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}

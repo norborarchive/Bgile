@@ -6,22 +6,22 @@ package com.thjug.bgile.service;
 
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Boardaccount;
+import com.thjug.bgile.entity.BoardAccount;
 
 /**
  *
  * @author nuboat
  */
-public class BoardAccountService extends AbstractService<Boardaccount> {
+public class BoardAccountService extends AbstractService<BoardAccount> {
 
 	public BoardAccountService() {
-		super(Boardaccount.class);
+		super(BoardAccount.class);
 	}
 
-	public Boardaccount findBoardOfAccount(final Integer boardId, final Integer accountId) {
+	public BoardAccount findBoardOfAccount(final Integer boardId, final Integer accountId) {
 		final Board board = new Board(boardId);
 		final Account account = new Account(accountId);
 
-		return findOne(Boardaccount.FIND_BY_ACCOUNT_AND_BOARD, account, board);
+		return findOne(BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, account, board);
 	}
 }

@@ -19,10 +19,7 @@ import javax.persistence.Query;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Timeable;
-import java.util.Collections;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
 /**

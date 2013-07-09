@@ -16,10 +16,10 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.Boardaccount;
-import com.thjug.bgile.entity.Enable;
-import com.thjug.bgile.entity.Permission;
-import com.thjug.bgile.entity.Status;
+import com.thjug.bgile.entity.BoardAccount;
+import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
@@ -51,7 +51,7 @@ public class BoardFacade {
 		board.setStatusid(Status.L);
 		service.create(board);
 
-		final Boardaccount ba = new Boardaccount();
+		final BoardAccount ba = new BoardAccount();
 		ba.setBoard(board);
 		ba.setAccount(accountService.find(accountid));
 		ba.setPermissionid(Permission.A);
@@ -95,7 +95,7 @@ public class BoardFacade {
 		final Account account = accountService.find(accountid);
 
 		final List<Board> boards = new LinkedList<>();
-		for (final Boardaccount ba : account.getBoardaccountList()) {
+		for (final BoardAccount ba : account.getBoardaccountList()) {
 			if (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T) {
 				boards.add(ba.getBoard());
 			}

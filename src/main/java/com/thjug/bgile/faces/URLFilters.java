@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author PeerapatAsoktummarun
  */
-public class URLFilters implements Filter {
+public final class URLFilters implements Filter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(URLFilters.class);
 

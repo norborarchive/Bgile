@@ -21,7 +21,7 @@ import com.thjug.bgile.interceptor.Logging;
 *
 * @author Wasan Anusornhirunkarn, @tone
 */
-public class LoggingModule extends AbstractModule {
+public final class LoggingModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

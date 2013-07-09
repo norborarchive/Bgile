@@ -10,7 +10,7 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.entity;
+package com.thjug.bgile.define;
 
 /**
  *
