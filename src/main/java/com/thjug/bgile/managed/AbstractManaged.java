@@ -76,7 +76,7 @@ public abstract class AbstractManaged implements Serializable {
 		return page + "?faces-redirect=true";
 	}
 
-	protected final Integer getAccountId() {
+	protected final Integer getLoginId() {
 		final Object id = getSession().getAttribute(Account.class.getSimpleName());
 		return (id != null) ? (Integer) getSession().getAttribute(Account.class.getSimpleName()) : null;
 	}

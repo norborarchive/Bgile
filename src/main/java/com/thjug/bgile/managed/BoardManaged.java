@@ -12,13 +12,14 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
@@ -26,12 +27,13 @@ import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
-import com.thjug.bgile.entity.Board;
+
+import com.google.inject.Inject;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
-import javax.faces.bean.ViewScoped;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +95,7 @@ public class BoardManaged extends BgileManaged {
 		LOG.info("Moved ID: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
-			cardFacade.move(getAccountId(), storyid, fromsate, tostate);
+			cardFacade.move(getLoginId(), storyid, fromsate, tostate);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage("Cannot move ID" + storyid, null);
@@ -105,7 +107,7 @@ public class BoardManaged extends BgileManaged {
 
 	private void loadCards(final Integer projectid) {
 		try {
-			cardList = cardFacade.findAllByBoardId(getAccountId(), projectid);
+			cardList = cardFacade.findAllByBoardId(getLoginId(), projectid);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

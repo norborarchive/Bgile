@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.thjug.bgile.define.Permission;
 
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
@@ -44,6 +45,13 @@ public class GrantFacade {
 	@Transactional
 	public BoardAccount addAccountToBoard(final Integer updateby, final Account account, final Board board) {
 		return service.createBoardAccount(updateby, account, board);
+	}
+
+	@Logging
+	@Transactional
+	public BoardAccount editAccountToBoard(final Integer updateby, final Integer accountid, final Integer boardid,
+			final Permission permissionid) {
+		return service.updateBoardAccount(updateby, accountid, boardid, permissionid);
 	}
 
 	@Logging

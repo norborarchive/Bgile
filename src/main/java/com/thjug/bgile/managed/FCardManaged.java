@@ -42,7 +42,7 @@ public class FCardManaged extends AbstractManaged {
 		final String cardid = (String) getCardfromAttribute();
 		if (cardid != null) {
 			try {
-				card = facade.findById(getAccountId(), Integer.valueOf(cardid));
+				card = facade.findById(getLoginId(), Integer.valueOf(cardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
 				addErrorMessage("Card: {} not found.", cardid);
@@ -60,8 +60,8 @@ public class FCardManaged extends AbstractManaged {
 	public String saveStory() {
 		try {
 			final Integer boardid = Integer.valueOf(getSession().getAttribute("boardid").toString());
-			card = (card.getId() == null) ? facade.create(getAccountId(), boardid, card) : facade.edit(getAccountId(),
-					card);
+			card = (card.getId() == null) ? facade.create(getLoginId(), boardid, card) : facade
+					.edit(getLoginId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class FCardManaged extends AbstractManaged {
 
 	public String removeStory() {
 		try {
-			card = facade.remove(getAccountId(), card);
+			card = facade.remove(getLoginId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);

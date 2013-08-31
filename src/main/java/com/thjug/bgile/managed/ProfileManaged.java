@@ -43,7 +43,7 @@ public final class ProfileManaged extends AbstractManaged {
 	@PostConstruct
 	public void initial() {
 		try {
-			account = facade.findById(getAccountId());
+			account = facade.findById(getLoginId());
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -72,7 +72,7 @@ public final class ProfileManaged extends AbstractManaged {
 	public String changepasswd() {
 		try {
 			if (password.equals(confirmpassword)) {
-				account = facade.findById(getAccountId());
+				account = facade.findById(getLoginId());
 				account.setPasswd(Encrypter.cipher(password));
 				facade.editAccount(account);
 			} else {

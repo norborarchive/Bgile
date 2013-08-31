@@ -29,7 +29,7 @@ public abstract class BgileManaged extends AbstractManaged {
 	protected transient BoardFacade boardFacade;
 
 	protected Board getBoard(final Integer boardid) {
-		return boardFacade.findById(getAccountId(), boardid);
+		return boardFacade.findById(getLoginId(), boardid);
 	}
 
 	protected Integer getBoardIdfromAttribute() {

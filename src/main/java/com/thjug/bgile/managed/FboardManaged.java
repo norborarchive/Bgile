@@ -43,7 +43,7 @@ public class FboardManaged extends AbstractManaged {
 		final String boardid = (String) getBoardIdfromAttribute();
 		if (boardid != null) {
 			try {
-				board = facade.findById(getAccountId(), Integer.valueOf(boardid));
+				board = facade.findById(getLoginId(), Integer.valueOf(boardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
 				addErrorMessage("Board: {} not found.", boardid);
@@ -61,7 +61,7 @@ public class FboardManaged extends AbstractManaged {
 	public String save() {
 		try {
 			board.setPrivateid(Private.T);
-			board = (board.getId() == null) ? facade.create(getAccountId(), board) : facade.edit(getAccountId(), board);
+			board = (board.getId() == null) ? facade.create(getLoginId(), board) : facade.edit(getLoginId(), board);
 			return "dashboard";
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class FboardManaged extends AbstractManaged {
 
 	public String remove() {
 		try {
-			facade.remove(getAccountId(), board);
+			facade.remove(getLoginId(), board);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

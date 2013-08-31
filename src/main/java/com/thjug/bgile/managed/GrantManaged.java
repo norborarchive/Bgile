@@ -17,10 +17,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.component.selectonebutton.SelectOneButton;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +34,6 @@ import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.StringUtility;
-import javax.faces.context.FacesContext;
-import org.primefaces.component.selectonebutton.SelectOneButton;
 
 /**
  *
@@ -84,6 +85,7 @@ public class GrantManaged extends BgileManaged {
 		final Permission newPermission = (Permission) ui.getLocalValue();
 
 		LOG.info("Id: {} Permission: {}", accountid, newPermission);
+		grantFacade.editAccountToBoard(getLoginId(), accountid, board.getId(), newPermission);
 
 		FacesContext.getCurrentInstance().renderResponse();
 	}
@@ -107,7 +109,7 @@ public class GrantManaged extends BgileManaged {
 			}
 		}
 
-		grants.add(grantFacade.addAccountToBoard(getAccountId(), account, board));
+		grants.add(grantFacade.addAccountToBoard(getLoginId(), account, board));
 	}
 
 	public String getAccountname() {

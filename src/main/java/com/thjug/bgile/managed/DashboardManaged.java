@@ -39,7 +39,7 @@ public class DashboardManaged extends AbstractManaged {
 	@PostConstruct
 	public void initial() {
 		try {
-			boards = facade.findAllByAccount(getAccountId());
+			boards = facade.findAllByAccount(getLoginId());
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

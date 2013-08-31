@@ -20,10 +20,7 @@ public class BoardAccountService extends AbstractService<BoardAccount> {
 		super(BoardAccount.class);
 	}
 
-	public BoardAccount createBoardAccount(
-			final Integer updateby,
-			final Account account,
-			final Board board) {
+	public BoardAccount createBoardAccount(final Integer updateby, final Account account, final Board board) {
 
 		final BoardAccount boardAccount = new BoardAccount();
 		boardAccount.setAccount(account);
@@ -34,22 +31,17 @@ public class BoardAccountService extends AbstractService<BoardAccount> {
 		return create(boardAccount);
 	}
 
-	public BoardAccount updateBoardAccount(
-			final Integer updateby,
-			final Integer accountId,
-			final Integer boardId,
+	public BoardAccount updateBoardAccount(final Integer updateby, final Integer accountId, final Integer boardId,
 			final Permission permissionid) {
 
 		final BoardAccount boardAccount = findBoardAccount(boardId, accountId);
 		boardAccount.setPermissionid(permissionid);
 		boardAccount.setUpdateby(updateby);
-		
+
 		return update(boardAccount);
 	}
 
-	public BoardAccount findBoardAccount(
-			final Integer boardId,
-			final Integer accountId) {
+	public BoardAccount findBoardAccount(final Integer boardId, final Integer accountId) {
 
 		final Board board = new Board(boardId);
 		final Account account = new Account(accountId);
@@ -57,8 +49,7 @@ public class BoardAccountService extends AbstractService<BoardAccount> {
 		return findOne(BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, account, board);
 	}
 
-	public List<BoardAccount> findBoardAccountList(
-			final Board board) {
+	public List<BoardAccount> findBoardAccountList(final Board board) {
 
 		return findAll(BoardAccount.FIND_BY_BOARD, board);
 	}

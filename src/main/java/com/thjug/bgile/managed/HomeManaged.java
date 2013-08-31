@@ -28,7 +28,7 @@ public final class HomeManaged extends AbstractManaged {
 	private static final String CURRENT_PAGE = "current-page";
 
 	public boolean isHasSession() {
-		return (getAccountId() != null) ? true : false;
+		return (getLoginId() != null) ? true : false;
 	}
 
 	public String getActiveClass(final String page) {
