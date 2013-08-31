@@ -230,11 +230,13 @@ ALTER TABLE history     OWNER TO bgile;
 
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
-    VALUES (1, 'A', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com', 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
+    VALUES (1, 'A', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
+			, 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
 
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
-    VALUES (2, 'S', 'T', 'nuboat', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com', 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
+    VALUES (2, 'S', 'T', 'nuboat', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
+			, 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
 
 INSERT INTO board(
             id, statusid, enableid, privateid, boardname, description, logopath)
@@ -243,6 +245,7 @@ INSERT INTO board(
 INSERT INTO boardaccount(
             id, board, account, permissionid, statusid)
     VALUES (1, 1, 1, 'W', 'L');
+
 INSERT INTO boardaccount(
             id, board, account, permissionid, statusid)
     VALUES (2, 1, 2, 'A', 'L');

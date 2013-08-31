@@ -30,7 +30,6 @@ import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
 import com.thjug.bgile.facade.CardFacade;
-import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
@@ -42,7 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class BoardManaged extends AbstractManaged {
+public class BoardManaged extends BgileManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(BoardManaged.class);
@@ -53,12 +52,10 @@ public class BoardManaged extends AbstractManaged {
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
-	private Board board;
 	private Card card;
 	private List<Card> cardList;
 	private transient Dashboard dashboard;
-	@Inject
-	private transient BoardFacade boardFacade;
+
 	@Inject
 	private transient CardFacade cardFacade;
 
@@ -72,24 +69,6 @@ public class BoardManaged extends AbstractManaged {
 			renderDashboard();
 		} else {
 			addInfoMessage("Board ID " + boardid + " not found.", null);
-		}
-	}
-
-	private Board getBoard(final Integer boardid) {
-		try {
-			return boardFacade.findById(getAccountId(), boardid);
-		} catch (final Exception e) {
-			addErrorMessage("Board " + boardid + " not found.", null);
-			return null;
-		}
-	}
-
-	private Integer getBoardIdfromAttribute() {
-		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
-		if (attributes != null && attributes.size() > 0) {
-			return Integer.valueOf(attributes.get(0));
-		} else {
-			return (Integer) getSession().getAttribute("boardid");
 		}
 	}
 

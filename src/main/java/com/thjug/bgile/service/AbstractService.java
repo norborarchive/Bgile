@@ -46,7 +46,7 @@ public abstract class AbstractService<T> {
 		return entity;
 	}
 
-	public T edit(final T entity) {
+	public T update(final T entity) {
 		if (entity instanceof Timeable) {
 			final Timeable timeable = (Timeable) entity;
 			timeable.setUpdated(Calendar.getInstance().getTime());

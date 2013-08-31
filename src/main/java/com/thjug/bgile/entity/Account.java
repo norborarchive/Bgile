@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.define.Columnsize;
 import com.thjug.bgile.define.Enable;
 import java.io.Serializable;
@@ -43,7 +44,7 @@ import javax.validation.constraints.Size;
 @NamedQueries( {
 		@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
 		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
-		@NamedQuery(name = Account.FIND_BY_KEYWORD, query = " SELECT a FROM Account a "
+		@NamedQuery(name = Account.FIND_LIKE_KEYWORD, query = " SELECT a FROM Account a "
 				+ " WHERE UPPER(a.username) LIKE ?1 " + "		OR UPPER(a.email) LIKE ?1"
 				+ "		OR CONCAT(UPPER(a.firstname), UPPER(a.lastname)) LIKE ?1"), })
 public class Account extends Time implements Serializable, Converterable {
@@ -51,7 +52,7 @@ public class Account extends Time implements Serializable, Converterable {
 	private static final long serialVersionUID = 1L;
 	public static final String COUNT_ALL = "Account.countAll";
 	public static final String FIND_BY_USERNAME = "Account.findByUsername";
-	public static final String FIND_BY_KEYWORD = "Account.findByKeyword";
+	public static final String FIND_LIKE_KEYWORD = "Account.findByKeyword";
 
 	@Id
 	@Basic(optional = false)
@@ -62,8 +63,9 @@ public class Account extends Time implements Serializable, Converterable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "typeid")
-	private char typeid;
+	private Accounttype typeid;
 	@Basic(optional = false)
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -71,33 +73,33 @@ public class Account extends Time implements Serializable, Converterable {
 	private Enable enableid;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = Columnsize.ZERO, max = Columnsize.SEVEN)
+	@Size(min = Columnsize.S1, max = Columnsize.S64)
 	@Column(name = "username")
 	private String username;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = Columnsize.ZERO, max = Columnsize.SEVEN)
+	@Size(min = Columnsize.S1, max = Columnsize.S64)
 	@Column(name = "passwd")
 	private String passwd;
 	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = Columnsize.ZERO, max = Columnsize.EIGHT)
+	@Size(min = Columnsize.S1, max = Columnsize.S128)
 	@Column(name = "email")
 	private String email;
-	@Size(max = Columnsize.SEVEN)
+	@Size(max = Columnsize.S64)
 	@Column(name = "firstname")
 	private String firstname;
-	@Size(max = Columnsize.SEVEN)
+	@Size(max = Columnsize.S64)
 	@Column(name = "lastname")
 	private String lastname;
-	@Size(max = Columnsize.SIX)
+	@Size(max = Columnsize.S32)
 	@Column(name = "twitter")
 	private String twitter;
-	@Size(max = Columnsize.EIGHT)
+	@Size(max = Columnsize.S128)
 	@Column(name = "bio")
 	private String bio;
-	@Size(max = Columnsize.NINE)
+	@Size(max = Columnsize.S256)
 	@Column(name = "avatarpath")
 	private String avatarpath;
 
@@ -121,11 +123,11 @@ public class Account extends Time implements Serializable, Converterable {
 		this.id = id;
 	}
 
-	public char getTypeid() {
+	public Accounttype getTypeid() {
 		return typeid;
 	}
 
-	public void setTypeid(final char typeid) {
+	public void setTypeid(final Accounttype typeid) {
 		this.typeid = typeid;
 	}
 
@@ -217,6 +219,10 @@ public class Account extends Time implements Serializable, Converterable {
 		this.cardList = cardList;
 	}
 
+	public String getDisplayname() {
+		return lastname + " " + firstname;
+	}
+
 	@Override
 	public int hashCode() {
 		return (id != null ? id.hashCode() : 0);
@@ -229,7 +235,7 @@ public class Account extends Time implements Serializable, Converterable {
 			return false;
 		}
 		final Account other = (Account) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (!this.id.equals(other.id)) {
 			return false;
 		}
 		return true;
@@ -244,4 +250,5 @@ public class Account extends Time implements Serializable, Converterable {
 	public String getItemValue() {
 		return this.id.toString();
 	}
+
 }

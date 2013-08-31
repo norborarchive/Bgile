@@ -23,6 +23,7 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
+import com.thjug.bgile.define.Accounttype;
 
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.define.Enable;
@@ -35,16 +36,18 @@ import com.thjug.bgile.facade.AccountFacade;
 @ManagedBean
 @ViewScoped
 public class AccountFormManaged extends AbstractManaged {
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(AccountFormManaged.class);
 
 	private Account account;
+
 	@Inject
 	private AccountFacade accountFacade;
 
 	public AccountFormManaged() {
 		account = new Account();
-		account.setTypeid('A');
+		account.setTypeid(Accounttype.A);
 		account.setEnableid(Enable.T);
 	}
 
@@ -97,5 +100,4 @@ public class AccountFormManaged extends AbstractManaged {
 	public void setAccount(final Account account) {
 		this.account = account;
 	}
-
 }

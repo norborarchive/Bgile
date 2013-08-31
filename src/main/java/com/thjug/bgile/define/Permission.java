@@ -18,11 +18,12 @@ package com.thjug.bgile.define;
  */
 public enum Permission {
 
-	A('A', "Admin"),
+	R('R', "Read"),
 	W('W', "Write"),
-	R('R', "Read");
-	private char id;
-	private String text;
+	A('A', "Admin");
+
+	private final char id;
+	private final String text;
 
 	private Permission(final char id, final String text) {
 		this.id = id;

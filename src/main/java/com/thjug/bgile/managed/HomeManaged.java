@@ -31,20 +31,12 @@ public final class HomeManaged extends AbstractManaged {
 		return (getAccountId() != null) ? true : false;
 	}
 
-	public String getCurrentHome() {
-		return (getViewId().contains("home")) ? CURRENT_PAGE : Constants.EMPTY;
-	}
-
-	public String getCurrentProjects() {
-		return (getViewId().contains("dashboard")) ? CURRENT_PAGE : Constants.EMPTY;
-	}
-
-	public String getCurrentSignin() {
-		return (getViewId().contains("signin")) ? CURRENT_PAGE : Constants.EMPTY;
-	}
-
-	public String getCurrentContact() {
-		return (getViewId().contains("contact")) ? CURRENT_PAGE : Constants.EMPTY;
+	public String getActiveClass(final String page) {
+		if (getViewId().contains(page)) {
+			return CURRENT_PAGE;
+		} else {
+			return Constants.EMPTY;
+		}
 	}
 
 }

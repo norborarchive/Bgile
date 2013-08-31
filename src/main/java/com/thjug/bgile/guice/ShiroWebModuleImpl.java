@@ -38,6 +38,7 @@ import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.security.JpaRealm;
 import com.thjug.bgile.security.ShiroWebSecurityManager;
 import com.thjug.bgile.servlet.AuthenticationListenerImpl;
+import static org.apache.shiro.guice.web.ShiroWebModule.ANON;
 
 /**
 *
@@ -58,6 +59,7 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/unauthorized.xhtml");
 		addFilterChain("/home.xhtml", ANON);
 		addFilterChain("/assets/**", ANON);
+		addFilterChain("/javax.faces.resource/**", ANON);
 		addFilterChain("/**", AUTHC);
 		addFilterChain("/admin/**", AUTHC, config(ROLES, "admin"));
 		bind(authenticationListenerCollectionKey()).to(authenticationListenerSetKey());

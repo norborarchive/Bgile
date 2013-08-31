@@ -24,24 +24,25 @@ public class CardFacade {
 
 	@Inject
 	private CardService service;
+
 	@Inject
 	private BoardAccountService boardService;
 
 	@Logging
 	@Transactional
 	public Card create(final Integer accountid, final Integer boardid, final Card story) {
-		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
+		final Board board = boardService.findBoardAccount(boardid, accountid).getBoard();
 
 		story.setBoard(board);
 		story.setUpdateby(accountid);
-		return service.createNewStory(story);
+		return service.createCard(story);
 	}
 
 	@Logging
 	@Transactional
 	public Card edit(final Integer accountid, final Card story) {
 		story.setUpdateby(accountid);
-		return service.edit(story);
+		return service.update(story);
 	}
 
 	@Logging
@@ -49,7 +50,7 @@ public class CardFacade {
 	public Card remove(final Integer accountid, final Card story) {
 		story.setStatusid(Status.D);
 		story.setUpdateby(accountid);
-		return service.edit(story);
+		return service.update(story);
 	}
 
 	@Logging
@@ -62,8 +63,8 @@ public class CardFacade {
 	@Logging
 	@Transactional
 	public List<Card> findAllByBoardId(final Integer accountid, final Integer boardid) {
-		final Board board = boardService.findBoardOfAccount(boardid, accountid).getBoard();
-		return service.findByBoard(board);
+		final Board board = boardService.findBoardAccount(boardid, accountid).getBoard();
+		return service.findCardList(board);
 	}
 
 	@Logging
@@ -74,8 +75,8 @@ public class CardFacade {
 		card.setStateid(tostate);
 		card.setOwner((tostate == State.Plan.getId()) ? null : new Account(accountid));
 
-		// FIXME: REORDER PROCESS
+		// FIXME: REORDER
 
-		return service.edit(card);
+		return service.update(card);
 	}
 }

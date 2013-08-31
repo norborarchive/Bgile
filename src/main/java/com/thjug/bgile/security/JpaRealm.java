@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.facade.AccountFacade;
-import com.thjug.bgile.interceptor.Logging;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +41,6 @@ public class JpaRealm extends AuthorizingRealm {
 	@Inject
 	private AccountFacade facade;
 
-	@Logging
 	@Override
     protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final Account account = principals.oneByType(Account.class);
@@ -51,7 +50,6 @@ public class JpaRealm extends AuthorizingRealm {
 		return new SimpleAuthorizationInfo(roleValues);
     }
 
-	@Logging
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token) {
 		final Account account;

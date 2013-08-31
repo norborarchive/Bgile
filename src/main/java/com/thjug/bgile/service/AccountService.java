@@ -25,12 +25,16 @@ public final class AccountService extends AbstractService<Account> {
 		super(Account.class);
 	}
 
-	public Account findByUsername(final String username) {
+	public Account find(
+			final String username) {
+
 		return findOne(Account.FIND_BY_USERNAME, username.toUpperCase());
 	}
 
-	public List<Account> findByKeyword(final String keyword) {
-		return findAll(Account.FIND_BY_KEYWORD, keyword.toUpperCase());
+	public List<Account> findAccountList(
+			final String keyword) {
+
+		return findRange(Account.FIND_LIKE_KEYWORD, 0, 12, keyword.toUpperCase() + "%");
 	}
 
 }

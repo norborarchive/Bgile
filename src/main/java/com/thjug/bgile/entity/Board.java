@@ -63,13 +63,13 @@ public class Board extends Time implements Serializable {
 	private Private privateid;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = Columnsize.ZERO, max = Columnsize.EIGHT)
+	@Size(min = Columnsize.S1, max = Columnsize.S128)
 	@Column(name = "boardname")
 	private String boardname;
-	@Size(max = Columnsize.TEN)
+	@Size(max = Columnsize.S512)
 	@Column(name = "description")
 	private String description;
-	@Size(max = Columnsize.NINE)
+	@Size(max = Columnsize.S256)
 	@Column(name = "logopath")
 	private String logopath;
 	@Column(name = "maxcard")
@@ -158,7 +158,7 @@ public class Board extends Time implements Serializable {
 			return false;
 		}
 		final Board other = (Board) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (this.id.equals(other.id)) {
 			return false;
 		}
 		return true;

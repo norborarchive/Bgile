@@ -21,11 +21,12 @@ public final class Columnsize {
 
 	private Columnsize() {
 	}
-	public static final int ZERO = 1;
-	public static final int SIX = 32;
-	public static final int SEVEN = 64;
-	public static final int EIGHT = 128;
-	public static final int NINE = 256;
-	public static final int TEN = 512;
+
+	public static final int S1 = 1;
+	public static final int S32 = 32;
+	public static final int S64 = 64;
+	public static final int S128 = 128;
+	public static final int S256 = 256;
+	public static final int S512 = 512;
 	public static final int MAXTEXT = 2147483647;
 }

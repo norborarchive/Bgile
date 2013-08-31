@@ -40,7 +40,7 @@ public class Todo extends Time implements Serializable {
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = Columnsize.ZERO, max = Columnsize.TEN)
+	@Size(min = Columnsize.S1, max = Columnsize.S512)
 	@Column(name = "description")
 	private String description;
 

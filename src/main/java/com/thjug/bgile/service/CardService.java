@@ -28,14 +28,19 @@ public final class CardService extends AbstractService<Card> {
 		super(Card.class);
 	}
 
-	public List<Card> findByBoard(final Board board) {
+	public List<Card> findCardList(
+			final Board board) {
+
 		return findAll(Card.FIND_BY_BOARD_AND_STATUS, board, Status.L);
 	}
 
-	public Card createNewStory(final Card story) {
-		story.setStateid(State.Plan.getId());
-		story.setStatusid(Status.L);
-		return create(story);
+	public Card createCard(
+			final Card card) {
+
+		card.setStateid(State.Plan.getId());
+		card.setStatusid(Status.L);
+		
+		return create(card);
 	}
 
 }

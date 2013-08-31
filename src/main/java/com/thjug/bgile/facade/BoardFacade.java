@@ -12,6 +12,9 @@
  */
 package com.thjug.bgile.facade;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Account;
@@ -21,11 +24,12 @@ import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.define.Status;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.managed.AccountFormManaged;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
-import java.util.LinkedList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -33,14 +37,18 @@ import java.util.List;
  */
 public class BoardFacade {
 
+	private static final Logger LOG = LoggerFactory.getLogger(BoardFacade.class);
+
 	private static final int DEFAULT_MAXCARD = 64;
 
 	@Inject
 	private BoardService service;
-	@Inject
-	private BoardAccountService baService;
+
 	@Inject
 	private AccountService accountService;
+
+	@Inject
+	private BoardAccountService baService;
 
 	@Logging
 	@Transactional
@@ -65,7 +73,7 @@ public class BoardFacade {
 	@Transactional
 	public Board edit(final Integer accountid, final Board board) {
 		board.setUpdateby(accountid);
-		final Board editedProject = service.edit(board);
+		final Board editedProject = service.update(board);
 		accountService.clearCache();
 		return editedProject;
 	}
@@ -76,7 +84,7 @@ public class BoardFacade {
 		try {
 			board.setUpdateby(accountid);
 			board.setStatusid(Status.D);
-			return service.edit(board);
+			return service.update(board);
 		} finally {
 			accountService.clearCache();
 		}
@@ -85,8 +93,13 @@ public class BoardFacade {
 	@Logging
 	@Transactional
 	public Board findById(final Integer accountid, final Integer id) {
-		// FIXME : Shared sink Issue
-		return service.find(id);
+		try {
+			// FIXME : Shared sink Issue
+			return service.find(id);
+		} catch (final Exception e) {
+			LOG.info(e.getMessage());
+			return null;
+		}
 	}
 
 	@Logging

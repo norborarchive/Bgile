@@ -24,7 +24,7 @@ public enum State {
 	Done('3'),
 	Archive('4');
 
-	private char id;
+	private final char id;
 
 	private State(final char id) {
 		this.id = id;

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui ="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/WEB-INF/template/base.xhtml" >
+		<ui:define name="content">
+			<!-- Page Title -->
+			<div class="page-title">
+				<div class="container">
+					<div class="row">
+						<div class="span12">
+							<i class="icon-envelope-alt page-title-icon"></i>
+							<h2>Register /</h2>
+							<p>Run your work with us.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Contact Us -->
+			<div class="contact-us container">
+				<div class="row">
+					<div class="controls">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="username" style="width: 480px;" >
+								<f:validateRequired />
+							</p:inputText>
+							<p:watermark for="username" value="Username" ></p:watermark>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="controls">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="email" style="width: 480px;" >
+								<f:validateRequired />
+							</p:inputText>
+							<p:watermark for="email" value="Email" ></p:watermark>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="controls">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="password" style="width: 480px;" >
+								<f:validateRequired />
+							</p:inputText>
+							<p:watermark for="password" value="Password" ></p:watermark>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="controls">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="confirmpassword" style="width: 480px;" >
+								<f:validateRequired />
+							</p:inputText>
+							<p:watermark for="confirmpassword" value="Confirm Password" ></p:watermark>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</ui:define>
+    </ui:composition>
+</html>

@@ -10,19 +10,61 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="Back"
 									 styleClass="btn btn-mini btn-info"
-									 onclick="window.location.href='/bgile/dashboard';" />
+									 onclick="window.location.href = '/bgile/dashboard';" />
 				</div>
 			</div>
 		</ui:define>
         <ui:define name="content">
-			<p:messages id="msg" />
+			<p:messages id="msgs" />
+			<div class="container">
+				<div style="width: 511px;">
+					<div class="row" >
+						<div class="controls">
+							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+								<span class="add-on"><i class="icon-user"></i></span>
+								<p:autoComplete id="accountbox" value="#{grantManaged.accountname}"
+												completeMethod="#{grantManaged.findAccounts}" var="account"
+												itemLabel="#{account.displayname}" itemValue="#{account}"
+												minQueryLength="4" converter="DefaultConverter" forceSelection="true" >
+									<f:attribute name="listArrtibute" value="#{grantManaged.accounts}" />
+									<p:ajax event="itemSelect" listener="#{grantManaged.handleSelect}"
+											update="accountbox grants" />
+								</p:autoComplete>
+								<p:watermark for="accountbox" value="Name or Email" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<p:autoComplete id="acSimple" value="#{grantManagedBean.accountname}"
-							completeMethod="#{grantManagedBean.findAccounts}"/>
-
-
-
-
+			<p:outputPanel id="grants" styleClass="span8">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="span1">Account</th>
+							<th class="span2">Name</th>
+							<th class="span2"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="a" value="#{grantManaged.grants}">
+							<tr>
+								<td>#{a.account.username}</td>
+								<td>#{a.account.firstname} #{a.account.lastname}</td>
+								<td>
+								<p:selectOneButton value="#{a.permissionid}" >
+									<f:attribute  name="accountid" value="#{a.id}" />
+									<f:selectItem itemLabel="Read"  itemValue="R" />
+									<f:selectItem itemLabel="Write" itemValue="W" />
+									<f:selectItem itemLabel="Admin" itemValue="A" />
+									<p:ajax listener="#{grantManaged.changePermission}" />
+								</p:selectOneButton>
+								</td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</p:outputPanel>
 
 			<ui:remove>
 				<div class="row">

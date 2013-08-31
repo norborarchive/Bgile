@@ -17,55 +17,39 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
-import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.service.BoardAccountService;
 
 /**
  *
  * @author @nuboat
  */
-public class AccountFacade {
+public class GrantFacade {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private AccountService accountService;
+	private BoardAccountService service;
 
 	@Logging
 	@Transactional
-	public Account createAccount(final Account account) {
-		return accountService.create(account);
+	public BoardAccount getBoardAccount(final Integer accountid, final Integer boardid) {
+		return service.findBoardAccount(boardid, accountid);
 	}
 
 	@Logging
 	@Transactional
-	public Account editAccount(final Account account) {
-		return accountService.update(account);
+	public BoardAccount addAccountToBoard(final Integer updateby, final Account account, final Board board) {
+		return service.createBoardAccount(updateby, account, board);
 	}
 
 	@Logging
 	@Transactional
-	public void removeAccount(final Account account) {
-		accountService.remove(account);
-	}
-
-	@Logging
-	@Transactional
-	public Account findByUsername(final String username) {
-		return accountService.find(username);
-	}
-
-	@Logging
-	@Transactional
-	public Account findById(final Integer id) {
-		return accountService.find(id);
-	}
-
-	@Logging
-	@Transactional
-	public List<Account> containsKeyword(final String keyword) {
-		return accountService.findAccountList(keyword);
+	public List<BoardAccount> getAccessAccount(final Board board) {
+		return service.findBoardAccountList(board);
 	}
 
 }

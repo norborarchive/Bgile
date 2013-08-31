@@ -12,10 +12,7 @@
  */
 package com.thjug.bgile.entity;
 
-import com.thjug.bgile.define.Permission;
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,35 +24,38 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.thjug.bgile.define.Permission;
 
 /**
  *
  * @author @nuboat
  */
 @Entity
-@Table(name = "boardaccount")
-@NamedQueries( { @NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"), })
+@NamedQueries( {
+		@NamedQuery(name = BoardAccount.FIND_BY_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 order by b.account.firstname"),
+		@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"), })
 public class BoardAccount extends Time implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
+	public static final String FIND_BY_BOARD = "Boardaccount.findByBoard";
 	public static final String FIND_BY_ACCOUNT_AND_BOARD = "Boardaccount.findByAccountAndBoard";
+
 	@Id
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "id")
 	@SequenceGenerator(name = "boardaccount_seq_gen", sequenceName = "boardaccount_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardaccount_seq_gen")
 	private Integer id;
-	@Basic(optional = false)
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "permissionid")
 	private Permission permissionid;
 
 	@JoinColumn(name = "board", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Board board;
+
 	@JoinColumn(name = "account", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Account account;
@@ -111,7 +111,7 @@ public class BoardAccount extends Time implements Serializable {
 			return false;
 		}
 		final BoardAccount other = (BoardAccount) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (this.id.equals(other.id)) {
 			return false;
 		}
 		return true;

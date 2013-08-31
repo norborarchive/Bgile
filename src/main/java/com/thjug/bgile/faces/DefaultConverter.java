@@ -12,13 +12,14 @@
  */
 package com.thjug.bgile.faces;
 
-import com.thjug.bgile.entity.Converterable;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-
-import java.util.List;
 import javax.faces.convert.FacesConverter;
+
+import com.thjug.bgile.entity.Converterable;
 
 /**
  *
@@ -32,13 +33,16 @@ public final class DefaultConverter implements Converter {
 	@Override
 	public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String value) {
 		final List<Converterable> converters = (List<Converterable>) component.getAttributes().get(LIST_ATTRIBUTE);
-		for (final Converterable converter : converters) {
-			if (converter.getItemValue().equals(value)) {
-				return converter;
+
+		if (converters != null) {
+			for (final Converterable converter : converters) {
+				if (converter.getItemValue().equals(value)) {
+					return converter;
+				}
 			}
 		}
 
-		return null;
+		throw new IllegalArgumentException("Object " + value + " not found");
 	}
 
 	@Override

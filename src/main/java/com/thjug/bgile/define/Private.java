@@ -20,8 +20,8 @@ public enum Private {
 
 	T('T', "True"),
 	F('F', "False");
-	private char id;
-	private String text;
+	private final char id;
+	private final String text;
 
 	private Private(final char id, final String text) {
 		this.id = id;

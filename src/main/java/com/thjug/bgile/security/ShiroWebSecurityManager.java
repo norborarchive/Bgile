@@ -25,7 +25,10 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 */
 public class ShiroWebSecurityManager extends DefaultWebSecurityManager {
 
-	public ShiroWebSecurityManager(final Collection<Realm> realms, final Collection<AuthenticationListener> listeners) {
+	public ShiroWebSecurityManager(
+			final Collection<Realm> realms,
+			final Collection<AuthenticationListener> listeners) {
+		
 		super(realms);
 		final ModularRealmAuthenticator authenticator = (ModularRealmAuthenticator) this.getAuthenticator();
 		authenticator.setAuthenticationListeners(listeners);

@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.facade.impl;
 
+import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.facade.AccountFacade;
 import java.util.Date;
 import static org.testng.Assert.*;
@@ -53,7 +54,7 @@ public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 		//accountAuth.setEnableid('N');
 
 		final Account account = new Account();
-		account.setTypeid('U');
+		account.setTypeid(Accounttype.S);
 		//account.setAccountAuth(accountAuth);
 
 		try {

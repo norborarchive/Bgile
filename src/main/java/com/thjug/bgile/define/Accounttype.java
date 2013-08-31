@@ -14,17 +14,17 @@ package com.thjug.bgile.define;
 
 /**
  *
- * @author @nuboat
+ * @author nuboat
  */
-public enum Status {
+public enum Accounttype {
 
-	L('L', "Live"),
-	D('D', "Dead");
+	A('A', "Admin"),
+	S('S', "Staff");
 
 	private final char id;
 	private final String text;
 
-	private Status(final char id, final String text) {
+	private Accounttype(final char id, final String text) {
 		this.id = id;
 		this.text = text;
 	}
@@ -36,5 +36,4 @@ public enum Status {
 	public String getText() {
 		return text;
 	}
-
 }
