@@ -50,38 +50,45 @@ public class StreamedContentManaged extends AbstractManaged {
 	}
 
 	public StreamedContent getContent(final String streamedContentId) {
-		StreamedContent content = null;
+
+		final StreamedContent content;
 		final byte[] contentData = contentDataMap.get(streamedContentId);
 		if (contentData != null) {
 			content = new DefaultStreamedContent(new ByteArrayInputStream(contentData));
+			return content;
 		}
-		return content;
+		return null;
 	}
 
 	public byte[] getContentData(final String streamedContentId) {
+
 		return contentDataMap.get(streamedContentId);
 	}
 
 	public void putStreamedContent(final UploadedFile uploadedFile, final String streamedContentId) throws IOException {
+
 		final byte[] contentData = IOUtils.toByteArray(uploadedFile.getInputstream());
 		contentDataMap.put(streamedContentId, contentData);
 	}
 
-	public StreamedContent getStreamedContent() {
+	public StreamedContent getStreamedContent() throws IOException {
+
 		final Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap();
 		final String streamedContentId = params.get("streamedContentId");
-		StreamedContent content = getContent(streamedContentId);
-		if (content == null) {
-			final ResourceHandler resourceHandler = new ResourceHandlerImpl();
-			final Resource resource = resourceHandler.createResource(DEFAULT_RESOURCE, "default");
-			try {
-				content = new DefaultStreamedContent(resource.getInputStream());
-			} catch (final IOException e) {
-				LOG.warn(e.getMessage());
-			}
+		final StreamedContent content = getContent(streamedContentId);
+		if (content != null) {
+			return content;
 		}
-		return content;
+		final ResourceHandler resourceHandler = new ResourceHandlerImpl();
+		final Resource resource = resourceHandler.createResource(DEFAULT_RESOURCE, "default");
+		try {
+			return new DefaultStreamedContent(resource.getInputStream());
+		} catch (final IOException e) {
+			LOG.warn(e.getMessage());
+			throw e;
+		}
+
 	}
 
 	public void clear() {

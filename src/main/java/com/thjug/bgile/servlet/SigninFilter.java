@@ -21,22 +21,23 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.google.inject.Singleton;
-
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Singleton;
+
 /**
  *
- * @author Wasan Anusornhirunkarn, @tone
+ * @author @nuboat
  */
 @Singleton
-public class EncodingFilter implements Filter {
+public final class SigninFilter implements Filter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EncodingFilter.class);
-
-	private static final String ENCODING = "UTF-8";
+	private static final Logger LOG = LoggerFactory.getLogger(SigninFilter.class);
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
@@ -46,7 +47,7 @@ public class EncodingFilter implements Filter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
-		final HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
+		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		final String servletpath = httpServletRequest.getServletPath();
 		if (servletpath.contains("javax.faces.resource")) {
 			chain.doFilter(request, response);
@@ -54,7 +55,13 @@ public class EncodingFilter implements Filter {
 		}
 		LOG.debug("request: {}", servletpath);
 
-		request.setCharacterEncoding(ENCODING);
+		final Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated() && servletpath.contains("signin")) {
+			final HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.sendRedirect(httpServletRequest.getContextPath() + "/dashboard");
+			return;
+		}
+
 		chain.doFilter(request, response);
 	}
 

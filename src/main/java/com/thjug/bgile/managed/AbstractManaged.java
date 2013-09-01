@@ -81,6 +81,14 @@ public abstract class AbstractManaged implements Serializable {
 		return (id != null) ? (Integer) getSession().getAttribute(Account.class.getSimpleName()) : null;
 	}
 
+	protected final void putCookieValue(final String cookieName, final String value) {
+		FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("CookieName", value, null);
+	}
+
+	protected final Object getCookieValue(final String cookieName) {
+		return FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("cookieName");
+	}
+
 	protected final String getViewId() {
 		return getFacesInstance().getViewRoot().getViewId();
 	}

@@ -12,13 +12,14 @@
  */
 package com.thjug.bgile.guice;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.thjug.bgile.servlet.EncodingFilter;
 import com.thjug.bgile.servlet.GuiceFileUploadFilter;
 
 import com.google.inject.servlet.ServletModule;
+import com.thjug.bgile.servlet.RememberFilter;
+import com.thjug.bgile.servlet.SigninFilter;
+import com.thjug.bgile.servlet.URLFilter;
+
 import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 /**
@@ -28,10 +29,11 @@ import org.apache.shiro.guice.web.GuiceShiroFilter;
 public final class GuiceServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
-		final Map<String, String> encodingFilterInitParams = new HashMap<>();
-		encodingFilterInitParams.put("encoding", "UTF-8");
-		filter("/*").through(EncodingFilter.class, encodingFilterInitParams);
-		filter("*.xhtml").through(GuiceFileUploadFilter.class);
 		filter("/*").through(GuiceShiroFilter.class);
+		filter("/*").through(SigninFilter.class);
+		filter("/*").through(URLFilter.class);
+		filter("/*").through(EncodingFilter.class);
+		filter("/*").through(RememberFilter.class);
+		filter("/*").through(GuiceFileUploadFilter.class);
 	}
 }

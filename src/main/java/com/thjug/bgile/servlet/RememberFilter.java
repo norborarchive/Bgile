@@ -1,17 +1,6 @@
-/*
- * Attribution
- * CC BY
- * This license lets others distribute, remix, tweak,
- * and build upon your work, even commercially,
- * as long as they credit you for the original creation.
- * This is the most accommodating of licenses offered.
- * Recommended for maximum dissemination and use of licensed materials.
- *
- * http://creativecommons.org/licenses/by/3.0/
- * http://creativecommons.org/licenses/by/3.0/legalcode
- */
 package com.thjug.bgile.servlet;
 
+import com.google.inject.Singleton;
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -22,26 +11,31 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import com.google.inject.Singleton;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Wasan Anusornhirunkarn, @tone
+ * @author PeerapatAsoktummarun
  */
 @Singleton
-public class EncodingFilter implements Filter {
+public class RememberFilter implements Filter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EncodingFilter.class);
-
-	private static final String ENCODING = "UTF-8";
+	private static final Logger LOG = LoggerFactory.getLogger(RememberFilter.class);
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
 	}
 
+	/**
+	 *
+	 * @param request The servlet request we are processing
+	 * @param response The servlet response we are creating
+	 * @param chain The filter chain we are processing
+	 *
+	 * @exception IOException if an input/output error occurs
+	 * @exception ServletException if a servlet error occurs
+	 */
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
@@ -52,14 +46,14 @@ public class EncodingFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-		LOG.debug("request: {}", servletpath);
 
-		request.setCharacterEncoding(ENCODING);
+		LOG.debug("request: {}", servletpath);
 		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void destroy() {
+
 	}
 
 }

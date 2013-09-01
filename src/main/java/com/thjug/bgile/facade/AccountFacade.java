@@ -52,14 +52,14 @@ public class AccountFacade {
 
 	@Logging
 	@Transactional
-	public Account findByUsername(final String username) {
-		return accountService.find(username);
+	public Account findById(final Integer id) {
+		return accountService.find(id);
 	}
 
 	@Logging
 	@Transactional
-	public Account findById(final Integer id) {
-		return accountService.find(id);
+	public Account findByUsername(final String username) {
+		return accountService.find(username);
 	}
 
 	@Logging

@@ -15,6 +15,9 @@ package com.thjug.bgile.managed;
 import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.UnavailableSecurityManagerException;
+import org.apache.shiro.subject.Subject;
 
 /**
  *
@@ -28,7 +31,14 @@ public final class HomeManaged extends AbstractManaged {
 	private static final String CURRENT_PAGE = "current-page";
 
 	public boolean isHasSession() {
-		return (getLoginId() != null) ? true : false;
+		try {
+			final Subject currentUser = SecurityUtils.getSubject();
+			if (currentUser.isAuthenticated()) {
+				return true;
+			}
+		} catch (final UnavailableSecurityManagerException e) {
+		}
+		return false;
 	}
 
 	public String getActiveClass(final String page) {

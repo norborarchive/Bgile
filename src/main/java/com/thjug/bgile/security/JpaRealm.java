@@ -45,7 +45,7 @@ public class JpaRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
         final Account account = principals.oneByType(Account.class);
         final Set<String> roleValues = new HashSet<>();
-        roleValues.add(String.valueOf(account.getTypeid()));
+        roleValues.add(account.getTypeid().getText());
 
 		return new SimpleAuthorizationInfo(roleValues);
     }

@@ -1,5 +1,18 @@
-package com.thjug.bgile.faces;
+/*
+ * Attribution
+ * CC BY
+ * This license lets others distribute, remix, tweak,
+ * and build upon your work, even commercially,
+ * as long as they credit you for the original creation.
+ * This is the most accommodating of licenses offered.
+ * Recommended for maximum dissemination and use of licensed materials.
+ *
+ * http://creativecommons.org/licenses/by/3.0/
+ * http://creativecommons.org/licenses/by/3.0/legalcode
+ */
+package com.thjug.bgile.servlet;
 
+import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,44 +29,45 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author PeerapatAsoktummarun
+ * @author @nuboat
  */
-public final class URLFilters implements Filter {
+@Singleton
+public final class URLFilter implements Filter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(URLFilters.class);
+	private static final Logger LOG = LoggerFactory.getLogger(URLFilter.class);
 
-	private FilterConfig config;
+	@Override
+	public void init(final FilterConfig filterConfig) throws ServletException {
+	}
 
-	/**
-	 *
-	 * @param request The servlet request we are processing
-	 * @param response The servlet response we are creating
-	 * @param chain The filter chain we are processing
-	 *
-	 * @exception IOException if an input/output error occurs
-	 * @exception ServletException if a servlet error occurs
-	 */
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response,
 			final FilterChain chain)
 			throws IOException, ServletException {
-		final HttpServletRequest httpServletRequest = ((HttpServletRequest)request);
+
+		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		final String servletpath = httpServletRequest.getServletPath();
+		if (servletpath.contains("javax.faces.resource")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		LOG.debug("request: {}", servletpath);
 
 		if (servletpath.contains(".xhtml")
 				|| servletpath.contains(".js")
 				|| servletpath.contains(".css")
 				|| servletpath.contains("assets")) {
+
 			chain.doFilter(request, response);
 		} else {
+
 			final List<String> attributes = new LinkedList<>();
 			for (final String attribute : servletpath.split("/")) {
 				if (!attribute.trim().equals("")) {
 					attributes.add(attribute);
 				}
 			}
-			final String destination = genUrl(attributes.get(0).split(";")[0]);
-			attributes.remove(0);
+			final String destination = "/" + attributes.get(0).split(";")[0] + ".xhtml";
 			request.setAttribute("ATTRIBUTES", attributes);
 
 			LOG.info("Dispatch {} to {}", servletpath, destination);
@@ -62,18 +76,8 @@ public final class URLFilters implements Filter {
 
 	}
 
-	private String genUrl(final String viewid) {
-		return "/" + viewid + config.getInitParameter("postfix");
-	}
-
-	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-		this.config = filterConfig;
-	}
-
 	@Override
 	public void destroy() {
-
 	}
 
 }

@@ -18,6 +18,7 @@ import com.thjug.bgile.define.Enable;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +42,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "account")
+@Cacheable
 @NamedQueries( {
 		@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
 		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
@@ -74,7 +76,7 @@ public class Account extends Time implements Serializable, Converterable {
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = Columnsize.S1, max = Columnsize.S64)
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
 	@Basic(optional = false)
 	@NotNull
