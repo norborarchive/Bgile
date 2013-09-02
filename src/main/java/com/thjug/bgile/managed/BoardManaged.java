@@ -86,23 +86,23 @@ public class BoardManaged extends BgileManaged {
 	}
 
 	public void handleReorder(final DashboardReorderEvent event) {
-		LOG.debug("Reordered: {}, Item index: {}, Column index: {}, Sender index: {}", event.getWidgetId(), event
-				.getItemIndex(), event.getColumnIndex(), event.getSenderColumnIndex());
-
 		final Integer storyid = Integer.valueOf(event.getWidgetId().replace("ID", Constants.EMPTY));
-		final char fromsate = event.getSenderColumnIndex().toString().charAt(0);
+		final char fromsate = (event.getSenderColumnIndex() != null) ? event.getSenderColumnIndex().toString()
+				.charAt(0) : event.getColumnIndex().toString().charAt(0);
+
 		final char tostate = event.getColumnIndex().toString().charAt(0);
 		LOG.info("Moved ID: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
 			cardFacade.move(getLoginId(), storyid, fromsate, tostate);
+
+			loadCards(board.getId());
+			renderDashboard();
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
-			addErrorMessage("Cannot move ID" + storyid, null);
+			addErrorMessage("Cannot Move Id:", storyid.toString());
 		}
 
-		loadCards(board.getId());
-		renderDashboard();
 	}
 
 	private void loadCards(final Integer projectid) {

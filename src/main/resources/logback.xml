@@ -6,7 +6,7 @@
 		</layout>
 	</appender>
 
-	<logger name="com.thjug.bgile" level="DEBUG"/>
+	<logger name="com.thjug.bgile" level="INFO"/>
 
 	<root level="info">
 		<appender-ref ref="STDOUT" />
