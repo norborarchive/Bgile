@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Wasan Anusornhirunkarn, @tone
+ * @author @nuboat
  */
 @Singleton
 public class EncodingFilter implements Filter {

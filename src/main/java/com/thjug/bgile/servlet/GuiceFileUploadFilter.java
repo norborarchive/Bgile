@@ -18,7 +18,7 @@ import com.google.inject.Singleton;
 
 /**
  *
- * @author Wasan Anusornhirunkarn, @tone
+ * @author @nuboat
  */
 @Singleton
 public class GuiceFileUploadFilter extends FileUploadFilter {

@@ -21,7 +21,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public class ShiroWebSecurityManager extends DefaultWebSecurityManager {
 

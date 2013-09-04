@@ -14,7 +14,7 @@ package com.thjug.bgile.define;
 
 /**
  *
- * @author nuboat
+ * @author @nuboat
  */
 public enum Accounttype {
 

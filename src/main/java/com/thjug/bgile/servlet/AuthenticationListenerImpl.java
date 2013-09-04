@@ -12,32 +12,44 @@
  */
 package com.thjug.bgile.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationListener;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.facade.AuthenSessionFacade;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public class AuthenticationListenerImpl implements AuthenticationListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationListenerImpl.class);
 
-	@Logging
+	@Inject
+	private transient AuthenSessionFacade facade;
+
 	@Override
 	@Transactional
 	public void onSuccess(final AuthenticationToken token, final AuthenticationInfo info) {
 		final Account account = (Account) info.getPrincipals().getPrimaryPrincipal();
 		try {
+			if (SecurityUtils.getSubject().isRemembered()) {
+				facade.saveSession(account, true);
+			} else {
+				facade.saveSession(account, false);
+			}
+
 			LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
 		} catch (final Exception e) {
 			LOG.warn(e.getMessage(), e);
@@ -49,7 +61,6 @@ public class AuthenticationListenerImpl implements AuthenticationListener {
 
 	}
 
-	@Logging
 	@Override
 	@Transactional
 	public void onLogout(final PrincipalCollection principals) {

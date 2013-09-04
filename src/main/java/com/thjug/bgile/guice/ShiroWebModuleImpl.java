@@ -32,17 +32,17 @@ import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
 import com.google.inject.util.Types;
-import static org.apache.shiro.guice.web.ShiroWebModule.AUTHC;
-import static org.apache.shiro.guice.web.ShiroWebModule.ROLES;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.security.JpaRealm;
 import com.thjug.bgile.security.ShiroWebSecurityManager;
 import com.thjug.bgile.servlet.AuthenticationListenerImpl;
+import static org.apache.shiro.guice.web.ShiroWebModule.AUTHC;
+import static org.apache.shiro.guice.web.ShiroWebModule.ROLES;
 import static org.apache.shiro.guice.web.ShiroWebModule.ANON;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public final class ShiroWebModuleImpl extends ShiroWebModule {
 
@@ -50,7 +50,6 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		super(servletContext);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void configureShiroWeb() {
 		bindRealm().to(JpaRealm.class);
@@ -83,12 +82,10 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		return multibinder.addBinding();
 	}
 
-	@SuppressWarnings( { "unchecked" })
 	private Key<Set<AuthenticationListener>> authenticationListenerSetKey() {
 		return (Key<Set<AuthenticationListener>>) Key.get(TypeLiteral.get(Types.setOf(AuthenticationListener.class)));
 	}
 
-	@SuppressWarnings( { "unchecked" })
 	private Key<Collection<AuthenticationListener>> authenticationListenerCollectionKey() {
 		return (Key<Collection<AuthenticationListener>>) Key.get(Types.newParameterizedType(Collection.class,
 				AuthenticationListener.class));

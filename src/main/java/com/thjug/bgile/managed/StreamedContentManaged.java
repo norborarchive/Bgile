@@ -34,7 +34,7 @@ import com.sun.faces.application.resource.ResourceHandlerImpl;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 @ManagedBean
 @SessionScoped

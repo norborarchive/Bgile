@@ -16,7 +16,7 @@ import org.apache.shiro.guice.aop.ShiroAopModule;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public class ShiroAopModuleImpl extends ShiroAopModule {
 

@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
+ * Please look in SigninFilter.
+ *
  * @author @nuboat
  */
 @Deprecated

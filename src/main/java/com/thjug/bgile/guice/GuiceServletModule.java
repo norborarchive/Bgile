@@ -24,7 +24,7 @@ import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 /**
  *
- * @author Wasan Anusornhirunkarn, nuboat
+ * @author @nuboat
  */
 public final class GuiceServletModule extends ServletModule {
 	@Override

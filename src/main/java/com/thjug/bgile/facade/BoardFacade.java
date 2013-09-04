@@ -24,7 +24,6 @@ import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.define.Status;
 import com.thjug.bgile.interceptor.Logging;
-import com.thjug.bgile.managed.AccountFormManaged;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;

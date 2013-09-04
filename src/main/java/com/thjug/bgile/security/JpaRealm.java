@@ -34,7 +34,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public class JpaRealm extends AuthorizingRealm {
 

@@ -37,6 +37,14 @@ public abstract class AbstractService<T> {
 		this.entityClass = entityClass;
 	}
 
+	public T find(final Object id) {
+		try {
+			return getEntityManager().getReference(entityClass, id);
+		} catch (final NoResultException e) {
+			return null;
+		}
+	}
+
 	public T create(final T entity) {
 		if (entity instanceof Timeable) {
 			final Timeable timeable = (Timeable) entity;
@@ -56,14 +64,6 @@ public abstract class AbstractService<T> {
 
 	public void remove(final T entity) {
 		getEntityManager().remove(getEntityManager().merge(entity));
-	}
-
-	public T find(final Object id) {
-		try {
-			return getEntityManager().getReference(entityClass, id);
-		} catch (final NoResultException e) {
-			return null;
-		}
 	}
 
 	protected EntityManager getEntityManager() {

@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author nuboat
+ * @author @nuboat
  */
 public class CardFacadeNGTest extends AbstractFacadeNGTest {
 

@@ -12,9 +12,9 @@ import com.thjug.bgile.entity.BoardAccount;
 
 /**
  *
- * @author nuboat
+ * @author @nuboat
  */
-public class BoardAccountService extends AbstractService<BoardAccount> {
+public final class BoardAccountService extends AbstractService<BoardAccount> {
 
 	public BoardAccountService() {
 		super(BoardAccount.class);

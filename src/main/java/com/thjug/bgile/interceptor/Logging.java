@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

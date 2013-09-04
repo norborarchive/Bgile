@@ -19,7 +19,7 @@ import com.thjug.bgile.interceptor.Logging;
 
 /**
 *
-* @author Wasan Anusornhirunkarn, @tone
+* @author @nuboat
 */
 public final class LoggingModule extends AbstractModule {
 
