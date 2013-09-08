@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
+import java.util.Map;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
@@ -31,6 +32,7 @@ import org.primefaces.model.DefaultDashboardModel;
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
+import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
 
@@ -54,8 +56,8 @@ public class BoardManaged extends BgileManaged {
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
-	private Card card;
-	private List<Card> cardList;
+	private Map<Integer, Card> cardMap;
+	private List<Cardorder> cardorderList;
 	private transient Dashboard dashboard;
 
 	@Inject
@@ -67,7 +69,8 @@ public class BoardManaged extends BgileManaged {
 		if (boardid != null) {
 			getSession().setAttribute("boardid", boardid);
 			board = getBoard(boardid);
-			loadCards(boardid);
+			cardMap = cardFacade.findAllByBoardId(getLoginId(), boardid);
+			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} else {
 			addInfoMessage("Board ID " + boardid + " not found.", null);
@@ -80,37 +83,32 @@ public class BoardManaged extends BgileManaged {
 
 	public String refresh() {
 		LOG.info("Refresh Board: {}", board.getId());
-		loadCards(board.getId());
+		cardMap = cardFacade.findAllByBoardId(getLoginId(), board.getId());
+		cardorderList = cardFacade.findCardorder(board);
 		renderDashboard();
 		return null;
 	}
 
 	public void handleReorder(final DashboardReorderEvent event) {
 		final Integer storyid = Integer.valueOf(event.getWidgetId().replace("ID", Constants.EMPTY));
-		final char fromsate = (event.getSenderColumnIndex() != null) ? event.getSenderColumnIndex().toString()
-				.charAt(0) : event.getColumnIndex().toString().charAt(0);
+		final Integer fromsate = (event.getSenderColumnIndex() != null) ? event.getSenderColumnIndex() : event
+				.getColumnIndex();
 
-		final char tostate = event.getColumnIndex().toString().charAt(0);
+		final Integer tostate = event.getColumnIndex();
 		LOG.info("Moved ID: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
-			cardFacade.move(getLoginId(), storyid, fromsate, tostate);
+			cardFacade.move(getLoginId(), board, storyid, fromsate, tostate, cardorderList, dashboard.getModel()
+					.getColumns());
 
-			loadCards(board.getId());
+			cardMap = cardFacade.findAllByBoardId(getLoginId(), board.getId());
+			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage("Cannot Move Id:", storyid.toString());
 		}
 
-	}
-
-	private void loadCards(final Integer projectid) {
-		try {
-			cardList = cardFacade.findAllByBoardId(getLoginId(), projectid);
-		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
-		}
 	}
 
 	private void renderDashboard() {
@@ -127,27 +125,35 @@ public class BoardManaged extends BgileManaged {
 		}
 		dashboard.setModel(model);
 
-		for (final Card us : cardList) {
-			final Panel panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
-			panel.setId("ID" + us.getId().toString());
-			panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/"
-					+ us.getId() + "'>" + "ID" + us.getId() + "</a>");
-			panel.setClosable(false);
-			panel.setToggleable(false);
+		for (final Cardorder order : cardorderList) {
+			final String[] cardlist = order.getOrderby().split(",");
+			for (final String cardid : cardlist) {
+				final Card card = cardMap.get(Integer.parseInt(cardid.trim()));
+				if (card == null) {
+					continue;
+				}
 
-			if (us.getOwner() != null) {
-				panel.setFooter(us.getOwner().getFirstname() + " " + us.getOwner().getLastname());
+				final Panel panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
+				panel.setId("ID" + card.getId().toString());
+				panel.setHeader("<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i><a href='/bgile/fcard/"
+						+ card.getId() + "'>" + "ID" + card.getId() + "</a>");
+				panel.setClosable(false);
+				panel.setToggleable(false);
+
+				if (card.getOwner() != null) {
+					panel.setFooter(card.getOwner().getFirstname() + " " + card.getOwner().getLastname());
+				}
+
+				final HtmlOutputText text = new HtmlOutputText();
+				text.setEscape(false);
+				text.setValue("<pre>" + card.getStory() + "</pre>");
+				panel.getChildren().add(text);
+
+				dashboard.getChildren().add(panel);
+
+				final DashboardColumn column = model.getColumn(card.getStateid());
+				column.addWidget(panel.getId());
 			}
-
-			final HtmlOutputText text = new HtmlOutputText();
-			text.setEscape(false);
-			text.setValue("<pre>" + us.getStory() + "</pre>");
-			panel.getChildren().add(text);
-
-			dashboard.getChildren().add(panel);
-
-			final DashboardColumn column = model.getColumn(Integer.valueOf(Character.toString(us.getStateid())));
-			column.addWidget(panel.getId());
 		}
 	}
 
@@ -157,14 +163,6 @@ public class BoardManaged extends BgileManaged {
 
 	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
-	}
-
-	public Card getCard() {
-		return card;
-	}
-
-	public void setCard(final Card card) {
-		this.card = card;
 	}
 
 }

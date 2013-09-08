@@ -35,7 +35,7 @@ public final class CardService extends AbstractService<Card> {
 
 	public Card createCard(final Card card) {
 
-		card.setStateid(State.Plan.getId());
+		card.setStateid(0);
 		card.setStatusid(Status.L);
 
 		return create(card);

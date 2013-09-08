@@ -18,19 +18,19 @@ package com.thjug.bgile.define;
  */
 public enum State {
 
-	Plan('0'),
-	Process('1'),
-	Test('2'),
-	Done('3'),
-	Archive('4');
+	Plan(0),
+	Process(1),
+	Test(2),
+	Done(3),
+	Archive(4);
 
-	private final char id;
+	private final int id;
 
-	private State(final char id) {
+	private State(final int id) {
 		this.id = id;
 	}
 
-	public char getId() {
+	public int getId() {
 		return id;
 	}
 

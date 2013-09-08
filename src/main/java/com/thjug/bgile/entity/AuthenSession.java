@@ -49,7 +49,7 @@ public class AuthenSession extends Time implements Serializable {
 	private String id;
 
 	@NotNull
-	@Column(name = "id", nullable = false)
+	@Column(name = "rememberme", nullable = false)
 	private boolean rememberMe;
 
 	@JoinColumn(name = "account", referencedColumnName = "id")

@@ -157,8 +157,9 @@ public class Board extends Time implements Serializable {
 		if (!(object instanceof Board)) {
 			return false;
 		}
+
 		final Board other = (Board) object;
-		if (this.id.equals(other.id)) {
+		if (!this.id.equals(other.id)) {
 			return false;
 		}
 		return true;

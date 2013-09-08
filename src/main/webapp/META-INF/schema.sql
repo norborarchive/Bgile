@@ -2,10 +2,10 @@ DROP SEQUENCE IF EXISTS account_id_seq;
 DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS card_id_seq;
-DROP SEQUENCE IF EXISTS storyorder_id_seq;
+DROP SEQUENCE IF EXISTS cardorder_id_seq;
 
 DROP TABLE IF EXISTS TODO;
-DROP TABLE IF EXISTS STORYORDER;
+DROP TABLE IF EXISTS CARDORDER;
 DROP TABLE IF EXISTS CARD;
 DROP TABLE IF EXISTS AUTHENSESSION;
 DROP TABLE IF EXISTS BOARDACCOUNT;
@@ -51,7 +51,7 @@ CREATE TABLE AUTHENSESSION
 (
   ID            character(36) NOT NULL,
   ACCOUNT       integer NOT NULL,
-  REMEMBERME    character(1) NOT NULL, -- T / F
+  REMEMBERME    boolean NOT NULL, -- T / F
 
   CREATED       timestamp with time zone,
   UPDATED       timestamp with time zone,
@@ -142,7 +142,7 @@ CREATE TABLE CARD
   STORY         character varying(512) NOT NULL,
   OWNER         integer,
   ESTIMATE      integer,
-  STATEID       character(1) NOT NULL,
+  STATEID       integer NOT NULL,
   STATUSID      character(1) NOT NULL,
   DESCRIPTION	text,
 
@@ -174,35 +174,35 @@ ALTER TABLE card_id_seq
   OWNER TO bgile;
 
 
-CREATE TABLE STORYORDER
+CREATE TABLE CARDORDER
 (
   ID            integer,
   BOARD         integer NOT NULL,
-  STATEID       character varying(1) NOT NULL,
+  STATEID       integer NOT NULL,
   ORDERBY		text,
 
   CREATED       timestamp with time zone,
   UPDATED       timestamp with time zone,
   UPDATEBY      integer,
 
-  CONSTRAINT STORYORDER_PK PRIMARY KEY (ID),
-  CONSTRAINT STORYORDER_FK1 FOREIGN KEY (BOARD)
+  CONSTRAINT CARDORDER_PK PRIMARY KEY (ID),
+  CONSTRAINT CARDORDER_FK1 FOREIGN KEY (BOARD)
       REFERENCES BOARD (ID) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS = FALSE
 ) TABLESPACE pg_default;
-ALTER TABLE STORYORDER     OWNER TO bgile;
+ALTER TABLE CARDORDER     OWNER TO bgile;
 
 
-CREATE SEQUENCE storyorder_id_seq
+CREATE SEQUENCE cardorder_id_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1000
   CACHE 1;
-ALTER TABLE storyorder_id_seq
+ALTER TABLE cardorder_id_seq
   OWNER TO bgile;
 
 
@@ -271,12 +271,12 @@ INSERT INTO boardaccount(
 
 INSERT INTO card(
             id, board, stateid, statusid, story)
-    VALUES (1, 1, '0', 'L', 'User Login Page');
+    VALUES (1, 1, 0, 'L', 'User Login Page');
 
 INSERT INTO card(
             id, board, stateid, statusid, story)
-    VALUES (2, 1, '0', 'L', 'User Profile Page');
+    VALUES (2, 1, 0, 'L', 'User Profile Page');
 
-INSERT INTO storyorder(
+INSERT INTO cardorder(
             id, board, stateid, orderby)
-    VALUES (1, 1, '0', '1, 2,');
+    VALUES (1, 1, 0, '1, 2,');

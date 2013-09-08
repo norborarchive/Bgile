@@ -62,7 +62,7 @@ public class Card extends Time implements Serializable, Timeable {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "stateid")
-	private char stateid;
+	private Integer stateid;
 	@Basic(optional = false)
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -113,11 +113,11 @@ public class Card extends Time implements Serializable, Timeable {
 		this.owner = owner;
 	}
 
-	public char getStateid() {
+	public Integer getStateid() {
 		return stateid;
 	}
 
-	public void setStateid(final char stateid) {
+	public void setStateid(final Integer stateid) {
 		this.stateid = stateid;
 	}
 
@@ -173,7 +173,7 @@ public class Card extends Time implements Serializable, Timeable {
 			return false;
 		}
 		final Card other = (Card) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (!this.id.equals(other.id)) {
 			return false;
 		}
 		return true;

@@ -7,6 +7,7 @@ package com.thjug.bgile.facade.impl;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.entity.Card;
 import java.util.List;
+import java.util.Map;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
@@ -74,8 +75,8 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Integer accountid = null;
 		Integer boardid = null;
 		CardFacade instance = new CardFacade();
-		List expResult = null;
-		List result = instance.findAllByBoardId(accountid, boardid);
+		Map expResult = null;
+		Map result = instance.findAllByBoardId(accountid, boardid);
 		assertEquals(result, expResult);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");

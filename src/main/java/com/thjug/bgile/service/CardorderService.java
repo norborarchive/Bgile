@@ -10,26 +10,24 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.util;
+package com.thjug.bgile.service;
+
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.Cardorder;
+import java.util.List;
 
 /**
  *
  * @author @nuboat
  */
-public final class Constants {
-	private Constants() {
+public final class CardorderService extends AbstractService<Cardorder> {
+
+	public CardorderService() {
+		super(Cardorder.class);
 	}
 
-	public static final String EMPTY = "";
-
-	public static final String QUOTE = "'";
-
-	public static final String COMMA = ",";
-
-	public static final String DOUBLEQUOTE = "\"";
-
-	public static final String SLASH = "\\";
-
-	public static final String BLACKSLASH = "/";
+	public List<Cardorder> find(final Board board) {
+		return findAll(Cardorder.FIND_BY_BOARD, board);
+	}
 
 }

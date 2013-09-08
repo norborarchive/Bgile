@@ -44,11 +44,7 @@ public class AuthenticationListenerImpl implements AuthenticationListener {
 	public void onSuccess(final AuthenticationToken token, final AuthenticationInfo info) {
 		final Account account = (Account) info.getPrincipals().getPrimaryPrincipal();
 		try {
-			if (SecurityUtils.getSubject().isRemembered()) {
-				facade.saveSession(account, true);
-			} else {
-				facade.saveSession(account, false);
-			}
+			facade.saveSession(account, SecurityUtils.getSubject().isRemembered());
 
 			LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
 		} catch (final Exception e) {
