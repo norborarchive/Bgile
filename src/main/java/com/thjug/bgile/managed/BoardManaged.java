@@ -35,6 +35,7 @@ import com.thjug.bgile.define.State;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
+import com.thjug.bgile.util.StringUtility;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +101,6 @@ public class BoardManaged extends BgileManaged {
 		try {
 			cardFacade.move(getLoginId(), board, storyid, fromsate, tostate, cardorderList, dashboard.getModel()
 					.getColumns());
-
 			cardMap = cardFacade.findAllByBoardId(getLoginId(), board.getId());
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
@@ -128,6 +128,10 @@ public class BoardManaged extends BgileManaged {
 		for (final Cardorder order : cardorderList) {
 			final String[] cardlist = order.getOrderby().split(",");
 			for (final String cardid : cardlist) {
+				if (StringUtility.isEmpty(cardid.trim())) {
+					continue;
+				}
+
 				final Card card = cardMap.get(Integer.parseInt(cardid.trim()));
 				if (card == null) {
 					continue;

@@ -279,4 +279,4 @@ INSERT INTO card(
 
 INSERT INTO cardorder(
             id, board, stateid, orderby)
-    VALUES (1, 1, 0, '1, 2,');
+    VALUES (1, 1, 0, '1,2,');

@@ -27,10 +27,13 @@
 		<sonar.language>java</sonar.language>
 		<sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 	</properties>
 
 	<repositories>
+		<repository>
+			<id>Java.Net</id>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
 		<repository>
 			<id>EclipseLink</id>
 			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
@@ -73,6 +76,11 @@
 			<artifactId>bootstrap</artifactId>
 			<version>1.0.10</version>
 		</dependency>
+		<!--dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.2.2</version>
+		</dependency-->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
