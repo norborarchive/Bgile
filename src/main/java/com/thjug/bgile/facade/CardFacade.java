@@ -122,6 +122,7 @@ public class CardFacade {
 		card.setUpdateby(accountid);
 		card.setStateid(tostate);
 		card.setOwner((tostate == State.Plan.getId()) ? null : new Account(accountid));
+		service.update(card);
 
 		// FIXME: Should refactor to one method.
 		if (fromstate.intValue() == tostate.intValue()) {
@@ -133,14 +134,14 @@ public class CardFacade {
 
 			for (final Cardorder c : orders) {
 				if (c.getBoard().equals(board) && c.getStateid().equals(fromstate)) {
-					final Cardorder neworder = c;
-					neworder.setOrderby(result.toString());
-					neworder.setUpdateby(accountid);
-					cardorderService.update(neworder);
+					c.setOrderby(result.toString());
+					c.setUpdateby(accountid);
+					cardorderService.update(c);
 				}
 			}
 
 		} else {
+			boolean update = false;
 			final DashboardColumn columnstart = columns.get(fromstate);
 			final StringBuilder resultstart = new StringBuilder();
 			for (final String s : columnstart.getWidgets()) {
@@ -149,13 +150,22 @@ public class CardFacade {
 
 			for (final Cardorder c : orders) {
 				if (c.getBoard().equals(board) && c.getStateid().equals(fromstate)) {
-					final Cardorder neworder = c;
-					neworder.setOrderby(resultstart.toString());
-					neworder.setUpdateby(accountid);
-					cardorderService.update(neworder);
+					c.setOrderby(resultstart.toString());
+					c.setUpdateby(accountid);
+					cardorderService.update(c);
+					update = true;
 				}
 			}
+			if (!update) {
+				final Cardorder c = new Cardorder();
+				c.setBoard(board);
+				c.setStateid(fromstate);
+				c.setOrderby(resultstart.toString());
+				c.setUpdateby(accountid);
+				cardorderService.create(c);
+			}
 
+			update = false;
 			final DashboardColumn columnto = columns.get(tostate);
 			final StringBuilder resultto = new StringBuilder();
 			for (final String s : columnto.getWidgets()) {
@@ -164,14 +174,22 @@ public class CardFacade {
 
 			for (final Cardorder c : orders) {
 				if (c.getBoard().equals(board) && c.getStateid().equals(tostate)) {
-					final Cardorder neworder = c;
-					neworder.setOrderby(resultstart.toString());
-					neworder.setUpdateby(accountid);
-					cardorderService.update(neworder);
+					c.setOrderby(resultto.toString());
+					c.setUpdateby(accountid);
+					cardorderService.update(c);
+					update = true;
 				}
+			}
+			if (!update) {
+				final Cardorder c = new Cardorder();
+				c.setBoard(board);
+				c.setStateid(tostate);
+				c.setOrderby(resultto.toString());
+				c.setUpdateby(accountid);
+				cardorderService.create(c);
 			}
 		}
 
-		return service.update(card);
+		return card;
 	}
 }

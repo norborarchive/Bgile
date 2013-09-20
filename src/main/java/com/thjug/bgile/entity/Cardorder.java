@@ -17,11 +17,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,6 +49,8 @@ public class Cardorder extends Time implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "id")
+	@SequenceGenerator(name = "cardorder_seq_gen", sequenceName = "cardorder_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cardorder_seq_gen")
 	private Integer id;
 
 	@Basic(optional = false)

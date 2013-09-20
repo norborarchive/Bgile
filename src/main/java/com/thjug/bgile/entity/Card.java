@@ -42,7 +42,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "CARD")
 @NamedQueries( { @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
-public class Card extends Time implements Serializable, Timeable {
+public class Card extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_BOARD_AND_STATUS = "Card.findByBoardAndStatus";

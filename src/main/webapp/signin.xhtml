@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/template/base.xhtml" >
 		<ui:define name="content">
 			<p:messages id="msg" />
@@ -27,12 +28,16 @@
 				</div>
 				<div class="row">
 					<div class="controls">
-						<p:commandButton id="signin" value="SIGNIN"
-										 styleClass="btn btn-success"
+						<p:commandButton id="signin" value="SIGNIN" styleClass="btn btn-success"
+										 oncomplete="handleAjax(xhr, status, args);"
 										 action="#{signinManaged.authen}" update="msg" />
 					</div>
 				</div>
 			</div>
+			<p:ajaxStatus>
+				<f:facet name="start">Loading...</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
 		</ui:define>
     </ui:composition>
 </html>
