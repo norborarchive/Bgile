@@ -21,6 +21,9 @@ import java.util.List;
  */
 public final class AccountService extends AbstractService<Account> {
 
+	private static final int OFFSET = 0;
+	private static final int LENGTH = 12;
+
 	public AccountService() {
 		super(Account.class);
 	}
@@ -32,7 +35,7 @@ public final class AccountService extends AbstractService<Account> {
 
 	public List<Account> findAccountList(final String keyword) {
 
-		return findRange(Account.FIND_LIKE_KEYWORD, 0, 12, keyword.toUpperCase() + "%");
+		return findRange(Account.FIND_LIKE_KEYWORD, OFFSET, LENGTH, keyword.toUpperCase() + "%");
 	}
 
 }

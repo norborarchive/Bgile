@@ -36,22 +36,22 @@ public abstract class Time implements Timeable {
 
 	@Override
 	public Date getCreated() {
-		return created;
+		return (created != null) ? (Date) created.clone() : null;
 	}
 
 	@Override
 	public void setCreated(final Date created) {
-		this.created = created;
+		this.created = (Date) created.clone();
 	}
 
 	@Override
 	public Date getUpdated() {
-		return updated;
+		return (updated != null) ? (Date) updated.clone() : null;
 	}
 
 	@Override
 	public void setUpdated(final Date updated) {
-		this.updated = updated;
+		this.updated = (Date) updated.clone();
 	}
 
 	@Override

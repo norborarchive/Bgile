@@ -15,7 +15,6 @@ package com.thjug.bgile.service;
 import java.util.List;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
-import com.thjug.bgile.define.State;
 import com.thjug.bgile.define.Status;
 
 /**
