@@ -13,6 +13,7 @@
 package com.thjug.bgile.facade.impl;
 
 import com.thjug.bgile.define.Accounttype;
+import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.facade.AccountFacade;
 import java.util.Date;
 import static org.testng.Assert.*;
@@ -48,28 +49,14 @@ public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 	public void CreateAccountCaseCreateSuccess() {
 		final String username = Long.toString(new Date().getTime());
 
-		//final AccountAuth accountAuth = new AccountAuth();
-		//accountAuth.setUsername(username);
-		//accountAuth.setPassword("password");
-		//accountAuth.setEnableid('N');
-
 		final Account account = new Account();
 		account.setTypeid(Accounttype.S);
-		//account.setAccountAuth(accountAuth);
+		account.setEnableid(Enable.T);
 
-		try {
-			final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
-			accountFacadeImpl.createAccount(account);
+		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
+		accountFacadeImpl.createAccount(account);
 
-			final Account persistedAccount = accountFacadeImpl.findByUsername(username);
-
-			//assertNotNull(persistedAccount.getAccountauth());
-			assertNotNull(persistedAccount);
-
-			accountFacadeImpl.removeAccount(persistedAccount);
-
-		} catch (final Exception e) {
-			fail(e.getMessage(), e);
-		}
+		final Account persistedAccount = accountFacadeImpl.findByUsername(username);
+		assertNotNull(persistedAccount);
 	}
 }
