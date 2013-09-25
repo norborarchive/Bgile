@@ -12,13 +12,11 @@
  */
 package com.thjug.bgile.entity;
 
-import com.thjug.bgile.define.Columnsize;
 import com.thjug.bgile.define.Status;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Private;
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +24,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,45 +32,42 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "board")
 public class Board extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id")
 	@SequenceGenerator(name = "board_seq_gen", sequenceName = "board_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq_gen")
 	private Integer id;
-	@Basic(optional = false)
+
 	@NotNull
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	@Column(name = "statusid")
 	private Status statusid;
-	@Basic(optional = false)
+
 	@NotNull
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	@Column(name = "enableid")
 	private Enable enableid;
+
 	@Basic(optional = false)
-	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "privateid")
 	private Private privateid;
-	@Basic(optional = false)
+
 	@NotNull
-	@Size(min = Columnsize.S1, max = Columnsize.S128)
-	@Column(name = "boardname")
+	@Basic(optional = false)
+	@Size(min = 1, max = 128)
 	private String boardname;
-	@Size(max = Columnsize.S512)
-	@Column(name = "description")
+
+	@Size(max = 512)
 	private String description;
-	@Size(max = Columnsize.S256)
-	@Column(name = "logopath")
+
+	@Size(max = 256)
 	private String logopath;
-	@Column(name = "maxcard")
-	private int maxcard;
+
+	private Integer maxcard;
 
 	public Board() {
 	}
@@ -138,11 +132,11 @@ public class Board extends Time implements Serializable {
 		this.logopath = logopath;
 	}
 
-	public int getMaxcard() {
+	public Integer getMaxcard() {
 		return maxcard;
 	}
 
-	public void setMaxcard(int maxcard) {
+	public void setMaxcard(Integer maxcard) {
 		this.maxcard = maxcard;
 	}
 
@@ -153,7 +147,6 @@ public class Board extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not set
 		if (!(object instanceof Board)) {
 			return false;
 		}

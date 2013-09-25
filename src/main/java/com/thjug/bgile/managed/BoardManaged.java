@@ -32,6 +32,7 @@ import org.primefaces.model.DefaultDashboardModel;
 import com.google.inject.Inject;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
+import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
@@ -57,6 +58,7 @@ public class BoardManaged extends BgileManaged {
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
 
+	private Board board;
 	private Map<Integer, Card> cardMap;
 	private List<Cardorder> cardorderList;
 	private transient Dashboard dashboard;
@@ -67,14 +69,18 @@ public class BoardManaged extends BgileManaged {
 	@PostConstruct
 	public void initial() {
 		final Integer boardid = getBoardIdfromAttribute();
-		if (boardid != null) {
-			getSession().setAttribute("boardid", boardid);
-			board = getBoard(boardid);
+		if (boardid == null) {
+			return;
+		}
+
+		getSession().setAttribute("boardid", boardid);
+		board = getBoard(boardid);
+		if (board != null) {
 			cardMap = cardFacade.findAllByBoardId(getLoginId(), boardid);
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} else {
-			addInfoMessage("Board ID " + boardid + " not found.", null);
+			addInfoMessage("Board Id: " + boardid, " not found.");
 		}
 	}
 

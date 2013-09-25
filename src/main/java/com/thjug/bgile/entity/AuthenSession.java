@@ -15,14 +15,12 @@ package com.thjug.bgile.entity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -30,9 +28,8 @@ import javax.validation.constraints.NotNull;
  * @author @nuboat
  */
 @Entity
-@Table(name = "authensession")
 @Cacheable
-@NamedQueries( {
+@NamedQueries({
 		@NamedQuery(name = AuthenSession.FIND_BY_ID, query = "SELECT a FROM AuthenSession a WHERE a.id = ?1"),
 		@NamedQuery(name = AuthenSession.FIND_BY_ACCOUNT, query = "SELECT a FROM AuthenSession a WHERE a.account = ?1"), })
 public class AuthenSession extends Time implements Serializable {
@@ -43,13 +40,11 @@ public class AuthenSession extends Time implements Serializable {
 	public static final String FIND_BY_ACCOUNT = "Session.findByAccount";
 
 	@Id
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id", nullable = false)
+	@Basic(optional = false)
 	private String id;
 
 	@NotNull
-	@Column(name = "rememberme", nullable = false)
 	private boolean rememberMe;
 
 	@JoinColumn(name = "account", referencedColumnName = "id")
@@ -87,7 +82,6 @@ public class AuthenSession extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not set
 		if (!(object instanceof AuthenSession)) {
 			return false;
 		}

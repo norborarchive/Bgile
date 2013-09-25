@@ -15,7 +15,6 @@ package com.thjug.bgile.entity;
 import com.thjug.bgile.define.Columnsize;
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +24,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -34,10 +32,10 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "cardorder")
-@NamedQueries( {
+@NamedQueries({
 		@NamedQuery(name = Cardorder.FIND_BY_BOARD, query = "SELECT a FROM Cardorder a WHERE a.board = ?1 "),
-		@NamedQuery(name = Cardorder.FIND_BY_BOARD_AND_STATE, query = "SELECT a FROM Cardorder a WHERE a.board = ?1 AND a.stateid = ?2"), })
+		@NamedQuery(name = Cardorder.FIND_BY_BOARD_AND_STATE,
+				query = "SELECT a FROM Cardorder a WHERE a.board = ?1 AND a.stateid = ?2"), })
 public class Cardorder extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,20 +44,17 @@ public class Cardorder extends Time implements Serializable {
 	public static final String FIND_BY_BOARD_AND_STATE = "Cardorder.findByBoardAndState";
 
 	@Id
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id")
+	@Basic(optional = false)
 	@SequenceGenerator(name = "cardorder_seq_gen", sequenceName = "cardorder_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cardorder_seq_gen")
 	private Integer id;
 
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "stateid")
+	@Basic(optional = false)
 	private Integer stateid;
 
 	@Size(max = Columnsize.MAXTEXT)
-	@Column(name = "orderby")
 	private String orderby;
 
 	@JoinColumn(name = "board", referencedColumnName = "id")

@@ -15,10 +15,11 @@ package com.thjug.bgile.entity;
 import com.thjug.bgile.define.Columnsize;
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,23 +28,24 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "history")
-public class History extends Time implements Serializable, Timeable {
+public class History extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id")
+	@Basic(optional = false)
+	@SequenceGenerator(name = "history_seq_gen", sequenceName = "history_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_seq_gen")
 	private Integer id;
-	@Column(name = "accountid")
+
 	private Integer accountid;
-	@Column(name = "refid")
+
 	private Integer refid;
-	@Column(name = "actionid")
+
 	private Integer actionid;
+
 	@Size(max = Columnsize.MAXTEXT)
-	@Column(name = "reason")
 	private String reason;
 
 	public History() {

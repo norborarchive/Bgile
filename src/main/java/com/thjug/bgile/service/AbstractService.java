@@ -70,18 +70,20 @@ public abstract class AbstractService<T> {
 		return this.provider.get();
 	}
 
-	protected <S> S findOne(final String namequery, final Object... param) {
+	@SuppressWarnings("unchecked")
+	protected T findOne(final String namequery, final Object... param) {
 		try {
 			final Query q = getEntityManager().createNamedQuery(namequery);
 			for (int i = 0; i < param.length; i++) {
 				q.setParameter(i + 1, param[i]);
 			}
-			return (S) q.getSingleResult();
+			return (T) q.getSingleResult();
 		} catch (final NoResultException e) {
 			return null;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<T> findAll(final String namequery, final Object... param) {
 		try {
 			final Query q = getEntityManager().createNamedQuery(namequery);
@@ -94,6 +96,7 @@ public abstract class AbstractService<T> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<T> findRange(final String namequery, final int offset, final int limit, final Object... param) {
 		try {
 			final Query q = getEntityManager().createNamedQuery(namequery);

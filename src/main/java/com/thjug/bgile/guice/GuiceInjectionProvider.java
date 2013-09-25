@@ -15,12 +15,7 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	/**
 	 * Custom guice injector that will load our modules.
 	 */
-	private static Injector injector;
-
-	// Original: public GuiceInjectionProvider(final ServletContext context)
-	public GuiceInjectionProvider() {
-		injector = GuiceInjectorFactory.getInjector();
-	}
+	private static Injector injector = GuiceInjectorFactory.getInjector();
 
 	@Override
 	public void inject(final Object managedBean) throws InjectionProviderException {

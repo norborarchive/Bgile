@@ -43,7 +43,7 @@ public class AccountFormManaged extends AbstractManaged {
 	private Account account;
 
 	@Inject
-	private AccountFacade accountFacade;
+	private transient AccountFacade accountFacade;
 
 	public AccountFormManaged() {
 		account = new Account();

@@ -23,17 +23,19 @@ import java.util.List;
  */
 public abstract class BgileManaged extends AbstractManaged {
 
-	protected Board board;
-
 	@Inject
-	protected transient BoardFacade boardFacade;
+	private transient BoardFacade boardFacade;
+
+	protected BoardFacade getBoardFacade() {
+		return boardFacade;
+	}
 
 	protected Board getBoard(final Integer boardid) {
 		return boardFacade.findById(getLoginId(), boardid);
 	}
 
 	protected Integer getBoardIdfromAttribute() {
-		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+		final List<String> attributes = getAttribute("ATTRIBUTES");
 		if (attributes != null && attributes.size() > 0) {
 			return Integer.valueOf(attributes.get(1));
 		} else {

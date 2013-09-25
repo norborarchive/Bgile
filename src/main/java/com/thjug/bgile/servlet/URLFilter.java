@@ -41,8 +41,7 @@ public final class URLFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(final ServletRequest request, final ServletResponse response,
-			final FilterChain chain)
+	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
 		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -53,9 +52,7 @@ public final class URLFilter implements Filter {
 		}
 		LOG.debug("request: {}", servletpath);
 
-		if (servletpath.contains(".xhtml")
-				|| servletpath.contains(".js")
-				|| servletpath.contains(".css")
+		if (servletpath.contains(".xhtml") || servletpath.contains(".js") || servletpath.contains(".css")
 				|| servletpath.contains("assets")) {
 
 			chain.doFilter(request, response);

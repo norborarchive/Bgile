@@ -31,6 +31,7 @@ public final class DefaultConverter implements Converter {
 	private static final String LIST_ATTRIBUTE = "listArrtibute";
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Object getAsObject(final FacesContext facesContext, final UIComponent component, final String value) {
 		final List<Converterable> converters = (List<Converterable>) component.getAttributes().get(LIST_ATTRIBUTE);
 

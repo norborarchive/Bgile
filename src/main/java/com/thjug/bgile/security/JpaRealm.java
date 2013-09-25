@@ -42,13 +42,13 @@ public class JpaRealm extends AuthorizingRealm {
 	private AccountFacade facade;
 
 	@Override
-    protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
-        final Account account = principals.oneByType(Account.class);
-        final Set<String> roleValues = new HashSet<>();
-        roleValues.add(account.getTypeid().getText());
+	protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
+		final Account account = principals.oneByType(Account.class);
+		final Set<String> roleValues = new HashSet<>();
+		roleValues.add(account.getTypeid().getText());
 
 		return new SimpleAuthorizationInfo(roleValues);
-    }
+	}
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token) {

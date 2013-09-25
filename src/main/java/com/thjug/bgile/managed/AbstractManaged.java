@@ -14,6 +14,7 @@ package com.thjug.bgile.managed;
 
 import com.thjug.bgile.entity.Account;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -56,8 +57,9 @@ public abstract class AbstractManaged implements Serializable {
 		return FacesContext.getCurrentInstance().getExternalContext();
 	}
 
-	protected final Object getAttribute(final String key) {
-		return getRequest().getAttribute(key);
+	@SuppressWarnings("unchecked")
+	protected final List<String> getAttribute(final String key) {
+		return (List<String>) getRequest().getAttribute(key);
 	}
 
 	protected final Map<String, String> getParams() {

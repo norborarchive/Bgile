@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.facade.GrantFacade;
@@ -43,12 +44,12 @@ import com.thjug.bgile.util.StringUtility;
 @ViewScoped
 public class GrantManaged extends BgileManaged {
 
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(GrantManaged.class);
 
+	private Board board;
 	private String accountname;
-
 	private List<Account> accounts;
-
 	private List<BoardAccount> grants;
 
 	@Inject

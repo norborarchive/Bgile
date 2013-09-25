@@ -12,13 +12,11 @@
  */
 package com.thjug.bgile.entity;
 
-import com.thjug.bgile.define.Columnsize;
 import com.thjug.bgile.define.Status;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,7 +29,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -40,43 +37,44 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "CARD")
-@NamedQueries( { @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
+@NamedQueries({ @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = ""
+		+ "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
 public class Card extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_BOARD_AND_STATUS = "Card.findByBoardAndStatus";
 
 	@Id
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id")
+	@Basic(optional = false)
 	@SequenceGenerator(name = "card_seq_gen", sequenceName = "card_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_seq_gen")
 	private Integer id;
-	@Basic(optional = false)
+
 	@NotNull
-	@Size(min = Columnsize.S1, max = Columnsize.S512)
-	@Column(name = "story")
+	@Basic(optional = false)
+	@Size(min = 1, max = 512)
 	private String story;
-	@Basic(optional = false)
+
 	@NotNull
-	@Column(name = "stateid")
+	@Basic(optional = false)
 	private Integer stateid;
-	@Basic(optional = false)
+
 	@NotNull
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	@Column(name = "statusid")
 	private Status statusid;
+
 	@JoinColumn(name = "board", referencedColumnName = "id")
 	@ManyToOne(optional = false)
 	private Board board;
+
 	@JoinColumn(name = "owner", referencedColumnName = "id")
 	@ManyToOne
 	private Account owner;
-	@Column(name = "estimate")
+
 	private Integer estimate;
-	@Column(name = "description")
+
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
@@ -149,7 +147,7 @@ public class Card extends Time implements Serializable {
 		return estimate;
 	}
 
-	public void setEstimate(Integer estimate) {
+	public void setEstimate(final Integer estimate) {
 		this.estimate = estimate;
 	}
 
@@ -157,7 +155,7 @@ public class Card extends Time implements Serializable {
 		return board;
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(final Board board) {
 		this.board = board;
 	}
 

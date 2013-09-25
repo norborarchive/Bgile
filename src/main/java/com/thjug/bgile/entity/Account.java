@@ -13,7 +13,6 @@
 package com.thjug.bgile.entity;
 
 import com.thjug.bgile.define.Accounttype;
-import com.thjug.bgile.define.Columnsize;
 import com.thjug.bgile.define.Enable;
 import java.io.Serializable;
 import java.util.List;
@@ -31,7 +30,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -41,9 +39,8 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
-@Table(name = "account")
 @Cacheable
-@NamedQueries( {
+@NamedQueries({
 		@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
 		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
 		@NamedQuery(name = Account.FIND_LIKE_KEYWORD, query = " SELECT a FROM Account a "
@@ -52,61 +49,64 @@ import javax.validation.constraints.Size;
 public class Account extends Time implements Serializable, Converterable {
 
 	private static final long serialVersionUID = 1L;
+
 	public static final String COUNT_ALL = "Account.countAll";
 	public static final String FIND_BY_USERNAME = "Account.findByUsername";
 	public static final String FIND_LIKE_KEYWORD = "Account.findByKeyword";
 
 	@Id
-	@Basic(optional = false)
 	@NotNull
-	@Column(name = "id", nullable = false)
+	@Basic(optional = false)
 	@SequenceGenerator(name = "account_seq_gen", sequenceName = "account_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq_gen")
 	private Integer id;
-	@Basic(optional = false)
+
 	@NotNull
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	@Column(name = "typeid")
 	private Accounttype typeid;
-	@Basic(optional = false)
+
 	@NotNull
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	@Column(name = "enableid")
 	private Enable enableid;
-	@Basic(optional = false)
+
 	@NotNull
-	@Size(min = Columnsize.S1, max = Columnsize.S64)
-	@Column(name = "username", unique = true)
+	@Basic(optional = false)
+	@Size(min = 1, max = 64)
 	private String username;
-	@Basic(optional = false)
+
 	@NotNull
-	@Size(min = Columnsize.S1, max = Columnsize.S64)
-	@Column(name = "passwd")
+	@Basic(optional = false)
+	@Size(min = 1, max = 64)
 	private String passwd;
-	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
-	@Basic(optional = false)
+
 	@NotNull
-	@Size(min = Columnsize.S1, max = Columnsize.S128)
-	@Column(name = "email")
+	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+			message = "Invalid email")
+	@Basic(optional = false)
+	@Size(min = 1, max = 128)
 	private String email;
-	@Size(max = Columnsize.S64)
-	@Column(name = "firstname")
+
+	@Size(max = 64)
 	private String firstname;
-	@Size(max = Columnsize.S64)
-	@Column(name = "lastname")
+
+	@Size(max = 64)
 	private String lastname;
-	@Size(max = Columnsize.S32)
-	@Column(name = "twitter")
+
+	@Size(max = 32)
 	private String twitter;
-	@Size(max = Columnsize.S128)
-	@Column(name = "bio")
+
+	@Size(max = 128)
 	private String bio;
-	@Size(max = Columnsize.S256)
-	@Column(name = "avatarpath")
+
+	@Size(max = 256)
+	@Column(unique = true)
 	private String avatarpath;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<BoardAccount> boardaccountList;
+
 	@OneToMany(mappedBy = "owner")
 	private List<Card> cardList;
 
@@ -232,7 +232,6 @@ public class Account extends Time implements Serializable, Converterable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not set
 		if (!(object instanceof Account)) {
 			return false;
 		}

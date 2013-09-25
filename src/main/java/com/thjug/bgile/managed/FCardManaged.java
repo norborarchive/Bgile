@@ -39,7 +39,7 @@ public class FCardManaged extends AbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		final String cardid = (String) getCardfromAttribute();
+		final String cardid = getCardidfromAttribute();
 		if (cardid != null) {
 			try {
 				card = facade.findById(getLoginId(), Integer.valueOf(cardid));
@@ -52,8 +52,8 @@ public class FCardManaged extends AbstractManaged {
 		}
 	}
 
-	private String getCardfromAttribute() {
-		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+	private String getCardidfromAttribute() {
+		final List<String> attributes = getAttribute("ATTRIBUTES");
 		return (attributes.size() > 0) ? attributes.get(1) : null;
 	}
 

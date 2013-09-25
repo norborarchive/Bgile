@@ -40,7 +40,7 @@ public class FboardManaged extends AbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		final String boardid = (String) getBoardIdfromAttribute();
+		final String boardid = getBoardIdfromAttribute();
 		if (boardid != null) {
 			try {
 				board = facade.findById(getLoginId(), Integer.valueOf(boardid));
@@ -54,7 +54,7 @@ public class FboardManaged extends AbstractManaged {
 	}
 
 	private String getBoardIdfromAttribute() {
-		final List<String> attributes = (List<String>) getAttribute("ATTRIBUTES");
+		final List<String> attributes = getAttribute("ATTRIBUTES");
 		return (attributes.size() > 0) ? attributes.get(1) : null;
 	}
 
