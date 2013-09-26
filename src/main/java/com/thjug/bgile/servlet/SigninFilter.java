@@ -14,7 +14,6 @@ package com.thjug.bgile.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -35,7 +34,7 @@ import com.google.inject.Singleton;
  * @author @nuboat
  */
 @Singleton
-public final class SigninFilter implements Filter {
+public final class SigninFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SigninFilter.class);
 

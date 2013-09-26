@@ -124,72 +124,49 @@ public class CardFacade {
 		card.setOwner((tostate == State.Plan.getId()) ? null : new Account(accountid));
 		service.update(card);
 
-		// FIXME: Should refactor to one method.
 		if (fromstate.intValue() == tostate.intValue()) {
-			final DashboardColumn columnstart = columns.get(fromstate);
-			final StringBuilder result = new StringBuilder();
-			for (final String s : columnstart.getWidgets()) {
-				result.append(s.replace("ID", Constants.EMPTY)).append(Constants.COMMA);
-			}
-
-			for (final Cardorder c : orders) {
-				if (c.getBoard().equals(board) && c.getStateid().equals(fromstate)) {
-					c.setOrderby(result.toString());
-					c.setUpdateby(accountid);
-					cardorderService.update(c);
-				}
-			}
+			final String orderString = genOrderString(fromstate, columns);
+			updateOrInsert(accountid, board, orderString, fromstate, orders);
 
 		} else {
-			boolean update = false;
-			final DashboardColumn columnstart = columns.get(fromstate);
-			final StringBuilder resultstart = new StringBuilder();
-			for (final String s : columnstart.getWidgets()) {
-				resultstart.append(s.replace("ID", Constants.EMPTY)).append(Constants.COMMA);
-			}
+			final String orderFromString = genOrderString(fromstate, columns);
+			updateOrInsert(accountid, board, orderFromString, fromstate, orders);
 
-			for (final Cardorder c : orders) {
-				if (c.getBoard().equals(board) && c.getStateid().equals(fromstate)) {
-					c.setOrderby(resultstart.toString());
-					c.setUpdateby(accountid);
-					cardorderService.update(c);
-					update = true;
-				}
-			}
-			if (!update) {
-				final Cardorder c = new Cardorder();
-				c.setBoard(board);
-				c.setStateid(fromstate);
-				c.setOrderby(resultstart.toString());
-				c.setUpdateby(accountid);
-				cardorderService.create(c);
-			}
-
-			update = false;
-			final DashboardColumn columnto = columns.get(tostate);
-			final StringBuilder resultto = new StringBuilder();
-			for (final String s : columnto.getWidgets()) {
-				resultto.append(s.replace("ID", Constants.EMPTY)).append(",");
-			}
-
-			for (final Cardorder c : orders) {
-				if (c.getBoard().equals(board) && c.getStateid().equals(tostate)) {
-					c.setOrderby(resultto.toString());
-					c.setUpdateby(accountid);
-					cardorderService.update(c);
-					update = true;
-				}
-			}
-			if (!update) {
-				final Cardorder c = new Cardorder();
-				c.setBoard(board);
-				c.setStateid(tostate);
-				c.setOrderby(resultto.toString());
-				c.setUpdateby(accountid);
-				cardorderService.create(c);
-			}
+			final String orderToString = genOrderString(tostate, columns);
+			updateOrInsert(accountid, board, orderToString, tostate, orders);
 		}
 
 		return card;
+	}
+
+	private void updateOrInsert(final Integer accountid, final Board board, final String orderString,
+			final Integer state, final List<Cardorder> orders) {
+		boolean update = false;
+		for (final Cardorder c : orders) {
+			if (c.getBoard().equals(board) && c.getStateid().equals(state)) {
+				c.setOrderby(orderString);
+				c.setUpdateby(accountid);
+				cardorderService.update(c);
+				update = true;
+			}
+		}
+		if (!update) {
+			final Cardorder c = new Cardorder();
+			c.setBoard(board);
+			c.setStateid(state);
+			c.setOrderby(orderString);
+			c.setUpdateby(accountid);
+			cardorderService.create(c);
+		}
+	}
+
+	private String genOrderString(final Integer state, final List<DashboardColumn> columns) {
+		final DashboardColumn columnstart = columns.get(state);
+		final StringBuilder result = new StringBuilder();
+		for (final String s : columnstart.getWidgets()) {
+			result.append(s.replace("ID", Constants.EMPTY)).append(Constants.COMMA);
+		}
+
+		return result.toString();
 	}
 }

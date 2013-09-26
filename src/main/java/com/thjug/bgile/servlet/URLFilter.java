@@ -12,12 +12,10 @@
  */
 package com.thjug.bgile.servlet;
 
-import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -27,12 +25,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Singleton;
+
 /**
  *
  * @author @nuboat
  */
 @Singleton
-public final class URLFilter implements Filter {
+public final class URLFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(URLFilter.class);
 

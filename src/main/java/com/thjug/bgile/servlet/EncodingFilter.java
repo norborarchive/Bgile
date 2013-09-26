@@ -14,7 +14,6 @@ package com.thjug.bgile.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @Singleton
-public class EncodingFilter implements Filter {
+public class EncodingFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EncodingFilter.class);
 

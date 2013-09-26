@@ -35,4 +35,5 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	public void invokePreDestroy(final Object managedBean) throws InjectionProviderException {
 		CON.invokePreDestroy(managedBean);
 	}
+
 }

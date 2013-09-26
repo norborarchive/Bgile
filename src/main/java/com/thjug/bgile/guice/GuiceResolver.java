@@ -13,9 +13,11 @@ import java.util.List;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 
+@SuppressWarnings("unchecked")
 public final class GuiceResolver extends ELResolver {
 
 	private final Injector injector = Guice.createInjector(new ServletModule());
+
 	//We only need to see the currently processed Objects in our Thread, that
 	//prevents multithread issues without synchronization
 	private static final ThreadLocal CURRENTLY_THREAD = new ThreadLocal() {
@@ -51,7 +53,7 @@ public final class GuiceResolver extends ELResolver {
 
 		//now we can savely invoke the getValue() Method of the composite EL
 		//resolver, we wont process it again
-		final Object resolvedObj = context.getELResolver().getValue(context, base, property);
+		final Object resolvedObj = context.getELResolver().getValue(context, null, property);
 
 		//ok, we got our result, remove the object from the currently processed list
 		removeObject(property, currentlyProcessedPropertyObjects);

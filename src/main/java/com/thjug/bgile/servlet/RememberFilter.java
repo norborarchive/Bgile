@@ -3,7 +3,6 @@ package com.thjug.bgile.servlet;
 import com.google.inject.Singleton;
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author PeerapatAsoktummarun
  */
 @Singleton
-public class RememberFilter implements Filter {
+public class RememberFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RememberFilter.class);
 
