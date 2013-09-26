@@ -27,21 +27,24 @@ public final class FileUtility {
 		return new File(buildFullPath(fullPath));
 	}
 
-	private static String getSubPath(final String s) {
+	private static String cleanPath(final String s) {
 		return s.replace(File.separator, Constants.EMPTY).replace(File.pathSeparator, Constants.EMPTY);
 	}
 
+	/**
+	 *
+	 * WARNING: Does not supprot Windows.
+	 * if (OsUtility.isWindows()) {
+	 *		path = new StringBuilder(getSubPath(fullPath[index++]));
+	 *		path.append(File.pathSeparator).append(File.separator);
+	 * }
+	 * @param fullPath : {"home", "nuboat", "media", "avatar"}
+	 * @return /home/nuboat/media/avatar
+	 */
 	private static String buildFullPath(final String[] fullPath) {
-		final StringBuilder path;
-		int index = 0;
-		if (OsUtility.isWindows()) {
-			path = new StringBuilder(getSubPath(fullPath[index++]));
-			path.append(File.pathSeparator).append(File.separator);
-		} else {
-			path = new StringBuilder(File.separator);
-		}
+		final StringBuilder path = new StringBuilder(File.separator);
 		for (final String fragment : fullPath) {
-			path.append(getSubPath(fragment)).append(File.separator);
+			path.append(cleanPath(fragment)).append(File.separator);
 		}
 		return path.toString();
 	}

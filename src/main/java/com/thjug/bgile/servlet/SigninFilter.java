@@ -15,7 +15,6 @@ package com.thjug.bgile.servlet;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -39,10 +38,6 @@ public final class SigninFilter extends DefaultFilter {
 	private static final Logger LOG = LoggerFactory.getLogger(SigninFilter.class);
 
 	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-	}
-
-	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
@@ -62,10 +57,6 @@ public final class SigninFilter extends DefaultFilter {
 		}
 
 		chain.doFilter(request, response);
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 }

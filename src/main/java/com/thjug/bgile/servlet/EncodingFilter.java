@@ -15,7 +15,6 @@ package com.thjug.bgile.servlet;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -38,10 +37,6 @@ public class EncodingFilter extends DefaultFilter {
 	private static final String ENCODING = "UTF-8";
 
 	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-	}
-
-	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
@@ -55,10 +50,6 @@ public class EncodingFilter extends DefaultFilter {
 
 		request.setCharacterEncoding(ENCODING);
 		chain.doFilter(request, response);
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 }

@@ -4,7 +4,6 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -21,10 +20,6 @@ import org.slf4j.LoggerFactory;
 public class RememberFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RememberFilter.class);
-
-	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-	}
 
 	/**
 	 *
@@ -48,11 +43,6 @@ public class RememberFilter extends DefaultFilter {
 
 		LOG.debug("request: {}", servletpath);
 		chain.doFilter(request, response);
-	}
-
-	@Override
-	public void destroy() {
-
 	}
 
 }

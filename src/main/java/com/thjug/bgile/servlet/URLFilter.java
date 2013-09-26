@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -35,10 +34,6 @@ import com.google.inject.Singleton;
 public final class URLFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(URLFilter.class);
-
-	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-	}
 
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
@@ -71,10 +66,6 @@ public final class URLFilter extends DefaultFilter {
 			httpServletRequest.getRequestDispatcher(destination).forward(request, response);
 		}
 
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 }

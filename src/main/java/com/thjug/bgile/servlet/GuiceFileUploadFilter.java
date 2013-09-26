@@ -17,7 +17,8 @@ import org.primefaces.webapp.filter.FileUploadFilter;
 import com.google.inject.Singleton;
 
 /**
- *
+ * Made Primefaces FileUploadFilter to Singleton.
+ * 
  * @author @nuboat
  */
 @Singleton
