@@ -17,8 +17,6 @@ package com.thjug.bgile.util;
  * @author @nuboat
  */
 public final class Constants {
-	private Constants() {
-	}
 
 	public static final String EMPTY = "";
 
@@ -31,5 +29,8 @@ public final class Constants {
 	public static final String SLASH = "\\";
 
 	public static final String BLACKSLASH = "/";
+
+	private Constants() {
+	}
 
 }

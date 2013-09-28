@@ -17,9 +17,9 @@
         <ui:define name="content">
 			<p:messages id="msg" />
 			<div class="container">
-				<div style="width: 511px;">
+				<div class="span12">
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pushpin" ></i></span>
 								<p:inputText id="boardid" style="width: 480px;" disabled="true"
@@ -30,20 +30,24 @@
 					</div>
 
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pencil" ></i></span>
 								<p:inputText id="boardname" style="width: 480px;"
-											 value="#{fboardManaged.board.boardname}">
-									<f:validateRequired />
+											 value="#{fboardManaged.board.boardname}" required="true"
+											 requiredMessage="Mandatory Field." >
 								</p:inputText>
 								<p:watermark for="boardname" value="ชื่อกระดาน" ></p:watermark>
 							</div>
 						</div>
+						<div class="span4">
+							<p:message id="boardnameMsg" for="boardname"
+									   showDetail="true" showSummary="false" display="text" />
+						</div>
 					</div>
 
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
 							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<p:inputTextarea id="description" style="width: 510px;" rows="6"
 												 value="#{fboardManaged.board.description}"/>
@@ -53,19 +57,21 @@
 					</div>
 
 					<div class="row">
-						<div class="controls">
-							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
-								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
-												 styleClass="btn btn-mini btn-danger" update="msg"
-												 rendered="#{!fboardManaged.newBoard}"
-												 onclick="confirmation.show();" />
+						<div class="span6">
+							<div class="controls">
+								<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
+									<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
+													 styleClass="btn btn-mini btn-danger" update="msg"
+													 rendered="#{!fboardManaged.newBoard}"
+													 onclick="confirmation.show();" />
+								</div>
 							</div>
-						</div>
-						<div class="controls">
-							<div style="float:right;">
-								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
-												 styleClass="btn btn-mini btn-success" update="msg"
-												 action="#{fboardManaged.save}"/>
+							<div class="controls">
+								<div style="float:right;">
+									<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
+													 styleClass="btn btn-mini btn-success" update="msg"
+													 action="#{fboardManaged.save}"/>
+								</div>
 							</div>
 						</div>
 					</div>

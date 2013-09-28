@@ -20,9 +20,6 @@ import java.io.File;
  */
 public final class FileUtility {
 
-	private FileUtility() {
-	}
-
 	public static File getFile(final String[] fullPath) {
 		return new File(buildFullPath(fullPath));
 	}
@@ -42,11 +39,14 @@ public final class FileUtility {
 	 * @return /home/nuboat/media/avatar
 	 */
 	private static String buildFullPath(final String[] fullPath) {
-		final StringBuilder path = new StringBuilder(File.separator);
+		final StringBuilder path = new StringBuilder();
 		for (final String fragment : fullPath) {
-			path.append(cleanPath(fragment)).append(File.separator);
+			path.append(File.separator).append(cleanPath(fragment));
 		}
 		return path.toString();
+	}
+
+	private FileUtility() {
 	}
 
 }

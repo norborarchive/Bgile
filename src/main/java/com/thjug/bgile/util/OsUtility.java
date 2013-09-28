@@ -26,16 +26,13 @@ public final class OsUtility {
 	private static final boolean IS_OSX;
 	private static final boolean IS_SOLARIS;
 
-	private OsUtility() {
-	}
-
 	static {
 		OS_NAME = System.getProperty("os.name");
 
 		final String osName = OS_NAME.toLowerCase(Locale.ENGLISH);
 		IS_WINDOW = osName.startsWith("windows");
 		IS_NIX = osName.indexOf("nix") >= 0 || osName.indexOf("nux") >= 0;
-		IS_OSX = osName.indexOf("mac") >= 0;
+		IS_OSX = osName.indexOf("os x") >= 0;
 		IS_SOLARIS = osName.indexOf("sunos") >= 0;
 	}
 
@@ -57,6 +54,9 @@ public final class OsUtility {
 
 	public static boolean isSolaris() {
 		return IS_SOLARIS;
+	}
+
+	private OsUtility() {
 	}
 
 }

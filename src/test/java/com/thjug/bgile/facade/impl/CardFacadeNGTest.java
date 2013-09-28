@@ -6,7 +6,6 @@ package com.thjug.bgile.facade.impl;
 
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.entity.Card;
-import java.util.List;
 import java.util.Map;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
@@ -32,7 +31,6 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 
 	//@Test
 	public void testEdit() throws Exception {
-		System.out.println("edit");
 		Integer accountid = null;
 		Card story = null;
 		CardFacade instance = new CardFacade();
@@ -45,7 +43,6 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 
 	//@Test
 	public void testRemove() throws Exception {
-		System.out.println("remove");
 		Integer accountid = null;
 		Card story = null;
 		CardFacade instance = new CardFacade();
@@ -58,7 +55,6 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 
 	//@Test
 	public void testFindById() throws Exception {
-		System.out.println("findById");
 		Integer accountid = null;
 		Integer storyid = null;
 		CardFacade instance = new CardFacade();
@@ -71,7 +67,6 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 
 	//@Test
 	public void testFindAllByBoardId() throws Exception {
-		System.out.println("findAllByBoardId");
 		Integer accountid = null;
 		Integer boardid = null;
 		CardFacade instance = new CardFacade();

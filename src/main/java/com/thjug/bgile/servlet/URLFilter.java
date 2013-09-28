@@ -55,7 +55,7 @@ public final class URLFilter extends DefaultFilter {
 
 			final List<String> attributes = new LinkedList<>();
 			for (final String attribute : servletpath.split("/")) {
-				if (!attribute.trim().equals("")) {
+				if (!attribute.trim().isEmpty()) {
 					attributes.add(attribute);
 				}
 			}

@@ -1,8 +1,8 @@
+
 DROP SEQUENCE IF EXISTS account_id_seq;
 DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS card_id_seq;
-DROP SEQUENCE IF EXISTS cardorder_id_seq;
 
 DROP TABLE IF EXISTS TODO;
 DROP TABLE IF EXISTS CARDORDER;
@@ -139,7 +139,7 @@ CREATE TABLE CARD
 (
   ID            integer,
   BOARD         integer NOT NULL,
-  STORY         character varying(512) NOT NULL,
+  STORY         character varying(128) NOT NULL,
   OWNER         integer,
   ESTIMATE      integer,
   STATEID       integer NOT NULL,
@@ -176,7 +176,7 @@ ALTER TABLE card_id_seq
 
 CREATE TABLE CARDORDER
 (
-  ID            integer,
+  ID            serial,
   BOARD         integer NOT NULL,
   STATEID       integer NOT NULL,
   ORDERBY		text,
@@ -195,21 +195,10 @@ WITH (
 ) TABLESPACE pg_default;
 ALTER TABLE CARDORDER     OWNER TO bgile;
 
-
-CREATE SEQUENCE cardorder_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1000
-  CACHE 1;
-ALTER TABLE cardorder_id_seq
-  OWNER TO bgile;
-
-
 CREATE TABLE TODO
 (
   ID            serial,
-  CARD     integer NOT NULL,
+  CARD			integer NOT NULL,
   DESCRIPTION   character varying(512) NOT NULL,
 
   CREATED       timestamp with time zone,
@@ -248,35 +237,6 @@ ALTER TABLE history     OWNER TO bgile;
 
 
 INSERT INTO account(
-            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
+            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
     VALUES (1, 'A', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
-			, 'Admin', '@ SIGNATURE', 'Default Admin of System', 'avatar/000000000.jpg');
-
-INSERT INTO account(
-            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath)
-    VALUES (2, 'S', 'T', 'nuboat', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
-			, 'Peerapat', 'A', 'Trust me, I am engineer.', 'avatar/000000001.jpg');
-
-INSERT INTO board(
-            id, statusid, enableid, privateid, boardname, description, logopath)
-    VALUES (1, 'L', 'T', 'T', 'Bgile', 'Bgile not Agile', 'board/000000000.jpg');
-
-INSERT INTO boardaccount(
-            id, board, account, permissionid, statusid)
-    VALUES (1, 1, 1, 'W', 'L');
-
-INSERT INTO boardaccount(
-            id, board, account, permissionid, statusid)
-    VALUES (2, 1, 2, 'A', 'L');
-
-INSERT INTO card(
-            id, board, stateid, statusid, story)
-    VALUES (1, 1, 0, 'L', 'User Login Page');
-
-INSERT INTO card(
-            id, board, stateid, statusid, story)
-    VALUES (2, 1, 0, 'L', 'User Profile Page');
-
-INSERT INTO cardorder(
-            id, board, stateid, orderby)
-    VALUES (1, 1, 0, '1,2,');
+			, 'Admin', '@ Thai Java User Group', 'Programmer @ THJUG', 'avatar/000000000.jpg', current_date, current_date, 1);

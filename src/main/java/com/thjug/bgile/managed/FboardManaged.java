@@ -55,7 +55,7 @@ public class FboardManaged extends AbstractManaged {
 
 	private String getBoardIdfromAttribute() {
 		final List<String> attributes = getAttribute("ATTRIBUTES");
-		return (attributes.size() > 0) ? attributes.get(1) : null;
+		return (attributes.size() > 1) ? attributes.get(1) : null;
 	}
 
 	public String save() {

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="control" >
@@ -14,10 +15,11 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
+			<p:messages id="msgs" closable="true" showDetail="true" showSummary="false" />
 			<div class="container">
-				<div style="width: 511px;">
+				<div class="span12">
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pushpin" ></i></span>
 								<p:inputText id="storyid" style="width: 480px;" disabled="true"
@@ -28,31 +30,42 @@
 					</div>
 
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pencil" ></i></span>
-								<p:inputText id="story" style="width: 480px;"
-											 value="#{fCardManaged.card.story}" >
+								<p:inputText id="story" style="width: 480px;" maxlength="128"
+											 value="#{fCardManaged.card.story}" required="true"
+											 requiredMessage="Mandatory Field." >
 								</p:inputText>
 								<p:watermark for="story" value="รายละเอียดย่อ" />
 							</div>
 						</div>
-					</div>
-
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-time" ></i></span>
-								<p:inputText id="estimate" style="width: 480px;"
-											 value="#{fCardManaged.card.estimate}" >
-								</p:inputText>
-								<p:watermark for="estimate" value="เวลาโดยประมาณ" />
-							</div>
+						<div class="span4">
+							<p:message id="storyMsg" for="story"
+									   showDetail="true" showSummary="false" display="text" />
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="controls">
+						<div class="controls span6">
+							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+								<span class="add-on"><i class="icon-time" ></i></span>
+								<p:inputText id="estimate" style="width: 480px;" maxlength="2"
+											 value="#{fCardManaged.card.estimate}"
+											 converterMessage="Please enter digits only." >
+									<f:validateLength minimum="1" maximum="2" />
+								</p:inputText>
+								<p:watermark for="estimate" value="ระยะเวลาที่ต้องการใช้ (วัน)" />
+							</div>
+						</div>
+						<div class="span4">
+								<p:message id="estimateMsg" for="estimate"
+										   showDetail="true" showSummary="false" display="text" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="controls span6">
 							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<p:inputTextarea id="description" style="width: 511px;" rows="6"
 												 value="#{fCardManaged.card.description}"/>
@@ -61,19 +74,22 @@
 					</div>
 
 					<div class="row">
-						<div class="controls">
-							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
-								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
-												 styleClass="btn btn-mini btn-danger"
-												 rendered="#{!fCardManaged.newCard}"
-												 onclick="confirmation.show();" />
+						<div class="span6">
+							<div class="controls">
+								<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
+									<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
+													 styleClass="btn btn-mini btn-danger"
+													 rendered="#{!fCardManaged.newCard}"
+													 onclick="confirmation.show();" />
+								</div>
 							</div>
-						</div>
-						<div class="controls">
-							<div style="float:right;">
-								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
-												 styleClass="btn btn-mini btn-success"
-												 action="#{fCardManaged.saveStory}"/>
+							<div class="controls">
+								<div style="float:right;">
+									<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
+													 styleClass="btn btn-mini btn-success"
+													 action="#{fCardManaged.saveStory}"
+													 update="storyMsg estimateMsg" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -86,7 +102,8 @@
 				<p:commandButton id="confirm" value="Yes Sure" oncomplete="confirmation.hide()"
 								 action="#{fCardManaged.removeStory}" />
 
-				<p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide();" type="button" />
+				<p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide();"
+								 type="button" />
 
 			</p:confirmDialog>
 

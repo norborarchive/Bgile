@@ -20,10 +20,10 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
  */
 public final class Encrypter {
 
-	private Encrypter() {
-	}
-
 	public static String cipher(final String plain) {
 		return new Sha256Hash(plain).toHex();
+	}
+
+	private Encrypter() {
 	}
 }
