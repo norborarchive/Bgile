@@ -15,11 +15,16 @@
 				<div style="padding: 12px 0px 32px 20px;">
 					<div class="controls">
 						<ui:insert name="menubar" />
-						<div class="control" style="padding-bottom: 24px; padding-right: 24px; float: right;">
+						<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
+							<img alt="" src="#{gravatar.url}" height="30px;" width="30px;"/>
+
+							<span style="width: 4px;" />
+
 							<p:commandButton id="profile" icon="ui-icon ui-icon-contact" value="Peerapat A"
 											 styleClass="btn btn-mini btn-info"
-											 style="margin-right: 12px;"
 											 action="#{profileManaged.linkToProfile(facesContext.viewRoot.viewId)}"/>
+
+							<span style="width: 4px;" />
 
 							<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
 											 styleClass="btn btn-mini btn-danger"

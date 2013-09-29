@@ -12,7 +12,6 @@
  */
 package com.thjug.bgile.managed;
 
-import com.thjug.bgile.entity.Account;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -76,11 +75,6 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final String redirect(final String page) {
 		return page + "?faces-redirect=true";
-	}
-
-	protected final Integer getLoginId() {
-		final Object id = getSession().getAttribute(Account.class.getSimpleName());
-		return (id != null) ? (Integer) getSession().getAttribute(Account.class.getSimpleName()) : null;
 	}
 
 	protected final void putCookieValue(final String cookieName, final String value) {

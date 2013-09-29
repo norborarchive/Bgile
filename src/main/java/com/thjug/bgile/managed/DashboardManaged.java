@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class DashboardManaged extends AbstractManaged {
+public class DashboardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(DashboardManaged.class);
@@ -39,7 +39,7 @@ public class DashboardManaged extends AbstractManaged {
 	@PostConstruct
 	public void initial() {
 		try {
-			boards = facade.findAllByAccount(getLoginId());
+			boards = facade.findAllByAccount(getPrincipal().getId());
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

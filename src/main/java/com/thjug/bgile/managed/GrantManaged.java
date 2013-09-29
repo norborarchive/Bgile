@@ -42,7 +42,7 @@ import com.thjug.bgile.util.StringUtility;
  */
 @ManagedBean
 @ViewScoped
-public class GrantManaged extends BgileManaged {
+public class GrantManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(GrantManaged.class);
@@ -86,7 +86,7 @@ public class GrantManaged extends BgileManaged {
 		final Permission newPermission = (Permission) ui.getLocalValue();
 
 		LOG.info("Id: {} Permission: {}", accountid, newPermission);
-		grantFacade.editAccountToBoard(getLoginId(), accountid, board.getId(), newPermission);
+		grantFacade.editAccountToBoard(getPrincipal().getId(), accountid, board.getId(), newPermission);
 
 		FacesContext.getCurrentInstance().renderResponse();
 	}
@@ -110,7 +110,7 @@ public class GrantManaged extends BgileManaged {
 			}
 		}
 
-		grants.add(grantFacade.addAccountToBoard(getLoginId(), account, board));
+		grants.add(grantFacade.addAccountToBoard(getPrincipal().getId(), account, board));
 	}
 
 	public String getAccountname() {

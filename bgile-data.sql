@@ -68,3 +68,11 @@ INSERT INTO card(
 INSERT INTO card(
             id, board, stateid, statusid, story, description, created, updated, updateby)
     VALUES (13, 1, 0, 'L', 'Responsive Design', 'Support Responsive Design', current_date, current_date, 2);
+
+INSERT INTO card(
+            id, board, stateid, statusid, owner, story, description, created, updated, updateby)
+    VALUES (14, 1, 2, 'L', 2, 'User Profile', 'Edit data<br />Validation data', current_date, current_date, 2);
+
+INSERT INTO card(
+            id, board, stateid, statusid, owner, story, description, created, updated, updateby)
+    VALUES (15, 1, 2, 'L', 2, 'Logout', 'Clear Session & redirect to Home.', current_date, current_date, 2);

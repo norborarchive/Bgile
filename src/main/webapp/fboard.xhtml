@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:f="http://java.sun.com/jsf/core">
+	  xmlns:p="http://primefaces.org/ui" >
     <ui:composition template="/WEB-INF/template/app.xhtml" >
 		<ui:define name="menubar">
 			<div class="control" >
@@ -15,7 +14,7 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
-			<p:messages id="msg" />
+			<p:messages id="msgs" showDetail="true" showSummary="false" closable="true" globalOnly="true" />
 			<div class="container">
 				<div class="span12">
 					<div class="row">
@@ -61,7 +60,7 @@
 							<div class="controls">
 								<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
 									<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
-													 styleClass="btn btn-mini btn-danger" update="msg"
+													 styleClass="btn btn-mini btn-danger" update="msgs"
 													 rendered="#{!fboardManaged.newBoard}"
 													 onclick="confirmation.show();" />
 								</div>
@@ -69,7 +68,7 @@
 							<div class="controls">
 								<div style="float:right;">
 									<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
-													 styleClass="btn btn-mini btn-success" update="msg"
+													 styleClass="btn btn-mini btn-success" update="msgs"
 													 action="#{fboardManaged.save}"/>
 								</div>
 							</div>

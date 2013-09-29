@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class FCardManaged extends AbstractManaged {
+public class FCardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FCardManaged.class);
@@ -42,7 +42,7 @@ public class FCardManaged extends AbstractManaged {
 		final String cardid = getCardidfromAttribute();
 		if (cardid != null) {
 			try {
-				card = facade.findById(getLoginId(), Integer.valueOf(cardid));
+				card = facade.findById(getPrincipal().getId(), Integer.valueOf(cardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
 				addErrorMessage("Card: {} not found.", cardid);
@@ -60,8 +60,8 @@ public class FCardManaged extends AbstractManaged {
 	public String saveStory() {
 		try {
 			final Integer boardid = Integer.valueOf(getSession().getAttribute("boardid").toString());
-			card = (card.getId() == null) ? facade.create(getLoginId(), boardid, card) : facade
-					.edit(getLoginId(), card);
+			card = (card.getId() == null) ? facade.create(getPrincipal().getId(), boardid, card) : facade.edit(
+					getPrincipal().getId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -72,7 +72,7 @@ public class FCardManaged extends AbstractManaged {
 
 	public String removeStory() {
 		try {
-			card = facade.remove(getLoginId(), card);
+			card = facade.remove(getPrincipal().getId(), card);
 			return redirect("board");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);

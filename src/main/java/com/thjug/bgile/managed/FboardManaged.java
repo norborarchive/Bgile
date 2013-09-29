@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class FboardManaged extends AbstractManaged {
+public class FboardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
@@ -43,7 +43,7 @@ public class FboardManaged extends AbstractManaged {
 		final String boardid = getBoardIdfromAttribute();
 		if (boardid != null) {
 			try {
-				board = facade.findById(getLoginId(), Integer.valueOf(boardid));
+				board = facade.findById(getPrincipal().getId(), Integer.valueOf(boardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
 				addErrorMessage("Board: {} not found.", boardid);
@@ -61,7 +61,8 @@ public class FboardManaged extends AbstractManaged {
 	public String save() {
 		try {
 			board.setPrivateid(Private.T);
-			board = (board.getId() == null) ? facade.create(getLoginId(), board) : facade.edit(getLoginId(), board);
+			board = (board.getId() == null) ? facade.create(getPrincipal().getId(), board) : facade.edit(getPrincipal()
+					.getId(), board);
 			return "dashboard";
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -72,7 +73,7 @@ public class FboardManaged extends AbstractManaged {
 
 	public String remove() {
 		try {
-			facade.remove(getLoginId(), board);
+			facade.remove(getPrincipal().getId(), board);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}

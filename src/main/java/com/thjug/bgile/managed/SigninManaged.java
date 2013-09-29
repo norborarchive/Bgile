@@ -12,7 +12,6 @@
  */
 package com.thjug.bgile.managed;
 
-import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.security.Encrypter;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -42,9 +41,6 @@ public class SigninManaged extends AbstractManaged {
 		try {
 			token.setRememberMe(true);
 			subject.login(token);
-
-			final Account account = (Account) subject.getPrincipal();
-			getSession().setAttribute(Account.class.getSimpleName(), account.getId());
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
 			return null;

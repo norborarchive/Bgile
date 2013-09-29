@@ -22,6 +22,7 @@ import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.define.Private;
 import com.thjug.bgile.define.Status;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
@@ -56,12 +57,13 @@ public class BoardFacade {
 		board.setMaxcard(DEFAULT_MAXCARD);
 		board.setEnableid(Enable.T);
 		board.setStatusid(Status.L);
+		board.setPrivateid(Private.T);
 		service.create(board);
 
 		final BoardAccount ba = new BoardAccount();
 		ba.setBoard(board);
 		ba.setAccount(accountService.find(accountid));
-		ba.setPermissionid(Permission.A);
+		ba.setPermissionid(Permission.W);
 		ba.setUpdateby(accountid);
 		baService.create(ba);
 		accountService.clearCache();

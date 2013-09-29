@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author @nuboat
  */
-public abstract class BgileManaged extends AbstractManaged {
+public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 
 	@Inject
 	private transient BoardFacade boardFacade;
@@ -31,7 +31,7 @@ public abstract class BgileManaged extends AbstractManaged {
 	}
 
 	protected Board getBoard(final Integer boardid) {
-		return boardFacade.findById(getLoginId(), boardid);
+		return boardFacade.findById(getPrincipal().getId(), boardid);
 	}
 
 	protected Integer getBoardIdfromAttribute() {

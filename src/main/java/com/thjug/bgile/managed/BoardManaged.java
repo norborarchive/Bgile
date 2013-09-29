@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class BoardManaged extends BgileManaged {
+public class BoardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(BoardManaged.class);
@@ -74,7 +74,7 @@ public class BoardManaged extends BgileManaged {
 		getSession().setAttribute("boardid", boardid);
 		board = getBoard(boardid);
 		if (board != null) {
-			cardMap = cardFacade.findAllByBoardId(getLoginId(), boardid);
+			cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), boardid);
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} else {
@@ -88,7 +88,7 @@ public class BoardManaged extends BgileManaged {
 
 	public String refresh() {
 		LOG.info("Refresh Board: {}", board.getId());
-		cardMap = cardFacade.findAllByBoardId(getLoginId(), board.getId());
+		cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), board.getId());
 		cardorderList = cardFacade.findCardorder(board);
 		renderDashboard();
 		return null;
@@ -103,9 +103,9 @@ public class BoardManaged extends BgileManaged {
 		LOG.info("Moved ID: {} from state {} to state {}", storyid, fromsate, tostate);
 
 		try {
-			cardFacade.move(getLoginId(), board, storyid, fromsate, tostate, cardorderList, dashboard.getModel()
-					.getColumns());
-			cardMap = cardFacade.findAllByBoardId(getLoginId(), board.getId());
+			cardFacade.move(getPrincipal().getId(), board, storyid, fromsate, tostate, cardorderList, dashboard
+					.getModel().getColumns());
+			cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), board.getId());
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} catch (final Exception e) {

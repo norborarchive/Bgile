@@ -16,7 +16,6 @@ import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.security.Encrypter;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public final class ProfileManaged extends AbstractManaged {
+public final class ProfileManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);
@@ -37,16 +36,12 @@ public final class ProfileManaged extends AbstractManaged {
 	private String viewid;
 	private String password;
 	private String confirmpassword;
+
 	@Inject
 	private transient AccountFacade facade;
 
-	@PostConstruct
-	public void initial() {
-		try {
-			account = facade.findById(getLoginId());
-		} catch (final Exception e) {
-			LOG.error(e.getMessage(), e);
-		}
+	public ProfileManaged() {
+		account = getPrincipal();
 	}
 
 	public String linkToProfile(final String viewid) {
@@ -72,7 +67,6 @@ public final class ProfileManaged extends AbstractManaged {
 	public String changepasswd() {
 		try {
 			if (password.equals(confirmpassword)) {
-				account = facade.findById(getLoginId());
 				account.setPasswd(Encrypter.cipher(password));
 				facade.editAccount(account);
 			} else {
