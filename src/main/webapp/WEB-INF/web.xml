@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <display-name>Bgile</display-name>
+    <description>Version 1.0-beta</description>
+    <display-name>Bgile  1.0-beta</display-name>
     <distributable/>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -41,7 +42,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
-	</session-config>
+    </session-config>
     <welcome-file-list>
         <welcome-file>home.xhtml</welcome-file>
     </welcome-file-list>

@@ -76,3 +76,10 @@ INSERT INTO card(
 INSERT INTO card(
             id, board, stateid, statusid, owner, story, description, created, updated, updateby)
     VALUES (15, 1, 2, 'L', 2, 'Logout', 'Clear Session & redirect to Home.', current_date, current_date, 2);
+
+
+
+INSERT INTO account(
+            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
+    VALUES (1001, 'S', 'T', 'ping', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', ''
+			, 'Ping', 'A', 'Programmer', 'avatar/000001001.jpg', current_date, current_date, 1);

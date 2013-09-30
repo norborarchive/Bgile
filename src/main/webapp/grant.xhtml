@@ -23,8 +23,8 @@
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-user"></i></span>
 								<p:autoComplete id="accountbox" value="#{grantManaged.accountname}"
-												completeMethod="#{grantManaged.findAccounts}" var="account"
-												itemLabel="#{account.displayname}" itemValue="#{account}"
+												completeMethod="#{grantManaged.findAccounts}" var="a"
+												itemLabel="#{a.displayname}" itemValue="#{a}"
 												minQueryLength="4" converter="DefaultConverter" forceSelection="true" >
 									<f:attribute name="listArrtibute" value="#{grantManaged.accounts}" />
 									<p:ajax event="itemSelect" listener="#{grantManaged.handleSelect}"
@@ -73,9 +73,9 @@
 										  value="" >
 							<f:converter converterId="DefaultConverter" />
 							<f:attribute name="listArrtibute" value="storyManaged" />
-							<f:selectItems value="" var="account"
-										   itemValue="#{account}"
-										   itemLabel="#{account.firstname}" />
+							<f:selectItems value="" var="a"
+										   itemValue="#{a}"
+										   itemLabel="#{a.firstname}" />
 						</p:selectOneMenu>
 					</div>
 				</div>

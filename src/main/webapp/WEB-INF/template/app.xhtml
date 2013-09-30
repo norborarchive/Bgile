@@ -11,38 +11,41 @@
         </h:head>
 
         <h:body style="background-color: whitesmoke;">
-			<h:form id="form">
-				<div style="padding: 12px 0px 32px 20px;">
-					<div class="controls">
-						<ui:insert name="menubar" />
-						<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
-							<img alt="" src="#{gravatar.url}" height="30px;" width="30px;"/>
+			<div class="row" style="padding: 12px 0px 32px 20px;">
+				<h:form id="form">
+					<div style="padding: 12px 0px 32px 20px;">
+						<div class="controls">
+							<ui:insert name="menubar" />
+							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
+								<img alt="" src="#{account.gravatarUrl}" height="30px" width="30px"/>
 
-							<span style="width: 4px;" />
+								<span style="width: 4px;" />
 
-							<p:commandButton id="profile" icon="ui-icon ui-icon-contact" value="Peerapat A"
-											 styleClass="btn btn-mini btn-info"
-											 action="#{profileManaged.linkToProfile(facesContext.viewRoot.viewId)}"/>
+								<p:commandButton id="profile" icon="ui-icon ui-icon-contact"
+												 value="#{account.account.firstname} #{account.account.lastname}"
+												 styleClass="btn btn-mini btn-info"
+												 action="#{profileManaged.linkToProfile(facesContext.viewRoot.viewId)}"/>
 
-							<span style="width: 4px;" />
+								<span style="width: 4px;" />
 
-							<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
-											 styleClass="btn btn-mini btn-danger"
-											 action="#{signinManaged.logout}"/>
+								<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
+												 styleClass="btn btn-mini btn-danger"
+												 action="#{signinManaged.logout}"/>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="container">
-					<div class="row">
+					<div style="padding: 12px 0px 32px 20px;">
 						<div style="padding-top: 12px; padding-bottom: 12px;">
-							<div style="padding-bottom: 12px; height: 320px;">
+							<div style="padding-bottom: 12px; height: 260px;">
 								<ui:insert name="content" />
 							</div>
 						</div>
 					</div>
-				</div>
-			</h:form>
+				</h:form>
+			</div>
+			
+			<ui:include src="/WEB-INF/include/footer.xhtml" />
         </h:body>
     </f:view>
 </html>

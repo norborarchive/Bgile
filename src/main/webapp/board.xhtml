@@ -92,18 +92,27 @@
 			<p:remoteCommand id="refreshcmd" action="#{boardManaged.refresh}" name="refresh"
 							 update="dynamic_dashboard" />
 
-			<div class="row" style="padding-top: 6px; padding-bottom: 6px;">
-				<h4 style="width: 260px; text-align: left; float: left; color: black;">วางแผน</h4>
-				<h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทำ</h4>
-				<h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
-				<h4 style="width: 260px; text-align: left; float: left; color: black;">เสร็จ</h4>
+			<div class="row">
+				<div class="span11" style="padding-top: 6px; padding-bottom: 6px;">
+				   <h4 style="width: 260px; text-align: left; float: left; color: black;">วางแผน</h4>
+				   <h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทำ</h4>
+				   <h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
+				   <h4 style="width: 260px; text-align: left; float: left; color: black;">เสร็จ</h4>
+				</div>
 			</div>
 
 			<div class="row">
-				<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
-					<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
-							oncomplete="refresh();" />
-				</p:dashboard>
+				<div class="span11">
+					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
+						<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
+								oncomplete="refresh();" />
+					</p:dashboard>
+				</div>
+				<div class="span2">
+					<div class="row">
+						<img alt="" src="#{account.gravatarUrl}" height="48px" width="48px" style="float:right;" />
+					</div>
+				</div>
 			</div>
         </ui:define>
     </ui:composition>

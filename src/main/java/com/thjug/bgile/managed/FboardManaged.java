@@ -63,7 +63,7 @@ public class FboardManaged extends AccountAbstractManaged {
 			board.setPrivateid(Private.T);
 			board = (board.getId() == null) ? facade.create(getPrincipal().getId(), board) : facade.edit(getPrincipal()
 					.getId(), board);
-			return "dashboard";
+			return redirect("dashboard");
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage(e.getMessage(), Constants.EMPTY);
