@@ -14,7 +14,7 @@
 			<div class="row" style="padding: 12px 0px 32px 20px;">
 				<h:form id="form">
 					<div style="padding: 12px 0px 32px 20px;">
-						<div class="controls">
+						<p:outputPanel styleClass="controls" rendered="#{!account.viewonly}">
 							<ui:insert name="menubar" />
 							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
 								<img alt="" src="#{account.gravatarUrl}" height="30px" width="30px"/>
@@ -30,9 +30,17 @@
 
 								<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
 												 styleClass="btn btn-mini btn-danger"
-												 action="#{signinManaged.logout}"/>
+												 action="#{signinManaged.logout}" />
+
 							</div>
-						</div>
+						</p:outputPanel>
+						<p:outputPanel styleClass="controls" rendered="#{account.viewonly}">
+							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
+								<p:commandButton id="login" icon="ui-icon ui-icon-arrowthick-1-e"
+												 value="Signin" styleClass="btn btn-mini btn-info"
+												 onclick="window.location.href = '/bgile/signin';" />
+							</div>
+						</p:outputPanel>
 					</div>
 
 					<div style="padding: 12px 0px 32px 20px;">
@@ -44,7 +52,7 @@
 					</div>
 				</h:form>
 			</div>
-			
+
 			<ui:include src="/WEB-INF/include/footer.xhtml" />
         </h:body>
     </f:view>

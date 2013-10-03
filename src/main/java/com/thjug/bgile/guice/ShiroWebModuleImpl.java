@@ -51,6 +51,7 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	protected void configureShiroWeb() {
 		bindRealm().to(JpaRealm.class);
 		bindAuthenticationListener().to(AuthenticationListenerImpl.class);
@@ -59,6 +60,7 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		addFilterChain("/home.xhtml", ANON);
 		addFilterChain("/assets/**", ANON);
 		addFilterChain("/javax.faces.resource/**", ANON);
+		addFilterChain("/board/**", ANON);
 		addFilterChain("/**", AUTHC);
 		addFilterChain("/admin/**", AUTHC, config(ROLES, "admin"));
 		bind(authenticationListenerCollectionKey()).to(authenticationListenerSetKey());
@@ -82,10 +84,12 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		return multibinder.addBinding();
 	}
 
+	@SuppressWarnings("unchecked")
 	private Key<Set<AuthenticationListener>> authenticationListenerSetKey() {
 		return (Key<Set<AuthenticationListener>>) Key.get(TypeLiteral.get(Types.setOf(AuthenticationListener.class)));
 	}
 
+	@SuppressWarnings("unchecked")
 	private Key<Collection<AuthenticationListener>> authenticationListenerCollectionKey() {
 		return (Key<Collection<AuthenticationListener>>) Key.get(Types.newParameterizedType(Collection.class,
 				AuthenticationListener.class));

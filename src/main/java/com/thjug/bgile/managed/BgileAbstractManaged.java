@@ -31,7 +31,7 @@ public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 	}
 
 	protected Board getBoard(final Integer boardid) {
-		return boardFacade.findById(getPrincipal().getId(), boardid);
+		return boardFacade.findById(boardid);
 	}
 
 	protected Integer getBoardIdfromAttribute() {

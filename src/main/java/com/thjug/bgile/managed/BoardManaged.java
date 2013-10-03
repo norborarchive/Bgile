@@ -74,7 +74,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		getSession().setAttribute("boardid", boardid);
 		board = getBoard(boardid);
 		if (board != null) {
-			cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), boardid);
+			cardMap = cardFacade.findAllByBoardId(boardid);
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} else {
@@ -88,7 +88,7 @@ public class BoardManaged extends BgileAbstractManaged {
 
 	public String refresh() {
 		LOG.info("Refresh Board: {}", board.getId());
-		cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), board.getId());
+		cardMap = cardFacade.findAllByBoardId(board.getId());
 		cardorderList = cardFacade.findCardorder(board);
 		renderDashboard();
 		return null;
@@ -105,7 +105,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		try {
 			cardFacade.move(getPrincipal().getId(), board, storyid, fromsate, tostate, cardorderList, dashboard
 					.getModel().getColumns());
-			cardMap = cardFacade.findAllByBoardId(getPrincipal().getId(), board.getId());
+			cardMap = cardFacade.findAllByBoardId(board.getId());
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
 		} catch (final Exception e) {
@@ -195,10 +195,6 @@ public class BoardManaged extends BgileAbstractManaged {
 
 	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
-	}
-
-	public boolean isViewonly() {
-		return false;
 	}
 
 }

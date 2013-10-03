@@ -16,6 +16,7 @@ import com.thjug.bgile.servlet.EncodingFilter;
 import com.thjug.bgile.servlet.GuiceFileUploadFilter;
 
 import com.google.inject.servlet.ServletModule;
+import com.thjug.bgile.servlet.BoardPermissionFilter;
 import com.thjug.bgile.servlet.RememberFilter;
 import com.thjug.bgile.servlet.SigninFilter;
 import com.thjug.bgile.servlet.URLFilter;
@@ -34,6 +35,7 @@ public final class GuiceServletModule extends ServletModule {
 		filter("/*").through(URLFilter.class);
 		filter("/*").through(EncodingFilter.class);
 		filter("/*").through(RememberFilter.class);
+		filter("/*").through(BoardPermissionFilter.class);
 		filter("/*").through(GuiceFileUploadFilter.class);
 	}
 }

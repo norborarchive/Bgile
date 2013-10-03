@@ -104,7 +104,7 @@
 			<div class="row">
 				<div class="span11">
 					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}"
-								 disabled="#{boardManaged.viewonly}" >
+								 disabled="#{account.viewonly}" >
 						<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
 								oncomplete="refresh();" />
 					</p:dashboard>

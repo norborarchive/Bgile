@@ -35,7 +35,7 @@ public final class AccountManaged extends AccountAbstractManaged {
 	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
 	 */
 	public AccountManaged() {
-		gravatarUrl = gravatar.getUrl(getPrincipal().getEmail());
+		gravatarUrl = (getPrincipal() != null) ? gravatar.getUrl(getPrincipal().getEmail()) : null;
 	}
 
 	public String getGravatarUrl() {
@@ -44,6 +44,10 @@ public final class AccountManaged extends AccountAbstractManaged {
 
 	public Account getAccount() {
 		return getPrincipal();
+	}
+
+	public boolean isViewonly() {
+		return (getPrincipal() != null && getPrincipal().getId() == 2) ? false : true;
 	}
 
 }

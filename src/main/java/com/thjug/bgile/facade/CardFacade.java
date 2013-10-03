@@ -24,6 +24,7 @@ import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
+import com.thjug.bgile.service.BoardService;
 import com.thjug.bgile.service.CardService;
 import com.thjug.bgile.service.CardorderService;
 import com.thjug.bgile.util.Constants;
@@ -46,7 +47,10 @@ public class CardFacade {
 	private CardService service;
 
 	@Inject
-	private BoardAccountService boardService;
+	private BoardService boardService;
+
+	@Inject
+	private BoardAccountService boardAccountService;
 
 	@Inject
 	private CardorderService cardorderService;
@@ -55,7 +59,7 @@ public class CardFacade {
 	@Transactional
 	public Card create(final Integer accountid, final Integer boardid, final Card story) {
 
-		final Board board = boardService.findBoardAccount(boardid, accountid).getBoard();
+		final Board board = boardAccountService.findBoardAccount(boardid, accountid).getBoard();
 
 		story.setBoard(board);
 		story.setUpdateby(accountid);
@@ -89,10 +93,10 @@ public class CardFacade {
 
 	@Logging
 	@Transactional
-	public Map<Integer, Card> findAllByBoardId(final Integer accountid, final Integer boardid) {
+	public Map<Integer, Card> findAllByBoardId(final Integer boardid) {
 
 		try {
-			final Board board = boardService.findBoardAccount(boardid, accountid).getBoard();
+			final Board board = boardService.find(boardid);
 			List<Card> cardList = service.findCardList(board);
 
 			final Map<Integer, Card> cardMap = new HashMap<>();

@@ -36,7 +36,7 @@ public class BoardFacadeNGTest extends AbstractFacadeNGTest {
 		final BoardFacade instance = injector.getInstance(BoardFacade.class);
 
 		final Integer expResult = 1;
-		final Board result = instance.findById(accountid, 1);
+		final Board result = instance.findById(1);
 
 		assertEquals(result.getId(), expResult);
 	}
@@ -80,7 +80,7 @@ public class BoardFacadeNGTest extends AbstractFacadeNGTest {
 		final Integer boardid = newBoard.getId();
 
 		instance.remove(accountid, newBoard);
-		instance.findById(accountid, boardid);
+		instance.findById(boardid);
 	}
 
 	@Test

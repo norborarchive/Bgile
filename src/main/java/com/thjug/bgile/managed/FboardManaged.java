@@ -43,7 +43,7 @@ public class FboardManaged extends AccountAbstractManaged {
 		final String boardid = getBoardIdfromAttribute();
 		if (boardid != null) {
 			try {
-				board = facade.findById(getPrincipal().getId(), Integer.valueOf(boardid));
+				board = facade.findById(Integer.valueOf(boardid));
 			} catch (final Exception e) {
 				LOG.error(e.getMessage(), e);
 				addErrorMessage("Board: {} not found.", boardid);

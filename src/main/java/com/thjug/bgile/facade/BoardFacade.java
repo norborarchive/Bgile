@@ -93,9 +93,8 @@ public class BoardFacade {
 
 	@Logging
 	@Transactional
-	public Board findById(final Integer accountid, final Integer id) {
+	public Board findById(final Integer id) {
 		try {
-			// FIXME : Shared sink Issue
 			return service.find(id);
 		} catch (final Exception e) {
 			LOG.info(e.getMessage());

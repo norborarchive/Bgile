@@ -71,7 +71,7 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Integer boardid = null;
 		CardFacade instance = new CardFacade();
 		Map expResult = null;
-		Map result = instance.findAllByBoardId(accountid, boardid);
+		Map result = instance.findAllByBoardId(boardid);
 		assertEquals(result, expResult);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
