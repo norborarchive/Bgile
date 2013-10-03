@@ -23,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Cacheable;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
@@ -33,6 +34,7 @@ import com.thjug.bgile.define.Permission;
  * @author @nuboat
  */
 @Entity
+@Cacheable
 @NamedQueries({
 		@NamedQuery(name = BoardAccount.FIND_BY_BOARD,
 				query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 order by b.account.firstname"),

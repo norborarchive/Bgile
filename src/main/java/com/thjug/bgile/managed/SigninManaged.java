@@ -13,6 +13,7 @@
 package com.thjug.bgile.managed;
 
 import com.thjug.bgile.security.Encrypter;
+import com.timgroup.jgravatar.Gravatar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.shiro.SecurityUtils;
@@ -28,19 +29,28 @@ import org.apache.shiro.subject.Subject;
  */
 @ManagedBean
 @ViewScoped
-public class SigninManaged extends AbstractManaged {
+public class SigninManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 
 	private String username;
 	private String password;
 
+	private final transient Gravatar gravatar = new Gravatar();
+
+	/**
+	 * gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+	 */
 	public String authen() {
 		final UsernamePasswordToken token = new UsernamePasswordToken(username, Encrypter.cipher(password));
 		final Subject subject = SecurityUtils.getSubject();
 		try {
 			token.setRememberMe(true);
 			subject.login(token);
+
+			final String gravatarUrl = (getPrincipal() != null) ? gravatar.getUrl(getPrincipal().getEmail()) : null;
+			getSession().setAttribute("GRAVATARURL", gravatarUrl);
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
 			return null;

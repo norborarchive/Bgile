@@ -13,7 +13,6 @@
 package com.thjug.bgile.managed;
 
 import com.thjug.bgile.entity.Account;
-import com.timgroup.jgravatar.Gravatar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -27,27 +26,17 @@ public final class AccountManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 
-	private final String gravatarUrl;
-	private final transient Gravatar gravatar = new Gravatar();
-
-	/**
-	 * gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-	 */
-	public AccountManaged() {
-		gravatarUrl = (getPrincipal() != null) ? gravatar.getUrl(getPrincipal().getEmail()) : null;
-	}
-
 	public String getGravatarUrl() {
-		return gravatarUrl;
+		return getSession().getAttribute("GRAVATARURL") == null ? null : getSession().getAttribute("GRAVATARURL")
+				.toString();
 	}
 
 	public Account getAccount() {
 		return getPrincipal();
 	}
 
-	public boolean isViewonly() {
-		return (getPrincipal() != null && getPrincipal().getId() == 2) ? false : true;
+	public boolean isNotSignin() {
+		return getPrincipal() == null ? true : false;
 	}
 
 }

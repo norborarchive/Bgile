@@ -19,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -41,8 +40,8 @@ public final class SigninFilter extends DefaultFilter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
-		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		final String servletpath = httpServletRequest.getServletPath();
+		final HttpServletRequest httpRequest = (HttpServletRequest) request;
+		final String servletpath = httpRequest.getServletPath();
 		if (servletpath.contains("javax.faces.resource")) {
 			chain.doFilter(request, response);
 			return;
@@ -51,8 +50,7 @@ public final class SigninFilter extends DefaultFilter {
 
 		final Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated() && servletpath.contains("signin")) {
-			final HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect(httpServletRequest.getContextPath() + "/dashboard");
+			redirectToDashboard(request, response);
 			return;
 		}
 

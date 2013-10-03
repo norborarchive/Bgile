@@ -17,6 +17,7 @@ import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Private;
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,6 +33,7 @@ import javax.validation.constraints.Size;
  * @author @nuboat
  */
 @Entity
+@Cacheable
 public class Board extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -14,7 +14,7 @@
 			<div class="row" style="padding: 12px 0px 32px 20px;">
 				<h:form id="form">
 					<div style="padding: 12px 0px 32px 20px;">
-						<p:outputPanel styleClass="controls" rendered="#{!account.viewonly}">
+						<p:outputPanel styleClass="controls" rendered="#{!account.notSignin}">
 							<ui:insert name="menubar" />
 							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
 								<img alt="" src="#{account.gravatarUrl}" height="30px" width="30px"/>
@@ -31,10 +31,9 @@
 								<p:commandButton id="logout" icon="ui-icon ui-icon-arrowthick-1-e"
 												 styleClass="btn btn-mini btn-danger"
 												 action="#{signinManaged.logout}" />
-
 							</div>
 						</p:outputPanel>
-						<p:outputPanel styleClass="controls" rendered="#{account.viewonly}">
+						<p:outputPanel styleClass="controls" rendered="#{account.notSignin}">
 							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
 								<p:commandButton id="login" icon="ui-icon ui-icon-arrowthick-1-e"
 												 value="Signin" styleClass="btn btn-mini btn-info"

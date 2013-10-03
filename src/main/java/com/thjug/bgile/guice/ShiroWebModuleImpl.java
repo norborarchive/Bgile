@@ -58,6 +58,7 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/signin.xhtml");
 		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/unauthorized.xhtml");
 		addFilterChain("/home.xhtml", ANON);
+		addFilterChain("/register.xhtml", ANON);
 		addFilterChain("/assets/**", ANON);
 		addFilterChain("/javax.faces.resource/**", ANON);
 		addFilterChain("/board/**", ANON);

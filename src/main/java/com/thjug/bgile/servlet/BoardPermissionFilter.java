@@ -13,20 +13,25 @@
 package com.thjug.bgile.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import com.google.inject.Singleton;
+import com.google.inject.Inject;
+import com.thjug.bgile.define.Private;
+import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.BoardAccount;
+import com.thjug.bgile.facade.BoardFacade;
+import com.thjug.bgile.facade.GrantFacade;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.inject.Singleton;
 
 /**
  *
@@ -35,16 +40,48 @@ import com.google.inject.Singleton;
 @Singleton
 public final class BoardPermissionFilter extends DefaultFilter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BoardPermissionFilter.class);
+	@Inject
+	private BoardFacade facade;
+	@Inject
+	private GrantFacade grant;
 
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
-		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		final Subject currentUser = SecurityUtils.getSubject();
+		final Object obj = request.getAttribute("ATTRIBUTES");
+		if (obj == null) {
+			chain.doFilter(request, response);
+			return;
+		}
 
-		chain.doFilter(request, response);
+		final List<String> attributes = (List<String>) obj;
+		final Integer boardid = Integer.valueOf(attributes.get(1));
+
+		if (!"board".equals(attributes.get(0))) {
+			chain.doFilter(request, response);
+			return;
+		}
+
+		final Subject subject = SecurityUtils.getSubject();
+		if (subject != null) {
+			final Account account = (Account) subject.getPrincipal();
+			final BoardAccount boardaccount = grant.getBoardAccount(account.getId(), boardid);
+			if (boardaccount != null) {
+				final HttpServletRequest httpRequest = (HttpServletRequest) request;
+				httpRequest.getSession().setAttribute(BoardAccount.class.getSimpleName(), boardaccount);
+				chain.doFilter(request, response);
+				return;
+			}
+		}
+
+		final Board board = facade.findById(boardid);
+		if (board.getPrivateid() == Private.F) {
+			chain.doFilter(request, response);
+		} else {
+			redirectToDashboard(request, response);
+		}
+
 	}
 
 }

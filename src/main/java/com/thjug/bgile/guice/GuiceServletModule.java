@@ -31,10 +31,10 @@ public final class GuiceServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
 		filter("/*").through(GuiceShiroFilter.class);
-		filter("/*").through(SigninFilter.class);
 		filter("/*").through(URLFilter.class);
 		filter("/*").through(EncodingFilter.class);
 		filter("/*").through(RememberFilter.class);
+		filter("/*").through(SigninFilter.class);
 		filter("/*").through(BoardPermissionFilter.class);
 		filter("/*").through(GuiceFileUploadFilter.class);
 	}

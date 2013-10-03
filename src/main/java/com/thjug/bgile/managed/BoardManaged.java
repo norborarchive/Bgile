@@ -23,6 +23,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
@@ -32,16 +34,15 @@ import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
 import com.google.inject.Inject;
+import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
 import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -57,10 +58,13 @@ public class BoardManaged extends BgileAbstractManaged {
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
+
 	private Board board;
+	private BoardAccount boardaccount;
 	private Map<Integer, Card> cardMap;
 	private List<Cardorder> cardorderList;
 	private transient Dashboard dashboard;
+
 	@Inject
 	private transient CardFacade cardFacade;
 
@@ -72,13 +76,21 @@ public class BoardManaged extends BgileAbstractManaged {
 		}
 
 		getSession().setAttribute("boardid", boardid);
-		board = getBoard(boardid);
+
+		if (getSession().getAttribute(BoardAccount.class.getSimpleName()) != null) {
+			boardaccount = (BoardAccount) getSession().getAttribute(BoardAccount.class.getSimpleName());
+		}
+
+		if (boardaccount != null) {
+			board = boardaccount.getBoard();
+		} else {
+			board = getBoard(boardid);
+		}
+
 		if (board != null) {
 			cardMap = cardFacade.findAllByBoardId(boardid);
 			cardorderList = cardFacade.findCardorder(board);
 			renderDashboard();
-		} else {
-			addInfoMessage("Board Id: " + boardid, " not found.");
 		}
 	}
 
@@ -170,12 +182,16 @@ public class BoardManaged extends BgileAbstractManaged {
 		final FacesContext fc = getFacesInstance();
 		final Application application = fc.getApplication();
 		final Panel panel = (Panel) application.createComponent(fc, PANEL, PANEL_RENDERER);
-
-		panel.setId("ID" + card.getId().toString());
-		panel.setHeader("<a href='/bgile/fcard/" + card.getId()
-				+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
 		panel.setClosable(false);
 		panel.setToggleable(false);
+		panel.setId("ID" + card.getId().toString());
+
+		if (isViewonly()) {
+			panel.setHeader(card.getStory());
+		} else {
+			panel.setHeader("<a href='/bgile/fcard/" + card.getId()
+					+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
+		}
 
 		if (card.getOwner() != null) {
 			panel.setFooter(card.getOwner().getFirstname() + " " + card.getOwner().getLastname());
@@ -195,6 +211,10 @@ public class BoardManaged extends BgileAbstractManaged {
 
 	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
+	}
+
+	public boolean isViewonly() {
+		return (boardaccount == null || boardaccount.getPermissionid() == Permission.R) ? true : false;
 	}
 
 }

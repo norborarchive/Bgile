@@ -12,9 +12,14 @@
  */
 package com.thjug.bgile.servlet;
 
+import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -30,4 +35,10 @@ public abstract class DefaultFilter implements Filter {
 	public void destroy() {
 	}
 
+	protected void redirectToDashboard(final ServletRequest request, final ServletResponse response) throws IOException {
+		final HttpServletResponse httpResponse = (HttpServletResponse) response;
+		final HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+		httpResponse.sendRedirect(httpRequest.getContextPath() + "/dashboard");
+	}
 }
