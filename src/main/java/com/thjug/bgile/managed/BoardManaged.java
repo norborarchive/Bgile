@@ -196,4 +196,9 @@ public class BoardManaged extends BgileAbstractManaged {
 	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
 	}
+
+	public boolean isViewonly() {
+		return false;
+	}
+
 }

@@ -59,14 +59,14 @@
 					padding-left: 4px;
 				}
 				.ui-panel, div.ui-state-hover {
-					width :240px;
+					width : 98%;
 					margin-bottom: 10px;
 				}
 				.ui-dashboard-column {
-					width :260px;
+					width :25%;
 				}
 				.ui-dashboard-header {
-					width :260px;
+					width :25%;
 				}
 				pre {
 					display: block;
@@ -94,21 +94,22 @@
 
 			<div class="row">
 				<div class="span11" style="padding-top: 6px; padding-bottom: 6px;">
-				   <h4 style="width: 260px; text-align: left; float: left; color: black;">วางแผน</h4>
-				   <h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทำ</h4>
-				   <h4 style="width: 260px; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
-				   <h4 style="width: 260px; text-align: left; float: left; color: black;">เสร็จ</h4>
+				   <h4 style="width: 25%; text-align: left; float: left; color: black;">วางแผน</h4>
+				   <h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทำ</h4>
+				   <h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
+				   <h4 style="width: 25%; text-align: left; float: left; color: black;">เสร็จ</h4>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="span11">
-					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}" >
+					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}"
+								 disabled="#{boardManaged.viewonly}" >
 						<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
 								oncomplete="refresh();" />
 					</p:dashboard>
 				</div>
-				<div class="span2">
+				<div class="span1">
 					<div class="row">
 						<img alt="" src="#{account.gravatarUrl}" height="48px" width="48px" style="float:right;" />
 					</div>
