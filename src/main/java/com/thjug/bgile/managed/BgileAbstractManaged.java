@@ -37,7 +37,9 @@ public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 	protected Integer getBoardIdfromAttribute() {
 		final List<String> attributes = getAttribute("ATTRIBUTES");
 		if (attributes != null && attributes.size() > 0) {
-			return Integer.valueOf(attributes.get(1));
+			final Integer boardid = Integer.valueOf(attributes.get(1));
+			getSession().setAttribute("boardid", boardid);
+			return boardid;
 		} else {
 			return (Integer) getSession().getAttribute("boardid");
 		}

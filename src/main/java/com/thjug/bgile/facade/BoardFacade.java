@@ -63,7 +63,7 @@ public class BoardFacade {
 		final BoardAccount ba = new BoardAccount();
 		ba.setBoard(board);
 		ba.setAccount(accountService.find(accountid));
-		ba.setPermissionid(Permission.W);
+		ba.setPermissionid(Permission.A);
 		ba.setUpdateby(accountid);
 		baService.create(ba);
 		accountService.clearCache();

@@ -39,33 +39,26 @@ public final class URLFilter extends DefaultFilter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
-		final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		final String servletpath = httpServletRequest.getServletPath();
-		if (servletpath.contains("javax.faces.resource")) {
+		final HttpServletRequest httpRequest = (HttpServletRequest) request;
+		final String servletpath = httpRequest.getServletPath();
+
+		if (isBypassFilter(servletpath)) {
 			chain.doFilter(request, response);
 			return;
 		}
 		LOG.debug("request: {}", servletpath);
 
-		if (servletpath.contains(".xhtml") || servletpath.contains(".js") || servletpath.contains(".css")
-				|| servletpath.contains("assets")) {
-
-			chain.doFilter(request, response);
-		} else {
-
-			final List<String> attributes = new LinkedList<>();
-			for (final String attribute : servletpath.split("/")) {
-				if (!attribute.trim().isEmpty()) {
-					attributes.add(attribute);
-				}
+		final List<String> attributes = new LinkedList<>();
+		for (final String attribute : servletpath.split("/")) {
+			if (!attribute.trim().isEmpty()) {
+				attributes.add(attribute);
 			}
-			final String destination = "/" + attributes.get(0).split(";")[0] + ".xhtml";
-			request.setAttribute("ATTRIBUTES", attributes);
-
-			LOG.info("Dispatch {} to {}", servletpath, destination);
-			httpServletRequest.getRequestDispatcher(destination).forward(request, response);
 		}
+		final String destination = "/" + attributes.get(0).split(";")[0] + ".xhtml";
+		request.setAttribute("ATTRIBUTES", attributes);
+
+		LOG.debug("Dispatch {} to {}", servletpath, destination);
+		httpRequest.getRequestDispatcher(destination).forward(request, response);
 
 	}
-
 }

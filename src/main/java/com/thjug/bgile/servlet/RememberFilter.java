@@ -34,14 +34,15 @@ public class RememberFilter extends DefaultFilter {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 
-		final HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
-		final String servletpath = httpServletRequest.getServletPath();
-		if (servletpath.contains("javax.faces.resource")) {
+		final HttpServletRequest httpRequest = (HttpServletRequest) request;
+		final String servletpath = httpRequest.getServletPath();
+
+		if (isBypassFilter(servletpath)) {
 			chain.doFilter(request, response);
 			return;
 		}
-
 		LOG.debug("request: {}", servletpath);
+
 		chain.doFilter(request, response);
 	}
 

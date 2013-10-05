@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +22,16 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author @nuboat
  */
 public abstract class AbstractManaged implements Serializable {
+
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractManaged.class);
 
 	protected final String getRequestServletPath() {
 		return FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath();
@@ -56,7 +61,6 @@ public abstract class AbstractManaged implements Serializable {
 		return FacesContext.getCurrentInstance().getExternalContext();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected final List<String> getAttribute(final String key) {
 		return (List<String>) getRequest().getAttribute(key);
 	}
@@ -75,6 +79,14 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final String redirect(final String page) {
 		return page + "?faces-redirect=true";
+	}
+
+	protected final void setRedirect(final String page) {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+		} catch (final IOException e) {
+			LOG.error(e.getMessage(), e);
+		}
 	}
 
 	protected final void putCookieValue(final String cookieName, final String value) {

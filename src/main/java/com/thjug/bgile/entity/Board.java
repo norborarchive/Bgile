@@ -27,13 +27,16 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
- *
+ * Cache will expire in 5 minutes.
+ * 
  * @author @nuboat
  */
 @Entity
 @Cacheable
+@Cache(expiry = 300000)
 public class Board extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -42,7 +42,8 @@ public final class SigninFilter extends DefaultFilter {
 
 		final HttpServletRequest httpRequest = (HttpServletRequest) request;
 		final String servletpath = httpRequest.getServletPath();
-		if (servletpath.contains("javax.faces.resource")) {
+
+		if (isBypassFilter(servletpath)) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -51,10 +52,9 @@ public final class SigninFilter extends DefaultFilter {
 		final Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated() && servletpath.contains("signin")) {
 			redirectToDashboard(request, response);
-			return;
+		} else {
+			chain.doFilter(request, response);
 		}
-
-		chain.doFilter(request, response);
 	}
 
 }

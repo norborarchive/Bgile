@@ -81,5 +81,11 @@ INSERT INTO card(
 
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
+    VALUES (2, 'S', 'T', 'naphachara', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'napachara@gmail.com'
+			, 'Naphachara', '', '', '', current_date, current_date, 1);
+
+INSERT INTO account(
+            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
     VALUES (1001, 'S', 'T', 'ping', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', ''
-			, 'Ping', 'A', 'Programmer', 'avatar/000001001.jpg', current_date, current_date, 1);
+			, 'Ping', '', '', '', current_date, current_date, 1);
+

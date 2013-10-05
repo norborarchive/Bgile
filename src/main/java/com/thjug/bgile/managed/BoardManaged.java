@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.List;
 import java.util.HashSet;
-import javax.annotation.PostConstruct;
+import java.io.IOException;
 import javax.faces.bean.ViewScoped;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
@@ -35,14 +35,17 @@ import org.primefaces.model.DefaultDashboardModel;
 
 import com.google.inject.Inject;
 import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.define.Private;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.State;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
+import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -68,6 +71,9 @@ public class BoardManaged extends BgileAbstractManaged {
 	@Inject
 	private transient CardFacade cardFacade;
 
+	@Inject
+	private transient GrantFacade grant;
+
 	@PostConstruct
 	public void initial() {
 		final Integer boardid = getBoardIdfromAttribute();
@@ -75,23 +81,20 @@ public class BoardManaged extends BgileAbstractManaged {
 			return;
 		}
 
-		getSession().setAttribute("boardid", boardid);
-
-		if (getSession().getAttribute(BoardAccount.class.getSimpleName()) != null) {
-			boardaccount = (BoardAccount) getSession().getAttribute(BoardAccount.class.getSimpleName());
+		if (getPrincipal() != null) {
+			boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
 		}
 
-		if (boardaccount != null) {
-			board = boardaccount.getBoard();
-		} else {
-			board = getBoard(boardid);
+		board = getBoard(boardid);
+
+		if (board == null || (boardaccount == null && board.getPrivateid() == Private.T)) {
+			setRedirect("/bgile/signin.xhtml");
+			return;
 		}
 
-		if (board != null) {
-			cardMap = cardFacade.findAllByBoardId(boardid);
-			cardorderList = cardFacade.findCardorder(board);
-			renderDashboard();
-		}
+		cardMap = cardFacade.findAllByBoardId(boardid);
+		cardorderList = cardFacade.findCardorder(board);
+		renderDashboard();
 	}
 
 	public String linkToBoard() {

@@ -53,7 +53,7 @@
 								<td>#{a.account.firstname} #{a.account.lastname}</td>
 								<td>
 								<p:selectOneButton value="#{a.permissionid}" >
-									<f:attribute  name="accountid" value="#{a.id}" />
+									<f:attribute  name="accountid" value="#{a.account.id}" />
 									<f:selectItem itemLabel="Read"  itemValue="R" />
 									<f:selectItem itemLabel="Write" itemValue="W" />
 									<f:selectItem itemLabel="Admin" itemValue="A" />

@@ -38,7 +38,7 @@
 													<i class="icon-user"></i><br />Signin</h:outputLink>
 											</li>
 											<li class="#{homeManaged.getActiveClass('register')}">
-												<h:outputLink value="register">
+												<h:outputLink value="register" rendered="#{!homeManaged.hasSession}">
 													<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
 											</li>
 										</ul>

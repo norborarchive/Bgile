@@ -35,6 +35,11 @@ public abstract class DefaultFilter implements Filter {
 	public void destroy() {
 	}
 
+	protected boolean isBypassFilter(final String servletpath) {
+		return (servletpath.contains(".xhtml") || servletpath.contains(".js") || servletpath.contains(".css")
+				|| servletpath.contains("assets") || servletpath.contains("javax.faces.resource"));
+	}
+
 	protected void redirectToDashboard(final ServletRequest request, final ServletResponse response) throws IOException {
 		final HttpServletResponse httpResponse = (HttpServletResponse) response;
 		final HttpServletRequest httpRequest = (HttpServletRequest) request;
