@@ -13,9 +13,13 @@
 package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
+import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.BoardAccount;
 import javax.faces.bean.ManagedBean;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.facade.CardFacade;
+import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,23 +37,32 @@ public class FCardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FCardManaged.class);
+
 	private Card card;
+	private Board board;
+	private BoardAccount boardaccount;
+
 	@Inject
 	private transient CardFacade facade;
+
+	@Inject
+	private transient GrantFacade grant;
 
 	@PostConstruct
 	public void initial() {
 		final String cardid = getCardidfromAttribute();
-		if (cardid != null) {
-			try {
-				card = facade.findById(getPrincipal().getId(), Integer.valueOf(cardid));
-			} catch (final Exception e) {
-				LOG.error(e.getMessage(), e);
-				addErrorMessage("Card: {} not found.", cardid);
-			}
-		} else {
+		if (cardid == null) {
 			card = new Card();
+			return;
 		}
+
+		card = facade.findById(getPrincipal().getId(), Integer.valueOf(cardid));
+		board = card.getBoard();
+		boardaccount = grant.getBoardAccount(getPrincipal().getId(), board.getId());
+		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+			setRedirect("dashboard");
+		}
+
 	}
 
 	private String getCardidfromAttribute() {

@@ -94,12 +94,7 @@ public class BoardFacade {
 	@Logging
 	@Transactional
 	public Board findById(final Integer id) {
-		try {
-			return service.find(id);
-		} catch (final Exception e) {
-			LOG.info(e.getMessage());
-			return null;
-		}
+		return service.find(id);
 	}
 
 	@Logging

@@ -38,8 +38,11 @@ public final class AuthenSessionService extends AbstractService<AuthenSession> {
 
 	public AuthenSession create(final Account account, final boolean isRemberMe) {
 		final AuthenSession authenSession = new AuthenSession();
-		authenSession.setId(UUID.randomUUID().toString());
+		final String uuid = UUID.randomUUID().toString();
+
+		authenSession.setId(uuid.replace("-", ""));
 		authenSession.setAccount(account);
+		authenSession.setRememberMe(isRemberMe);
 		authenSession.setUpdateby(account.getId());
 		return create(authenSession);
 	}

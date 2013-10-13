@@ -57,7 +57,10 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		bindAuthenticationListener().to(AuthenticationListenerImpl.class);
 		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/signin.xhtml");
 		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/unauthorized.xhtml");
+		addFilterChain("/signin", ANON);
+		addFilterChain("/home", ANON);
 		addFilterChain("/home.xhtml", ANON);
+		addFilterChain("/register", ANON);
 		addFilterChain("/register.xhtml", ANON);
 		addFilterChain("/assets/**", ANON);
 		addFilterChain("/javax.faces.resource/**", ANON);
@@ -85,12 +88,10 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		return multibinder.addBinding();
 	}
 
-	@SuppressWarnings("unchecked")
 	private Key<Set<AuthenticationListener>> authenticationListenerSetKey() {
 		return (Key<Set<AuthenticationListener>>) Key.get(TypeLiteral.get(Types.setOf(AuthenticationListener.class)));
 	}
 
-	@SuppressWarnings("unchecked")
 	private Key<Collection<AuthenticationListener>> authenticationListenerCollectionKey() {
 		return (Key<Collection<AuthenticationListener>>) Key.get(Types.newParameterizedType(Collection.class,
 				AuthenticationListener.class));

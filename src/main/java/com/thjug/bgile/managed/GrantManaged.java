@@ -48,6 +48,7 @@ public class GrantManaged extends BgileAbstractManaged {
 	private static final Logger LOG = LoggerFactory.getLogger(GrantManaged.class);
 
 	private Board board;
+	private BoardAccount boardaccount;
 	private String accountname;
 	private List<Account> accounts;
 	private List<BoardAccount> grants;
@@ -61,16 +62,24 @@ public class GrantManaged extends BgileAbstractManaged {
 	@PostConstruct
 	public void initial() {
 		final Integer boardid = getBoardIdfromAttribute();
-		if (boardid != null) {
-			getSession().setAttribute("boardid", boardid);
-			board = getBoard(boardid);
+		if (boardid == null) {
+			setRedirect("dashboard");
+			return;
 		}
 
-		if (board != null) {
-			grants = grantFacade.getAccessAccount(board);
-		} else {
-			addWarnMessage("Board ID: " + boardid, " not found.");
+		boardaccount = grantFacade.getBoardAccount(getPrincipal().getId(), boardid);
+		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+			setRedirect("dashboard");
+			return;
 		}
+
+		board = boardaccount.getBoard();
+		if (board == null) {
+			setRedirect("dashboard");
+		}
+
+		grants = grantFacade.getAccessAccount(board);
+
 	}
 
 	@Deprecated

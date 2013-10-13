@@ -14,19 +14,12 @@ package com.thjug.bgile.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationListener;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.PrincipalCollection;
-
-import com.google.inject.Inject;
-import com.google.inject.persist.Transactional;
-
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.facade.AuthenSessionFacade;
 
 /**
 *
@@ -36,36 +29,31 @@ public class AuthenticationListenerImpl implements AuthenticationListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationListenerImpl.class);
 
-	@Inject
-	private transient AuthenSessionFacade facade;
-
 	@Override
-	@Transactional
 	public void onSuccess(final AuthenticationToken token, final AuthenticationInfo info) {
 		final Account account = (Account) info.getPrincipals().getPrimaryPrincipal();
-		try {
-			facade.saveSession(account, SecurityUtils.getSubject().isRemembered());
-
-			LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
-		} catch (final Exception e) {
-			LOG.warn(e.getMessage(), e);
+		if (account == null) {
+			return;
 		}
+		LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
 	}
 
 	@Override
 	public void onFailure(final AuthenticationToken token, final AuthenticationException ae) {
-
+		final Account account = (Account) token.getPrincipal();
+		if (account == null) {
+			return;
+		}
+		LOG.info("Account {} login fail.", account.getId(), account.getUsername());
 	}
 
 	@Override
-	@Transactional
 	public void onLogout(final PrincipalCollection principals) {
 		final Account account = (Account) principals.getPrimaryPrincipal();
-		try {
-			LOG.info("Account {} id {} logout success.", account.getId(), account.getUsername());
-		} catch (final Exception e) {
-			LOG.warn(e.getMessage(), e);
+		if (account == null) {
+			return;
 		}
+		LOG.info("Account {} id {} logout success.", account.getId(), account.getUsername());
 	}
 
 }

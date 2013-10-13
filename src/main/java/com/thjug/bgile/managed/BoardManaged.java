@@ -16,7 +16,6 @@ import java.util.Set;
 import java.util.Map;
 import java.util.List;
 import java.util.HashSet;
-import java.io.IOException;
 import javax.faces.bean.ViewScoped;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
@@ -78,6 +77,7 @@ public class BoardManaged extends BgileAbstractManaged {
 	public void initial() {
 		final Integer boardid = getBoardIdfromAttribute();
 		if (boardid == null) {
+			setRedirect("dashboard");
 			return;
 		}
 
@@ -88,7 +88,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		board = getBoard(boardid);
 
 		if (board == null || (boardaccount == null && board.getPrivateid() == Private.T)) {
-			setRedirect("/bgile/signin.xhtml");
+			setRedirect("dashboard");
 			return;
 		}
 

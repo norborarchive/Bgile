@@ -13,11 +13,13 @@
 package com.thjug.bgile.managed;
 
 import com.google.inject.Inject;
+import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.define.Private;
+import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.BoardFacade;
+import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -30,32 +32,38 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class FboardManaged extends AccountAbstractManaged {
+public class FboardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
+
 	private Board board;
+	private BoardAccount boardaccount;
+
 	@Inject
 	private transient BoardFacade facade;
 
+	@Inject
+	private transient GrantFacade grant;
+
 	@PostConstruct
 	public void initial() {
-		final String boardid = getBoardIdfromAttribute();
-		if (boardid != null) {
-			try {
-				board = facade.findById(Integer.valueOf(boardid));
-			} catch (final Exception e) {
-				LOG.error(e.getMessage(), e);
-				addErrorMessage("Board: {} not found.", boardid);
-			}
-		} else {
+		final Integer boardid = getBoardIdfromAttribute();
+		if (boardid == null) {
 			board = new Board();
+			return;
 		}
-	}
 
-	private String getBoardIdfromAttribute() {
-		final List<String> attributes = getAttribute("ATTRIBUTES");
-		return (attributes.size() > 1) ? attributes.get(1) : null;
+		boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
+		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+			setRedirect("dashboard");
+			return;
+		}
+
+		board = boardaccount.getBoard();
+		if (board == null) {
+			setRedirect("dashboard");
+		}
 	}
 
 	public String save() {
@@ -89,7 +97,7 @@ public class FboardManaged extends AccountAbstractManaged {
 	}
 
 	public boolean isNewBoard() {
-		return board.getId() == null;
+		return board != null ? board.getId() == null : false;
 	}
 
 }

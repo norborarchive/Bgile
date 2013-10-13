@@ -52,12 +52,10 @@ public class JpaRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken token) {
-		final Account account;
-		final String credential;
 
 		if (token instanceof UsernamePasswordToken) {
 			final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-			account = facade.findByUsername(usernamePasswordToken.getUsername());
+			final Account account = facade.findByUsername(usernamePasswordToken.getUsername());
 
 			if (account == null) {
 				throw new UnknownAccountException();
@@ -66,12 +64,11 @@ public class JpaRealm extends AuthorizingRealm {
 				throw new LockedAccountException();
 			}
 
-			credential = account.getPasswd();
+			return new SimpleAuthenticationInfo(account, account.getPasswd(), JpaRealm.class.getSimpleName());
 		} else {
-			throw new AuthenticationException("Unknown Token");
+			throw new AuthenticationException("Invalid Token Type");
 		}
 
-		return new SimpleAuthenticationInfo(account, credential, JpaRealm.class.getSimpleName());
 	}
 
 }

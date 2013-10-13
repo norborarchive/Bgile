@@ -89,3 +89,7 @@ INSERT INTO account(
     VALUES (1001, 'S', 'T', 'ping', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', ''
 			, 'Ping', '', '', '', current_date, current_date, 1);
 
+INSERT INTO account(
+            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
+    VALUES (1002, 'S', 'T', 'champillon', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'champillon@gmail.com'
+			, 'Champ', '', '@champillon', '', current_date, current_date, 1);

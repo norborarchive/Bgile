@@ -1,7 +1,6 @@
 Bgile
 ===================
-Bgile does not Agile.
-It's created from what I want to help me manage team @ SIGNATURE APP HOUSE.
+Opensource Kanban Board from Thailand Programmer :)
 
 
 Software Library

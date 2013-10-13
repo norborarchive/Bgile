@@ -20,7 +20,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,18 +85,24 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final void setRedirect(final String page) {
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/bgile/" + page);
 		} catch (final IOException e) {
 			LOG.error(e.getMessage(), e);
 		}
 	}
 
 	protected final void putCookieValue(final String cookieName, final String value) {
-		FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("CookieName", value, null);
+		final Cookie userCookie = new Cookie(cookieName, value);
+		userCookie.setMaxAge(31536000);
+
+		final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance()
+				.getExternalContext().getResponse();
+
+		response.addCookie(userCookie);
 	}
 
 	protected final Object getCookieValue(final String cookieName) {
-		return FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("cookieName");
+		return FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get(cookieName);
 	}
 
 	protected final String getViewId() {
