@@ -10,7 +10,7 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-plus" value="กระดาน"
 									 styleClass="btn btn-mini btn-info"
-									 onclick="window.location.href='/bgile/fboard';" />
+									 onclick="window.location.href='#{pageContext.request.contextPath}/fboard';" />
 				</div>
 			</div>
 		</ui:define>
@@ -48,15 +48,15 @@
 									<p:commandButton id="grantAccount" style="margin-right: 12px;"
 												 icon="ui-icon ui-icon-person"
 												 styleClass="btn btn-mini btn-info"
-												 onclick="window.location.href='/bgile/grant/#{b.id}';" />
+												 onclick="window.location.href='#{pageContext.request.contextPath}/grant/#{b.id}';" />
 									<p:commandButton id="editProjet" style="margin-right: 12px;"
 													 icon="ui-icon ui-icon-disk"
 													 styleClass="btn btn-mini btn-info"
-													 onclick="window.location.href='/bgile/fboard/#{b.id}';" />
+													 onclick="window.location.href='#{pageContext.request.contextPath}/fboard/#{b.id}';" />
 									<p:commandButton id="linkToBoard"
 													 icon="ui-icon ui-icon-arrowthick-1-e"
 													 styleClass="btn btn-mini btn-info"
-													 onclick="window.location.href='/bgile/board/#{b.id}';" />
+													 onclick="window.location.href='#{pageContext.request.contextPath}/board/#{b.id}';" />
 								</ui:remove>
 							</td>
 						</tr>

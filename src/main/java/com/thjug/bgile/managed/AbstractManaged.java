@@ -35,12 +35,32 @@ public abstract class AbstractManaged implements Serializable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractManaged.class);
 
+	protected final FacesContext getFacesInstance() {
+		return FacesContext.getCurrentInstance();
+	}
+
+	protected final ExternalContext getExternalContext() {
+		return getFacesInstance().getExternalContext();
+	}
+
+	protected final ServletContext getServletContext() {
+		return (ServletContext) getExternalContext().getContext();
+	}
+
+	protected final String getServletContextPath() {
+		return getServletContext().getContextPath();
+	}
+
 	protected final String getRequestServletPath() {
-		return FacesContext.getCurrentInstance().getExternalContext().getRequestServletPath();
+		return getExternalContext().getRequestServletPath();
 	}
 
 	protected final HttpServletRequest getRequest() {
-		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		return (HttpServletRequest) getExternalContext().getRequest();
+	}
+
+	protected final HttpServletResponse getResponse() {
+		return (HttpServletResponse) getExternalContext().getResponse();
 	}
 
 	protected final String getRequestURL() {
@@ -48,19 +68,7 @@ public abstract class AbstractManaged implements Serializable {
 	}
 
 	protected final HttpSession getSession() {
-		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-	}
-
-	protected final ServletContext getApplication() {
-		return (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-	}
-
-	protected final FacesContext getFacesInstance() {
-		return FacesContext.getCurrentInstance();
-	}
-
-	protected final ExternalContext getExternalContext() {
-		return FacesContext.getCurrentInstance().getExternalContext();
+		return (HttpSession) getExternalContext().getSession(true);
 	}
 
 	protected final List<String> getAttribute(final String key) {
@@ -85,7 +93,7 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final void setRedirect(final String page) {
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/bgile/" + page);
+			getExternalContext().redirect(getServletContext().getContextPath() + page);
 		} catch (final IOException e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -94,15 +102,11 @@ public abstract class AbstractManaged implements Serializable {
 	protected final void putCookieValue(final String cookieName, final String value) {
 		final Cookie userCookie = new Cookie(cookieName, value);
 		userCookie.setMaxAge(31536000);
-
-		final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance()
-				.getExternalContext().getResponse();
-
-		response.addCookie(userCookie);
+		getResponse().addCookie(userCookie);
 	}
 
 	protected final Object getCookieValue(final String cookieName) {
-		return FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get(cookieName);
+		return getExternalContext().getRequestCookieMap().get(cookieName);
 	}
 
 	protected final String getViewId() {
@@ -121,7 +125,12 @@ public abstract class AbstractManaged implements Serializable {
 		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, topic, message));
 	}
 
-	// "formid:inputid"
+	/**
+	 *
+	 * @param formid	formid:inputid
+	 * @param topic		bold message
+	 * @param message	regular message
+	 */
 	protected final void addWarnMessage(final String formid, final String topic, final String message) {
 		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));
 	}

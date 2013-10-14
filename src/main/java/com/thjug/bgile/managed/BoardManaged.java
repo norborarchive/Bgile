@@ -192,7 +192,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		if (isViewonly()) {
 			panel.setHeader(card.getStory());
 		} else {
-			panel.setHeader("<a href='/bgile/fcard/" + card.getId()
+			panel.setHeader("<a href='" + getServletContextPath() + "/fcard/" + card.getId()
 					+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
 		}
 
