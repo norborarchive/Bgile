@@ -36,8 +36,8 @@ public abstract class DefaultFilter implements Filter {
 	}
 
 	protected boolean isBypassFilter(final String servletpath) {
-		return (servletpath.contains(".xhtml") || servletpath.contains(".js") || servletpath.contains(".css")
-				|| servletpath.contains("assets") || servletpath.contains("javax.faces.resource"));
+		return (servletpath.contains(".js") || servletpath.contains(".css") || servletpath.contains("assets") || servletpath
+				.contains("javax.faces.resource"));
 	}
 
 	protected void redirectToDashboard(final ServletRequest request, final ServletResponse response) throws IOException {

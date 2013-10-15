@@ -42,7 +42,7 @@ public final class URLFilter extends DefaultFilter {
 		final HttpServletRequest httpRequest = (HttpServletRequest) request;
 		final String servletpath = httpRequest.getServletPath();
 
-		if (isBypassFilter(servletpath)) {
+		if (isBypassFilter(servletpath) || servletpath.contains(".xhtml")) {
 			chain.doFilter(request, response);
 			return;
 		}

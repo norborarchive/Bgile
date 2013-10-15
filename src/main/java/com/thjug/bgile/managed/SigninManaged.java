@@ -21,6 +21,7 @@ import com.timgroup.jgravatar.Gravatar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -56,22 +57,22 @@ public class SigninManaged extends AccountAbstractManaged {
 		final String ciphertext = Encrypter.cipher(password);
 		LOG.debug("Authen with Username: {} Password {}", username, ciphertext);
 
-		final UsernamePasswordToken token = new UsernamePasswordToken(username, ciphertext, true);
+		final AuthenticationToken token = new UsernamePasswordToken(username, ciphertext, true);
 		final Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
 
-			final Account account = (Account) subject.getPrincipal();
+			final Account account = getPrincipal();
 			final AuthenSession authenSession = facade.saveSession(account, subject.isRemembered());
 			putCookieValue("bgile_auth_token", authenSession.getId());
 
-			final String gravatarUrl = (getPrincipal() != null) ? gravatar.getUrl(getPrincipal().getEmail()) : null;
+			final String gravatarUrl = gravatar.getUrl(account.getEmail());
 			getSession().setAttribute("GRAVATARURL", gravatarUrl);
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
 			return null;
 		} catch (final LockedAccountException e) {
-			addWarnMessage("Username wasn't activated", null);
+			addWarnMessage("Username not activated", null);
 			return null;
 		}
 		return redirect("dashboard");
