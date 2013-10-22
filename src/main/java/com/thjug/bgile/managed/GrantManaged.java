@@ -27,7 +27,7 @@ import org.primefaces.component.selectonebutton.SelectOneButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;

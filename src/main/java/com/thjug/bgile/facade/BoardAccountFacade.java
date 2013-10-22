@@ -12,29 +12,32 @@
  */
 package com.thjug.bgile.facade;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
-
 import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.entity.AuthenSession;
+import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.interceptor.Logging;
-import com.thjug.bgile.service.AuthenSessionService;
+import com.thjug.bgile.service.BoardAccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author @nuboat
  */
-public class AuthenSessionFacade {
+public class BoardAccountFacade {
 
-	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = LoggerFactory.getLogger(BoardAccountFacade.class);
 
 	@Inject
-	private AuthenSessionService service;
+	private BoardAccountService baService;
 
 	@Logging
 	@Transactional
-	public AuthenSession saveSession(final Account account, final boolean isRemberMe) {
-		return service.create(account, isRemberMe);
+	public List<BoardAccount> findAllByAccount(final Account account) {
+		return baService.findBoardAccountByAccount(account);
 	}
 
 }

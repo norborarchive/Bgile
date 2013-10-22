@@ -12,12 +12,12 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.AuthenSession;
 import com.thjug.bgile.facade.AuthenSessionFacade;
 import com.thjug.bgile.security.Encrypter;
 import com.timgroup.jgravatar.Gravatar;
+import javax.inject.Inject;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.shiro.SecurityUtils;

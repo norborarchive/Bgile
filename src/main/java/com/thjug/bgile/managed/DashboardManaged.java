@@ -12,10 +12,10 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
-import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.facade.BoardFacade;
+import com.thjug.bgile.entity.BoardAccount;
+import com.thjug.bgile.facade.BoardAccountFacade;
 import java.util.List;
+import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -32,28 +32,32 @@ public class DashboardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(DashboardManaged.class);
-	private List<Board> boards;
+
+	private List<BoardAccount> boards;
+
 	@Inject
-	private transient BoardFacade facade;
+	private transient BoardAccountFacade facade;
 
 	@PostConstruct
 	public void initial() {
 		try {
-			boards = facade.findAllByAccount(getPrincipal().getId());
+			boards = facade.findAllByAccount(getPrincipal());
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
+			addErrorMessage("Cannot load Board data of Account {} ", getPrincipal().getUsername());
 		}
+
 	}
 
 	public String linkToList() {
 		return "dashboard";
 	}
 
-	public List<Board> getBoards() {
+	public List<BoardAccount> getBoards() {
 		return boards;
 	}
 
-	public void setBoards(final List<Board> boards) {
+	public void setBoards(final List<BoardAccount> boards) {
 		this.boards = boards;
 	}
 

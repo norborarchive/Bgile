@@ -10,7 +10,7 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="Back"
 									 styleClass="btn btn-mini btn-info"
-									 onclick="window.location.href = '#{pageContext.request.contextPath}/dashboard';" />
+									 onclick="window.location.href = '#{request.contextPath}/dashboard';" />
 				</div>
 			</div>
 		</ui:define>
@@ -75,7 +75,7 @@
 							<f:attribute name="listArrtibute" value="storyManaged" />
 							<f:selectItems value="" var="a"
 										   itemValue="#{a}"
-										   itemLabel="#{a.firstname}" />
+										   itemLabel="#{a}" />
 						</p:selectOneMenu>
 					</div>
 				</div>

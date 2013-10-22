@@ -49,9 +49,12 @@ public final class BoardAccountService extends AbstractService<BoardAccount> {
 		return findOne(BoardAccount.FIND_BY_ACCOUNT_AND_BOARD, account, board);
 	}
 
-	public List<BoardAccount> findBoardAccountList(final Board board) {
-
+	public List<BoardAccount> findBoardAccountByBoard(final Board board) {
 		return findAll(BoardAccount.FIND_BY_BOARD, board);
+	}
+
+	public List<BoardAccount> findBoardAccountByAccount(final Account account) {
+		return findAll(BoardAccount.FIND_BY_ACCOUNT, account);
 	}
 
 }

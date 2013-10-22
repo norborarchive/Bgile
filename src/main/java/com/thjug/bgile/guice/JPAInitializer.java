@@ -12,7 +12,7 @@
  */
 package com.thjug.bgile.guice;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 

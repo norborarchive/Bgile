@@ -12,7 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.define.Private;

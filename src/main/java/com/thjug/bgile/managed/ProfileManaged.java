@@ -12,7 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.security.Encrypter;

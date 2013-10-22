@@ -15,7 +15,7 @@ package com.thjug.bgile.facade;
 import java.util.List;
 import java.util.LinkedList;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;

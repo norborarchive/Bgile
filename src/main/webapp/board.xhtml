@@ -10,7 +10,7 @@
 				<div style="float:left;">
 					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="แผงควบคุม"
 									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 onclick="window.location.href = '#{pageContext.request.contextPath}/dashboard';" />
+									 onclick="window.location.href = '#{request.contextPath}/dashboard';" />
 				</div>
 				<div style="float:left;">
 					<p:commandButton id="refresh" icon="ui-icon-refresh"
@@ -21,7 +21,7 @@
 				<div style="float:left;">
 					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="การ์ด"
 									 styleClass="btn btn-mini btn-success"
-									 onclick="window.location.href = '#{pageContext.request.contextPath}/fcard';" />
+									 onclick="window.location.href = '#{request.contextPath}/fcard';" />
 				</div>
 
 				<ui:remove>

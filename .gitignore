@@ -1,10 +1,26 @@
+# Created by http://gitignore.io
+
+### OS X ###
 .DS_Store
+
+### Java ###
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### Maven ###
 target/
-nb-configuration.xml
-.classpath
-.project
-.settings/
-.metadata
-/.externalToolBuilders
+
+### NetBeans ###
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
 nbactions.xml
-faces-config.NavData
+nb-configuration.xml
+build.xml
+build.properties

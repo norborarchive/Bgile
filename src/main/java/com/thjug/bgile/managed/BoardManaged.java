@@ -16,6 +16,8 @@ import java.util.Set;
 import java.util.Map;
 import java.util.List;
 import java.util.HashSet;
+import javax.inject.Inject;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
@@ -32,7 +34,6 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
-import com.google.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.define.Private;
 import com.thjug.bgile.entity.Card;
@@ -44,7 +45,6 @@ import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
-import javax.annotation.PostConstruct;
 
 /**
  *
@@ -217,7 +217,7 @@ public class BoardManaged extends BgileAbstractManaged {
 	}
 
 	public boolean isViewonly() {
-		return (boardaccount == null || boardaccount.getPermissionid() == Permission.R) ? true : false;
+		return boardaccount == null || boardaccount.getPermissionid() == Permission.R;
 	}
 
 }

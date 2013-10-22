@@ -17,7 +17,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Provider;
 import com.thjug.bgile.entity.Timeable;
 import javax.persistence.NoResultException;

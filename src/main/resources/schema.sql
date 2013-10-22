@@ -1,4 +1,3 @@
-
 DROP SEQUENCE IF EXISTS account_id_seq;
 DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;

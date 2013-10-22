@@ -14,7 +14,7 @@ package com.thjug.bgile.facade;
 
 import java.util.List;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.define.Permission;
 
@@ -57,7 +57,7 @@ public class GrantFacade {
 	@Logging
 	@Transactional
 	public List<BoardAccount> getAccessAccount(final Board board) {
-		return service.findBoardAccountList(board);
+		return service.findBoardAccountByBoard(board);
 	}
 
 }

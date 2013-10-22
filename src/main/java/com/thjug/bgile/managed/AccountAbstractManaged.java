@@ -22,6 +22,8 @@ import org.apache.shiro.subject.Subject;
  */
 public abstract class AccountAbstractManaged extends AbstractManaged {
 
+	private static final long serialVersionUID = 1L;
+
 	protected Account getPrincipal() {
 		final Subject subject = SecurityUtils.getSubject();
 		return (Account) subject.getPrincipal();

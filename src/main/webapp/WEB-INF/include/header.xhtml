@@ -38,7 +38,7 @@
 	<script>
 		function handleAjax(xhr, status, args) {
 			if (xhr.getElementsByTagName('error-name')[0].childNodes[0].nodeValue.indexOf("ViewExpiredException") !== -1) {
-				window.location.href = '#{pageContext.request.contextPath}/signin';
+				window.location.href = '#{request.contextPath}/signin';
 			}
 		}
 	</script>

@@ -12,7 +12,7 @@
  */
 package com.thjug.bgile.managed;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.facade.BoardFacade;
 import java.util.List;
@@ -22,6 +22,8 @@ import java.util.List;
  * @author @nuboat
  */
 public abstract class BgileAbstractManaged extends AccountAbstractManaged {
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private transient BoardFacade boardFacade;
@@ -36,7 +38,7 @@ public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 
 	protected Integer getBoardIdfromAttribute() {
 		final List<String> attributes = getAttribute("ATTRIBUTES");
-		if (attributes != null && attributes.size() > 0) {
+		if (attributes != null && attributes.size() > 1) {
 			final Integer boardid = Integer.valueOf(attributes.get(1));
 			getSession().setAttribute("boardid", boardid);
 			return boardid;

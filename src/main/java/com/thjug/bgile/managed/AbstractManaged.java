@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractManaged implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractManaged.class);
 
 	protected final FacesContext getFacesInstance() {
