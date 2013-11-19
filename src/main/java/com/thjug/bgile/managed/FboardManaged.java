@@ -12,7 +12,6 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.define.Private;
@@ -20,6 +19,7 @@ import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
+import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -36,6 +36,8 @@ public class FboardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
+
+	private static final String DASHBOARD = "dashboard";
 
 	private Board board;
 	private BoardAccount boardaccount;
@@ -56,13 +58,13 @@ public class FboardManaged extends BgileAbstractManaged {
 
 		boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
 		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
-			setRedirect("dashboard");
+			setRedirect(DASHBOARD);
 			return;
 		}
 
 		board = boardaccount.getBoard();
 		if (board == null) {
-			setRedirect("dashboard");
+			setRedirect(DASHBOARD);
 		}
 	}
 
@@ -71,7 +73,7 @@ public class FboardManaged extends BgileAbstractManaged {
 			board.setPrivateid(Private.T);
 			board = (board.getId() == null) ? facade.create(getPrincipal().getId(), board) : facade.edit(getPrincipal()
 					.getId(), board);
-			return redirect("dashboard");
+			return redirect(DASHBOARD);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage(e.getMessage(), Constants.EMPTY);
@@ -85,7 +87,7 @@ public class FboardManaged extends BgileAbstractManaged {
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 		}
-		return redirect("dashboard");
+		return redirect(DASHBOARD);
 	}
 
 	public Board getBoard() {

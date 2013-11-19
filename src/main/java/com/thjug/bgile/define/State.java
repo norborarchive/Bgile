@@ -18,11 +18,11 @@ package com.thjug.bgile.define;
  */
 public enum State {
 
-	Plan(0),
-	Process(1),
-	Test(2),
-	Done(3),
-	Archive(4);
+	PLAN(0),
+	PROCESS(1),
+	TEST(2),
+	DONE(3),
+	ARCHIVE(4);
 
 	private final int id;
 

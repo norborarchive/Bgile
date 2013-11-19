@@ -30,7 +30,7 @@ public final class StringUtility {
 	private static final Pattern ALPHABET_PATTERN = Pattern.compile(ALPHABET_PATTERN_STR);
 
 	public static boolean isEmpty(final String string) {
-		return string == null || "".equals(string) ? true : false;
+		return string == null || "".equals(string);
 	}
 
 	public static boolean isNotEmpty(final String string) {

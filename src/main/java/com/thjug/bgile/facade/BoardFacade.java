@@ -28,16 +28,12 @@ import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author @nuboat
  */
 public class BoardFacade {
-
-	private static final Logger LOG = LoggerFactory.getLogger(BoardFacade.class);
 
 	private static final int DEFAULT_MAXCARD = 64;
 

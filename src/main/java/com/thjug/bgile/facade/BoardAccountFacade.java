@@ -20,16 +20,12 @@ import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author @nuboat
  */
 public class BoardAccountFacade {
-
-	private static final Logger LOG = LoggerFactory.getLogger(BoardAccountFacade.class);
 
 	@Inject
 	private BoardAccountService baService;

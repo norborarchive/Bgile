@@ -36,7 +36,7 @@ public final class AccountManaged extends AccountAbstractManaged {
 	}
 
 	public boolean isNotSignin() {
-		return getPrincipal() == null ? true : false;
+		return getPrincipal() == null;
 	}
 
 }

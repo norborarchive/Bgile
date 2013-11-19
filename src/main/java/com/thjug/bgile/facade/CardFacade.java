@@ -125,7 +125,7 @@ public class CardFacade {
 		final Card card = service.find(storyid);
 		card.setUpdateby(accountid);
 		card.setStateid(tostate);
-		card.setOwner((tostate == State.Plan.getId()) ? null : new Account(accountid));
+		card.setOwner((tostate == State.PLAN.getId()) ? null : new Account(accountid));
 		service.update(card);
 
 		if (fromstate.intValue() == tostate.intValue()) {

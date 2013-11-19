@@ -18,6 +18,8 @@ import javax.faces.bean.RequestScoped;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -28,6 +30,8 @@ import org.apache.shiro.subject.Subject;
 public final class HomeManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
+
 	private static final String CURRENT_PAGE = "current-page";
 
 	public boolean isHasSession() {
@@ -37,6 +41,7 @@ public final class HomeManaged extends AbstractManaged {
 				return true;
 			}
 		} catch (final UnavailableSecurityManagerException e) {
+			LOG.error(e.getMessage(), e);
 		}
 		return false;
 	}
