@@ -36,10 +36,11 @@ import com.thjug.bgile.define.Permission;
 @Entity
 @Cacheable
 @NamedQueries({
-		@NamedQuery(name = BoardAccount.FIND_BY_BOARD,
-				query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 order by b.account.firstname"),
+		@NamedQuery(name = BoardAccount.FIND_BY_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 "
+				+ " ORDER BY b.account.firstname"),
 		@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT,
-				query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 order by b.account.firstname"),
+				query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board.statusid = ?2 "
+						+ " ORDER BY b.board.id"),
 		@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD,
 				query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"), })
 public class BoardAccount extends Time implements Serializable {

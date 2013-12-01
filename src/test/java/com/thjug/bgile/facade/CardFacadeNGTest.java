@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thjug.bgile.facade.impl;
+package com.thjug.bgile.facade;
 
-import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.entity.Card;
 import java.util.Map;
 import static org.testng.Assert.*;

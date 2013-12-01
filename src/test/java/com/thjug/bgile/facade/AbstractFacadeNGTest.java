@@ -10,7 +10,7 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.facade.impl;
+package com.thjug.bgile.facade;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

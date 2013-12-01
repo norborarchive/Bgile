@@ -6,6 +6,7 @@ package com.thjug.bgile.service;
 
 import java.util.List;
 import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
@@ -54,7 +55,7 @@ public final class BoardAccountService extends AbstractService<BoardAccount> {
 	}
 
 	public List<BoardAccount> findBoardAccountByAccount(final Account account) {
-		return findAll(BoardAccount.FIND_BY_ACCOUNT, account);
+		return findAll(BoardAccount.FIND_BY_ACCOUNT, account, Status.L);
 	}
 
 }

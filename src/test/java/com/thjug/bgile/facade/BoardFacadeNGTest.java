@@ -10,9 +10,8 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.facade.impl;
+package com.thjug.bgile.facade;
 
-import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.entity.Board;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
