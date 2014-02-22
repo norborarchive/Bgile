@@ -13,7 +13,7 @@
 package com.thjug.bgile.entity;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public interface Converterable {

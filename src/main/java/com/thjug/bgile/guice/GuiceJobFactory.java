@@ -12,19 +12,10 @@
  */
 package com.thjug.bgile.guice;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-import com.thjug.bgile.interceptor.LoggingInterceptor;
-import com.thjug.bgile.interceptor.Logging;
-
 /**
  * 
- * @author @nuboat
+ * @author nuboat
  */
-public final class LoggingModule extends AbstractModule {
+public class GuiceJobFactory {
 
-	@Override
-	protected void configure() {
-		bindInterceptor(Matchers.any(), Matchers.annotatedWith(Logging.class), new LoggingInterceptor());
-	}
 }

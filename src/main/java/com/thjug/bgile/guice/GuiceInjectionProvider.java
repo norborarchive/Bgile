@@ -15,7 +15,7 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 	/**
 	 * Custom guice injector that will load our modules.
 	 */
-	private static Injector injector = GuiceInjectorFactory.getInjector();
+	private static final Injector injector = GuiceInjectorFactory.getInjector();
 
 	@Override
 	public void inject(final Object managedBean) throws InjectionProviderException {
@@ -33,6 +33,7 @@ public final class GuiceInjectionProvider implements InjectionProvider {
 
 	@Override
 	public void invokePreDestroy(final Object managedBean) throws InjectionProviderException {
+		// don't do anything here for guice, just let the default do its thing
 		CON.invokePreDestroy(managedBean);
 	}
 

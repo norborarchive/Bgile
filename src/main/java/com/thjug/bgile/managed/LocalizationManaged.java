@@ -16,7 +16,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @ManagedBean

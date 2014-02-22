@@ -19,7 +19,7 @@ import com.thjug.bgile.entity.AuthenSession;
 import java.util.UUID;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class AuthenSessionService extends AbstractService<AuthenSession> {

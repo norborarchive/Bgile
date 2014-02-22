@@ -15,7 +15,7 @@ package com.thjug.bgile.entity;
 import java.util.Date;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public interface Timeable {

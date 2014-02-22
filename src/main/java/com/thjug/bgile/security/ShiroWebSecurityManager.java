@@ -20,9 +20,9 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 public class ShiroWebSecurityManager extends DefaultWebSecurityManager {
 
 	public ShiroWebSecurityManager(final Collection<Realm> realms, final Collection<AuthenticationListener> listeners) {

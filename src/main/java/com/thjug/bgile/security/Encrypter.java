@@ -15,7 +15,7 @@ package com.thjug.bgile.security;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class Encrypter {

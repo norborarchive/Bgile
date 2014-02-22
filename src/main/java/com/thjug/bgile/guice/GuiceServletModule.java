@@ -23,7 +23,7 @@ import com.thjug.bgile.servlet.URLFilter;
 import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class GuiceServletModule extends ServletModule {

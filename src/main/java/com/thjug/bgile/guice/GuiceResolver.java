@@ -16,59 +16,62 @@ import javax.el.ELResolver;
 @SuppressWarnings("unchecked")
 public final class GuiceResolver extends ELResolver {
 
-	private final Injector injector = Guice.createInjector(new ServletModule());
-
-	//We only need to see the currently processed Objects in our Thread, that
-	//prevents multithread issues without synchronization
+	// We only need to see the currently processed Objects in our Thread, that
+	// prevents multithread issues without synchronization
 	private static final ThreadLocal CURRENTLY_THREAD = new ThreadLocal() {
 		@Override
 		protected Object initialValue() {
 			return new LinkedList();
 		}
 	};
-	//Im not sure if the synchronized lists seriously slow down the whole EL
-	//resolving process
+
+	// Im not sure if the synchronized lists seriously slow down the whole EL
+	// resolving process
 	private static final List<WeakReference> ALREADY_INJECTED_OBJECTS = Collections.synchronizedList(new LinkedList());
+
+	private final Injector injector = Guice.createInjector(new ServletModule());
 
 	@Override
 	public Object getValue(final ELContext context, final Object base, final Object property) {
 
-		//if the list of currently processed property objects doesnt exist for this
-		//thread, create it
+		// if the list of currently processed property objects doesnt exist for
+		// this thread, create it
 		final List<Object> currentlyProcessedPropertyObjects = (List<Object>) CURRENTLY_THREAD.get();
 
-		//Handle only root inquiries, we wont handle property resolving
+		// Handle only root inquiries, we wont handle property resolving
 		if (base != null) {
 			return null;
 		}
 
-		//checking if this property is currently processed, if so ignore it -> prevent
-		//endless loop
+		// checking if this property is currently processed, if so ignore it ->
+		// prevent endless loop
 		if (checkIfObjectIsContained(property, currentlyProcessedPropertyObjects)) {
 			return null;
 		}
 
-		//add the to-be-resolved object to the currently processed list
+		// add the to-be-resolved object to the currently processed list
 		currentlyProcessedPropertyObjects.add(property);
 
-		//now we can savely invoke the getValue() Method of the composite EL
-		//resolver, we wont process it again
+		// now we can savely invoke the getValue() Method of the composite EL
+		// resolver, we wont process it again
 		final Object resolvedObj = context.getELResolver().getValue(context, null, property);
 
-		//ok, we got our result, remove the object from the currently processed list
+		// ok, we got our result, remove the object from the currently processed
+		// list
 		removeObject(property, currentlyProcessedPropertyObjects);
 
 		if (resolvedObj == null) {
 			return null;
 		}
 
-		//ok we got an object
+		// ok we got an object
 		context.setPropertyResolved(true);
 
-		//check if the object was already injected
+		// check if the object was already injected
 		if (!checkIfObjectIsContainedWeak(resolvedObj, ALREADY_INJECTED_OBJECTS)) {
 			injector.injectMembers(resolvedObj);
-			//prevent a second injection by adding it as weakreference to our list
+			// prevent a second injection by adding it as weakreference to our
+			// list
 			ALREADY_INJECTED_OBJECTS.add(new WeakReference(resolvedObj));
 		}
 
@@ -76,9 +79,10 @@ public final class GuiceResolver extends ELResolver {
 	}
 
 	/**
-	 * This method will search for an object in a Weak List. If there are any WeakReferences on the way that were
-	 * removed by the garbage collection we will remove them from this list
-	 *
+	 * This method will search for an object in a Weak List. If there are any
+	 * WeakReferences on the way that were removed by the garbage collection we
+	 * will remove them from this list
+	 * 
 	 * @param object
 	 * @param list
 	 * @return
@@ -88,9 +92,9 @@ public final class GuiceResolver extends ELResolver {
 			final WeakReference curReference = list.get(i);
 			final Object curObject = curReference.get();
 			if (curObject == null) {
-				//ok, there is are slight chance that could go wrong, if you
-				//have to prevent a double injection by all means, you might
-				//want to add a synchronized block here
+				// ok, there is are slight chance that could go wrong, if you
+				// have to prevent a double injection by all means, you might
+				// want to add a synchronized block here
 				list.remove(i);
 				i--;
 			} else {
@@ -104,8 +108,9 @@ public final class GuiceResolver extends ELResolver {
 	}
 
 	/**
-	 * checks if an object is contained in a collection (really the same object '==' not equals)
-	 *
+	 * checks if an object is contained in a collection (really the same object
+	 * '==' not equals)
+	 * 
 	 * @param object
 	 * @param collection
 	 * @return
@@ -120,8 +125,9 @@ public final class GuiceResolver extends ELResolver {
 	}
 
 	/**
-	 * removes an object from a list. really removes the given instance, not an other object that fits equals
-	 *
+	 * removes an object from a list. really removes the given instance, not an
+	 * other object that fits equals
+	 * 
 	 * @param object
 	 * @param list
 	 */

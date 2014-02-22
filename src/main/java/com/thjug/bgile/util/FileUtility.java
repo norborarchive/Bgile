@@ -15,7 +15,7 @@ package com.thjug.bgile.util;
 import java.io.File;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class FileUtility {
@@ -29,13 +29,13 @@ public final class FileUtility {
 	}
 
 	/**
-	 *
-	 * WARNING: Does not supprot Windows.
-	 * if (OsUtility.isWindows()) {
-	 *		path = new StringBuilder(getSubPath(fullPath[index++]));
-	 *		path.append(File.pathSeparator).append(File.separator);
-	 * }
-	 * @param fullPath : {"home", "nuboat", "media", "avatar"}
+	 * 
+	 * WARNING: Does not supprot Windows. if (OsUtility.isWindows()) { path =
+	 * new StringBuilder(getSubPath(fullPath[index++]));
+	 * path.append(File.pathSeparator).append(File.separator); }
+	 * 
+	 * @param fullPath
+	 *            : {"home", "nuboat", "media", "avatar"}
 	 * @return /home/nuboat/media/avatar
 	 */
 	private static String buildFullPath(final String[] fullPath) {

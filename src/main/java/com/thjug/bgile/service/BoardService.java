@@ -15,7 +15,7 @@ package com.thjug.bgile.service;
 import com.thjug.bgile.entity.Board;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class BoardService extends AbstractService<Board> {

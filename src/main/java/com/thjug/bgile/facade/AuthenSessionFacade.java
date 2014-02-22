@@ -21,7 +21,7 @@ import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AuthenSessionService;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class AuthenSessionFacade {

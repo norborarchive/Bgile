@@ -23,7 +23,7 @@ import com.thjug.bgile.entity.Timeable;
 import javax.persistence.NoResultException;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public abstract class AbstractService<T> {

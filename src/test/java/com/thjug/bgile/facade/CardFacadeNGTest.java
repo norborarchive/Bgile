@@ -10,7 +10,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class CardFacadeNGTest extends AbstractFacadeNGTest {
@@ -28,7 +28,7 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		assertNotNull(result.getId());
 	}
 
-	//@Test
+	// @Test
 	public void testEdit() throws Exception {
 		Integer accountid = null;
 		Card story = null;
@@ -36,11 +36,12 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Card expResult = null;
 		Card result = instance.edit(accountid, story);
 		assertEquals(result, expResult);
-		// TODO review the generated test code and remove the default call to fail.
+		// TODO review the generated test code and remove the default call to
+		// fail.
 		fail("The test case is a prototype.");
 	}
 
-	//@Test
+	// @Test
 	public void testRemove() throws Exception {
 		Integer accountid = null;
 		Card story = null;
@@ -48,11 +49,12 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Card expResult = null;
 		Card result = instance.remove(accountid, story);
 		assertEquals(result, expResult);
-		// TODO review the generated test code and remove the default call to fail.
+		// TODO review the generated test code and remove the default call to
+		// fail.
 		fail("The test case is a prototype.");
 	}
 
-	//@Test
+	// @Test
 	public void testFindById() throws Exception {
 		Integer accountid = null;
 		Integer storyid = null;
@@ -60,11 +62,12 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Card expResult = null;
 		Card result = instance.findById(accountid, storyid);
 		assertEquals(result, expResult);
-		// TODO review the generated test code and remove the default call to fail.
+		// TODO review the generated test code and remove the default call to
+		// fail.
 		fail("The test case is a prototype.");
 	}
 
-	//@Test
+	// @Test
 	public void testFindAllByBoardId() throws Exception {
 		Integer accountid = null;
 		Integer boardid = null;
@@ -72,7 +75,8 @@ public class CardFacadeNGTest extends AbstractFacadeNGTest {
 		Map expResult = null;
 		Map result = instance.findAllByBoardId(boardid);
 		assertEquals(result, expResult);
-		// TODO review the generated test code and remove the default call to fail.
+		// TODO review the generated test code and remove the default call to
+		// fail.
 		fail("The test case is a prototype.");
 	}
 }

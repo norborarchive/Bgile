@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import org.testng.annotations.Test;
 
 /**
- *
+ * 
  * @author nuboat
  */
 public class URLFilterNGTest {

@@ -12,16 +12,15 @@
  */
 package com.thjug.bgile.facade;
 
-import com.thjug.bgile.define.Accounttype;
-import com.thjug.bgile.define.Enable;
-import com.thjug.bgile.facade.AccountFacade;
-import java.util.Date;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.security.Encrypter;
+import com.thjug.bgile.define.Accounttype;
+import com.thjug.bgile.define.Enable;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class AccountFacadeNGTest extends AbstractFacadeNGTest {
@@ -31,14 +30,14 @@ public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 		final Account account;
 		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 
-		account = accountFacadeImpl.findById(1);
-		assertEquals(account.getId(), Integer.valueOf(1));
+		account = accountFacadeImpl.findById(2);
+		assertEquals(account.getId(), Integer.valueOf(2));
 	}
 
 	@Test
 	public void FindByUserNameCaseAccountFound() throws Exception {
 		final Account account;
-		final String username = "admin";
+		final String username = "nuboat";
 		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 
 		account = accountFacadeImpl.findByUsername(username);
@@ -47,11 +46,16 @@ public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 
 	@Test
 	public void CreateAccountCaseCreateSuccess() {
-		final String username = Long.toString(new Date().getTime());
+		final String username = "norbor";
 
 		final Account account = new Account();
+		account.setFirstname("Norbor");
+		account.setLastname("Thjug");
+		account.setUsername("norbor");
+		account.setPasswd(Encrypter.cipher("password"));
 		account.setTypeid(Accounttype.S);
 		account.setEnableid(Enable.T);
+		account.setEmail("norborcity@gmail.com");
 
 		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 		accountFacadeImpl.createAccount(account);

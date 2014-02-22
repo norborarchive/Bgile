@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @Entity
@@ -91,7 +91,8 @@ public class Todo extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not set
+		// Warning - this method won't work in the case the id fields are not
+		// set
 		if (!(object instanceof Todo)) {
 			return false;
 		}

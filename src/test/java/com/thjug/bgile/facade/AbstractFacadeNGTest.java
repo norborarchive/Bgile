@@ -18,7 +18,7 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.thjug.bgile.guice.JPAInitializer;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public abstract class AbstractFacadeNGTest {

@@ -18,7 +18,7 @@ import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.define.Status;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class CardService extends AbstractService<Card> {

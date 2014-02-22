@@ -22,7 +22,7 @@ import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class BoardAccountFacade {

@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
 import com.sun.faces.application.resource.ResourceHandlerImpl;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 @ManagedBean
 @SessionScoped
 public class StreamedContentManaged extends AbstractManaged {

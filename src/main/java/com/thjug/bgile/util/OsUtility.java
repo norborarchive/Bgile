@@ -15,7 +15,7 @@ package com.thjug.bgile.util;
 import java.util.Locale;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class OsUtility {

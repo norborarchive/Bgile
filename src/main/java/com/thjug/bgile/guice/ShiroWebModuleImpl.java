@@ -41,9 +41,9 @@ import static org.apache.shiro.guice.web.ShiroWebModule.ROLES;
 import static org.apache.shiro.guice.web.ShiroWebModule.ANON;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 public final class ShiroWebModuleImpl extends ShiroWebModule {
 
 	public ShiroWebModuleImpl(final ServletContext servletContext) {

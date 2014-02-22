@@ -27,11 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * 
  * @author @nuboat
  */
-@ManagedBean
 @ViewScoped
+@ManagedBean(name = "fboard")
 public class FboardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +57,8 @@ public class FboardManaged extends BgileAbstractManaged {
 		}
 
 		boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
-		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+		if (boardaccount == null || boardaccount.getPermissionid() == Permission.R
+				|| boardaccount.getPermissionid() == Permission.W) {
 			setRedirect(DASHBOARD);
 			return;
 		}

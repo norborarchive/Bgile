@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 import com.thjug.bgile.define.Permission;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @Entity
@@ -114,7 +114,8 @@ public class BoardAccount extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not set
+		// Warning - this method won't work in the case the id fields are not
+		// set
 		if (!(object instanceof BoardAccount)) {
 			return false;
 		}

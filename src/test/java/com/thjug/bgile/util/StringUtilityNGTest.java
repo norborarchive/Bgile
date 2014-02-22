@@ -16,7 +16,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class StringUtilityNGTest {

@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public abstract class AbstractManaged implements Serializable {
@@ -94,7 +94,7 @@ public abstract class AbstractManaged implements Serializable {
 
 	protected final void setRedirect(final String page) {
 		try {
-			getExternalContext().redirect(getServletContext().getContextPath() + page);
+			getExternalContext().redirect(getServletContext().getContextPath() + "/" + page);
 		} catch (final IOException e) {
 			LOG.error(e.getMessage(), e);
 		}
@@ -127,10 +127,13 @@ public abstract class AbstractManaged implements Serializable {
 	}
 
 	/**
-	 *
-	 * @param formid	formid:inputid
-	 * @param topic		bold message
-	 * @param message	regular message
+	 * 
+	 * @param formid
+	 *            formid:inputid
+	 * @param topic
+	 *            bold message
+	 * @param message
+	 *            regular message
 	 */
 	protected final void addWarnMessage(final String formid, final String topic, final String message) {
 		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));

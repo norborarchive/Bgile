@@ -18,22 +18,29 @@ import javax.servlet.ServletContext;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import com.thjug.bgile.job.DailyStatJob;
+import org.apache.onami.scheduler.QuartzModule;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class GuiceInjectorFactory {
+
 	private static Injector injector;
 
-	private GuiceInjectorFactory() {
-	}
-
-	private static void initInjector() {
+	private static synchronized void initInjector() {
 		final ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		injector = Guice.createInjector(new GuiceServletModule(), new JpaPersistModule("bgileUnit"),
-				new LoggingModule(), new ShiroAopModuleImpl(), new ShiroWebModuleImpl(servletContext));
+				new LoggingModule(), new ShiroAopModuleImpl(), new ShiroWebModuleImpl(servletContext),
+				new QuartzModule() {
+					@Override
+					protected void schedule() {
+						scheduleJob(DailyStatJob.class).withCronExpression("01 00 * * * ?").withJobName(
+								DailyStatJob.class.getSimpleName());
+					}
+				});
 		injector.getInstance(JPAInitializer.class);
 	}
 
@@ -42,5 +49,8 @@ public final class GuiceInjectorFactory {
 			initInjector();
 		}
 		return injector;
+	}
+
+	private GuiceInjectorFactory() {
 	}
 }

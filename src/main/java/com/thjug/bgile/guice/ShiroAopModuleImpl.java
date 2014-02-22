@@ -15,9 +15,9 @@ package com.thjug.bgile.guice;
 import org.apache.shiro.guice.aop.ShiroAopModule;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 public class ShiroAopModuleImpl extends ShiroAopModule {
 
 }

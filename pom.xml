@@ -4,7 +4,7 @@
 
 	<groupId>com.thjug.bgile</groupId>
 	<artifactId>bgile</artifactId>
-	<version>1.1.7-beta</version>
+	<version>1.1.8-beta</version>
 	<packaging>war</packaging>
 
 	<name>Bgileboard</name>
@@ -131,6 +131,32 @@
 		</dependency>
 
 		<!-- Common -->
+		<dependency>
+			<groupId>org.apache.onami</groupId>
+			<artifactId>org.apache.onami.scheduler</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>

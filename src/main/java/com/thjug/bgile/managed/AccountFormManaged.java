@@ -30,7 +30,7 @@ import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.facade.AccountFacade;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @ManagedBean

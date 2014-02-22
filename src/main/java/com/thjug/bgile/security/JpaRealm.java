@@ -12,13 +12,13 @@
  */
 package com.thjug.bgile.security;
 
-import javax.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.facade.AccountFacade;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.inject.Inject;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -33,9 +33,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 public class JpaRealm extends AuthorizingRealm {
 
 	@Inject

@@ -19,7 +19,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.component.selectonebutton.SelectOneButton;
@@ -37,11 +36,11 @@ import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.StringUtility;
 
 /**
- *
+ * 
  * @author @nuboat
  */
-@ManagedBean
 @ViewScoped
+@ManagedBean(name = "grant")
 public class GrantManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -68,7 +67,8 @@ public class GrantManaged extends BgileAbstractManaged {
 		}
 
 		boardaccount = grantFacade.getBoardAccount(getPrincipal().getId(), boardid);
-		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+		if (boardaccount == null || boardaccount.getPermissionid() == Permission.R
+				|| boardaccount.getPermissionid() == Permission.W) {
 			setRedirect("dashboard");
 			return;
 		}
@@ -80,13 +80,6 @@ public class GrantManaged extends BgileAbstractManaged {
 
 		grants = grantFacade.getAccessAccount(board);
 
-	}
-
-	@Deprecated
-	public void changePermission(final ValueChangeEvent event) {
-		final Integer accountid = (Integer) event.getComponent().getAttributes().get("accountid");
-		final Permission newPermission = (Permission) event.getNewValue();
-		LOG.info("Id: {} Permission: {}", accountid, newPermission);
 	}
 
 	public void changePermission(final AjaxBehaviorEvent event) {
@@ -120,6 +113,10 @@ public class GrantManaged extends BgileAbstractManaged {
 		}
 
 		grants.add(grantFacade.addAccountToBoard(getPrincipal().getId(), account, board));
+	}
+
+	public boolean isOwner() {
+		return boardaccount.getPermissionid() == Permission.O;
 	}
 
 	public String getAccountname() {

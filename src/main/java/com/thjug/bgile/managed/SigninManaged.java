@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @ManagedBean
@@ -50,8 +50,12 @@ public class SigninManaged extends AccountAbstractManaged {
 	private final transient Gravatar gravatar = new Gravatar();
 
 	/**
+	 * <pre>
 	 * gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
 	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+	 * </pre>
+	 * 
+	 * @return
 	 */
 	public String authen() {
 		final String ciphertext = Encrypter.cipher(password);

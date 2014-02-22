@@ -17,7 +17,7 @@ import com.thjug.bgile.entity.Cardorder;
 import java.util.List;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class CardorderService extends AbstractService<Cardorder> {

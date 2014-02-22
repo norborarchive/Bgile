@@ -10,21 +10,20 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.guice;
+package com.thjug.bgile.facade;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-import com.thjug.bgile.interceptor.LoggingInterceptor;
-import com.thjug.bgile.interceptor.Logging;
+import org.testng.annotations.Test;
 
 /**
  * 
- * @author @nuboat
+ * @author nuboat
  */
-public final class LoggingModule extends AbstractModule {
+public class DailyStatFacadeNGTest extends AbstractFacadeNGTest {
 
-	@Override
-	protected void configure() {
-		bindInterceptor(Matchers.any(), Matchers.annotatedWith(Logging.class), new LoggingInterceptor());
+	@Test
+	public void testExecute() {
+		final DailyStatFacade instance = injector.getInstance(DailyStatFacade.class);
+		instance.execute();
 	}
+
 }

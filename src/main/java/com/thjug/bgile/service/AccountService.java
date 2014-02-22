@@ -16,7 +16,7 @@ import com.thjug.bgile.entity.Account;
 import java.util.List;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public final class AccountService extends AbstractService<Account> {

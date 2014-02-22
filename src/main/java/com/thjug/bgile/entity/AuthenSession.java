@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 @Entity

@@ -30,7 +30,7 @@ import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public class BoardFacade {
@@ -59,7 +59,7 @@ public class BoardFacade {
 		final BoardAccount ba = new BoardAccount();
 		ba.setBoard(board);
 		ba.setAccount(accountService.find(accountid));
-		ba.setPermissionid(Permission.A);
+		ba.setPermissionid(Permission.O);
 		ba.setUpdateby(accountid);
 		baService.create(ba);
 		accountService.clearCache();

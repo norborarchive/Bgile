@@ -18,7 +18,7 @@ import com.thjug.bgile.facade.BoardFacade;
 import java.util.List;
 
 /**
- *
+ * 
  * @author @nuboat
  */
 public abstract class BgileAbstractManaged extends AccountAbstractManaged {

@@ -22,9 +22,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import com.thjug.bgile.entity.Account;
 
 /**
-*
-* @author @nuboat
-*/
+ * 
+ * @author @nuboat
+ */
 public class AuthenticationListenerImpl implements AuthenticationListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationListenerImpl.class);
