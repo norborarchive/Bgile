@@ -12,21 +12,6 @@
  */
 package com.thjug.bgile.managed;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-
-import org.primefaces.event.SelectEvent;
-import org.primefaces.component.selectonebutton.SelectOneButton;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
@@ -34,9 +19,20 @@ import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.StringUtility;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
+import org.primefaces.component.selectonebutton.SelectOneButton;
+import org.primefaces.event.SelectEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ViewScoped

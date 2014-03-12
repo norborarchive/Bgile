@@ -12,8 +12,8 @@
 		<class>com.thjug.bgile.entity.Cardorder</class>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
-			<property name="eclipselink.logging.level" value="FINE"/>
-			<property name="eclipselink.logging.parameters" value="true"/>
+			<property name="eclipselink.logging.level" value="INFO"/>
+			<property name="eclipselink.logging.parameters" value="false"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://db.bgileboard.com/bgile"/>
 			<property name="javax.persistence.jdbc.user" value="bgile"/>

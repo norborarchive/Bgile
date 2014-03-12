@@ -12,17 +12,6 @@
  */
 package com.thjug.bgile.guice;
 
-import java.util.Collection;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationListener;
-import org.apache.shiro.config.ConfigurationException;
-import org.apache.shiro.guice.web.ShiroWebModule;
-import org.apache.shiro.web.mgt.WebSecurityManager;
-
 import com.google.inject.Exposed;
 import com.google.inject.Key;
 import com.google.inject.Provides;
@@ -32,16 +21,25 @@ import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
 import com.google.inject.util.Types;
+import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.security.JpaRealm;
 import com.thjug.bgile.security.ShiroWebSecurityManager;
 import com.thjug.bgile.servlet.AuthenticationListenerImpl;
+import java.util.Collection;
+import java.util.Set;
+import javax.servlet.ServletContext;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationListener;
+import org.apache.shiro.config.ConfigurationException;
+import org.apache.shiro.guice.web.ShiroWebModule;
+import static org.apache.shiro.guice.web.ShiroWebModule.ANON;
 import static org.apache.shiro.guice.web.ShiroWebModule.AUTHC;
 import static org.apache.shiro.guice.web.ShiroWebModule.ROLES;
-import static org.apache.shiro.guice.web.ShiroWebModule.ANON;
+import org.apache.shiro.web.mgt.WebSecurityManager;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public final class ShiroWebModuleImpl extends ShiroWebModule {
@@ -66,7 +64,8 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		addFilterChain("/javax.faces.resource/**", ANON);
 		addFilterChain("/board/**", ANON);
 		addFilterChain("/**", AUTHC);
-		addFilterChain("/admin/**", AUTHC, config(ROLES, "admin"));
+		addFilterChain("/corporate/**", AUTHC, config(ROLES, Accounttype.C.getText()));
+		addFilterChain("/admin/**", AUTHC, config(ROLES, Accounttype.A.getText()));
 		bind(authenticationListenerCollectionKey()).to(authenticationListenerSetKey());
 	}
 

@@ -18,19 +18,13 @@ package com.thjug.bgile.define;
  */
 public enum Status {
 
-	L('L', "Live"),
-	D('D', "Dead");
+	L("Live"),
+	D("Dead");
 
-	private final char id;
 	private final String text;
 
-	private Status(final char id, final String text) {
-		this.id = id;
+	private Status(final String text) {
 		this.text = text;
-	}
-
-	public char getId() {
-		return id;
 	}
 
 	public String getText() {

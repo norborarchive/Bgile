@@ -10,17 +10,14 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package external;
+package com.timgroup.jgravatar;
 
-import com.timgroup.jgravatar.Gravatar;
-import com.timgroup.jgravatar.GravatarDefaultImage;
-import com.timgroup.jgravatar.GravatarRating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 /**
- * 
+ *
  * @author nuboat
  */
 public class GravatarNGTest {
@@ -28,14 +25,25 @@ public class GravatarNGTest {
 	private static final Logger LOG = LoggerFactory.getLogger(GravatarNGTest.class);
 
 	@Test
-	public void testGetGravatarUrl() {
+	public void testGetGravatarUrlCaseHasAvatar() {
 		final Gravatar gravatar = new Gravatar();
 		gravatar.setSize(32);
 		gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
 		gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
 
 		final String url = gravatar.getUrl("nuboat@gmail.com");
-		LOG.debug("Gravatar" + url);
-
+		LOG.debug("Gravatar: " + url);
 	}
+
+	@Test
+	public void testGetGravatarUrlCaseHasNoAvatar() {
+		final Gravatar gravatar = new Gravatar();
+		gravatar.setSize(32);
+		gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+		gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
+
+		final String url = gravatar.getUrl("norborcity@gmail.com");
+		LOG.debug("Gravatar: " + url);
+	}
+
 }

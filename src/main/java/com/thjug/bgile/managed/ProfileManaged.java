@@ -12,18 +12,17 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.inject.Inject;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.security.Encrypter;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
+import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ManagedBean
@@ -57,6 +56,7 @@ public final class ProfileManaged extends AccountAbstractManaged {
 	public String save() {
 		try {
 			facade.editAccount(account);
+			addInfoMessage("Success", "Your profile has changed.");
 		} catch (final Exception e) {
 			addErrorMessage("Server Error", "Cannot changed account information.");
 			LOG.error(e.getMessage(), e);
@@ -69,6 +69,7 @@ public final class ProfileManaged extends AccountAbstractManaged {
 			if (password.equals(confirmpassword)) {
 				account.setPasswd(Encrypter.cipher(password));
 				facade.editAccount(account);
+				addInfoMessage("Success", "Your password has changed.");
 			} else {
 				addWarnMessage("Password Mismatch", "Verify password & confirm password not equal.");
 			}

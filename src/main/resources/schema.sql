@@ -2,6 +2,7 @@ DROP SEQUENCE IF EXISTS account_id_seq;
 DROP SEQUENCE IF EXISTS board_id_seq;
 DROP SEQUENCE IF EXISTS boardaccount_id_seq;
 DROP SEQUENCE IF EXISTS card_id_seq;
+DROP SEQUENCE IF EXISTS burndown;
 
 DROP TABLE IF EXISTS TODO;
 DROP TABLE IF EXISTS CARDORDER;
@@ -11,6 +12,8 @@ DROP TABLE IF EXISTS BOARDACCOUNT;
 DROP TABLE IF EXISTS BOARD;
 DROP TABLE IF EXISTS ACCOUNT;
 DROP TABLE IF EXISTS HISTORY;
+DROP TABLE IF EXISTS BURNDOWN;
+
 
 CREATE TABLE ACCOUNT
 (
@@ -235,7 +238,28 @@ WITH (
 ALTER TABLE history     OWNER TO bgile;
 
 
+CREATE TABLE burndown
+(
+  id serial NOT NULL,
+  board integer,
+  statusdate date,
+  estimate integer,
+  done integer,
+  CONSTRAINT burndown_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE burndown	OWNER TO bgile;
+
+
 INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
-    VALUES (1, 'A', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
+    VALUES (1, 'S', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
 			, 'Admin', '@ Thai Java User Group', 'Programmer @ THJUG', 'avatar/000000000.jpg', current_date, current_date, 1);
+
+
+INSERT INTO account(
+            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
+    VALUES (1003, 'S', 'T', 'awacharin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'awacharin.n@innobiz.co.th'
+			, 'Awacharin', 'Nachin', 'Innobiz Co', '', current_date, current_date, 1);

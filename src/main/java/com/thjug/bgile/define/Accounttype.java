@@ -18,22 +18,18 @@ package com.thjug.bgile.define;
  */
 public enum Accounttype {
 
-	A('A', "Admin"),
-	S('S', "Staff");
+	S("staff"),
+	C("corporate"),
+	A("admin");
 
-	private final char id;
 	private final String text;
 
-	private Accounttype(final char id, final String text) {
-		this.id = id;
+	private Accounttype(final String text) {
 		this.text = text;
-	}
-
-	public char getId() {
-		return id;
 	}
 
 	public String getText() {
 		return text;
 	}
+
 }

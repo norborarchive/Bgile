@@ -18,18 +18,13 @@ package com.thjug.bgile.define;
  */
 public enum Private {
 
-	T('T', "True"),
-	F('F', "False");
-	private final char id;
+	T("True"),
+	F("False");
+
 	private final String text;
 
-	private Private(final char id, final String text) {
-		this.id = id;
+	private Private(final String text) {
 		this.text = text;
-	}
-
-	public char getId() {
-		return id;
 	}
 
 	public String getText() {

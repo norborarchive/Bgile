@@ -12,13 +12,13 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.inject.Inject;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.facade.BoardFacade;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public abstract class BgileAbstractManaged extends AccountAbstractManaged {
@@ -43,7 +43,7 @@ public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 			getSession().setAttribute("boardid", boardid);
 			return boardid;
 		} else {
-			return (Integer) getSession().getAttribute("boardid");
+			return (getSession().getAttribute("boardid") != null) ? (Integer) getSession().getAttribute("boardid") : null;
 		}
 	}
 

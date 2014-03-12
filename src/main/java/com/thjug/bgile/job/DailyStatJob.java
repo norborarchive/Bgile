@@ -18,17 +18,13 @@ import javax.inject.Singleton;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author nuboat
  */
 @Singleton
 public class DailyStatJob implements Job {
-
-	private static final Logger LOG = LoggerFactory.getLogger(DailyStatJob.class);
 
 	@Inject
 	private DailyStatFacade facade;

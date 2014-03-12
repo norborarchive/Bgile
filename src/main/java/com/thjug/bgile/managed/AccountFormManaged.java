@@ -12,25 +12,23 @@
  */
 package com.thjug.bgile.managed;
 
+import com.thjug.bgile.define.Accounttype;
+import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.facade.AccountFacade;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.inject.Inject;
-import com.thjug.bgile.define.Accounttype;
-
-import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.define.Enable;
-import com.thjug.bgile.facade.AccountFacade;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ManagedBean

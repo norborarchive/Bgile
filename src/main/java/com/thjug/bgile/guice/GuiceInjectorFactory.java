@@ -22,7 +22,7 @@ import com.thjug.bgile.job.DailyStatJob;
 import org.apache.onami.scheduler.QuartzModule;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public final class GuiceInjectorFactory {
@@ -37,7 +37,7 @@ public final class GuiceInjectorFactory {
 				new QuartzModule() {
 					@Override
 					protected void schedule() {
-						scheduleJob(DailyStatJob.class).withCronExpression("01 00 * * * ?").withJobName(
+						scheduleJob(DailyStatJob.class).withCronExpression("0 1 0 * * ?").withJobName(
 								DailyStatJob.class.getSimpleName());
 					}
 				});

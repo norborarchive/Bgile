@@ -12,20 +12,28 @@
  */
 package com.thjug.bgile.managed;
 
-import java.util.Set;
-import java.util.Map;
-import java.util.List;
+import com.thjug.bgile.define.Permission;
+import com.thjug.bgile.define.Private;
+import com.thjug.bgile.define.State;
+import com.thjug.bgile.entity.Board;
+import com.thjug.bgile.entity.BoardAccount;
+import com.thjug.bgile.entity.Card;
+import com.thjug.bgile.entity.Cardorder;
+import com.thjug.bgile.facade.CardFacade;
+import com.thjug.bgile.facade.GrantFacade;
+import com.thjug.bgile.util.Constants;
+import com.thjug.bgile.util.StringUtility;
 import java.util.HashSet;
-import javax.inject.Inject;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.inject.Inject;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
@@ -33,21 +41,11 @@ import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
-
-import com.thjug.bgile.define.Permission;
-import com.thjug.bgile.define.Private;
-import com.thjug.bgile.entity.Card;
-import com.thjug.bgile.define.State;
-import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.BoardAccount;
-import com.thjug.bgile.entity.Cardorder;
-import com.thjug.bgile.facade.CardFacade;
-import com.thjug.bgile.facade.GrantFacade;
-import com.thjug.bgile.util.Constants;
-import com.thjug.bgile.util.StringUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ManagedBean

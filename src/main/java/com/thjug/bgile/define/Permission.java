@@ -13,26 +13,20 @@
 package com.thjug.bgile.define;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public enum Permission {
 
-	R('R', "Read"),
-	W('W', "Write"),
-	A('A', "Admin"),
-	O('O', "Owner");
+	R("Read"),
+	W("Write"),
+	A("Admin"),
+	O("Owner");
 
-	private final char id;
 	private final String text;
 
-	private Permission(final char id, final String text) {
-		this.id = id;
+	private Permission(final String text) {
 		this.text = text;
-	}
-
-	public char getId() {
-		return id;
 	}
 
 	public String getText() {
