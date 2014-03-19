@@ -14,15 +14,13 @@ package com.thjug.bgile.managed;
 
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.define.Private;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.GrantFacade;
-import com.thjug.bgile.util.Constants;
-import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,13 +69,12 @@ public class FboardManaged extends BgileAbstractManaged {
 
 	public String save() {
 		try {
-			board.setPrivateid(Private.T);
 			board = (board.getId() == null) ? facade.create(getPrincipal().getId(), board) : facade.edit(getPrincipal()
 					.getId(), board);
 			return redirect(DASHBOARD);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
-			addErrorMessage(e.getMessage(), Constants.EMPTY);
+			addErrorMessage("Fail,", "Cannot save board data. Please contact your admin.");
 			return null;
 		}
 	}

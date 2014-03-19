@@ -18,7 +18,7 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
  * 
  * @author @nuboat
  */
-public final class Encrypter {
+public class Encrypter {
 
 	public static String cipher(final String plain) {
 		return new Sha256Hash(plain).toHex();

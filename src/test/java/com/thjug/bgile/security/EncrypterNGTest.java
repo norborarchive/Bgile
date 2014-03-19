@@ -14,7 +14,7 @@ package com.thjug.bgile.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotEquals;
 import org.testng.annotations.Test;
 
 /**

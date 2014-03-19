@@ -36,63 +36,64 @@ public abstract class AbstractManaged implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractManaged.class);
 
-	protected final FacesContext getFacesInstance() {
+	protected FacesContext getFacesInstance() {
 		return FacesContext.getCurrentInstance();
 	}
 
-	protected final ExternalContext getExternalContext() {
+	protected ExternalContext getExternalContext() {
 		return getFacesInstance().getExternalContext();
 	}
 
-	protected final ServletContext getServletContext() {
+	protected ServletContext getServletContext() {
 		return (ServletContext) getExternalContext().getContext();
 	}
 
-	protected final String getServletContextPath() {
+	protected String getServletContextPath() {
 		return getServletContext().getContextPath();
 	}
 
-	protected final String getRequestServletPath() {
+	protected String getRequestServletPath() {
 		return getExternalContext().getRequestServletPath();
 	}
 
-	protected final HttpServletRequest getRequest() {
+	protected HttpServletRequest getRequest() {
 		return (HttpServletRequest) getExternalContext().getRequest();
 	}
 
-	protected final HttpServletResponse getResponse() {
+	protected HttpServletResponse getResponse() {
 		return (HttpServletResponse) getExternalContext().getResponse();
 	}
 
-	protected final String getRequestURL() {
+	protected String getRequestURL() {
 		return getRequest().getRequestURL().toString();
 	}
 
-	protected final HttpSession getSession() {
+	protected HttpSession getSession() {
 		return (HttpSession) getExternalContext().getSession(true);
 	}
 
-	protected final List<String> getAttribute(final String key) {
+	@SuppressWarnings("unchecked")
+	protected List<String> getAttribute(final String key) {
 		return (List<String>) getRequest().getAttribute(key);
 	}
 
-	protected final Map<String, String> getParams() {
+	protected Map<String, String> getParams() {
 		return getExternalContext().getRequestParameterMap();
 	}
 
-	protected final void setParam(final String key, final String value) {
+	protected void setParam(final String key, final String value) {
 		getParams().put(key, value);
 	}
 
-	protected final String getParam(final String key) {
+	protected String getParam(final String key) {
 		return getParams().get(key);
 	}
 
-	protected final String redirect(final String page) {
+	protected String redirect(final String page) {
 		return page + "?faces-redirect=true";
 	}
 
-	protected final void setRedirect(final String page) {
+	protected void setRedirect(final String page) {
 		try {
 			getExternalContext().redirect(getServletContext().getContextPath() + "/" + page);
 		} catch (final IOException e) {
@@ -100,29 +101,29 @@ public abstract class AbstractManaged implements Serializable {
 		}
 	}
 
-	protected final void putCookieValue(final String cookieName, final String value) {
+	protected void putCookieValue(final String cookieName, final String value) {
 		final Cookie userCookie = new Cookie(cookieName, value);
-		userCookie.setMaxAge(31536000);
+		userCookie.setMaxAge(31_536_000);
 		getResponse().addCookie(userCookie);
 	}
 
-	protected final Object getCookieValue(final String cookieName) {
+	protected Object getCookieValue(final String cookieName) {
 		return getExternalContext().getRequestCookieMap().get(cookieName);
 	}
 
-	protected final String getViewId() {
+	protected String getViewId() {
 		return getFacesInstance().getViewRoot().getViewId();
 	}
 
-	protected final void addWarnMessage(final String topic, final String message) {
+	protected void addWarnMessage(final String topic, final String message) {
 		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));
 	}
 
-	protected final void addInfoMessage(final String topic, final String message) {
+	protected void addInfoMessage(final String topic, final String message) {
 		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, topic, message));
 	}
 
-	protected final void addErrorMessage(final String topic, final String message) {
+	protected void addErrorMessage(final String topic, final String message) {
 		getFacesInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, topic, message));
 	}
 
@@ -135,15 +136,15 @@ public abstract class AbstractManaged implements Serializable {
 	 * @param message
 	 *            regular message
 	 */
-	protected final void addWarnMessage(final String formid, final String topic, final String message) {
+	protected void addWarnMessage(final String formid, final String topic, final String message) {
 		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_WARN, topic, message));
 	}
 
-	protected final void addInfoMessage(final String formid, final String topic, final String message) {
+	protected void addInfoMessage(final String formid, final String topic, final String message) {
 		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_INFO, topic, message));
 	}
 
-	protected final void addErrorMessage(final String formid, final String topic, final String message) {
+	protected void addErrorMessage(final String formid, final String topic, final String message) {
 		getFacesInstance().addMessage(formid, new FacesMessage(FacesMessage.SEVERITY_ERROR, topic, message));
 	}
 

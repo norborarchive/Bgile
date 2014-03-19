@@ -1,12 +1,12 @@
-Bgile
+BgileBoard
 ===================
 Opensource Kanban Board from Thailand Programmer :)
 
 
 Software Library
 -----
- 1. Java SE 7
- -  Java EE 6
+ 1. Java SE 8
+ -  Java EE 7
  -  Guice
  -  JSF 2
  -  JPA

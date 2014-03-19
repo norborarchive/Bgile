@@ -18,7 +18,7 @@ import java.util.Locale;
  * 
  * @author @nuboat
  */
-public final class OsUtility {
+public class OsUtility {
 
 	private static final String OS_NAME;
 	private static final boolean IS_WINDOW;

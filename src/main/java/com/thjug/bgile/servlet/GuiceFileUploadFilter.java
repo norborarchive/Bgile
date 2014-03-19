@@ -12,9 +12,8 @@
  */
 package com.thjug.bgile.servlet;
 
-import org.primefaces.webapp.filter.FileUploadFilter;
-
 import com.google.inject.Singleton;
+import org.primefaces.webapp.filter.FileUploadFilter;
 
 /**
  * Made Primefaces FileUploadFilter to Singleton.

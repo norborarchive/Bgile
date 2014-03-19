@@ -86,10 +86,10 @@ public class AuthenSession extends Time implements Serializable {
 			return false;
 		}
 		final AuthenSession other = (AuthenSession) object;
-		if (!this.id.equals(other.id)) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

@@ -91,16 +91,14 @@ public class Todo extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not
-		// set
 		if (!(object instanceof Todo)) {
 			return false;
 		}
 		final Todo other = (Todo) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

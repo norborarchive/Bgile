@@ -42,7 +42,7 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
  *
  * @author @nuboat
  */
-public final class ShiroWebModuleImpl extends ShiroWebModule {
+public class ShiroWebModuleImpl extends ShiroWebModule {
 
 	public ShiroWebModuleImpl(final ServletContext servletContext) {
 		super(servletContext);
@@ -81,7 +81,7 @@ public final class ShiroWebModuleImpl extends ShiroWebModule {
 		}
 	}
 
-	protected LinkedBindingBuilder<AuthenticationListener> bindAuthenticationListener() {
+	LinkedBindingBuilder<AuthenticationListener> bindAuthenticationListener() {
 		final Multibinder<AuthenticationListener> multibinder = Multibinder.newSetBinder(binder(),
 				AuthenticationListener.class);
 		return multibinder.addBinding();

@@ -14,7 +14,7 @@ import javax.el.ELContext;
 import javax.el.ELResolver;
 
 @SuppressWarnings("unchecked")
-public final class GuiceResolver extends ELResolver {
+public class GuiceResolver extends ELResolver {
 
 	// We only need to see the currently processed Objects in our Thread, that
 	// prevents multithread issues without synchronization
@@ -116,10 +116,8 @@ public final class GuiceResolver extends ELResolver {
 	 * @return
 	 */
 	private boolean checkIfObjectIsContained(final Object object, final Collection collection) {
-		for (final Object curObject : collection) {
-			if (object == curObject) {
-				return true;
-			}
+		if (collection.stream().anyMatch((curObject) -> (object == curObject))) {
+			return true;
 		}
 		return false;
 	}

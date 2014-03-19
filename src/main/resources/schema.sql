@@ -257,9 +257,3 @@ INSERT INTO account(
             id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
     VALUES (1, 'S', 'T', 'admin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'nuboat@gmail.com'
 			, 'Admin', '@ Thai Java User Group', 'Programmer @ THJUG', 'avatar/000000000.jpg', current_date, current_date, 1);
-
-
-INSERT INTO account(
-            id, typeid, enableid, username, passwd, email, firstname, lastname, bio, avatarpath, created, updated, updateby)
-    VALUES (1003, 'S', 'T', 'awacharin',  '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'awacharin.n@innobiz.co.th'
-			, 'Awacharin', 'Nachin', 'Innobiz Co', '', current_date, current_date, 1);

@@ -22,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @SessionScoped
 @ManagedBean(name = "account")
-public final class AccountManaged extends AccountAbstractManaged {
+public class AccountManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 

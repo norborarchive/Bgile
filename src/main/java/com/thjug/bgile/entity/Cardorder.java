@@ -107,16 +107,14 @@ public class Cardorder extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not
-		// set
 		if (!(object instanceof Cardorder)) {
 			return false;
 		}
 		final Cardorder other = (Cardorder) object;
-		if (!this.id.equals(other.id)) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

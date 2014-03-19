@@ -18,7 +18,7 @@ import java.io.File;
  * 
  * @author @nuboat
  */
-public final class FileUtility {
+public class FileUtility {
 
 	public static File getFile(final String[] fullPath) {
 		return new File(buildFullPath(fullPath));

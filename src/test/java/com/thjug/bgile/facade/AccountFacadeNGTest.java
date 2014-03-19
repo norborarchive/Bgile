@@ -12,12 +12,13 @@
  */
 package com.thjug.bgile.facade;
 
-import static org.testng.Assert.*;
-import org.testng.annotations.Test;
-import com.thjug.bgile.entity.Account;
-import com.thjug.bgile.security.Encrypter;
 import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.entity.Account;
+import com.thjug.bgile.security.Encrypter;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import org.testng.annotations.Test;
 
 /**
  * 

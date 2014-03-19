@@ -12,16 +12,16 @@
  */
 package com.thjug.bgile.guice;
 
-import javax.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
+import javax.inject.Inject;
 
 /**
  * 
  * @author @nuboat
  */
 @Singleton
-public final class JPAInitializer {
+public class JPAInitializer {
 
 	@Inject
 	public JPAInitializer(final PersistService service) {

@@ -5,7 +5,7 @@ import com.sun.faces.spi.InjectionProvider;
 import com.sun.faces.spi.InjectionProviderException;
 import com.sun.faces.vendor.WebContainerInjectionProvider;
 
-public final class GuiceInjectionProvider implements InjectionProvider {
+public class GuiceInjectionProvider implements InjectionProvider {
 
 	/**
 	 * default injector provided by the web container.

@@ -6,7 +6,9 @@ package com.thjug.bgile.facade;
 
 import com.thjug.bgile.entity.Card;
 import java.util.Map;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.fail;
 import org.testng.annotations.Test;
 
 /**

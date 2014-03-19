@@ -15,14 +15,14 @@ package com.thjug.bgile.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
 /**
  * 
  * @author @nuboat
  */
-public final class ConstantsNGTest {
+public class ConstantsNGTest {
 
 	@Test
 	public void testPrivateConstructor() throws NoSuchMethodException, InstantiationException, IllegalAccessException,

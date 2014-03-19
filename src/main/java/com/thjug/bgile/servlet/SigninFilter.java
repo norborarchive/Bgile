@@ -12,18 +12,15 @@
  */
 package com.thjug.bgile.servlet;
 
+import com.google.inject.Singleton;
 import java.io.IOException;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-
-import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @Singleton
-public final class SigninFilter extends DefaultFilter {
+public class SigninFilter extends DefaultFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SigninFilter.class);
 

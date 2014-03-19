@@ -13,10 +13,8 @@ import com.thjug.bgile.entity.BoardAccount;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import static org.testng.Assert.assertNotEquals;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
 
 /**
  * 
@@ -32,9 +30,9 @@ public class BoardAccountFacadeNGTest extends AbstractFacadeNGTest {
 		final BoardAccountFacade instance = injector.getInstance(BoardAccountFacade.class);
 		final List<BoardAccount> result = instance.findAllByAccount(account);
 
-		for (final BoardAccount b : result) {
+		result.stream().forEach((b) -> {
 			assertNotEquals(b.getBoard().getStatusid(), Status.D);
-		}
+		});
 	}
 
 }

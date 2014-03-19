@@ -12,13 +12,12 @@
  */
 package com.thjug.bgile.facade;
 
-import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
-
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.AuthenSession;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AuthenSessionService;
+import javax.inject.Inject;
 
 /**
  * 

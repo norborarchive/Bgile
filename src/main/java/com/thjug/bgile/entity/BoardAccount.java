@@ -12,7 +12,9 @@
  */
 package com.thjug.bgile.entity;
 
+import com.thjug.bgile.define.Permission;
 import java.io.Serializable;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,14 +25,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Cacheable;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
-import com.thjug.bgile.define.Permission;
-
 /**
- * 
+ *
  * @author @nuboat
  */
 @Entity
@@ -114,16 +113,14 @@ public class BoardAccount extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not
-		// set
 		if (!(object instanceof BoardAccount)) {
 			return false;
 		}
 		final BoardAccount other = (BoardAccount) object;
-		if (this.id.equals(other.id)) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

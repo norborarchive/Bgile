@@ -13,7 +13,6 @@
 package com.thjug.bgile.security;
 
 import java.util.Collection;
-
 import org.apache.shiro.authc.AuthenticationListener;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.realm.Realm;

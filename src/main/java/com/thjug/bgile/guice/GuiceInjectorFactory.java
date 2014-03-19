@@ -12,20 +12,19 @@
  */
 package com.thjug.bgile.guice;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.thjug.bgile.job.DailyStatJob;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import org.apache.onami.scheduler.QuartzModule;
 
 /**
  *
  * @author @nuboat
  */
-public final class GuiceInjectorFactory {
+public class GuiceInjectorFactory {
 
 	private static Injector injector;
 

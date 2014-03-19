@@ -12,17 +12,16 @@
  */
 package com.thjug.bgile.service;
 
-import java.util.List;
-
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.AuthenSession;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * 
  * @author @nuboat
  */
-public final class AuthenSessionService extends AbstractService<AuthenSession> {
+public class AuthenSessionService extends AbstractService<AuthenSession> {
 
 	public AuthenSessionService() {
 		super(AuthenSession.class);

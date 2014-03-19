@@ -12,16 +12,16 @@
  */
 package com.thjug.bgile.service;
 
-import java.util.List;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
-import com.thjug.bgile.define.Status;
+import java.util.List;
 
 /**
  * 
  * @author @nuboat
  */
-public final class CardService extends AbstractService<Card> {
+public class CardService extends AbstractService<Card> {
 
 	public CardService() {
 		super(Card.class);

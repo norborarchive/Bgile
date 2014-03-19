@@ -7,8 +7,8 @@
  */
 package com.thjug.bgile.facade;
 
+import com.thjug.bgile.interceptor.Logging;
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,7 +16,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import com.thjug.bgile.interceptor.Logging;
 
 /**
  * 
@@ -37,6 +36,7 @@ public class EmailFacade {
 		props.put("mail.smtp.port", "587");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}

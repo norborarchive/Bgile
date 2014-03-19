@@ -12,30 +12,24 @@
  */
 package com.thjug.bgile.facade;
 
-import java.util.List;
-import java.util.LinkedList;
-
-import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
-import com.thjug.bgile.entity.BoardAccount;
-import com.thjug.bgile.define.Enable;
-import com.thjug.bgile.define.Permission;
-import com.thjug.bgile.define.Private;
-import com.thjug.bgile.define.Status;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
+import java.util.LinkedList;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * 
  * @author @nuboat
  */
 public class BoardFacade {
-
-	private static final int DEFAULT_MAXCARD = 64;
 
 	@Inject
 	private BoardService service;
@@ -50,18 +44,8 @@ public class BoardFacade {
 	@Transactional
 	public Board create(final Integer accountid, final Board board) {
 		board.setUpdateby(accountid);
-		board.setMaxcard(DEFAULT_MAXCARD);
-		board.setEnableid(Enable.T);
-		board.setStatusid(Status.L);
-		board.setPrivateid(Private.T);
-		service.create(board);
-
-		final BoardAccount ba = new BoardAccount();
-		ba.setBoard(board);
-		ba.setAccount(accountService.find(accountid));
-		ba.setPermissionid(Permission.O);
-		ba.setUpdateby(accountid);
-		baService.create(ba);
+		service.newBoard(board);
+		baService.createBoardAccountOwner(accountid, board.getUpdateby(), board);
 		accountService.clearCache();
 		return board;
 	}
@@ -99,11 +83,9 @@ public class BoardFacade {
 		final Account account = accountService.find(accountid);
 
 		final List<Board> boards = new LinkedList<>();
-		for (final BoardAccount ba : account.getBoardaccountList()) {
-			if (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T) {
-				boards.add(ba.getBoard());
-			}
-		}
+		account.getBoardaccountList().stream().filter((ba) -> (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T)).forEach((ba) -> {
+			boards.add(ba.getBoard());
+		});
 
 		return boards;
 	}

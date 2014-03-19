@@ -12,14 +12,12 @@
  */
 package com.thjug.bgile.facade;
 
-import java.util.List;
-
-import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
-
-import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.service.AccountService;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * 

@@ -12,21 +12,19 @@
  */
 package com.thjug.bgile.guice;
 
+import com.google.inject.servlet.ServletModule;
 import com.thjug.bgile.servlet.EncodingFilter;
 import com.thjug.bgile.servlet.GuiceFileUploadFilter;
-
-import com.google.inject.servlet.ServletModule;
 import com.thjug.bgile.servlet.RememberFilter;
 import com.thjug.bgile.servlet.SigninFilter;
 import com.thjug.bgile.servlet.URLFilter;
-
 import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 /**
  * 
  * @author @nuboat
  */
-public final class GuiceServletModule extends ServletModule {
+public class GuiceServletModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {

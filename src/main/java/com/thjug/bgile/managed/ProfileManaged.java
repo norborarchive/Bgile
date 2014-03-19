@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public final class ProfileManaged extends AccountAbstractManaged {
+public class ProfileManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(ProfileManaged.class);

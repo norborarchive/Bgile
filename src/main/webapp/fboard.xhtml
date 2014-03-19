@@ -14,7 +14,7 @@
 			</div>
 		</ui:define>
         <ui:define name="content">
-			<p:messages id="msgs" showDetail="true" showSummary="false" closable="true" globalOnly="true" />
+			<p:messages id="msgs" showDetail="true" showSummary="true" closable="true" globalOnly="true" />
 			<div class="container">
 				<div class="span12">
 					<div class="row">
@@ -22,7 +22,7 @@
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pushpin" ></i></span>
 								<p:inputText id="boardid" style="width: 480px;" disabled="true"
-											 value="#{fboardManaged.board.id}"/>
+											 value="#{fboard.board.id}"/>
 								<p:watermark for="boardid" value="BOARD: " ></p:watermark>
 							</div>
 						</div>
@@ -33,7 +33,7 @@
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pencil" ></i></span>
 								<p:inputText id="boardname" style="width: 480px;"
-											 value="#{fboardManaged.board.boardname}" required="true"
+											 value="#{fboard.board.boardname}" required="true"
 											 requiredMessage="Mandatory Field." >
 								</p:inputText>
 								<p:watermark for="boardname" value="ชื่อกระดาน" ></p:watermark>
@@ -49,7 +49,7 @@
 						<div class="controls span6">
 							<div style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<p:inputTextarea id="description" style="width: 510px;" rows="6"
-												 value="#{fboardManaged.board.description}"/>
+												 value="#{fboard.board.description}"/>
 								<p:watermark for="description" value="รายละเอียด" />
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 								<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
 									<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 													 styleClass="btn btn-mini btn-danger" update="msgs"
-													 rendered="#{!fboardManaged.newBoard}"
+													 rendered="#{!fboard.newBoard}"
 													 onclick="confirmation.show();" />
 								</div>
 							</div>
@@ -69,7 +69,7 @@
 								<div style="float:right;">
 									<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
 													 styleClass="btn btn-mini btn-success" update="msgs"
-													 action="#{fboardManaged.save}"/>
+													 action="#{fboard.save}"/>
 								</div>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 							 header="Confirm Dialog" severity="alert" widgetVar="confirmation">
 
 				<p:commandButton id="confirm" value="Yes Sure" oncomplete="confirmation.hide()"
-								 action="#{fboardManaged.remove}" />
+								 action="#{fboard.remove}" />
 
 				<p:commandButton id="decline" value="Not Yet" onclick="confirmation.hide();" type="button" />
 

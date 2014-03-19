@@ -18,7 +18,6 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @Deprecated
-public final class AuthenticationListener implements PhaseListener {
+public class AuthenticationListener implements PhaseListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationListener.class);
 

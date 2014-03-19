@@ -12,15 +12,12 @@
  */
 package com.thjug.bgile.facade;
 
-import java.util.List;
-
-import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.thjug.bgile.define.State;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
-import com.thjug.bgile.define.State;
-import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
@@ -29,8 +26,9 @@ import com.thjug.bgile.service.CardService;
 import com.thjug.bgile.service.CardorderService;
 import com.thjug.bgile.util.Constants;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+import javax.inject.Inject;
 import org.primefaces.model.DashboardColumn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,9 +98,9 @@ public class CardFacade {
 			List<Card> cardList = service.findCardList(board);
 
 			final Map<Integer, Card> cardMap = new HashMap<>();
-			for (final Card card : cardList) {
+			cardList.stream().forEach((card) -> {
 				cardMap.put(card.getId(), card);
-			}
+			});
 
 			return cardMap;
 		} catch (final Exception e) {
@@ -128,7 +126,7 @@ public class CardFacade {
 		card.setOwner((tostate == State.PLAN.getId()) ? null : new Account(accountid));
 		service.update(card);
 
-		if (fromstate.intValue() == tostate.intValue()) {
+		if (fromstate == tostate) {
 			final String orderString = genOrderString(fromstate, columns);
 			updateOrInsert(accountid, board, orderString, fromstate, orders);
 
@@ -167,9 +165,9 @@ public class CardFacade {
 	private String genOrderString(final Integer state, final List<DashboardColumn> columns) {
 		final DashboardColumn columnstart = columns.get(state);
 		final StringBuilder result = new StringBuilder();
-		for (final String s : columnstart.getWidgets()) {
+		columnstart.getWidgets().stream().forEach((s) -> {
 			result.append(s.replace("ID", Constants.EMPTY)).append(Constants.COMMA);
-		}
+		});
 
 		return result.toString();
 	}

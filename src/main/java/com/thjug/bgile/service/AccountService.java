@@ -19,7 +19,7 @@ import java.util.List;
  * 
  * @author @nuboat
  */
-public final class AccountService extends AbstractService<Account> {
+public class AccountService extends AbstractService<Account> {
 
 	private static final int OFFSET = 0;
 	private static final int LENGTH = 12;

@@ -72,6 +72,9 @@ public final class HomeManaged extends BgileAbstractManaged {
 		final Integer boardid = Integer.valueOf(1);
 
 		board = getBoard(boardid);
+		if (board == null) {
+			return;
+		}
 
 		cardMap = cardFacade.findAllByBoardId(boardid);
 		cardorderList = cardFacade.findCardorder(board);

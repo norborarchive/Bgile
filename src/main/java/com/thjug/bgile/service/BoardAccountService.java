@@ -4,24 +4,34 @@
  */
 package com.thjug.bgile.service;
 
-import java.util.List;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
+import java.util.List;
 
 /**
- * 
+ *
  * @author @nuboat
  */
-public final class BoardAccountService extends AbstractService<BoardAccount> {
+public class BoardAccountService extends AbstractService<BoardAccount> {
 
 	public BoardAccountService() {
 		super(BoardAccount.class);
 	}
 
-	public BoardAccount createBoardAccount(final Integer updateby, final Account account, final Board board) {
+	public BoardAccount createBoardAccountOwner(final Integer updateby, final Integer accountid, final Board board) {
+		final BoardAccount boardAccount = new BoardAccount();
+		boardAccount.setAccount(new Account(accountid));
+		boardAccount.setBoard(board);
+		boardAccount.setPermissionid(Permission.O);
+		boardAccount.setUpdateby(updateby);
+
+		return create(boardAccount);
+	}
+
+	public BoardAccount addAccountToBoard(final Integer updateby, final Account account, final Board board) {
 
 		final BoardAccount boardAccount = new BoardAccount();
 		boardAccount.setAccount(account);

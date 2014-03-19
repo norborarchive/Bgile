@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ * History tell who did what on which time.
  * @author @nuboat
  */
 @Entity
@@ -39,14 +39,15 @@ public class History extends Time implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_seq_gen")
 	private Integer id;
 
-	private Integer accountid;
-
-	private Integer refid;
-
-	private Integer actionid;
+	private Integer boardid;
+	
+	private Integer cardid;
 
 	@Size(max = Columnsize.MAXTEXT)
-	private String reason;
+	private String olddetail;
+
+	@Size(max = Columnsize.MAXTEXT)
+	private String newdetail;
 
 	public History() {
 	}
@@ -63,36 +64,36 @@ public class History extends Time implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getAccountid() {
-		return accountid;
+	public Integer getBoardid() {
+		return boardid;
 	}
 
-	public void setAccountid(final Integer accountid) {
-		this.accountid = accountid;
+	public void setBoardid(final Integer boardid) {
+		this.boardid = boardid;
 	}
 
-	public Integer getRefid() {
-		return refid;
+	public Integer getCardid() {
+		return cardid;
 	}
 
-	public void setRefid(final Integer refid) {
-		this.refid = refid;
+	public void setCardid(final Integer cardid) {
+		this.cardid = cardid;
 	}
 
-	public Integer getActionid() {
-		return actionid;
+	public String getOlddetail() {
+		return olddetail;
 	}
 
-	public void setActionid(final Integer actionid) {
-		this.actionid = actionid;
+	public void setOlddetail(final String olddetail) {
+		this.olddetail = olddetail;
 	}
 
-	public String getReason() {
-		return reason;
+	public String getNewdetail() {
+		return newdetail;
 	}
 
-	public void setReason(final String reason) {
-		this.reason = reason;
+	public void setNewdetail(final String newdetail) {
+		this.newdetail = newdetail;
 	}
 
 	@Override
@@ -102,16 +103,14 @@ public class History extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not
-		// set
 		if (!(object instanceof History)) {
 			return false;
 		}
 		final History other = (History) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

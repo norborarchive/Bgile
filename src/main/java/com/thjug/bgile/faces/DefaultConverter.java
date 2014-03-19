@@ -12,21 +12,19 @@
  */
 package com.thjug.bgile.faces;
 
+import com.thjug.bgile.entity.Converterable;
 import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-import com.thjug.bgile.entity.Converterable;
 
 /**
  * 
  * @author @nuboat
  */
 @FacesConverter("DefaultConverter")
-public final class DefaultConverter implements Converter {
+public class DefaultConverter implements Converter {
 
 	private static final String LIST_ATTRIBUTE = "listArrtibute";
 

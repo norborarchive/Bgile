@@ -19,6 +19,7 @@ import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.StringUtility;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -93,7 +94,7 @@ public class GrantManaged extends BgileAbstractManaged {
 		if (StringUtility.isNotEmpty(accountname)) {
 			accounts = facade.containsKeyword(accountname);
 		}
-		return accounts;
+		return Collections.unmodifiableList(accounts);
 	}
 
 	public void handleSelect(final SelectEvent event) {
@@ -124,7 +125,7 @@ public class GrantManaged extends BgileAbstractManaged {
 	}
 
 	public List<Account> getAccounts() {
-		return accounts;
+		return Collections.unmodifiableList(accounts);
 	}
 
 	public void setAccounts(final List<Account> accounts) {
@@ -132,7 +133,7 @@ public class GrantManaged extends BgileAbstractManaged {
 	}
 
 	public List<BoardAccount> getGrants() {
-		return grants;
+		return Collections.unmodifiableList(grants);
 	}
 
 	public void setGrants(final List<BoardAccount> grants) {

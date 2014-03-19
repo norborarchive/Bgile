@@ -20,7 +20,7 @@ import java.util.List;
  * 
  * @author @nuboat
  */
-public final class CardorderService extends AbstractService<Cardorder> {
+public class CardorderService extends AbstractService<Cardorder> {
 
 	public CardorderService() {
 		super(Cardorder.class);

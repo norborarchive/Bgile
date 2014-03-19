@@ -17,7 +17,7 @@ package com.thjug.bgile.define;
  * @author @nuboat
  *
  */
-public final class Columnsize {
+public class Columnsize {
 
 	public static final int S1 = 1;
 	public static final int S32 = 32;

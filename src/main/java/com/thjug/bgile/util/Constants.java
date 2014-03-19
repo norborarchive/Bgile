@@ -16,7 +16,7 @@ package com.thjug.bgile.util;
  * 
  * @author @nuboat
  */
-public final class Constants {
+public class Constants {
 
 	public static final String EMPTY = "";
 

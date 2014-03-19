@@ -12,15 +12,15 @@
  */
 package com.thjug.bgile.service;
 
-import java.util.List;
-import java.util.Calendar;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import javax.inject.Inject;
 import com.google.inject.Provider;
 import com.thjug.bgile.entity.Timeable;
+import java.util.Calendar;
+import java.util.List;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 /**
  * 
@@ -39,8 +39,8 @@ public abstract class AbstractService<T> {
 
 	public T find(final Object id) {
 		try {
-			return getEntityManager().getReference(entityClass, id);
-		} catch (final NoResultException e) {
+			return getEntityManager().find(entityClass, id);
+		} catch (final EntityNotFoundException e) {
 			return null;
 		}
 	}

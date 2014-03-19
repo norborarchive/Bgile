@@ -34,8 +34,8 @@
 							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
 								<span class="add-on"><i class="icon-pencil" ></i></span>
 								<p:inputText id="story" style="width: 480px;" maxlength="128"
-											 value="#{fCardManaged.card.story}" required="true"
-											 requiredMessage="Mandatory Field." >
+											 value="#{fCardManaged.card.story}"
+											 requiredMessage="Mandatory Field." required="true">
 								</p:inputText>
 								<p:watermark for="story" value="รายละเอียดย่อ" />
 							</div>
@@ -52,7 +52,8 @@
 								<span class="add-on"><i class="icon-time" ></i></span>
 								<p:inputText id="estimate" style="width: 480px;" maxlength="2"
 											 value="#{fCardManaged.card.estimate}"
-											 converterMessage="Please enter digits only." >
+											 converterMessage="Please enter digits only." 
+											 requiredMessage="Mandatory Field." required="true">
 									<f:validateLength minimum="1" maximum="2" />
 								</p:inputText>
 								<p:watermark for="estimate" value="ระยะเวลาที่ต้องการใช้ (ชั่วโมง)" />

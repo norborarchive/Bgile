@@ -12,25 +12,22 @@
  */
 package com.thjug.bgile.managed;
 
+import com.sun.faces.application.resource.ResourceHandlerImpl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 import org.apache.commons.io.IOUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sun.faces.application.resource.ResourceHandlerImpl;
 
 /**
  * 

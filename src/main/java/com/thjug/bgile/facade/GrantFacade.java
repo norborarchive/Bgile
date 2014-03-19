@@ -12,17 +12,15 @@
  */
 package com.thjug.bgile.facade;
 
-import java.util.List;
-
-import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.define.Permission;
-
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.BoardAccountService;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * 
@@ -44,7 +42,7 @@ public class GrantFacade {
 	@Logging
 	@Transactional
 	public BoardAccount addAccountToBoard(final Integer updateby, final Account account, final Board board) {
-		return service.createBoardAccount(updateby, account, board);
+		return service.addAccountToBoard(updateby, account, board);
 	}
 
 	@Logging

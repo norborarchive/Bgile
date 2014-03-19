@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @Path("/hello")
-public final class EchoService {
+public class EchoService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EchoService.class);
 	private static final int MAX_MSG_LEN = 24;

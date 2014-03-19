@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author @nuboat
  */
-public final class LoggingInterceptor implements MethodInterceptor {
+public class LoggingInterceptor implements MethodInterceptor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingInterceptor.class);
 

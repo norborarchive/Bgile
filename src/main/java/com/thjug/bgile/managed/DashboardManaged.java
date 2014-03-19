@@ -15,15 +15,15 @@ package com.thjug.bgile.managed;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.BoardAccountFacade;
 import java.util.List;
-import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ManagedBean

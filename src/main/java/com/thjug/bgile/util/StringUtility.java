@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * @author @nuboat
  */
-public final class StringUtility {
+public class StringUtility {
 
 	private static final int BASED = 1_024;
 

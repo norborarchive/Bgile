@@ -12,18 +12,18 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.inject.Inject;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
-import javax.faces.bean.ManagedBean;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.facade.CardFacade;
 import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +76,7 @@ public class FCardManaged extends AccountAbstractManaged {
 			card = (card.getId() == null) ? facade.create(getPrincipal().getId(), boardid, card) : facade.edit(
 					getPrincipal().getId(), card);
 			return redirect("board");
-		} catch (final Exception e) {
+		} catch (final NumberFormatException e) {
 			LOG.error(e.getMessage(), e);
 			addWarnMessage(e.getMessage(), Constants.EMPTY);
 		}

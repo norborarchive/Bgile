@@ -14,6 +14,7 @@ package com.thjug.bgile.entity;
 
 import com.thjug.bgile.define.Status;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -137,7 +138,7 @@ public class Card extends Time implements Serializable {
 	}
 
 	public List<Todo> getTodoList() {
-		return todoList;
+		return Collections.unmodifiableList(todoList);
 	}
 
 	public void setTodoList(final List<Todo> todoList) {
@@ -167,16 +168,14 @@ public class Card extends Time implements Serializable {
 
 	@Override
 	public boolean equals(final Object object) {
-		// Warning - this method won't work in the case the id fields are not
-		// set
 		if (!(object instanceof Card)) {
 			return false;
 		}
 		final Card other = (Card) object;
-		if (!this.id.equals(other.id)) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

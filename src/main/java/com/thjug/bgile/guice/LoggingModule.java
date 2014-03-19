@@ -14,14 +14,14 @@ package com.thjug.bgile.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
-import com.thjug.bgile.interceptor.LoggingInterceptor;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.interceptor.LoggingInterceptor;
 
 /**
  * 
  * @author @nuboat
  */
-public final class LoggingModule extends AbstractModule {
+public class LoggingModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

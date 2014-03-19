@@ -12,9 +12,9 @@
  */
 package com.thjug.bgile.entity;
 
-import com.thjug.bgile.define.Status;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Private;
+import com.thjug.bgile.define.Status;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
@@ -36,7 +36,7 @@ import org.eclipse.persistence.annotations.Cache;
  */
 @Entity
 @Cacheable
-@Cache(expiry = 300000)
+@Cache(expiry = 300_000)
 public class Board extends Time implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -141,7 +141,7 @@ public class Board extends Time implements Serializable {
 		return maxcard;
 	}
 
-	public void setMaxcard(Integer maxcard) {
+	public void setMaxcard(final Integer maxcard) {
 		this.maxcard = maxcard;
 	}
 
@@ -155,12 +155,11 @@ public class Board extends Time implements Serializable {
 		if (!(object instanceof Board)) {
 			return false;
 		}
-
 		final Board other = (Board) object;
-		if (!this.id.equals(other.id)) {
+		if (id == null) {
 			return false;
 		}
-		return true;
+		return id.equals(other.id);
 	}
 
 	@Override

@@ -12,16 +12,29 @@
  */
 package com.thjug.bgile.service;
 
+import com.thjug.bgile.define.Enable;
+import com.thjug.bgile.define.Private;
+import com.thjug.bgile.define.Status;
 import com.thjug.bgile.entity.Board;
 
 /**
  * 
  * @author @nuboat
  */
-public final class BoardService extends AbstractService<Board> {
-
+public class BoardService extends AbstractService<Board> {
+	
+	private static final int DEFAULT_MAXCARD = 64;
+		
 	public BoardService() {
 		super(Board.class);
+	}
+	
+	public void newBoard(final Board board) {
+		board.setMaxcard(DEFAULT_MAXCARD);
+		board.setEnableid(Enable.T);
+		board.setStatusid(Status.L);
+		board.setPrivateid(Private.T);
+		create(board);
 	}
 
 }
