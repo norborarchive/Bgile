@@ -15,7 +15,6 @@ package com.thjug.bgile.entity;
 import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.define.Enable;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
@@ -36,7 +35,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @Entity
@@ -207,7 +206,7 @@ public class Account extends Time implements Serializable, Converterable {
 	}
 
 	public List<BoardAccount> getBoardaccountList() {
-		return Collections.unmodifiableList(boardaccountList);
+		return boardaccountList;
 	}
 
 	public void setBoardaccountList(final List<BoardAccount> boardaccountList) {
@@ -215,7 +214,7 @@ public class Account extends Time implements Serializable, Converterable {
 	}
 
 	public List<Card> getCardList() {
-		return Collections.unmodifiableList(cardList);
+		return cardList;
 	}
 
 	public void setCardList(final List<Card> cardList) {

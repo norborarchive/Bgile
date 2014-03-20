@@ -26,7 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public class BoardFacade {
@@ -86,6 +86,12 @@ public class BoardFacade {
 		account.getBoardaccountList().stream().filter((ba) -> (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T)).forEach((ba) -> {
 			boards.add(ba.getBoard());
 		});
+//		for (final BoardAccount ba : account.getBoardaccountList()) {
+//			if (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T) {
+//				boards.add(ba.getBoard());
+//			}
+//		}
+		
 
 		return boards;
 	}

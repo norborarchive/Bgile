@@ -14,7 +14,6 @@ package com.thjug.bgile.entity;
 
 import com.thjug.bgile.define.Status;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,7 +33,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @Entity
@@ -138,7 +137,7 @@ public class Card extends Time implements Serializable {
 	}
 
 	public List<Todo> getTodoList() {
-		return Collections.unmodifiableList(todoList);
+		return todoList;
 	}
 
 	public void setTodoList(final List<Todo> todoList) {

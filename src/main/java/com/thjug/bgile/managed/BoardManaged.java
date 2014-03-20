@@ -161,6 +161,14 @@ public class BoardManaged extends BgileAbstractManaged {
 			}
 		}
 
+//		for (final Integer id : cardMap.keySet()) {
+//			if (addedList.contains(id)) {
+//				continue;
+//			}
+//
+//			final Card card = cardMap.get(id);
+//			addToDashboard(model, card);
+//		}
 		cardMap.keySet().stream().filter((id) -> !(addedList.contains(id))).map((id) -> cardMap.get(id)).forEach((card) -> {
 			addToDashboard(model, card);
 		});

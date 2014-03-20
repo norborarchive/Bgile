@@ -82,7 +82,7 @@ public class GuiceResolver extends ELResolver {
 	 * This method will search for an object in a Weak List. If there are any
 	 * WeakReferences on the way that were removed by the garbage collection we
 	 * will remove them from this list
-	 * 
+	 *
 	 * @param object
 	 * @param list
 	 * @return
@@ -110,22 +110,19 @@ public class GuiceResolver extends ELResolver {
 	/**
 	 * checks if an object is contained in a collection (really the same object
 	 * '==' not equals)
-	 * 
+	 *
 	 * @param object
 	 * @param collection
 	 * @return
 	 */
 	private boolean checkIfObjectIsContained(final Object object, final Collection collection) {
-		if (collection.stream().anyMatch((curObject) -> (object == curObject))) {
-			return true;
-		}
-		return false;
+		return collection.stream().anyMatch((curObject) -> (object == curObject));
 	}
 
 	/**
 	 * removes an object from a list. really removes the given instance, not an
 	 * other object that fits equals
-	 * 
+	 *
 	 * @param object
 	 * @param list
 	 */
