@@ -26,14 +26,14 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
+@ManagedBean(name = "dashboard")
 @ViewScoped
 public class DashboardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(DashboardManaged.class);
 
-	private List<BoardAccount> boards;
+	private List<BoardAccount> boardaccounts;
 
 	@Inject
 	private transient BoardAccountFacade facade;
@@ -41,24 +41,23 @@ public class DashboardManaged extends AccountAbstractManaged {
 	@PostConstruct
 	public void initial() {
 		try {
-			boards = facade.findAllByAccount(getPrincipal());
+			boardaccounts = facade.findAllByAccount(getPrincipal());
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage("Cannot load Board data of Account {} ", getPrincipal().getUsername());
 		}
-
 	}
 
 	public String linkToList() {
 		return "dashboard";
 	}
 
-	public List<BoardAccount> getBoards() {
-		return boards;
+	public List<BoardAccount> getBoardaccounts() {
+		return boardaccounts;
 	}
 
-	public void setBoards(final List<BoardAccount> boards) {
-		this.boards = boards;
+	public void setBoardaccounts(final List<BoardAccount> boardaccounts) {
+		this.boardaccounts = boardaccounts;
 	}
 
 }

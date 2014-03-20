@@ -27,7 +27,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<ui:repeat var="b" value="#{dashboardManaged.boards}">
+					<ui:repeat var="b" value="#{dashboard.boardaccounts}">
 						<tr>
 							<td></td>
 							<td>#{b.board.id}</td>
@@ -35,13 +35,13 @@
 							<td>#{b.board.description}</td>
 							<td>#{b.board.created}</td>
 							<td>
-								<h:outputLink value="grant/#{b.id}"  style="padding-right: 24px;">
+								<h:outputLink value="grant/#{b.board.id}"  style="padding-right: 24px;">
 									<i class="icon-group" style="font-size: 2em;"></i></h:outputLink>
 
-								<h:outputLink value="fboard/#{b.id}" style="padding-right: 24px;">
+								<h:outputLink value="fboard/#{b.board.id}" style="padding-right: 24px;">
 									<i class="icon-edit" style="font-size: 2em;"></i></h:outputLink>
 
-								<h:outputLink value="board/#{b.id}"  >
+								<h:outputLink value="board/#{b.board.id}" >
 									<i class="icon-list-alt" style="font-size: 2em;"></i></h:outputLink>
 
 								<ui:remove>

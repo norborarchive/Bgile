@@ -28,10 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
-@ManagedBean
+@ManagedBean(name = "fcard")
 @ViewScoped
 public class FCardManaged extends AccountAbstractManaged {
 
@@ -59,7 +59,7 @@ public class FCardManaged extends AccountAbstractManaged {
 		card = facade.findById(getPrincipal().getId(), Integer.valueOf(cardid));
 		board = card.getBoard();
 		boardaccount = grant.getBoardAccount(getPrincipal().getId(), board.getId());
-		if (boardaccount == null || boardaccount.getPermissionid() != Permission.A) {
+		if (boardaccount == null || boardaccount.getPermissionid() == Permission.R) {
 			setRedirect("dashboard");
 		}
 
@@ -109,4 +109,5 @@ public class FCardManaged extends AccountAbstractManaged {
 	public Integer getBoardid() {
 		return (Integer) getSession().getAttribute("boardid");
 	}
+
 }

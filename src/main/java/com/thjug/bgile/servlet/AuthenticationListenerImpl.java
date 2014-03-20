@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public class AuthenticationListenerImpl implements AuthenticationListener {
@@ -32,19 +32,14 @@ public class AuthenticationListenerImpl implements AuthenticationListener {
 	@Override
 	public void onSuccess(final AuthenticationToken token, final AuthenticationInfo info) {
 		final Account account = (Account) info.getPrincipals().getPrimaryPrincipal();
-		if (account == null) {
-			return;
+		if (account != null) {
+			LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
 		}
-		LOG.info("Account {} id {} login success.", account.getId(), account.getUsername());
 	}
 
 	@Override
 	public void onFailure(final AuthenticationToken token, final AuthenticationException ae) {
-		final Account account = (Account) token.getPrincipal();
-		if (account == null) {
-			return;
-		}
-		LOG.info("Account {} login fail.", account.getId(), account.getUsername());
+		LOG.info("Account {} login fail.", token.getPrincipal());
 	}
 
 	@Override

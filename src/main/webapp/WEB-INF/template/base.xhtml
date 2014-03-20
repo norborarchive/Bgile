@@ -25,20 +25,20 @@
 									</a>
 									<div class="nav-collapse collapse">
 										<ul class="nav pull-right">
-											<li class="#{homeManaged.getActiveClass('home')}">
+											<li class="#{home.getActiveClass('home')}">
 												<h:outputLink value="home" >
 													<i class="icon-home"></i><br />Home</h:outputLink>
 											</li>
-											<li class="#{homeManaged.getActiveClass('dashboard')}">
-												<h:outputLink value="dashboard" rendered="#{homeManaged.hasSession}">
+											<li class="#{home.getActiveClass('dashboard')}">
+												<h:outputLink value="dashboard" rendered="#{home.hasSession}">
 													<i class="icon-tasks"></i><br />Dashboard</h:outputLink>
 											</li>
-											<li class="#{homeManaged.getActiveClass('signin')}">
-												<h:outputLink value="signin" rendered="#{!homeManaged.hasSession}">
+											<li class="#{home.getActiveClass('signin')}">
+												<h:outputLink value="signin" rendered="#{!home.hasSession}">
 													<i class="icon-user"></i><br />Signin</h:outputLink>
 											</li>
-											<li class="#{homeManaged.getActiveClass('register')}">
-												<h:outputLink value="register" rendered="#{!homeManaged.hasSession}">
+											<li class="#{home.getActiveClass('register')}">
+												<h:outputLink value="register" rendered="#{!home.hasSession}">
 													<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
 											</li>
 										</ul>

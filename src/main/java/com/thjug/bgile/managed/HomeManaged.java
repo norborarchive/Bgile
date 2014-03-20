@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
+@ManagedBean(name = "home")
 @RequestScoped
 public final class HomeManaged extends BgileAbstractManaged {
 
@@ -56,7 +56,6 @@ public final class HomeManaged extends BgileAbstractManaged {
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
-
 	private static final String CURRENT_PAGE = "current-page";
 
 	private Board board;
@@ -69,7 +68,7 @@ public final class HomeManaged extends BgileAbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		final Integer boardid = Integer.valueOf(1);
+		final Integer boardid = 1;
 
 		board = getBoard(boardid);
 		if (board == null) {
@@ -94,11 +93,7 @@ public final class HomeManaged extends BgileAbstractManaged {
 	}
 
 	public String getActiveClass(final String page) {
-		if (getViewId().contains(page)) {
-			return CURRENT_PAGE;
-		} else {
-			return Constants.EMPTY;
-		}
+		return getViewId().contains(page) ? CURRENT_PAGE : Constants.EMPTY;
 	}
 
 	private void renderDashboard() {
@@ -129,19 +124,23 @@ public final class HomeManaged extends BgileAbstractManaged {
 				if (card == null) {
 					continue;
 				}
+
 				addedList.add(id);
 				addToDashboard(model, card);
 			}
 		}
 
-		for (final Integer id : cardMap.keySet()) {
-			if (addedList.contains(id)) {
-				continue;
-			}
-
-			final Card card = cardMap.get(id);
+		cardMap.keySet().stream().filter((id) -> !(addedList.contains(id))).map((id) -> cardMap.get(id)).forEach((card) -> {
 			addToDashboard(model, card);
-		}
+		});
+//		for (final Integer id : cardMap.keySet()) {
+//			if (addedList.contains(id)) {
+//				continue;
+//			}
+//
+//			final Card card = cardMap.get(id);
+//			addToDashboard(model, card);
+//		}
 	}
 
 	private void addToDashboard(final DashboardModel model, final Card card) {

@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ManagedBean
@@ -54,7 +54,7 @@ public class SigninManaged extends AccountAbstractManaged {
 	 * gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
 	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
 	 * </pre>
-	 * 
+	 *
 	 * @return
 	 */
 	public String authen() {
@@ -72,6 +72,8 @@ public class SigninManaged extends AccountAbstractManaged {
 
 			final String gravatarUrl = gravatar.getUrl(account.getEmail());
 			getSession().setAttribute("GRAVATARURL", gravatarUrl);
+
+			return "dashboard";
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
 			return null;
@@ -79,7 +81,6 @@ public class SigninManaged extends AccountAbstractManaged {
 			addWarnMessage("Username not activated", null);
 			return null;
 		}
-		return redirect("dashboard");
 	}
 
 	public String logout() {
