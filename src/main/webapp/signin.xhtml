@@ -1,55 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:composition template="/WEB-INF/template/base.xhtml" >
-		<ui:define name="content">
-			<p:messages id="msgs" globalOnly="true" showDetail="true" showSummary="false" closable="true" />
-			<div class="container" style="padding-top: 48px; padding-bottom: 48px; height: 240px;">
-				<div class="row" style="padding-bottom: 16px;">
-					<div class="controls span6">
-						<div class="input-prepend">
-							<span class="add-on" ><i class="icon-user" style="float: right"></i></span>
-							<p:inputText id="username" value="#{signinManaged.username}" maxlength="64"
-										 required="true" requiredMessage="Username cannot blank."  />
-							<p:watermark for="username" value="Username" />
-						</div>
-					</div>
-					<div class="span4">
-						<p:message id="usernameMsg" for="username"
-								   showDetail="true" showSummary="false" display="text" />
+<ui:composition template="/WEB-INF/template/base.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+
+	<ui:define name="content">
+		<p:messages id="msgs" globalOnly="true" showDetail="true" showSummary="false" closable="true" />
+		<div class="container" style="padding-top: 48px; padding-bottom: 48px; height: 240px;">
+			<div class="row" style="padding-bottom: 16px;">
+				<div class="controls span6">
+					<div class="input-prepend">
+						<span class="add-on" ><i class="icon-user" style="float: right"></i></span>
+						<p:inputText id="username" value="#{signinManaged.username}" maxlength="64"
+									 required="true" requiredMessage="Username cannot blank."  />
+						<p:watermark for="username" value="Username" />
 					</div>
 				</div>
-				<div class="row" style="padding-bottom: 16px;">
-					<div class="controls span6">
-						<div class="input-prepend" >
-							<span class="add-on"><i class="icon-stop"></i></span>
-							<p:password id="password" value="#{signinManaged.password}" maxlength="64"
-										required="true" requiredMessage="Password cannot blank."  />
-							<p:watermark for="password" value="Password" />
-						</div>
-					</div>
-					<div class="span4">
-						<p:message id="passwordMsg" for="password"
-								   showDetail="true" showSummary="false" display="text" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="controls span6">
-						<p:commandButton id="signin" value="SIGNIN" ajax="false"
-										 styleClass="btn btn-success btn-mini"
-										 action="#{signinManaged.authen}" update="form" />
-					</div>
-				</div>
-				<div class="row">
-					<p:ajaxStatus>
-						<f:facet name="start">Loading...</f:facet>
-						<f:facet name="complete"></f:facet>
-					</p:ajaxStatus>
+				<div class="span4">
+					<p:message id="usernameMsg" for="username"
+							   showDetail="true" showSummary="false" display="text" />
 				</div>
 			</div>
-		</ui:define>
-    </ui:composition>
-</html>
+			<div class="row" style="padding-bottom: 16px;">
+				<div class="controls span6">
+					<div class="input-prepend" >
+						<span class="add-on"><i class="icon-stop"></i></span>
+						<p:password id="password" value="#{signinManaged.password}" maxlength="64"
+									required="true" requiredMessage="Password cannot blank."  />
+						<p:watermark for="password" value="Password" />
+					</div>
+				</div>
+				<div class="span4">
+					<p:message id="passwordMsg" for="password"
+							   showDetail="true" showSummary="false" display="text" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="controls span6">
+					<p:commandButton id="signin" value="SIGNIN" ajax="false"
+									 styleClass="btn btn-success btn-mini"
+									 action="#{signinManaged.authen}" update="form" />
+				</div>
+			</div>
+			<div class="row">
+				<p:ajaxStatus>
+					<f:facet name="start">Loading...</f:facet>
+					<f:facet name="complete"></f:facet>
+				</p:ajaxStatus>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

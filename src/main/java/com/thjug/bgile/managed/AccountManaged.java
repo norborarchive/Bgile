@@ -15,9 +15,11 @@ package com.thjug.bgile.managed;
 import com.thjug.bgile.entity.Account;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @SessionScoped
@@ -25,10 +27,15 @@ import javax.faces.bean.SessionScoped;
 public class AccountManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = LoggerFactory.getLogger(AccountManaged.class);
 
 	public String getGravatarUrl() {
 		return getSession().getAttribute("GRAVATARURL") == null ? null : getSession().getAttribute("GRAVATARURL")
 				.toString();
+	}
+
+	public void polling() {
+		LOG.debug(getAccount().getUsername());
 	}
 
 	public Account getAccount() {

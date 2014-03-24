@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author @nuboat
+ * @author nuboat
  */
 @Entity
 @Cacheable

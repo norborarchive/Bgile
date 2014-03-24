@@ -33,7 +33,9 @@ CREATE TABLE ACCOUNT
   UPDATED       timestamp with time zone,
   UPDATEBY      integer,
 
-  CONSTRAINT ACCOUNT_PK PRIMARY KEY (ID)
+  CONSTRAINT ACCOUNT_PK PRIMARY KEY (ID),
+  CONSTRAINT ACCOUNT_UNI0 UNIQUE (USERNAME),
+  CONSTRAINT ACCOUNT_UNI1 UNIQUE (EMAIL)
 )
 WITH (
   OIDS = FALSE
@@ -238,14 +240,14 @@ WITH (
 ALTER TABLE history     OWNER TO bgile;
 
 
-CREATE TABLE burndown
+CREATE TABLE BURNDNOW
 (
-  id serial NOT NULL,
-  board integer,
-  statusdate date,
-  estimate integer,
-  done integer,
-  CONSTRAINT burndown_pk PRIMARY KEY (id)
+  ID serial NOT NULL,
+  BOARD integer,
+  STATUSDATE date,
+  ESTIMATE integer,
+  DONE integer,
+  CONSTRAINT BURNDOWN_PK PRIMARY KEY (ID)
 )
 WITH (
   OIDS=FALSE

@@ -16,23 +16,26 @@ import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Private;
 import com.thjug.bgile.define.Status;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
- * Cache will expire in 5 minutes.
  * 
- * @author @nuboat
+ * @author nuboat
  */
 @Entity
 @Cacheable
@@ -73,6 +76,9 @@ public class Board extends Time implements Serializable {
 	private String logopath;
 
 	private Integer maxcard;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "board", fetch = FetchType.LAZY)
+	private List<Burndown> burndownList;
 
 	public Board() {
 	}
@@ -143,6 +149,14 @@ public class Board extends Time implements Serializable {
 
 	public void setMaxcard(final Integer maxcard) {
 		this.maxcard = maxcard;
+	}
+
+	public List<Burndown> getBurndownList() {
+		return burndownList;
+	}
+
+	public void setBurndownList(final List<Burndown> burndownList) {
+		this.burndownList = burndownList;
 	}
 
 	@Override

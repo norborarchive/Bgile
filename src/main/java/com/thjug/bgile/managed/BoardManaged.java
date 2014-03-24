@@ -48,8 +48,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
 @ViewScoped
+@ManagedBean(name = "board")
 public class BoardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;

@@ -1,120 +1,118 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui" >
-    <ui:composition template="/WEB-INF/template/app.xhtml" >
-		<ui:define name="menubar">
-			<div class="controls">
-				<div style="float:left;">
-					<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="แผงควบคุม"
-									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 onclick="window.location.href = '#{request.contextPath}/dashboard';" />
-				</div>
-				<div style="float:left;">
-					<p:commandButton id="refresh" icon="ui-icon-refresh"
-									 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
-									 action="#{boardManaged.refresh}" update="dynamic_dashboard" />
-				</div>
+<ui:composition template="/WEB-INF/template/app.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
 
-				<div style="float:left;">
-					<p:commandButton id="addStory" icon="ui-icon-plusthick" value="การ์ด"
-									 styleClass="btn btn-mini btn-success"
-									 onclick="window.location.href = '#{request.contextPath}/fcard';" />
-				</div>
-
-				<ui:remove>
-					<div class="input-prepend" style="padding-left: 24px; float:left;">
-						<span class="add-on"><i class="icon-search" ></i></span>
-						<p:inputText id="filter" style="width: 480px;" ></p:inputText>
-						<p:watermark for="filter" value="กรองสตอรี่" ></p:watermark>
-					</div>
-				</ui:remove>
+	<ui:define name="menubar">
+		<div class="controls">
+			<div style="float:left;">
+				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="แผงควบคุม"
+								 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
+								 onclick="window.location.href = '#{request.contextPath}/dashboard';" />
 			</div>
-		</ui:define>
-        <ui:define name="content">
-			<style type="text/css">
-				.ui-panel {
-					padding: 0.0em;
-				}
-				.ui-panel .ui-panel-content {
-					padding-left: 4px;
-					text-align: left;
-				}
-				.ui-panel .ui-panel-footer {
-					padding: 0.2em 0.4em;
-				}
-				.ui-panel .ui-panel-titlebar {
-					padding: 0.2em 0em 0.2em;
-				}
-				.ui-corner-all {
-					-moz-border-radius: 0px;
-					-webkit-border-radius: 0px;
-					border-radius: 0px;
-				}
-				.ui-widget-header {
-					text-align: left;
-				}
-				.ui-panel-title {
-					padding-left: 4px;
-				}
-				.ui-panel, div.ui-state-hover {
-					width : 98%;
-					margin-bottom: 10px;
-				}
-				.ui-dashboard-column {
-					width :25%;
-				}
-				.ui-dashboard-header {
-					width :25%;
-				}
-				pre {
-					display: block;
-					padding: 0px;
-					margin: 0 0 0px;
-					font-size: 11px;
-					line-height: 24px;
-					word-break: break-all;
-					word-wrap: break-word;
-					white-space: pre;
-					white-space: pre-wrap;
-					background-color: white;
-					border: 0px solid #ccc;
-					border: 0px solid rgba(0, 0, 0, 0.15);
-					-webkit-border-radius: 0px;
-					-moz-border-radius: 0px;
-					border-radius: 0px;
-				}
-			</style>
-
-			<p:growl id="growl" showDetail="true" />
-			<p:messages id="messages" showDetail="true" />
-			<p:remoteCommand id="refreshcmd" action="#{boardManaged.refresh}" name="refresh"
-							 update="dynamic_dashboard" />
-
-			<div class="row">
-				<div class="span11" style="padding-top: 6px; padding-bottom: 6px;">
-				   <h4 style="width: 25%; text-align: left; float: left; color: black;">วางแผน</h4>
-				   <h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทำ</h4>
-				   <h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
-				   <h4 style="width: 25%; text-align: left; float: left; color: black;">เสร็จ</h4>
-				</div>
+			<div style="float:left;">
+				<p:commandButton id="refresh" icon="ui-icon-refresh"
+								 styleClass="btn btn-mini btn-info" style="margin-right: 12px;"
+								 action="#{board.refresh}" update="dynamic_dashboard" />
 			</div>
 
-			<div class="row">
-				<div class="span11">
-					<p:dashboard id="dynamic_dashboard" binding="#{boardManaged.dashboard}"
-								 disabled="#{boardManaged.viewonly}" >
-						<p:ajax event="reorder" listener="#{boardManaged.handleReorder}" update="growl"
-								oncomplete="refresh();" />
-					</p:dashboard>
+			<div style="float:left;">
+				<p:commandButton id="addStory" icon="ui-icon-plusthick" value="การ์ด"
+								 styleClass="btn btn-mini btn-success"
+								 onclick="window.location.href = '#{request.contextPath}/fcard';" />
+			</div>
+
+			<ui:remove>
+				<div class="input-prepend" style="padding-left: 24px; float:left;">
+					<span class="add-on"><i class="icon-search" ></i></span>
+					<p:inputText id="filter" style="width: 480px;" ></p:inputText>
+					<p:watermark for="filter" value="กรองสตอรี่" ></p:watermark>
 				</div>
-				<div class="span1">
-					<div class="row">
-						<img alt="" src="#{account.gravatarUrl}" height="48px" width="48px" style="float:right;" />
-					</div>
+			</ui:remove>
+		</div>
+	</ui:define>
+	<ui:define name="content">
+		<style type="text/css">
+			.ui-panel {
+				padding: 0.0em;
+			}
+			.ui-panel .ui-panel-content {
+				padding-left: 4px;
+				text-align: left;
+			}
+			.ui-panel .ui-panel-footer {
+				padding: 0.2em 0.4em;
+			}
+			.ui-panel .ui-panel-titlebar {
+				padding: 0.2em 0em 0.2em;
+			}
+			.ui-corner-all {
+				-moz-border-radius: 0px;
+				-webkit-border-radius: 0px;
+				border-radius: 0px;
+			}
+			.ui-widget-header {
+				text-align: left;
+			}
+			.ui-panel-title {
+				padding-left: 4px;
+			}
+			.ui-panel, div.ui-state-hover {
+				width : 98%;
+				margin-bottom: 10px;
+			}
+			.ui-dashboard-column {
+				width :25%;
+			}
+			.ui-dashboard-header {
+				width :25%;
+			}
+			pre {
+				display: block;
+				padding: 0px;
+				margin: 0 0 0px;
+				font-size: 11px;
+				line-height: 24px;
+				word-break: break-all;
+				word-wrap: break-word;
+				white-space: pre;
+				white-space: pre-wrap;
+				background-color: white;
+				border: 0px solid #ccc;
+				border: 0px solid rgba(0, 0, 0, 0.15);
+				-webkit-border-radius: 0px;
+				-moz-border-radius: 0px;
+				border-radius: 0px;
+			}
+		</style>
+
+		<p:messages id="messages" showDetail="true" />
+		<p:remoteCommand id="refreshcmd" action="#{board.refresh}" name="refresh"
+						 update="dynamic_dashboard" />
+
+		<div class="row">
+			<div class="span11" style="padding-top: 6px; padding-bottom: 6px;">
+				<h4 style="width: 25%; text-align: left; float: left; color: black;">วางแผน</h4>
+				<h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทำ</h4>
+				<h4 style="width: 25%; text-align: left; float: left; color: black;">กำลังทดสอบ</h4>
+				<h4 style="width: 25%; text-align: left; float: left; color: black;">เสร็จ</h4>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span11">
+				<p:dashboard id="dynamic_dashboard" binding="#{board.dashboard}"
+							 disabled="#{board.viewonly}" >
+					<p:ajax event="reorder" listener="#{board.handleReorder}" oncomplete="refresh();" />
+				</p:dashboard>
+			</div>
+			<div class="span1">
+				<div class="row">
+					<img alt="" src="#{account.gravatarUrl}" height="48px" width="48px" style="float:right;" />
 				</div>
 			</div>
-        </ui:define>
-    </ui:composition>
-</html>
+		</div>
+	</ui:define>
+</ui:composition>

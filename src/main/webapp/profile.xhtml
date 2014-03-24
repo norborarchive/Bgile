@@ -1,114 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui ="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="/WEB-INF/template/app.xhtml" >
-		<ui:define name="menubar">
-			<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-				<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="BACK"
-								 styleClass="btn btn-mini btn-info"
-								 action="#{profileManaged.back}"/>
-			</div>
-		</ui:define>
-        <ui:define name="content">
-			<div class="container">
-				<div style="width: 511px;">
-					<div class="row">
-						<h4>ข้อมูลส่วนตัว</h4>
-						<p:messages id="msg" showDetail="true" />
-					</div>
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-pushpin" ></i></span>
-								<p:inputText id="accountid" style="width: 480px;" disabled="true"
-											 value="#{profileManaged.account.id}"/>
-								<p:watermark for="accountid" value="ID: " ></p:watermark>
-							</div>
+<ui:composition template="/WEB-INF/template/app.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui ="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui" >
+
+	<ui:define name="menubar">
+		<div class="control" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+			<p:commandButton id="back" icon="ui-icon ui-icon-arrowthick-1-w" value="BACK"
+							 styleClass="btn btn-mini btn-info"
+							 action="#{profile.back}"/>
+		</div>
+	</ui:define>
+	<ui:define name="content">
+		<div class="container">
+			<div style="width: 511px;">
+				<div class="row">
+					<h4>ข้อมูลส่วนตัว</h4>
+					<p:messages id="msg" showDetail="true" />
+				</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pushpin" ></i></span>
+							<p:inputText id="accountid" style="width: 480px;" disabled="true"
+										 value="#{profile.account.id}"/>
+							<p:watermark for="accountid" value="ID: " ></p:watermark>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-pencil" ></i></span>
-								<p:inputText id="email" style="width: 480px;"
-											 value="#{profileManaged.account.email}"/>
-								<p:watermark for="email" value="อีเมล" ></p:watermark>
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="username" style="width: 480px;" disabled="false"
+										 value="#{profile.account.username}" />
 						</div>
 					</div>
+					<div class="span4">
+						<p:message id="usernameMsg" for="username"
+								   showDetail="true" showSummary="false" display="text" />
+					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-pencil" ></i></span>
-								<p:inputText id="firstname" style="width: 480px;"
-											 value="#{profileManaged.account.firstname}"/>
-								<p:watermark for="firstname" value="ชื่อ" ></p:watermark>
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="email" style="width: 480px;" disabled="false"
+										 value="#{profile.account.email}" />
+							<p:message for="email" ></p:message>
 						</div>
 					</div>
+					<div class="span4">
+						<p:message id="emailMsg" for="email"
+								   showDetail="true" showSummary="false" display="text" />
+					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-pencil" ></i></span>
-								<p:inputText id="lastname" style="width: 480px;"
-											 value="#{profileManaged.account.lastname}"/>
-								<p:watermark for="lastname" value="ชื่อสกุล" ></p:watermark>
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="firstname" style="width: 480px;"
+										 value="#{profile.account.firstname}"/>
+							<p:watermark for="firstname" value="ชื่อ" ></p:watermark>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div style="float:right;">
-								<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
-												 styleClass="btn btn-mini btn-success" update="msg"
-												 action="#{profileManaged.save}"/>
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-pencil" ></i></span>
+							<p:inputText id="lastname" style="width: 480px;"
+										 value="#{profile.account.lastname}"/>
+							<p:watermark for="lastname" value="ชื่อสกุล" ></p:watermark>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<h4>เปลี่ยนรหัส </h4>
-					</div>
-
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-key" ></i></span>
-								<p:password id="password" style="width: 480px;"
-											value="#{profileManaged.password}"/>
-								<p:watermark for="password" value="รหัสผ่าน" />
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div style="float:right;">
+							<p:commandButton id="save" icon="ui-icon ui-icon-check" value="บันทึก"
+											 styleClass="btn btn-mini btn-success" update="msg"
+											 action="#{profile.save}"/>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
-								<span class="add-on"><i class="icon-key" ></i></span>
-								<p:password id="confirmpassword" style="width: 480px;"
-											value="#{profileManaged.confirmpassword}"/>
-								<p:watermark for="confirmpassword" value="ยืนยันรหัสผ่าน" />
-							</div>
+				<div class="row">
+					<h4>เปลี่ยนรหัส </h4>
+				</div>
+
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-key" ></i></span>
+							<p:password id="password" style="width: 480px;"
+										value="#{profile.password}"/>
+							<p:watermark for="password" value="รหัสผ่าน" />
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="controls">
-							<div style="float:right;">
-								<p:commandButton id="change" icon="ui-icon ui-icon-check" value="เปลี่ยนรหัสผ่าน"
-												 styleClass="btn btn-mini btn-success" update="msg"
-												 action="#{profileManaged.changepasswd}"/>
-							</div>
+				<div class="row">
+					<div class="controls span6">
+						<div class="input-prepend" style="padding-bottom: 24px; padding-left: 24px; float:left;">
+							<span class="add-on"><i class="icon-key" ></i></span>
+							<p:password id="confirmpassword" style="width: 480px;"
+										value="#{profile.confirmpassword}"/>
+							<p:watermark for="confirmpassword" value="ยืนยันรหัสผ่าน" />
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="controls span6">
+						<div style="float:right;">
+							<p:commandButton id="change" icon="ui-icon ui-icon-check" value="เปลี่ยนรหัสผ่าน"
+											 styleClass="btn btn-mini btn-success" update="msg"
+											 action="#{profile.changepasswd}"/>
 						</div>
 					</div>
 				</div>
 			</div>
-        </ui:define>
-    </ui:composition>
-</html>
+		</div>
+		<br />
+	</ui:define>
+</ui:composition>

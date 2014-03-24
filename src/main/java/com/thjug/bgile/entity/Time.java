@@ -13,25 +13,23 @@
 package com.thjug.bgile.entity;
 
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @MappedSuperclass
 public abstract class Time implements Timeable {
 
-	@Column(name = "created")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
-	@Column(name = "updated")
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated;
-	@Column(name = "updateby")
+
 	private Integer updateby;
 
 	@Override

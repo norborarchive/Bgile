@@ -8,6 +8,7 @@
 		<class>com.thjug.bgile.entity.Todo</class>
 		<class>com.thjug.bgile.entity.Board</class>
 		<class>com.thjug.bgile.entity.BoardAccount</class>
+		<class>com.thjug.bgile.entity.Burndown</class>
 		<class>com.thjug.bgile.entity.History</class>
 		<class>com.thjug.bgile.entity.Cardorder</class>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>

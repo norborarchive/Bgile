@@ -13,12 +13,16 @@
 package com.thjug.bgile.managed;
 
 import com.thjug.bgile.entity.BoardAccount;
+import com.thjug.bgile.entity.Burndown;
 import com.thjug.bgile.facade.BoardAccountFacade;
+import com.thjug.bgile.facade.BurndownFacade;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +30,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
+@SessionScoped
 @ManagedBean(name = "dashboard")
-@ViewScoped
 public class DashboardManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -38,6 +42,9 @@ public class DashboardManaged extends AccountAbstractManaged {
 	@Inject
 	private transient BoardAccountFacade facade;
 
+	@Inject
+	private transient BurndownFacade burndownFacade;
+
 	@PostConstruct
 	public void initial() {
 		try {
@@ -46,6 +53,21 @@ public class DashboardManaged extends AccountAbstractManaged {
 			LOG.error(e.getMessage(), e);
 			addErrorMessage("Cannot load Board data of Account {} ", getPrincipal().getUsername());
 		}
+	}
+
+	public CartesianChartModel burndown(final BoardAccount ba) {
+		final LineChartSeries series = new LineChartSeries("burndown chart");
+		final List<Burndown> burndowns = burndownFacade.findByBoardAccunt(ba);
+
+		int x = 0;
+		for (final Burndown b : burndowns) {
+			series.set(x++, b.getEstimate() - b.getDone());
+		}
+
+		final CartesianChartModel model = new CartesianChartModel();
+		model.addSeries(series);
+
+		return model;
 	}
 
 	public String linkToList() {

@@ -17,6 +17,7 @@ import com.thjug.bgile.facade.AccountFacade;
 import com.thjug.bgile.security.Encrypter;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
 @ViewScoped
+@ManagedBean(name = "profile")
 public class ProfileManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +36,8 @@ public class ProfileManaged extends AccountAbstractManaged {
 	private String viewid;
 	private String password;
 	private String confirmpassword;
+
+	private boolean canSave = true;
 
 	@Inject
 	private transient AccountFacade facade;
@@ -78,6 +81,14 @@ public class ProfileManaged extends AccountAbstractManaged {
 			LOG.error(e.getMessage(), e);
 		}
 		return null;
+	}
+
+	public void validateUsernameIsExist(final ValueChangeEvent e) {
+		
+	}
+
+	public void validateEmailIsExist(final ValueChangeEvent e) {
+
 	}
 
 	public Account getAccount() {
