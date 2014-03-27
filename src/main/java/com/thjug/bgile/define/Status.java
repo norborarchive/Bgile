@@ -17,7 +17,7 @@ package com.thjug.bgile.define;
  * @author @nuboat
  */
 public enum Status {
-
+	A("Accepted"),
 	L("Live"),
 	D("Dead");
 

@@ -84,12 +84,11 @@ public class BoardManaged extends BgileAbstractManaged {
 		}
 
 		board = getBoard(boardid);
-
 		if (board == null || (boardaccount == null && board.getPrivateid() == Private.T)) {
 			setRedirect("dashboard");
 			return;
 		}
-
+		
 		cardMap = cardFacade.findAllByBoardId(boardid);
 		cardorderList = cardFacade.findCardorder(board);
 		renderDashboard();

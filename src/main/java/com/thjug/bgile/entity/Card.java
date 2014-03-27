@@ -34,7 +34,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author @nuboat
+ * @author nuboat
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = ""
@@ -71,7 +71,7 @@ public class Card extends Time implements Serializable {
 	private Board board;
 
 	@JoinColumn(name = "owner", referencedColumnName = "id")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Account owner;
 
 	private Integer estimate;

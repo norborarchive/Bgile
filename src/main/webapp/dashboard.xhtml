@@ -28,15 +28,16 @@
 						<td style="width: 340px;">
 							<p:panel>
 								<p:lineChart id="burndown" value="#{dashboard.burndown(b)}"
-											 style="height:128px; width: 320px;"
-											 minY="0" minX="0" />
+											 style="height:240px; width: 320px;" fill="true"
+											 minY="0" minX="0" xaxisLabel="Date" yaxisLabel="Task (hr)" />
 							</p:panel>
 						</td>
 						<td>
-							<b>#{b.board.boardname}</b> #{b.board.description}
+							<br />
+							<b>#{b.board.boardname}</b> <br />
+							#{b.board.description}
 							<br /><br />
-							#{b.board.created}<br /><br />
-
+							Created: #{b.board.created}<br /><br />
 							<h:outputLink value="grant/#{b.board.id}"  style="padding-right: 24px;">
 								<i class="icon-group" style="font-size: 2em;"></i></h:outputLink>
 

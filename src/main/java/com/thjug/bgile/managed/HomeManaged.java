@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 public final class HomeManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FBoardManaged.class);
 	private static final String DASHBOARD = "org.primefaces.component.Dashboard";
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";

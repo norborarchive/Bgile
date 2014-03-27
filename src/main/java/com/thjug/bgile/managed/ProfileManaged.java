@@ -58,6 +58,7 @@ public class ProfileManaged extends AccountAbstractManaged {
 
 	public String save() {
 		try {
+			account.setId(getPrincipal().getId());
 			facade.editAccount(account);
 			addInfoMessage("Success", "Your profile has changed.");
 		} catch (final Exception e) {
@@ -84,7 +85,7 @@ public class ProfileManaged extends AccountAbstractManaged {
 	}
 
 	public void validateUsernameIsExist(final ValueChangeEvent e) {
-		
+
 	}
 
 	public void validateEmailIsExist(final ValueChangeEvent e) {

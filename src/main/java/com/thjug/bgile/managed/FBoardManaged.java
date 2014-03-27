@@ -30,10 +30,10 @@ import org.slf4j.LoggerFactory;
  */
 @ViewScoped
 @ManagedBean(name = "fboard")
-public class FboardManaged extends BgileAbstractManaged {
+public class FBoardManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(FboardManaged.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FBoardManaged.class);
 
 	private static final String DASHBOARD = "dashboard";
 

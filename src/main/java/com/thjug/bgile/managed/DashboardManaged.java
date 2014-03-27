@@ -22,7 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.chart.ChartSeries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +56,7 @@ public class DashboardManaged extends AccountAbstractManaged {
 	}
 
 	public CartesianChartModel burndown(final BoardAccount ba) {
-		final LineChartSeries series = new LineChartSeries("burndown chart");
+		final ChartSeries series = new ChartSeries("burndown chart");
 		final List<Burndown> burndowns = burndownFacade.findByBoardAccunt(ba);
 
 		int x = 0;
