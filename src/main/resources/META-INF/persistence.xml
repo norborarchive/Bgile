@@ -11,6 +11,7 @@
 		<class>com.thjug.bgile.entity.Burndown</class>
 		<class>com.thjug.bgile.entity.History</class>
 		<class>com.thjug.bgile.entity.Cardorder</class>
+		<class>com.thjug.bgile.entity.Property</class>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>

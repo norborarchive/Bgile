@@ -13,16 +13,12 @@
 package com.thjug.bgile.facade;
 
 import com.google.inject.persist.Transactional;
-import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.define.Status;
-import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.AccountService;
 import com.thjug.bgile.service.BoardAccountService;
 import com.thjug.bgile.service.BoardService;
-import java.util.LinkedList;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -77,22 +73,4 @@ public class BoardFacade {
 		return service.find(id);
 	}
 
-	@Logging
-	@Transactional
-	public List<Board> findAllByAccount(final Integer accountid) {
-		final Account account = accountService.find(accountid);
-
-		final List<Board> boards = new LinkedList<>();
-		account.getBoardaccountList().stream().filter((ba) -> (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T)).forEach((ba) -> {
-			boards.add(ba.getBoard());
-		});
-//		for (final BoardAccount ba : account.getBoardaccountList()) {
-//			if (ba.getBoard().getStatusid() == Status.L && ba.getBoard().getEnableid() == Enable.T) {
-//				boards.add(ba.getBoard());
-//			}
-//		}
-		
-
-		return boards;
-	}
 }

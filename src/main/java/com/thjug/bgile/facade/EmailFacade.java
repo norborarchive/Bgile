@@ -1,16 +1,26 @@
-/**
- * Attribution CC BY This license lets others distribute, remix, tweak, and build upon your work, even commercially, as
- * long as they credit you for the original creation. This is the most accommodating of licenses offered. Recommended
- * for maximum dissemination and use of licensed materials.
+/*
+ * Attribution
+ * CC BY
+ * This license lets others distribute, remix, tweak,
+ * and build upon your work, even commercially,
+ * as long as they credit you for the original creation.
+ * This is the most accommodating of licenses offered.
+ * Recommended for maximum dissemination and use of licensed materials.
  *
- * http://creativecommons.org/licenses/by/3.0/ http://creativecommons.org/licenses/by/3.0/legalcode
+ * http://creativecommons.org/licenses/by/3.0/
+ * http://creativecommons.org/licenses/by/3.0/legalcode
  */
 package com.thjug.bgile.facade;
 
+import com.google.inject.persist.Transactional;
 import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.service.PropertyService;
 import java.util.Properties;
+import javax.inject.Inject;
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -18,45 +28,48 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * 
+ *
  * @author nuboat
  */
 public class EmailFacade {
 
-	@Logging
-	public void send() {
+	@Inject
+	private PropertyService service;
 
-		final String username = "username@gmail.com";
-		final String password = "password";
+	private String from;
+	private Session session;
+	private Properties properties;
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+	@Transactional
+	public void initial() throws NoSuchProviderException {
+		from = service.findById("mail.smtp.from").getString();
 
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+		properties = new Properties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", service.findById("mail.smtp.host").getString());
+		properties.put("mail.smtp.port", service.findById("mail.smtp.port").getString());
+
+		session = Session.getInstance(properties, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
+				return new PasswordAuthentication(
+						service.findById("mail.smtp.username").getString(),
+						service.findById("mail.smtp.password").getString());
 			}
 		});
+		session.getTransport("smtps");
+	}
 
-		try {
+	@Logging
+	public void send(final String receiver, final String text, final String subject) throws MessagingException {
+		final Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(from));
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
+		message.setSubject(subject);
+		message.setText(text);
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("from-email@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("to-email@gmail.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," + "\n\n No spam to my email, please!");
-
-			Transport.send(message);
-
-			System.out.println("Done");
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
+		Transport.send(message);
 	}
 
 }

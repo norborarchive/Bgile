@@ -16,7 +16,7 @@ import com.thjug.bgile.entity.Account;
 import java.util.List;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public class AccountService extends AbstractService<Account> {
@@ -29,12 +29,10 @@ public class AccountService extends AbstractService<Account> {
 	}
 
 	public Account find(final String username) {
-
 		return findOne(Account.FIND_BY_USERNAME, username.toUpperCase());
 	}
 
 	public List<Account> findAccountList(final String keyword) {
-
 		return findRange(Account.FIND_LIKE_KEYWORD, OFFSET, LENGTH, keyword.toUpperCase() + "%");
 	}
 
