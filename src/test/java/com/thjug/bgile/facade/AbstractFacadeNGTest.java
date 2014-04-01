@@ -16,9 +16,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.thjug.bgile.guice.JPAInitializer;
+import com.thjug.bgile.guice.LoggingModule;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public abstract class AbstractFacadeNGTest {
@@ -26,7 +27,7 @@ public abstract class AbstractFacadeNGTest {
 	protected final Injector injector;
 
 	public AbstractFacadeNGTest() {
-		injector = Guice.createInjector(new JpaPersistModule("bgileUnit"));
+		injector = Guice.createInjector(new LoggingModule(), new JpaPersistModule("bgileUnit"));
 		injector.getInstance(JPAInitializer.class);
 	}
 

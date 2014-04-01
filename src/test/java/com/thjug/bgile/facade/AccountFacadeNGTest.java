@@ -16,12 +16,13 @@ import com.thjug.bgile.define.Accounttype;
 import com.thjug.bgile.define.Enable;
 import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.security.Encrypter;
+import java.util.UUID;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public class AccountFacadeNGTest extends AbstractFacadeNGTest {
@@ -52,11 +53,11 @@ public class AccountFacadeNGTest extends AbstractFacadeNGTest {
 		final Account account = new Account();
 		account.setFirstname("Norbor");
 		account.setLastname("Thjug");
-		account.setUsername("norbor");
+		account.setUsername(UUID.randomUUID().toString());
 		account.setPasswd(Encrypter.cipher("password"));
 		account.setTypeid(Accounttype.S);
 		account.setEnableid(Enable.T);
-		account.setEmail("norborcity@gmail.com");
+		account.setEmail(UUID.randomUUID().toString());
 
 		final AccountFacade accountFacadeImpl = injector.getInstance(AccountFacade.class);
 		accountFacadeImpl.createAccount(account);

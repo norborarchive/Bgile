@@ -130,9 +130,10 @@ public final class HomeManaged extends BgileAbstractManaged {
 			}
 		}
 
-		cardMap.keySet().stream().filter((id) -> !(addedList.contains(id))).map((id) -> cardMap.get(id)).forEach((card) -> {
-			addToDashboard(model, card);
-		});
+		cardMap.keySet().stream()
+				.filter( (id)   -> !(addedList.contains(id)))
+				.map(	 (id) -> cardMap.get(id))
+				.forEach((card) -> addToDashboard(model, card));
 //		for (final Integer id : cardMap.keySet()) {
 //			if (addedList.contains(id)) {
 //				continue;
