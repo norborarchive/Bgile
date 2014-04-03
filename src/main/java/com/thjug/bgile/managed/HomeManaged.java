@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean(name = "home")
 @RequestScoped
-public final class HomeManaged extends BgileAbstractManaged {
+public class HomeManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(FBoardManaged.class);
@@ -131,9 +131,9 @@ public final class HomeManaged extends BgileAbstractManaged {
 		}
 
 		cardMap.keySet().stream()
-				.filter( (id)   -> !(addedList.contains(id)))
-				.map(	 (id) -> cardMap.get(id))
-				.forEach((card) -> addToDashboard(model, card));
+				.filter( (id) -> !(addedList.contains(id)) )
+				.map( (id) -> cardMap.get(id) )
+				.forEach( (card) -> addToDashboard(model, card) );
 //		for (final Integer id : cardMap.keySet()) {
 //			if (addedList.contains(id)) {
 //				continue;

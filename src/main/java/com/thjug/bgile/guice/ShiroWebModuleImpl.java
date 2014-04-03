@@ -53,9 +53,10 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 	protected void configureShiroWeb() {
 		bindRealm().to(JpaRealm.class);
 		bindAuthenticationListener().to(AuthenticationListenerImpl.class);
-		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/signin.xhtml");
-		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/unauthorized.xhtml");
+		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/home");
+		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/dashboard");
 		addFilterChain("/signin", ANON);
+		addFilterChain("/signin.xhtml", ANON);
 		addFilterChain("/home", ANON);
 		addFilterChain("/home.xhtml", ANON);
 		addFilterChain("/register", ANON);
@@ -76,7 +77,7 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 					.asEagerSingleton();
 		} catch (final NoSuchMethodException e) {
 			throw new ConfigurationException(
-					"This really shouldn't happen.  Either something has changed in Shiro, or there's a bug in ShiroModule.",
+					"This really shouldn't happen. Either something has changed in Shiro, or there's a bug in ShiroModule.",
 					e);
 		}
 	}

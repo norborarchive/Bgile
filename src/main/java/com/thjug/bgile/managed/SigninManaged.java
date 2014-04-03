@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
+@ManagedBean(name = "signin")
 @ViewScoped
 public class SigninManaged extends AccountAbstractManaged {
 
