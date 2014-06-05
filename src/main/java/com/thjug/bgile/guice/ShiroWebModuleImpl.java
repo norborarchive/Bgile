@@ -55,6 +55,7 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 		bindAuthenticationListener().to(AuthenticationListenerImpl.class);
 		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/home");
 		bindConstant().annotatedWith(Names.named("shiro.unauthorizedUrl")).to("/dashboard");
+		addFilterChain("/servlet_signin", ANON);
 		addFilterChain("/signin", ANON);
 		addFilterChain("/signin.xhtml", ANON);
 		addFilterChain("/home", ANON);

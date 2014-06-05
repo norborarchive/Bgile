@@ -6,49 +6,30 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
 
 	<ui:define name="content">
-		<p:messages id="msgs" globalOnly="true" showDetail="true" showSummary="false" closable="true" />
-		<div class="container" style="padding-top: 48px; padding-bottom: 48px; height: 240px;">
-			<div class="row" style="padding-bottom: 16px;">
-				<div class="controls span6">
-					<div class="input-prepend">
-						<span class="add-on" ><i class="icon-user" style="float: right"></i></span>
-						<p:inputText id="username" value="#{signin.username}" maxlength="64"
-									 required="true" requiredMessage="Username cannot blank."  />
-						<p:watermark for="username" value="Username" />
+		<form action="#{request.contextPath}/servlet_signin" method="POST">
+			<div class="container" style="padding-top: 48px; padding-bottom: 48px; height: 240px;">
+				<div class="row" style="padding-bottom: 16px;">
+					<div class="controls span6">
+						<div class="input-prepend">
+							<span class="add-on" ><i class="icon-user" style="float: right"></i></span>
+							<input id="username" name="username" value="#{signin.username}" type="text"/>
+						</div>
 					</div>
 				</div>
-				<div class="span4">
-					<p:message id="usernameMsg" for="username"
-							   showDetail="true" showSummary="false" display="text" />
-				</div>
-			</div>
-			<div class="row" style="padding-bottom: 16px;">
-				<div class="controls span6">
-					<div class="input-prepend" >
-						<span class="add-on"><i class="icon-stop"></i></span>
-						<p:password id="password" value="#{signin.password}" maxlength="64"
-									required="true" requiredMessage="Password cannot blank."  />
-						<p:watermark for="password" value="Password" />
+				<div class="row" style="padding-bottom: 16px;">
+					<div class="controls span6">
+						<div class="input-prepend" >
+							<span class="add-on"><i class="icon-stop"></i></span>
+							<input id="password" name="password" value="#{signin.password}" type="password" />
+						</div>
 					</div>
 				</div>
-				<div class="span4">
-					<p:message id="passwordMsg" for="password"
-							   showDetail="true" showSummary="false" display="text" />
+				<div class="row">
+					<div class="controls span6">
+						<input id="signin" value="signin" class="btn btn-success" type="submit"/>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="controls span6">
-					<p:commandButton id="signin" value="SIGNIN" ajax="false"
-									 styleClass="btn btn-success btn-mini"
-									 action="#{signin.authen}" update="form" />
-				</div>
-			</div>
-			<div class="row">
-				<p:ajaxStatus>
-					<f:facet name="start">Loading...</f:facet>
-					<f:facet name="complete"></f:facet>
-				</p:ajaxStatus>
-			</div>
-		</div>
+		</form>
 	</ui:define>
 </ui:composition>

@@ -34,8 +34,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean(name = "signin")
+@Deprecated
 @ViewScoped
+@ManagedBean(name = "signin")
 public class SigninManaged extends AccountAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
@@ -55,9 +56,8 @@ public class SigninManaged extends AccountAbstractManaged {
 	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
 	 * </pre>
 	 *
-	 * @return
 	 */
-	public String authen() {
+	public void authen() {
 		final String ciphertext = Encrypter.cipher(password);
 		LOG.debug("Authen with Username: {} Password {}", username, ciphertext);
 
@@ -72,14 +72,10 @@ public class SigninManaged extends AccountAbstractManaged {
 
 			final String gravatarUrl = gravatar.getUrl(account.getEmail());
 			getSession().setAttribute("GRAVATARURL", gravatarUrl);
-
-			return "dashboard";
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
-			return null;
 		} catch (final LockedAccountException e) {
 			addWarnMessage("Username not activated", null);
-			return null;
 		}
 	}
 

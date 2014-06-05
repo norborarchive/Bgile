@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -11,48 +10,45 @@
         </h:head>
 
         <h:body>
-			<h:form id="form">
-				<p:poll interval="60" listener="#{account.polling}" />
-				<!-- Header -->
-				<div class="container" style="padding-bottom: 12px">
-					<div class="header row">
-						<div class="span12">
-							<div class="navbar">
-								<div class="navbar-inner">
-									<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</a>
-									<div class="nav-collapse collapse">
-										<ul class="nav pull-right">
-											<li class="#{home.getActiveClass('home')}">
-												<h:outputLink value="home" >
-													<i class="icon-home"></i><br />Home</h:outputLink>
-											</li>
-											<li class="#{home.getActiveClass('dashboard')}">
-												<h:outputLink value="dashboard" rendered="#{home.hasSession}">
-													<i class="icon-tasks"></i><br />Dashboard</h:outputLink>
-											</li>
-											<li class="#{home.getActiveClass('signin')}">
-												<h:outputLink value="signin" rendered="#{!home.hasSession}">
-													<i class="icon-user"></i><br />Signin</h:outputLink>
-											</li>
-											<li class="#{home.getActiveClass('register')}">
-												<h:outputLink value="register" rendered="#{!home.hasSession}">
-													<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
-											</li>
-										</ul>
-									</div>
+			<!-- Header -->
+			<div class="container" style="padding-bottom: 12px">
+				<div class="header row">
+					<div class="span12">
+						<div class="navbar">
+							<div class="navbar-inner">
+								<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</a>
+								<div class="nav-collapse collapse">
+									<ul class="nav pull-right">
+										<li class="#{home.getActiveClass('home')}">
+											<h:outputLink value="home" >
+												<i class="icon-home"></i><br />Home</h:outputLink>
+										</li>
+										<li class="#{home.getActiveClass('dashboard')}">
+											<h:outputLink value="dashboard" rendered="#{home.hasSession}">
+												<i class="icon-tasks"></i><br />Dashboard</h:outputLink>
+										</li>
+										<li class="#{home.getActiveClass('signin')}">
+											<h:outputLink value="signin" rendered="#{!home.hasSession}">
+												<i class="icon-user"></i><br />Signin</h:outputLink>
+										</li>
+										<li class="#{home.getActiveClass('register')}">
+											<h:outputLink value="register" rendered="#{!home.hasSession}">
+												<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<ui:insert name="content" />
-			</h:form>
+			<ui:insert name="content" />
 
 			<ui:include src="/WEB-INF/include/footer.xhtml" />
         </h:body>

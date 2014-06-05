@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 public abstract class DefaultFilter implements Filter {
@@ -36,8 +36,14 @@ public abstract class DefaultFilter implements Filter {
 	}
 
 	protected boolean isBypassFilter(final String servletpath) {
-		return (servletpath.contains(".js") || servletpath.contains(".css") || servletpath.contains("assets") || servletpath
-				.contains("javax.faces.resource"));
+		final boolean isBypassFilter = servletpath.endsWith(".js")
+				|| servletpath.endsWith(".ico")
+				|| servletpath.endsWith(".css")
+				|| servletpath.contains("assets")
+				|| servletpath.contains("servlet_")
+				|| servletpath.contains("javax.faces.resource");
+
+		return isBypassFilter;
 	}
 
 	protected void redirectToDashboard(final ServletRequest request, final ServletResponse response) throws IOException {
