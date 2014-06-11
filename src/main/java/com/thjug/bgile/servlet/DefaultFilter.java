@@ -40,7 +40,7 @@ public abstract class DefaultFilter implements Filter {
 				|| servletpath.endsWith(".ico")
 				|| servletpath.endsWith(".css")
 				|| servletpath.contains("assets")
-				|| servletpath.contains("servlet_")
+				|| servletpath.contains("dosignin")
 				|| servletpath.contains("javax.faces.resource");
 
 		return isBypassFilter;

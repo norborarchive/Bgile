@@ -18,7 +18,6 @@ import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.AuthenSession;
 import com.thjug.bgile.facade.AuthenSessionFacade;
 import com.thjug.bgile.guice.GuiceInjectorFactory;
-import com.thjug.bgile.managed.SigninManaged;
 import com.thjug.bgile.security.Encrypter;
 import com.thjug.bgile.util.StringUtility;
 import com.timgroup.jgravatar.Gravatar;
@@ -43,16 +42,16 @@ import org.slf4j.LoggerFactory;
  *
  * @author nuboat
  */
-@WebServlet(name = "SigninServlet", urlPatterns = {"/servlet_signin"})
-public class SigninServlet extends HttpServlet {
+@WebServlet(name = "ServletSignin", urlPatterns = {"/dosignin"})
+public class ServletSignin extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger LOG = LoggerFactory.getLogger(SigninManaged.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ServletSignin.class);
 
 	private final transient AuthenSessionFacade facade;
 
-	public SigninServlet() {
+	public ServletSignin() {
 		facade = GuiceInjectorFactory.getInjector().getInstance(AuthenSessionFacade.class);
 	}
 
@@ -85,21 +84,22 @@ public class SigninServlet extends HttpServlet {
 			request.getSession().setAttribute("GRAVATARURL", gravatarUrl);
 
 			response.sendRedirect("dashboard");
+			return;
 		} catch (final IllegalArgumentException e) {
-			request.setAttribute("ERROR_MSG", "Username and Password should not be null.");
+			request.getSession().setAttribute("SIGNIN_ERROR_MSG", "Username and Password should not be null.");
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
-			request.setAttribute("ERROR_MSG", "Username Or Password does not correct.");
+			request.getSession().setAttribute("SIGNIN_ERROR_MSG", "Username Or Password does not correct.");
 		} catch (final LockedAccountException e) {
-			request.setAttribute("ERROR_MSG", "Username are not activated.");
+			request.getSession().setAttribute("SIGNIN_ERROR_MSG", "Username are not activated.");
 		}
 
-		getServletContext().getRequestDispatcher("/signin").forward(request, response);
+		response.sendRedirect("signin");
 	}
 
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("/signin");
+		response.sendRedirect("signin");
 	}
 
 	@Override
