@@ -15,6 +15,7 @@ package com.thjug.bgile.managed;
 import com.thjug.bgile.define.Permission;
 import com.thjug.bgile.define.Private;
 import com.thjug.bgile.define.State;
+import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.entity.Card;
@@ -24,6 +25,7 @@ import com.thjug.bgile.facade.GrantFacade;
 import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,13 +65,16 @@ public class BoardManaged extends BgileAbstractManaged {
 	private BoardAccount boardaccount;
 	private Map<Integer, Card> cardMap;
 	private List<Cardorder> cardorderList;
+	private List<BoardAccount> grants;
+	private List<Account> accounts;
+
 	private transient Dashboard dashboard;
 
 	@Inject
 	private transient CardFacade cardFacade;
 
 	@Inject
-	private transient GrantFacade grant;
+	private transient GrantFacade grantFacade;
 
 	@PostConstruct
 	public void initial() {
@@ -80,7 +85,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		}
 
 		if (getPrincipal() != null) {
-			boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
+			boardaccount = grantFacade.getBoardAccount(getPrincipal().getId(), boardid);
 		}
 
 		board = getBoard(boardid);
@@ -88,10 +93,17 @@ public class BoardManaged extends BgileAbstractManaged {
 			setRedirect("dashboard");
 			return;
 		}
-		
+
 		cardMap = cardFacade.findAllByBoardId(boardid);
 		cardorderList = cardFacade.findCardorder(board);
 		renderDashboard();
+
+		grants = grantFacade.getAccessAccount(board);
+
+		accounts = new LinkedList<>();
+		grants.stream().forEach((b) -> {
+			accounts.add(b.getAccount());
+		});
 	}
 
 	public String linkToBoard() {
@@ -160,17 +172,12 @@ public class BoardManaged extends BgileAbstractManaged {
 			}
 		}
 
-//		for (final Integer id : cardMap.keySet()) {
-//			if (addedList.contains(id)) {
-//				continue;
-//			}
-//
-//			final Card card = cardMap.get(id);
-//			addToDashboard(model, card);
-//		}
-		cardMap.keySet().stream().filter((id) -> !(addedList.contains(id))).map((id) -> cardMap.get(id)).forEach((card) -> {
-			addToDashboard(model, card);
-		});
+		cardMap.keySet().stream()
+				.filter((id) -> !(addedList.contains(id)))
+				.map((id) -> cardMap.get(id))
+				.forEach((card) -> {
+					addToDashboard(model, card);
+				});
 	}
 
 	private void addToDashboard(final DashboardModel model, final Card card) {
@@ -192,7 +199,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		if (isViewonly()) {
 			panel.setHeader(card.getStory());
 		} else {
-			panel.setHeader("<a href='" + getServletContextPath() + "/fcard/" + card.getId()
+			panel.setHeader("<a href='" + getContextPath() + "/fcard/" + card.getId()
 					+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
 		}
 
@@ -203,6 +210,7 @@ public class BoardManaged extends BgileAbstractManaged {
 		final HtmlOutputText text = new HtmlOutputText();
 		text.setEscape(false);
 		text.setValue("<pre>" + card.getDescription() + "</pre>");
+
 		panel.getChildren().add(text);
 
 		return panel;
@@ -218,6 +226,10 @@ public class BoardManaged extends BgileAbstractManaged {
 
 	public boolean isViewonly() {
 		return boardaccount == null || boardaccount.getPermissionid() == Permission.R;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
 	}
 
 }

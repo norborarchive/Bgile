@@ -51,15 +51,17 @@
 
 		<div class="row">
 			<div class="span11">
-				<p:dashboard id="dynamic_dashboard" binding="#{board.dashboard}"
+				<p:dashboard id="dynamic_dashboard"
+							 binding="#{board.dashboard}"
 							 disabled="#{board.viewonly}" >
 					<p:ajax event="reorder" listener="#{board.handleReorder}" oncomplete="refresh();" />
 				</p:dashboard>
 			</div>
-			<div class="span1">
-				<div class="row">
-					<img alt="" src="#{account.gravatarUrl}" height="48px" width="48px" style="float:right;" />
-				</div>
+			<div class="span2" style="float:right; margin-right: 20px;">
+				<ui:repeat value="#{board.accounts}" var="acc">
+					<img src="#{gravatar.getGravatarUrl(acc.email)}"
+						 height="48px" width="48px" style="float:right; margin: 0px 4px 4px 0px" />
+				</ui:repeat>
 			</div>
 		</div>
 	</ui:define>

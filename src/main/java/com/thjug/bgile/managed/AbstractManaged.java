@@ -48,7 +48,7 @@ public abstract class AbstractManaged implements Serializable {
 		return (ServletContext) getExternalContext().getContext();
 	}
 
-	protected String getServletContextPath() {
+	protected String getContextPath() {
 		return getServletContext().getContextPath();
 	}
 

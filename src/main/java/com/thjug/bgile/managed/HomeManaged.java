@@ -46,12 +46,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean(name = "home")
 @RequestScoped
+@ManagedBean(name = "home")
 public class HomeManaged extends BgileAbstractManaged {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(FBoardManaged.class);
+	private static final Logger LOG = LoggerFactory.getLogger(HomeManaged.class);
+
 	private static final String DASHBOARD = "org.primefaces.component.Dashboard";
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";
@@ -131,17 +132,9 @@ public class HomeManaged extends BgileAbstractManaged {
 		}
 
 		cardMap.keySet().stream()
-				.filter( (id) -> !(addedList.contains(id)) )
-				.map( (id) -> cardMap.get(id) )
-				.forEach( (card) -> addToDashboard(model, card) );
-//		for (final Integer id : cardMap.keySet()) {
-//			if (addedList.contains(id)) {
-//				continue;
-//			}
-//
-//			final Card card = cardMap.get(id);
-//			addToDashboard(model, card);
-//		}
+				.filter((id) -> !(addedList.contains(id)))
+				.map((id) -> cardMap.get(id))
+				.forEach((card) -> addToDashboard(model, card));
 	}
 
 	private void addToDashboard(final DashboardModel model, final Card card) {
@@ -163,8 +156,8 @@ public class HomeManaged extends BgileAbstractManaged {
 		if (isViewonly()) {
 			panel.setHeader(card.getStory());
 		} else {
-			panel.setHeader("<a href='" + getServletContextPath() + "/fcard/" + card.getId()
-					+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
+			panel.setHeader("<a href='" + getContextPath() + "/fcard/" + card.getId() + "'>"
+					+ "<i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
 		}
 
 		if (card.getOwner() != null) {

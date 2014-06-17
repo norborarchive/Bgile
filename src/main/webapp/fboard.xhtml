@@ -60,7 +60,7 @@
 							<div style="padding-bottom: 48px; padding-left: 24px; float:left;">
 								<p:commandButton id="remove" icon="ui-icon ui-icon-closethick" value="ลบ"
 												 styleClass="btn btn-mini btn-danger" update="msgs"
-												 rendered="#{!fboard.newBoard}"
+												 rendered="#{!fboard.removeable}"
 												 onclick="confirmation.show();" />
 							</div>
 						</div>
@@ -78,7 +78,6 @@
 
 		<p:confirmDialog id="confirmDialog" message="Are you sure about destroying this board?"
 						 header="Confirm Dialog" severity="alert" widgetVar="confirmation">
-
 			<p:commandButton id="confirm" value="Yes Sure" oncomplete="confirmation.hide()"
 							 action="#{fboard.remove}" />
 

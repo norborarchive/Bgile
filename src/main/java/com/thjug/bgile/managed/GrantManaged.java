@@ -75,7 +75,6 @@ public class GrantManaged extends BgileAbstractManaged {
 		}
 
 		grants = grantFacade.getAccessAccount(board);
-
 	}
 
 	public void changePermission(final AjaxBehaviorEvent event) {

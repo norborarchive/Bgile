@@ -29,11 +29,6 @@ public class AccountManaged extends AccountAbstractManaged {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(AccountManaged.class);
 
-	public String getGravatarUrl() {
-		return getSession().getAttribute("GRAVATARURL") == null ? null : getSession().getAttribute("GRAVATARURL")
-				.toString();
-	}
-
 	public void polling() {
 		LOG.debug(getAccount().getUsername());
 	}

@@ -16,7 +16,6 @@ import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.entity.AuthenSession;
 import com.thjug.bgile.facade.AuthenSessionFacade;
 import com.thjug.bgile.security.Encrypter;
-import com.timgroup.jgravatar.Gravatar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -48,15 +47,6 @@ public class SigninManaged extends AccountAbstractManaged {
 	@Inject
 	private transient AuthenSessionFacade facade;
 
-	private final transient Gravatar gravatar = new Gravatar();
-
-	/**
-	 * <pre>
-	 * gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-	 * gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-	 * </pre>
-	 *
-	 */
 	public void authen() {
 		final String ciphertext = Encrypter.cipher(password);
 		LOG.debug("Authen with Username: {} Password {}", username, ciphertext);
@@ -69,9 +59,6 @@ public class SigninManaged extends AccountAbstractManaged {
 			final Account account = getPrincipal();
 			final AuthenSession authenSession = facade.saveSession(account, subject.isRemembered());
 			putCookieValue("bgile_auth_token", authenSession.getId());
-
-			final String gravatarUrl = gravatar.getUrl(account.getEmail());
-			getSession().setAttribute("GRAVATARURL", gravatarUrl);
 		} catch (final UnknownAccountException | IncorrectCredentialsException e) {
 			addWarnMessage("Username Or Password not correct.", null);
 		} catch (final LockedAccountException e) {

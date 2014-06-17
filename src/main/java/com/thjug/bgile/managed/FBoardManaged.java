@@ -1,4 +1,5 @@
 /*
+ * <pre>
  * Attribution
  * CC BY
  * This license lets others distribute, remix, tweak,
@@ -9,6 +10,7 @@
  *
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
+ * </pre>
  */
 package com.thjug.bgile.managed;
 
@@ -25,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @ViewScoped
@@ -74,16 +76,19 @@ public class FBoardManaged extends BgileAbstractManaged {
 			return redirect(DASHBOARD);
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
-			addErrorMessage("Fail,", "Cannot save board data. Please contact your admin.");
+			addErrorMessage("Fail,", "Cannot save board. Please contact your admin.");
 			return null;
 		}
 	}
 
 	public String remove() {
 		try {
-			facade.remove(getPrincipal().getId(), board);
+			if (isRemoveable()) {
+				facade.remove(getPrincipal().getId(), board);
+			}
 		} catch (final Exception e) {
 			LOG.error(e.getMessage(), e);
+			addErrorMessage("Fail,", "Cannot delete board. Please contact your admin.");
 		}
 		return redirect(DASHBOARD);
 	}
@@ -98,6 +103,10 @@ public class FBoardManaged extends BgileAbstractManaged {
 
 	public boolean isNewBoard() {
 		return board != null ? board.getId() == null : false;
+	}
+
+	public boolean isRemoveable() {
+		return !isNewBoard() && boardaccount.getPermissionid() == Permission.O;
 	}
 
 }

@@ -1,4 +1,5 @@
 /*
+ * <pre>
  * Attribution
  * CC BY
  * This license lets others distribute, remix, tweak,
@@ -9,6 +10,7 @@
  *
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
+ * </pre>
  */
 package com.thjug.bgile.managed;
 

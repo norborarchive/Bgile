@@ -18,7 +18,8 @@
 							<ui:insert name="menubar" />
 							<div style="padding-bottom: 24px; padding-right: 24px; float: right;">
 
-								<h:graphicImage value="#{account.gravatarUrl}" alt="G" height="30px" width="30px"/>
+								<h:graphicImage value="#{gravatar.getGravatarUrl(account.account.email)}"
+												height="30px" width="30px"/>
 
 								<span style="width: 4px;" />
 

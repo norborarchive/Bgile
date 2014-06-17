@@ -28,7 +28,11 @@ public class GuiceInjectorFactory {
 
 	private static Injector injector;
 
-	private static synchronized void initInjector() {
+	static {
+		initInjector();
+	}
+
+	private static void initInjector() {
 		final ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		injector = Guice.createInjector(new GuiceServletModule(), new JpaPersistModule("bgileUnit"),
@@ -44,9 +48,6 @@ public class GuiceInjectorFactory {
 	}
 
 	public static Injector getInjector() {
-		if (injector == null) {
-			initInjector();
-		}
 		return injector;
 	}
 

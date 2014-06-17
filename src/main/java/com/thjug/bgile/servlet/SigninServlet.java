@@ -20,7 +20,6 @@ import com.thjug.bgile.facade.AuthenSessionFacade;
 import com.thjug.bgile.guice.GuiceInjectorFactory;
 import com.thjug.bgile.security.Encrypter;
 import com.thjug.bgile.util.StringUtility;
-import com.timgroup.jgravatar.Gravatar;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,24 +41,21 @@ import org.slf4j.LoggerFactory;
  *
  * @author nuboat
  */
-@WebServlet(name = "ServletSignin", urlPatterns = {"/dosignin"})
-public class ServletSignin extends HttpServlet {
+@WebServlet(name = "SigninServlet", urlPatterns = {"/dosignin"})
+public class SigninServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger LOG = LoggerFactory.getLogger(ServletSignin.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SigninServlet.class);
 
 	private final transient AuthenSessionFacade facade;
 
-	public ServletSignin() {
+	public SigninServlet() {
 		facade = GuiceInjectorFactory.getInjector().getInstance(AuthenSessionFacade.class);
 	}
 
 	public void processRequest(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
-
-		final Gravatar gravatar = new Gravatar();
-
 		try {
 			final String username = request.getParameter("username");
 			final String password = request.getParameter("password");
@@ -79,9 +75,6 @@ public class ServletSignin extends HttpServlet {
 			final Account account = (Account) SecurityUtils.getSubject().getPrincipal();
 			final AuthenSession authenSession = facade.saveSession(account, subject.isRemembered());
 			response.addCookie(createCookie("bgile_auth_token", authenSession.getId()));
-
-			final String gravatarUrl = gravatar.getUrl(account.getEmail());
-			request.getSession().setAttribute("GRAVATARURL", gravatarUrl);
 
 			response.sendRedirect("dashboard");
 			return;
