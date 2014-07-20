@@ -18,7 +18,9 @@ import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.entity.Burndown;
 import com.thjug.bgile.facade.BoardAccountFacade;
 import com.thjug.bgile.facade.BurndownFacade;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -40,6 +42,7 @@ public class DashboardManaged extends AccountAbstractManaged {
 	private static final Logger LOG = LoggerFactory.getLogger(DashboardManaged.class);
 
 	private List<BoardAccount> boardaccounts;
+	private Map<BoardAccount, CartesianChartModel> models = new HashMap<>();
 
 	@Inject
 	private transient BoardAccountFacade facade;
@@ -58,6 +61,11 @@ public class DashboardManaged extends AccountAbstractManaged {
 	}
 
 	public CartesianChartModel burndown(final BoardAccount ba) {
+
+		if (models.containsKey(ba)) {
+			return models.get(ba);
+		}
+
 		final ChartSeries series = new ChartSeries("burndown chart");
 		final List<Burndown> burndowns = burndownFacade.findByBoardAccunt(ba);
 
@@ -68,6 +76,7 @@ public class DashboardManaged extends AccountAbstractManaged {
 
 		final CartesianChartModel model = new CartesianChartModel();
 		model.addSeries(series);
+		models.put(ba, model);
 
 		return model;
 	}
