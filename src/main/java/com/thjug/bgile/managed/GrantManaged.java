@@ -80,9 +80,9 @@ public class GrantManaged extends BgileAbstractManaged {
 	public void changePermission(final AjaxBehaviorEvent event) {
 		final SelectOneButton ui = (SelectOneButton) event.getComponent();
 		final Integer accountid = (Integer) ui.getAttributes().get("accountid");
-		final Permission newPermission = (Permission) ui.getLocalValue();
+		final Permission newPermission = (Permission) ui.getValue();
 
-		LOG.info("Id: {} Permission: {}", accountid, newPermission);
+		LOG.info("Id: {} New Permission: {}", accountid, newPermission);
 		grantFacade.editAccountToBoard(getPrincipal().getId(), accountid, board.getId(), newPermission);
 
 		FacesContext.getCurrentInstance().renderResponse();

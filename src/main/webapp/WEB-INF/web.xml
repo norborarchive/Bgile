@@ -2,8 +2,9 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Bgile  1.1.13</display-name>
 	<context-param>
+		<description>Production | Development</description>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Developer</param-value>
+		<param-value>Development</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
