@@ -19,6 +19,7 @@ import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.BoardAccount;
 import com.thjug.bgile.facade.BoardFacade;
 import com.thjug.bgile.facade.GrantFacade;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -50,12 +51,12 @@ public class FBoardManaged extends BgileAbstractManaged {
 
 	@PostConstruct
 	public void initial() {
-		final Integer boardid = getBoardIdfromAttribute();
-		if (boardid == null) {
+		if (isCreate()) {
 			board = new Board();
 			return;
 		}
 
+		final Integer boardid = getBoardIdfromAttribute();
 		boardaccount = grant.getBoardAccount(getPrincipal().getId(), boardid);
 		if (boardaccount == null || boardaccount.getPermissionid() == Permission.R
 				|| boardaccount.getPermissionid() == Permission.W) {
@@ -91,6 +92,11 @@ public class FBoardManaged extends BgileAbstractManaged {
 			addErrorMessage("Fail,", "Cannot delete board. Please contact your admin.");
 		}
 		return redirect(DASHBOARD);
+	}
+
+	public boolean isCreate() {
+		final List<String> attributes = getAttribute("ATTRIBUTES");
+		return (attributes != null && attributes.size() > 1 && "create".equals(attributes.get(1)));
 	}
 
 	public Board getBoard() {
