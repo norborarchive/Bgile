@@ -19,7 +19,6 @@ import com.thjug.bgile.entity.Board;
 import com.thjug.bgile.entity.Card;
 import com.thjug.bgile.entity.Cardorder;
 import com.thjug.bgile.facade.CardFacade;
-import com.thjug.bgile.util.Constants;
 import com.thjug.bgile.util.StringUtility;
 import java.util.HashSet;
 import java.util.List;
@@ -52,14 +51,13 @@ import org.slf4j.LoggerFactory;
 @ManagedBean(name = "home")
 public class HomeManaged extends BgileAbstractManaged {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private static final Logger LOG = LoggerFactory.getLogger(HomeManaged.class);
 
 	private static final String DASHBOARD = "org.primefaces.component.Dashboard";
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
-	private static final String CURRENT_PAGE = "current-page";
 
 	private Board board;
 	private Map<Integer, Card> cardMap;
@@ -95,10 +93,6 @@ public class HomeManaged extends BgileAbstractManaged {
 		return false;
 	}
 
-	public String getActiveClass(final String page) {
-		return getViewId().contains(page) ? CURRENT_PAGE : Constants.EMPTY;
-	}
-
 	private void renderDashboard() {
 		final FacesContext fc = getFacesInstance();
 		final Application application = fc.getApplication();
@@ -129,7 +123,7 @@ public class HomeManaged extends BgileAbstractManaged {
 
 				final Integer id = Integer.valueOf(cardid.trim());
 				final Card card = cardMap.get(id);
-				if (card == null || !order.getStateid().equals(card.getStateid())) {
+				if (card == null) { // || !order.getStateid().equals(card.getStateid())) {
 					continue;
 				}
 

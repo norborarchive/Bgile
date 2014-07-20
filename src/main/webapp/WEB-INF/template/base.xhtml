@@ -24,19 +24,19 @@
 								</a>
 								<div class="nav-collapse collapse">
 									<ul class="nav pull-right">
-										<li class="#{home.getActiveClass('home')}">
+										<li class="#{menu.getActiveClass('home')}">
 											<h:outputLink value="home" >
 												<i class="icon-home"></i><br />Home</h:outputLink>
 										</li>
-										<li class="#{home.getActiveClass('dashboard')}">
+										<li class="#{menu.getActiveClass('dashboard')}">
 											<h:outputLink value="dashboard" rendered="#{home.hasSession}">
 												<i class="icon-tasks"></i><br />Dashboard</h:outputLink>
 										</li>
-										<li class="#{home.getActiveClass('signin')}">
+										<li class="#{menu.getActiveClass('signin')}">
 											<h:outputLink value="signin" rendered="#{!home.hasSession}">
 												<i class="icon-user"></i><br />Signin</h:outputLink>
 										</li>
-										<li class="#{home.getActiveClass('register')}">
+										<li class="#{menu.getActiveClass('register')}">
 											<h:outputLink value="register" rendered="#{!home.hasSession}">
 												<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
 										</li>
