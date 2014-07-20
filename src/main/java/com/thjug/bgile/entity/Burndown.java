@@ -30,8 +30,9 @@ import javax.persistence.TemporalType;
  * @author nuboat
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Burndown.FIND_BY_BOARD, query = ""
-		+ "SELECT b FROM Burndown b WHERE b.board = ?1 ORDER BY b.statusdate"), })
+@NamedQueries({
+	@NamedQuery(name = Burndown.FIND_BY_BOARD, query = ""
+			+ "SELECT b FROM Burndown b WHERE b.board = ?1 ORDER BY b.statusdate"),})
 public class Burndown implements Serializable {
 
 	private static final long serialVersionUID = 1L;

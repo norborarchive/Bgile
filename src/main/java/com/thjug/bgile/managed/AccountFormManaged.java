@@ -18,8 +18,6 @@ import com.thjug.bgile.entity.Account;
 import com.thjug.bgile.facade.AccountFacade;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
@@ -31,8 +29,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@ManagedBean
-@ViewScoped
+//@ViewScoped
+//@ManagedBean(name = "accountForm")
 public class AccountFormManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;

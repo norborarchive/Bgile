@@ -37,8 +37,6 @@ public class ProfileManaged extends AccountAbstractManaged {
 	private String password;
 	private String confirmpassword;
 
-	private boolean canSave = true;
-
 	@Inject
 	private transient AccountFacade facade;
 

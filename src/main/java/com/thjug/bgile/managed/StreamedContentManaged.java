@@ -1,4 +1,5 @@
 /*
+ * <pre>
  * Attribution
  * CC BY
  * This license lets others distribute, remix, tweak,
@@ -9,6 +10,7 @@
  *
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
+ * </pre>
  */
 package com.thjug.bgile.managed;
 
@@ -19,8 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.model.DefaultStreamedContent;
@@ -30,12 +30,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author @nuboat
  */
-@ManagedBean
-@SessionScoped
+//@SessionScoped
+//@ManagedBean(name = "streamed")
 public class StreamedContentManaged extends AbstractManaged {
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = LoggerFactory.getLogger(StreamedContentManaged.class);
 	private static final String DEFAULT_RESOURCE = "images/default.png";

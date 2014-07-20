@@ -33,6 +33,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
@@ -40,12 +41,13 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Cacheable
+@Cache(expiry = 300_000)
 @NamedQueries({
-		@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
-		@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
-		@NamedQuery(name = Account.FIND_LIKE_KEYWORD, query = " SELECT a FROM Account a "
-				+ " WHERE UPPER(a.username) LIKE ?1 " + "" + "		OR UPPER(a.email) LIKE ?1"
-				+ "		OR UPPER(a.firstname) LIKE ?1" + "		OR UPPER(a.lastname) LIKE ?1"), })
+	@NamedQuery(name = Account.COUNT_ALL, query = "SELECT COUNT(a) FROM Account a"),
+	@NamedQuery(name = Account.FIND_BY_USERNAME, query = "SELECT a FROM Account a WHERE UPPER(a.username) = ?1"),
+	@NamedQuery(name = Account.FIND_LIKE_KEYWORD, query = " SELECT a FROM Account a "
+			+ " WHERE UPPER(a.username) LIKE ?1 " + "" + "		OR UPPER(a.email) LIKE ?1"
+			+ "		OR UPPER(a.firstname) LIKE ?1" + "		OR UPPER(a.lastname) LIKE ?1"),})
 public class Account extends Time implements Serializable, Converterable {
 
 	private static final long serialVersionUID = 1L;

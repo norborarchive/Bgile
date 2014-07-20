@@ -10,7 +10,7 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.guice;
+package com.thjug.bgile.module;
 
 import com.google.inject.Exposed;
 import com.google.inject.Key;
@@ -103,4 +103,5 @@ public class ShiroWebModuleImpl extends ShiroWebModule {
 	public Account provideAccount() {
 		return (Account) SecurityUtils.getSubject().getPrincipal();
 	}
+
 }

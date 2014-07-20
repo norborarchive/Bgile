@@ -20,10 +20,11 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-
+import org.eclipse.persistence.annotations.Cache;
 
 @Entity
 @Cacheable
+@Cache(expiry = 300_000)
 public class Property extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;

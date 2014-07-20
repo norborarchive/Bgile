@@ -16,7 +16,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.thjug.bgile.guice.JPAInitializer;
-import com.thjug.bgile.guice.LoggingModule;
+import com.thjug.bgile.module.LoggingModule;
 
 /**
  *

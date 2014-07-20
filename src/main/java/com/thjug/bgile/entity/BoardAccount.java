@@ -27,6 +27,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
@@ -34,14 +35,15 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Cacheable
+@Cache(expiry = 300_000)
 @NamedQueries({
-		@NamedQuery(name = BoardAccount.FIND_BY_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 "
-				+ " ORDER BY b.account.firstname"),
-		@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT,
-				query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board.statusid = ?2 "
-						+ " ORDER BY b.board.id"),
-		@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD,
-				query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"), })
+	@NamedQuery(name = BoardAccount.FIND_BY_BOARD, query = "SELECT b FROM BoardAccount b WHERE b.board = ?1 "
+			+ " ORDER BY b.account.firstname"),
+	@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT,
+			query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board.statusid = ?2 "
+			+ " ORDER BY b.board.id"),
+	@NamedQuery(name = BoardAccount.FIND_BY_ACCOUNT_AND_BOARD,
+			query = "SELECT b FROM BoardAccount b WHERE b.account = ?1 and b.board = ?2"),})
 public class BoardAccount extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;

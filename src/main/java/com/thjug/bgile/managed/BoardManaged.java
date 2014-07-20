@@ -153,31 +153,39 @@ public class BoardManaged extends BgileAbstractManaged {
 		}
 		dashboard.setModel(model);
 
+		final Set<Integer> addedList = addFromCardorder(model);
+
+		addExceptCardorder(model, addedList);
+	}
+
+	private Set<Integer> addFromCardorder(final DashboardModel model) {
 		final Set<Integer> addedList = new HashSet<>();
 
 		for (final Cardorder order : cardorderList) {
-			final String[] cardlist = order.getOrderby().split(",");
-			for (final String cardid : cardlist) {
+			for (final String cardid : order.getOrderby().split(",")) {
 				if (StringUtility.isEmpty(cardid.trim())) {
 					continue;
 				}
 
 				final Integer id = Integer.valueOf(cardid.trim());
 				final Card card = cardMap.get(id);
-				if (card == null) {
+				if (card == null || !order.getStateid().equals(card.getStateid())) {
 					continue;
 				}
+
 				addedList.add(id);
 				addToDashboard(model, card);
 			}
 		}
 
+		return addedList;
+	}
+
+	private void addExceptCardorder(final DashboardModel model, final Set<Integer> addedList) {
 		cardMap.keySet().stream()
 				.filter((id) -> !(addedList.contains(id)))
 				.map((id) -> cardMap.get(id))
-				.forEach((card) -> {
-					addToDashboard(model, card);
-				});
+				.forEach((card) -> addToDashboard(model, card));
 	}
 
 	private void addToDashboard(final DashboardModel model, final Card card) {
@@ -199,8 +207,8 @@ public class BoardManaged extends BgileAbstractManaged {
 		if (isViewonly()) {
 			panel.setHeader(card.getStory());
 		} else {
-			panel.setHeader("<a href='" + getContextPath() + "/fcard/" + card.getId()
-					+ "'><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>" + card.getStory() + "</a>");
+			panel.setHeader(
+					String.format("<a href=\"%s/fcard/%s\"><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>%s</a>", getContextPath(), card.getId(), card.getStory()));
 		}
 
 		if (card.getOwner() != null) {

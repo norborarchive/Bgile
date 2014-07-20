@@ -28,14 +28,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = Cardorder.FIND_BY_BOARD, query = "SELECT a FROM Cardorder a WHERE a.board = ?1 "),
-		@NamedQuery(name = Cardorder.FIND_BY_BOARD_AND_STATE,
-				query = "SELECT a FROM Cardorder a WHERE a.board = ?1 AND a.stateid = ?2"), })
+	@NamedQuery(name = Cardorder.FIND_BY_BOARD, query = "SELECT a FROM Cardorder a WHERE a.board = ?1 order by a.stateid"),
+	@NamedQuery(name = Cardorder.FIND_BY_BOARD_AND_STATE,
+			query = "SELECT a FROM Cardorder a WHERE a.board = ?1 AND a.stateid = ?2"),})
 public class Cardorder extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;

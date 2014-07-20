@@ -12,15 +12,12 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 /**
- * 
+ *
  * @author @nuboat
  */
-@ManagedBean
-@ApplicationScoped
+//@ManagedBean
+//@ApplicationScoped
 public class LocalizationManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;

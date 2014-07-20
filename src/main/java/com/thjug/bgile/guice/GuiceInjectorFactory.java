@@ -12,13 +12,16 @@
  */
 package com.thjug.bgile.guice;
 
+import com.thjug.bgile.module.ShiroWebModuleImpl;
+import com.thjug.bgile.module.GuiceServletModule;
+import com.thjug.bgile.module.LoggingModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import com.thjug.bgile.job.DailyStatJob;
+import com.thjug.bgile.module.QuartzModuleImpl;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import org.apache.onami.scheduler.QuartzModule;
+import org.apache.shiro.guice.aop.ShiroAopModule;
 
 /**
  *
@@ -26,24 +29,14 @@ import org.apache.onami.scheduler.QuartzModule;
  */
 public class GuiceInjectorFactory {
 
-	private static Injector injector;
+	private static final Injector injector;
 
 	static {
-		initInjector();
-	}
-
-	private static void initInjector() {
 		final ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		injector = Guice.createInjector(new GuiceServletModule(), new JpaPersistModule("bgileUnit"),
-				new LoggingModule(), new ShiroAopModuleImpl(), new ShiroWebModuleImpl(servletContext),
-				new QuartzModule() {
-					@Override
-					protected void schedule() {
-						scheduleJob(DailyStatJob.class).withCronExpression("0 1 0 * * ?").withJobName(
-								DailyStatJob.class.getSimpleName());
-					}
-				});
+				new LoggingModule(), new ShiroAopModule(), new ShiroWebModuleImpl(servletContext),
+				new QuartzModuleImpl());
 		injector.getInstance(JPAInitializer.class);
 	}
 
@@ -51,6 +44,11 @@ public class GuiceInjectorFactory {
 		return injector;
 	}
 
+	public static <T> T getInstance(final Class<? extends T> type) {
+		return injector.getInstance(type);
+	}
+
 	private GuiceInjectorFactory() {
 	}
+
 }

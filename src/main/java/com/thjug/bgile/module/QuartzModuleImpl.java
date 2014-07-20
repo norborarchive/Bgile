@@ -1,4 +1,5 @@
-/*
+/**
+ * <pre>
  * Attribution
  * CC BY
  * This license lets others distribute, remix, tweak,
@@ -9,15 +10,23 @@
  *
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
+ * </pre>
  */
-package com.thjug.bgile.guice;
+package com.thjug.bgile.module;
 
-import org.apache.shiro.guice.aop.ShiroAopModule;
+import com.thjug.bgile.job.DailyStatJob;
+import org.apache.onami.scheduler.QuartzModule;
 
 /**
- * 
- * @author @nuboat
+ *
+ * @author nuboat
  */
-public class ShiroAopModuleImpl extends ShiroAopModule {
+public class QuartzModuleImpl extends QuartzModule {
+
+	@Override
+	protected void schedule() {
+		scheduleJob(DailyStatJob.class).withCronExpression("0 1 0 * * ?").withJobName(
+				DailyStatJob.class.getSimpleName());
+	}
 
 }

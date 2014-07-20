@@ -10,12 +10,22 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.guice;
+package com.thjug.bgile.module;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.matcher.Matchers;
+import com.thjug.bgile.interceptor.Logging;
+import com.thjug.bgile.interceptor.LoggingInterceptor;
 
 /**
- * 
- * @author nuboat
+ *
+ * @author @nuboat
  */
-public class GuiceJobFactory {
+public class LoggingModule extends AbstractModule {
+
+	@Override
+	protected void configure() {
+		bindInterceptor(Matchers.any(), Matchers.annotatedWith(Logging.class), new LoggingInterceptor());
+	}
 
 }

@@ -12,15 +12,12 @@
  */
 package com.thjug.bgile.managed;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 /**
- * 
+ *
  * @author @nuboat
  */
-@ManagedBean
-@SessionScoped
+//@ManagedBean
+//@SessionScoped
 public class RetainSessionManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;

@@ -22,16 +22,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
- * 
+ *
  * @author @nuboat
  */
 @Entity
 @Cacheable
+@Cache(expiry = 300_000)
 @NamedQueries({
-		@NamedQuery(name = AuthenSession.FIND_BY_ID, query = "SELECT a FROM AuthenSession a WHERE a.id = ?1"),
-		@NamedQuery(name = AuthenSession.FIND_BY_ACCOUNT, query = "SELECT a FROM AuthenSession a WHERE a.account = ?1"), })
+	@NamedQuery(name = AuthenSession.FIND_BY_ID, query = "SELECT a FROM AuthenSession a WHERE a.id = ?1"),
+	@NamedQuery(name = AuthenSession.FIND_BY_ACCOUNT, query = "SELECT a FROM AuthenSession a WHERE a.account = ?1"),})
 public class AuthenSession extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;

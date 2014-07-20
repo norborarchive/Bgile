@@ -4,7 +4,7 @@
 
 	<groupId>com.thjug.bgile</groupId>
 	<artifactId>bgile</artifactId>
-	<version>1.1.12</version>
+	<version>1.1.13</version>
 	<packaging>war</packaging>
 
 	<name>Bgileboard</name>
@@ -80,12 +80,12 @@
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
-			<version>2.2.6</version>
+			<version>2.2.7</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
-			<version>2.2.6</version>
+			<version>2.2.7</version>
 		</dependency>
 
 		<dependency>

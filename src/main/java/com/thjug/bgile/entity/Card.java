@@ -16,6 +16,7 @@ import com.thjug.bgile.define.Status;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,14 +32,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author nuboat
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = ""
-		+ "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"), })
+@Cacheable
+@Cache(expiry = 300_000)
+@NamedQueries({
+	@NamedQuery(name = Card.FIND_BY_BOARD_AND_STATUS, query = ""
+			+ "SELECT c FROM Card c WHERE c.board = ?1 and c.statusid = ?2"),})
 public class Card extends Time implements Serializable {
 
 	private static final long serialVersionUID = 1L;

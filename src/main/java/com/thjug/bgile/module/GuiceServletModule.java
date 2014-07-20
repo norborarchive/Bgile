@@ -10,7 +10,7 @@
  * http://creativecommons.org/licenses/by/3.0/
  * http://creativecommons.org/licenses/by/3.0/legalcode
  */
-package com.thjug.bgile.guice;
+package com.thjug.bgile.module;
 
 import com.google.inject.servlet.ServletModule;
 import com.thjug.bgile.servlet.EncodingFilter;
