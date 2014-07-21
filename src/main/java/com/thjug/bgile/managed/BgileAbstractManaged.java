@@ -43,18 +43,8 @@ public abstract class BgileAbstractManaged extends AccountAbstractManaged {
 			getSession().setAttribute("boardid", boardid);
 			return boardid;
 		} else {
-			return null;
+			return (getSession().getAttribute("boardid") != null) ? (Integer) getSession().getAttribute("boardid") : null;
 		}
 	}
 
-//	protected Integer getBoardIdfromAttribute() {
-//		final List<String> attributes = getAttribute("ATTRIBUTES");
-//		if (attributes != null && attributes.size() > 1) {
-//			final Integer boardid = Integer.valueOf(attributes.get(1));
-//			getSession().setAttribute("boardid", boardid);
-//			return boardid;
-//		} else {
-//			return (getSession().getAttribute("boardid") != null) ? (Integer) getSession().getAttribute("boardid") : null;
-//		}
-//	}
 }
