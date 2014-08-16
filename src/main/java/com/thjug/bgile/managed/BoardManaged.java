@@ -60,6 +60,7 @@ public class BoardManaged extends BgileAbstractManaged {
 	private static final String DASHBOARD_RENDERER = "org.primefaces.component.DashboardRenderer";
 	private static final String PANEL = "org.primefaces.component.Panel";
 	private static final String PANEL_RENDERER = "org.primefaces.component.PanelRenderer";
+	private static final String HEADER = "<a href=\"%s/fcard/%s\"><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>%s</a>";
 
 	private Board board;
 	private BoardAccount boardaccount;
@@ -204,16 +205,15 @@ public class BoardManaged extends BgileAbstractManaged {
 		panel.setToggleable(false);
 		panel.setId("ID" + card.getId().toString());
 
-		if (isViewonly()) {
-			panel.setHeader(card.getStory());
-		} else {
-			panel.setHeader(
-					String.format("<a href=\"%s/fcard/%s\"><i class=\"icon-edit\" style=\"padding-right: 4px;\"></i>%s</a>", getContextPath(), card.getId(), card.getStory()));
-		}
+		final HtmlOutputText header = new HtmlOutputText();
+		header.setEscape(false);
+		header.setValue(isViewonly() ? card.getStory() : String.format(HEADER, getContextPath(), card.getId(), card.getStory()));
+		panel.getFacets().put("header", header);
 
-		if (card.getOwner() != null) {
-			panel.setFooter(card.getOwner().getFirstname() + " " + card.getOwner().getLastname());
-		}
+		final HtmlOutputText footer = new HtmlOutputText();
+		footer.setEscape(false);
+		footer.setValue(card.getOwner() != null ? card.getOwner().getFirstname() + " " + card.getOwner().getLastname() : null);
+		panel.getFacets().put("footer", footer);
 
 		final HtmlOutputText text = new HtmlOutputText();
 		text.setEscape(false);

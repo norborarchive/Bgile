@@ -12,6 +12,7 @@
  */
 package com.thjug.bgile.facade;
 
+import com.google.inject.Singleton;
 import com.google.inject.persist.Transactional;
 import com.thjug.bgile.interceptor.Logging;
 import com.thjug.bgile.service.PropertyService;
@@ -20,7 +21,6 @@ import javax.inject.Inject;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -31,34 +31,44 @@ import javax.mail.internet.MimeMessage;
  *
  * @author nuboat
  */
+@Singleton
 public class EmailFacade {
-
-	@Inject
-	private PropertyService service;
 
 	private String from;
 	private Session session;
 	private Properties properties;
 
+	@Inject
+	private PropertyService service;
+
 	@Transactional
-	public void initial() throws NoSuchProviderException {
-		from = service.findById("mail.smtp.from").getString();
+	public boolean connect() {
+		try {
+			from = service.findById("mail.smtp.from").getString();
 
-		properties = new Properties();
-		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.host", service.findById("mail.smtp.host").getString());
-		properties.put("mail.smtp.port", service.findById("mail.smtp.port").getString());
+			properties = new Properties();
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.starttls.enable", "true");
+			properties.put("mail.smtp.socketFactory.fallback", "false");
+			properties.put("mail.smtp.host", service.findById("mail.smtp.host").getString());
+			properties.put("mail.smtp.port", service.findById("mail.smtp.port").getString());
+			//		properties.put("mail.smtp.debug", "true");
+			//		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			//		properties.put("mail.smtp.socketFactory.fallback", "false");
 
-		session = Session.getInstance(properties, new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(
-						service.findById("mail.smtp.username").getString(),
-						service.findById("mail.smtp.password").getString());
-			}
-		});
-		session.getTransport("smtps");
+			session = Session.getInstance(properties, new Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(
+							service.findById("mail.smtp.username").getString(),
+							service.findById("mail.smtp.password").getString());
+				}
+			});
+
+			return true;
+		} catch (final Exception e) {
+			return false;
+		}
 	}
 
 	@Logging

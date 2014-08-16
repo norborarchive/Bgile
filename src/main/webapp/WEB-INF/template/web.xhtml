@@ -24,22 +24,25 @@
 								</a>
 								<div class="nav-collapse collapse">
 									<ul class="nav pull-right">
-										<li class="#{menu.getActiveClass('home')}">
+										<li class="#{menu.isActive('home') ? 'current-page' : ''}">
 											<h:outputLink value="home" >
 												<i class="icon-home"></i><br />Home</h:outputLink>
 										</li>
-										<li class="#{menu.getActiveClass('dashboard')}">
-											<h:outputLink value="dashboard" rendered="#{home.hasSession}">
-												<i class="icon-tasks"></i><br />Dashboard</h:outputLink>
-										</li>
-										<li class="#{menu.getActiveClass('signin')}">
-											<h:outputLink value="signin" rendered="#{!home.hasSession}">
-												<i class="icon-user"></i><br />Signin</h:outputLink>
-										</li>
-										<li class="#{menu.getActiveClass('register')}">
-											<h:outputLink value="register" rendered="#{!home.hasSession}">
-												<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
-										</li>
+										<ui:fragment rendered="#{home.hasSession}">
+											<li class="#{menu.isActive('dashboard') ? 'current-page' : ''}">
+												<h:outputLink value="dashboard" ><i class="icon-tasks"></i><br />Dashboard</h:outputLink>
+											</li>
+										</ui:fragment>
+										<ui:fragment rendered="#{!home.hasSession}">
+											<li class="#{menu.isActive('signin') ? 'current-page' : ''}">
+												<h:outputLink value="signin">
+													<i class="icon-user"></i><br />Signin</h:outputLink>
+											</li>
+											<li class="#{menu.isActive('register') ? 'current-page' : ''}">
+												<h:outputLink value="register">
+													<i class="icon-envelope-alt"></i><br />Register</h:outputLink>
+											</li>
+										</ui:fragment>
 									</ul>
 								</div>
 							</div>

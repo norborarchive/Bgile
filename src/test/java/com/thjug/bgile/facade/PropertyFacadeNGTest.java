@@ -28,7 +28,7 @@ public class PropertyFacadeNGTest extends AbstractFacadeNGTest {
 		final String id = "mail.smtp.host";
 		final PropertyFacade instance = injector.getInstance(PropertyFacade.class);
 
-		final String expResult = "smtp.live.com";
+		final String expResult = "smtp.gmail.com";
 		final String result = instance.getString(id);
 		Assert.assertEquals(result, expResult);
 	}

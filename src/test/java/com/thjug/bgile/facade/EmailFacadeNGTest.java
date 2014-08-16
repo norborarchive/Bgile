@@ -26,8 +26,7 @@ public class EmailFacadeNGTest extends AbstractFacadeNGTest {
 	@Test
 	public void testSend() throws MessagingException {
 		final EmailFacade instance = injector.getInstance(EmailFacade.class);
-		instance.initial();
-		instance.send("nuboat@gmail.com","EmailFacadeNGTest","Yoyo");
+		instance.send("nuboat@gmail.com", "EmailFacadeNGTest", "Yoyo");
 	}
 
 }

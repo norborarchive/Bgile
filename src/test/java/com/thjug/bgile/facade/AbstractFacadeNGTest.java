@@ -31,4 +31,8 @@ public abstract class AbstractFacadeNGTest {
 		injector.getInstance(JPAInitializer.class);
 	}
 
+	public <T> T getInstance(final Class<? extends T> type) {
+		return injector.getInstance(type);
+	}
+
 }

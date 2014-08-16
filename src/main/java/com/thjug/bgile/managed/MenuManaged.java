@@ -14,7 +14,6 @@
  */
 package com.thjug.bgile.managed;
 
-import com.thjug.bgile.util.Constants;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -28,10 +27,8 @@ public class MenuManaged extends AbstractManaged {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String CURRENT_PAGE_CSS_CLASS = "current-page";
-
-	public String getActiveClass(final String page) {
-		return getViewId().contains(page) ? CURRENT_PAGE_CSS_CLASS : Constants.EMPTY;
+	public boolean isActive(final String page) {
+		return getViewId().contains(page);
 	}
 
 }
