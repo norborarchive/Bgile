@@ -16,6 +16,7 @@ package com.thjug.bgile.page;
 
 import org.jbehave.web.selenium.FluentWebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
+import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,8 +46,12 @@ public abstract class Page extends FluentWebDriverPage {
 		getWebDriver().get(getURL());
 	}
 
-	public WebElement getElement(final String elementId) {
+	public WebElement getElementById(final String elementId) {
 		return findElement(id(elementId));
+	}
+
+	public WebElement getElementByClass(final String cssClass) {
+		return findElement(cssSelector(cssClass));
 	}
 
 }

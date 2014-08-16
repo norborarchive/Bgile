@@ -14,14 +14,13 @@
  */
 package com.thjug.bgile.step;
 
-import com.thjug.bgile.page.Page;
 import com.thjug.bgile.page.Bgile;
+import com.thjug.bgile.page.Page;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.web.selenium.WebDriverProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 /**
@@ -29,8 +28,6 @@ import org.testng.Assert;
  * @author nuboat
  */
 public class PageStep {
-
-	private static final Logger LOG = LoggerFactory.getLogger(PageStep.class);
 
 	private final WebDriverProvider provider;
 
@@ -48,12 +45,12 @@ public class PageStep {
 
 	@When("user enter $input into $elementid")
 	public void enterText(final String input, final String elementid) {
-		bgile.getElement(elementid).sendKeys(input);
+		bgile.getElementById(elementid).sendKeys(input);
 	}
 
 	@When("user click $elementid")
 	public void click(final String elementid) {
-		bgile.getElement(elementid).click();
+		bgile.getElementById(elementid).click();
 	}
 
 	@When("wait for $sec")
@@ -70,6 +67,19 @@ public class PageStep {
 	@Then("system display title as $title")
 	public void displayTitle(final String title) {
 		Assert.assertEquals(bgile.getTitle(), title);
+	}
+
+	@Then("system display top-link as $linkcsv")
+	public void displayTopLink(final String linkcsv) {
+		final String[] links = linkcsv.split(",");
+		final WebElement element = bgile.getElementByClass("ul.nav");
+		Assert.assertEquals(links, element.getText().split("\n\n"));
+	}
+
+	@Then("system display current link as $link")
+	public void displayCurrentLink(final String link) {
+		final WebElement element = bgile.getElementByClass("li.current-page");
+		Assert.assertEquals(link, element.getText().trim());
 	}
 
 }

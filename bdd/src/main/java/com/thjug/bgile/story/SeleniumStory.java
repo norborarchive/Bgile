@@ -85,7 +85,7 @@ public abstract class SeleniumStory extends ConfigurableEmbedder {
 		final Embedder embedder = configuredEmbedder();
 		//embedder.useEmbedderControls(embedderControls);
 		try {
-			final String storyPath = this.getClass().getSimpleName().replace("Story", ".story");
+			final String storyPath = this.getClass().getSimpleName().replace("NGTest", "").replace("Story", ".story");
 			embedder.runStoriesAsPaths(asList(storyPath));
 		} finally {
 			embedder.generateCrossReference();
