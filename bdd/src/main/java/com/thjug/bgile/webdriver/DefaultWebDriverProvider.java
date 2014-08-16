@@ -12,7 +12,7 @@
  * http://creativecommons.org/licenses/by/3.0/legalcode
  * </pre>
  */
-package com.thjug.bgile.web.driver;
+package com.thjug.bgile.webdriver;
 
 import java.util.Arrays;
 import org.jbehave.web.selenium.PropertyWebDriverProvider;
@@ -37,4 +37,5 @@ public class DefaultWebDriverProvider extends PropertyWebDriverProvider {
 		dc.setCapability(ChromeOptions.CAPABILITY, options);
 		return new ChromeDriver(dc);
 	}
+
 }

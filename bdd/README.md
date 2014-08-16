@@ -9,7 +9,7 @@ This tutorial uses JBehave 3.x and Selenium 2.x to test [bgileboard.com](http://
 
 
 ## Running the stories
-This will run the build source
+This will build source
 
     mvn clean package
 

@@ -12,20 +12,14 @@
  * http://creativecommons.org/licenses/by/3.0/legalcode
  * </pre>
  */
-package com.thjug.bgile.common;
+package com.thjug.bgile.page;
 
-import java.util.ResourceBundle;
+import org.jbehave.web.selenium.WebDriverProvider;
 
-/**
- *
- * @author nuboat
- */
-public abstract class Config {
+public class Bgile extends Page {
 
-	private static final ResourceBundle resource = ResourceBundle.getBundle("config");
-
-	public static String get(final String key) {
-		return resource.getString(key);
+	public Bgile(final WebDriverProvider driverProvider, final String url) {
+		super(driverProvider, url);
 	}
 
 }

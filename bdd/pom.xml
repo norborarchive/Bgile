@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.jbehave.web</groupId>
             <artifactId>jbehave-web-selenium</artifactId>
-            <version>3.5.5</version>
+            <version>3.6-beta-2</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jbehave</groupId>
@@ -94,9 +94,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.8.1</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.8</version>
         </dependency>
     </dependencies>
 

@@ -18,6 +18,6 @@ package com.thjug.bgile.story;
  *
  * @author @nuboat
  */
-public class HomeStory extends Story {
+public class HomeStory extends SeleniumStory {
 
 }

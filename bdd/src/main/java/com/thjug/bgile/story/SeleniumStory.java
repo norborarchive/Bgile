@@ -18,7 +18,6 @@ import static java.util.Arrays.asList;
 import org.jbehave.core.ConfigurableEmbedder;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.embedder.Embedder;
-import org.jbehave.core.embedder.EmbedderControls;
 import org.jbehave.core.failures.FailingUponPendingStep;
 import org.jbehave.core.failures.PendingStepStrategy;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
@@ -39,18 +38,14 @@ import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 import org.jbehave.web.selenium.SeleniumStepMonitor;
 import static org.jbehave.web.selenium.WebDriverHtmlOutput.WEB_DRIVER_HTML;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.testng.annotations.Test;
 
 /**
  *
  * @author @nuboat
  */
-public abstract class Story extends ConfigurableEmbedder {
-
-	private static final Logger LOG = LoggerFactory.getLogger(Story.class);
+public abstract class SeleniumStory extends ConfigurableEmbedder {
 
 	final PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
 	final CrossReference crossReference = new CrossReference().withJsonOnly().withPendingStepStrategy(pendingStepStrategy)
@@ -61,7 +56,7 @@ public abstract class Story extends ConfigurableEmbedder {
 	final SeleniumStepMonitor stepMonitor = new SeleniumStepMonitor(contextView, seleniumContext,
 			crossReference.getStepMonitor());
 	final StoryReporterBuilder reporterBuilder = new StoryReporterBuilder()
-			.withCodeLocation(codeLocationFromClass(Story.class)).withFailureTrace(true)
+			.withCodeLocation(codeLocationFromClass(SeleniumStory.class)).withFailureTrace(true)
 			.withFailureTraceCompression(true).withDefaultFormats().withFormats(formats)
 			.withCrossReference(crossReference);
 
@@ -71,7 +66,7 @@ public abstract class Story extends ConfigurableEmbedder {
 				.useSeleniumContext(seleniumContext)
 				.useParameterControls(new ParameterControls().useDelimiterNamedParameters(true))
 				.usePendingStepStrategy(pendingStepStrategy).useStepMonitor(stepMonitor)
-				.useStoryLoader(new LoadFromClasspath(Story.class)).useStoryReporterBuilder(reporterBuilder);
+				.useStoryLoader(new LoadFromClasspath(SeleniumStory.class)).useStoryReporterBuilder(reporterBuilder);
 	}
 
 	@Override
@@ -84,13 +79,14 @@ public abstract class Story extends ConfigurableEmbedder {
 	@Test
 	@Override
 	public void run() throws Throwable {
-		final EmbedderControls embedderControls = new EmbedderControls();
-		embedderControls.useStoryTimeoutInSecs(360000);
+//		final EmbedderControls embedderControls = new EmbedderControls();
+//		embedderControls.useStoryTimeoutInSecs(360000);
 
 		final Embedder embedder = configuredEmbedder();
-		embedder.useEmbedderControls(embedderControls);
+		//embedder.useEmbedderControls(embedderControls);
 		try {
-			embedder.runStoriesAsPaths(asList(this.getClass().getSimpleName().replaceAll("Story", ".story")));
+			final String storyPath = this.getClass().getSimpleName().replace("Story", ".story");
+			embedder.runStoriesAsPaths(asList(storyPath));
 		} finally {
 			embedder.generateCrossReference();
 		}
