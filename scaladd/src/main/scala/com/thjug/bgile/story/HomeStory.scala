@@ -24,5 +24,5 @@ class HomeStory extends SeleniumStory {
   override def toString(): String = {
     return "home.story"
   }
- 
+
 }

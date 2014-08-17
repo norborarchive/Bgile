@@ -32,7 +32,7 @@ abstract class Page(driverProvider: WebDriverProvider) extends FluentWebDriverPa
   }
 
   def go(pageurl: String) {
-    getWebDriver().get("http://www.bgileboard.com/bgile" + pageurl);
+    getWebDriver().get("http://localhost:8084" + pageurl);
   }
 
   def getElementById(elementId: String): WebElement = {

@@ -15,21 +15,21 @@
 package com.thjug.bgile.step;
 
 import com.thjug.bgile.page.Bgile;
+import com.thjug.bgile.webdriver.DefaultWebDriverProvider;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.jbehave.web.selenium.WebDriverProvider;
 import org.testng.Assert;
 
 /**
  *
  * @author nuboat
  */
-class PageStep(p: WebDriverProvider) {
+class PageStep(p:DefaultWebDriverProvider) {
 
   val bgile = new Bgile(p)
 
-  @Given("a date of $date")
+  @Given("user access $pageurl page")
   def access(pageurl: String) {
     bgile.go(pageurl)
   }
