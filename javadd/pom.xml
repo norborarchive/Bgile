@@ -23,11 +23,12 @@
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
             <version>${jbehave.core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jbehave</groupId>
-            <artifactId>jbehave-spring</artifactId>
-            <version>${jbehave.core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jbehave.site</groupId>
@@ -180,7 +181,7 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <includes>
-                                <include>**/*Story.java</include>
+                                <include>${stories}</include>
                             </includes>
                             <excludes/>
                             <ignoreFailureInStories>${ignore.failures}</ignoreFailureInStories>

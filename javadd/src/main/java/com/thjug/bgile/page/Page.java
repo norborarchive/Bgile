@@ -36,7 +36,7 @@ public abstract class Page extends FluentWebDriverPage {
 	}
 
 	public void go(final String pageurl) {
-		getWebDriver().get("http://www.bgileboard.com/bgile" + pageurl);
+		getWebDriver().get("http://localhost:8084" + pageurl);
 	}
 
 	public WebElement getElementById(final String elementId) {

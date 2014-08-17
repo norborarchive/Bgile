@@ -20,4 +20,9 @@ package com.thjug.bgile.story;
  */
 public class HomeStory extends SeleniumStory {
 
+	@Override
+	public String getStory() {
+		return "home.story";
+	}
+
 }
