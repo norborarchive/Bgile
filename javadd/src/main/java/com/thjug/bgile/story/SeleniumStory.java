@@ -74,6 +74,7 @@ public abstract class SeleniumStory extends ConfigurableEmbedder {
 		final ApplicationContext context = new SpringApplicationContextFactory("steps.xml")
 				.createApplicationContext();
 		return new SpringStepsFactory(configuration(), context);
+		//return new InstanceStepsFactory(configuration(), new BgileStep(new DefaultWebDriverProvider()));
 	}
 
 	@Test

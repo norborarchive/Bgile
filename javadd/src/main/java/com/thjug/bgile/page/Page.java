@@ -27,23 +27,16 @@ import org.openqa.selenium.WebElement;
  */
 public abstract class Page extends FluentWebDriverPage {
 
-	protected final String url;
-
-	public Page(final WebDriverProvider driverProvider, final String url) {
+	public Page(final WebDriverProvider driverProvider) {
 		super(driverProvider);
-		this.url = url;
-	}
-
-	public String getURL() {
-		return "http://localhost:8084" + url;
 	}
 
 	protected WebDriver getWebDriver() {
 		return getDriverProvider().get();
 	}
 
-	public void go() {
-		getWebDriver().get(getURL());
+	public void go(final String pageurl) {
+		getWebDriver().get("http://www.bgileboard.com/bgile" + pageurl);
 	}
 
 	public WebElement getElementById(final String elementId) {

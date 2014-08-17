@@ -12,17 +12,10 @@
  * http://creativecommons.org/licenses/by/3.0/legalcode
  * </pre>
  */
+package com.thjug.bgile.page;
 
-package com.thjug.bgile.story
+import org.jbehave.web.selenium.WebDriverProvider;
 
-/**
- *
- * @author nuboat
- */
-class HomeStory extends SeleniumStory {
+class Bgile(d: WebDriverProvider) extends Page(d) {
 
-  override def toString(): String = {
-    return "home.story"
-  }
- 
 }

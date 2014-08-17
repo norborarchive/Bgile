@@ -29,18 +29,15 @@ import org.testng.Assert;
  */
 public class PageStep {
 
-	private final WebDriverProvider provider;
-
-	private Page bgile;
+	private final Page bgile;
 
 	public PageStep(final WebDriverProvider provider) {
-		this.provider = provider;
+		bgile = new Bgile(provider);
 	}
 
 	@Given("user access $pageurl page")
 	public void access(final String pageurl) {
-		bgile = new Bgile(provider, pageurl);
-		bgile.go();
+		bgile.go(pageurl);
 	}
 
 	@When("user enter $input into $elementid")

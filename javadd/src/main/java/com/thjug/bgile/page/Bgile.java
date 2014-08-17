@@ -18,8 +18,8 @@ import org.jbehave.web.selenium.WebDriverProvider;
 
 public class Bgile extends Page {
 
-	public Bgile(final WebDriverProvider driverProvider, final String url) {
-		super(driverProvider, url);
+	public Bgile(final WebDriverProvider driverProvider) {
+		super(driverProvider);
 	}
 
 }

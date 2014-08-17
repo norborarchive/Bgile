@@ -74,6 +74,7 @@ public abstract class SeleniumStory extends ConfigurableEmbedder {
 		final ApplicationContext context = new SpringApplicationContextFactory("steps.xml")
 				.createApplicationContext();
 		return new SpringStepsFactory(configuration(), context);
+		//return new InstanceStepsFactory(configuration(), new BgileStep(new DefaultWebDriverProvider()));
 	}
 
 	@Test
@@ -85,7 +86,7 @@ public abstract class SeleniumStory extends ConfigurableEmbedder {
 		final Embedder embedder = configuredEmbedder();
 		//embedder.useEmbedderControls(embedderControls);
 		try {
-			final String storyPath = this.getClass().getSimpleName().replace("NGTest$", "").replace("Story", ".story");
+			final String storyPath = this.toString();
 			embedder.runStoriesAsPaths(asList(storyPath));
 		} finally {
 			embedder.generateCrossReference();
