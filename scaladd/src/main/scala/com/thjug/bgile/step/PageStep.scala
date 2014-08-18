@@ -14,11 +14,9 @@
  */
 package com.thjug.bgile.step;
 
-import com.thjug.bgile.page.Bgile;
-import com.thjug.bgile.webdriver.DefaultWebDriverProvider;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import com.thjug.bgile.page.Bgile
+import com.thjug.bgile.webdriver.DefaultWebDriverProvider
+import org.jbehave.core.annotations.{Given, Then, When}
 import org.testng.Assert;
 
 /**

@@ -14,12 +14,9 @@
  */
 package com.thjug.bgile.page;
 
-import org.jbehave.web.selenium.FluentWebDriverPage;
-import org.jbehave.web.selenium.WebDriverProvider;
-import org.openqa.selenium.By.cssSelector;
-import org.openqa.selenium.By.id;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.jbehave.web.selenium.{FluentWebDriverPage, WebDriverProvider}
+import org.openqa.selenium.By.{cssSelector, id}
+import org.openqa.selenium.{WebDriver, WebElement};
 
 /**
  *

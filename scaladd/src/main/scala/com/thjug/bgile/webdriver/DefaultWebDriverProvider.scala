@@ -15,10 +15,8 @@
 
 package com.thjug.bgile.webdriver
 
-import java.util.Arrays;
-import org.jbehave.web.selenium.PropertyWebDriverProvider;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.jbehave.web.selenium.PropertyWebDriverProvider
+import org.openqa.selenium.chrome.{ChromeDriver, ChromeOptions}
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 class DefaultWebDriverProvider extends PropertyWebDriverProvider {

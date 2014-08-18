@@ -21,7 +21,7 @@ package com.thjug.bgile.story
  */
 class HomeStory extends SeleniumStory {
 
-  override def toString(): String = {
+  override def getStory(): String = {
     return "home.story"
   }
 
