@@ -12,10 +12,14 @@
  * http://creativecommons.org/licenses/by/3.0/legalcode
  * </pre>
  */
-package com.thjug.bgile.page;
+package com.thjug.bgile.page
 
-import org.jbehave.web.selenium.WebDriverProvider;
+import org.jbehave.web.selenium.WebDriverProvider
 
+/**
+ *
+ * @author nuboat
+ */
 class Bgile(d: WebDriverProvider) extends Page(d) {
 
 }
